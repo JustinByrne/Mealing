@@ -29,9 +29,10 @@ class NewMealTest extends TestCase
             'timing_id' => Timing::factory()->create()->id,
         ]);
 
-        $response->assertStatus(200);
+        $meal = Meal::first();
 
-        $this->assertDatabaseCount('meals', 1);
+        $this->assertDatabaseCount($meal->getTable(), 1);
+        $response->assertRedirect($meal->path());
     }
 
     /**
@@ -161,6 +162,7 @@ class NewMealTest extends TestCase
         $this->assertEquals($adults, Meal::first()->adults);
         $this->assertEquals($kids, Meal::first()->kids);
         $this->assertEquals($timing, Meal::first()->timing_id);
+        $response->assertRedirect($meal->path());
     }
 
     /**
