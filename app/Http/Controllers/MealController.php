@@ -17,6 +17,8 @@ class MealController extends Controller
     public function store(StoreMeal $request)
     {
         $meal = Meal::create($request->validated());
+
+        return redirect($meal->path());
     }
 
     /**
@@ -29,6 +31,8 @@ class MealController extends Controller
     public function update(StoreMeal $request, Meal $meal)
     {
         $meal->update($request->validated());
+
+        return redirect($meal->path());
     }
 
     /**
