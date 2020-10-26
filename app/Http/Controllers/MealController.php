@@ -23,10 +23,22 @@ class MealController extends Controller
      * Update existing meal
      * 
      * @param \App\Http\Requests\StoreMeal  $request
+     * @param \App\Models\Meal $meal
      * @return \Illuminate\Http\Response
      */
     public function update(StoreMeal $request, Meal $meal)
     {
         $meal->update($request->validated());
+    }
+
+    /**
+     * delete existing meal
+     * 
+     * @param \App\Models\Meal $meal
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Meal $meal)
+    {
+        $meal->delete();
     }
 }
