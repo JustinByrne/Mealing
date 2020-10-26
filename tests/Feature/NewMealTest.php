@@ -162,4 +162,22 @@ class NewMealTest extends TestCase
         $this->assertEquals($kids, Meal::first()->kids);
         $this->assertEquals($timing, Meal::first()->timing_id);
     }
+
+    /**
+     * Test that a meal can be deleted
+     * 
+     * @return void
+     */
+    public function testMealCanBeDeleted()
+    {
+        $this->withoutExceptionHandling();
+        
+        $meal = Meal::factory()->create();
+
+        $this->assertDatabaseCount('meals', 1);
+
+        $this->delete('/meals/' . $meal->id);
+
+        $this->assertDeleted($meal);
+    }
 }
