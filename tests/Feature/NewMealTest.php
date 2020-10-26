@@ -9,7 +9,7 @@ use App\Models\Meal;
 use App\Models\Serving;
 use App\Models\Timing;
 
-class MealTest extends TestCase
+class NewMealTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
