@@ -21,8 +21,6 @@ class NewMealTest extends TestCase
      */
     public function testNewMeal()
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->post('/meals', [
             'name' => $this->faker->name,
             'serving_id' => Serving::factory()->create()->id,
@@ -133,8 +131,6 @@ class NewMealTest extends TestCase
      */
     public function testMealCanBeUpdated()
     {
-        $this->withoutExceptionHandling();
-
         $this->post('/meals', [
             'name' => $this->faker->name,
             'serving_id' => Serving::factory()->create()->id,
