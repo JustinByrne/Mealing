@@ -125,4 +125,45 @@ class NewMealTest extends TestCase
 
         $response->assertSessionHasErrors(['kids']);
     }
+
+    /**
+     * test a meal can be updated
+     * 
+     * @return void
+     */
+    public function testMealCanBeUpdated()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->post('/meals', [
+            'name' => $this->faker->name,
+            'serving_id' => Serving::factory()->create()->id,
+            'adults' => $this->faker->boolean,
+            'kids' => $this->faker->boolean,
+            'timing_id' => Timing::factory()->create()->id,
+        ]);
+
+        $meal = Meal::first();
+
+        // new data
+        $name = $this->faker->name;
+        $serving = Serving::factory()->create()->id;
+        $adults = $this->faker->boolean;
+        $kids = $this->faker->boolean;
+        $timing = Timing::factory()->create()->id;
+
+        $response = $this->patch('/meals/' . $meal->id, [
+            'name' => $name,
+            'serving_id' => $serving,
+            'adults' => $adults,
+            'kids' => $kids,
+            'timing_id' => $timing,
+        ]);
+
+        $this->assertEquals($name, Meal::first()->name);
+        $this->assertEquals($serving, Meal::first()->serving_id);
+        $this->assertEquals($adults, Meal::first()->adults);
+        $this->assertEquals($kids, Meal::first()->kids);
+        $this->assertEquals($timing, Meal::first()->timing_id);
+    }
 }
