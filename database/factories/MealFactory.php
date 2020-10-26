@@ -25,10 +25,10 @@ class MealFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'serving_id' => Serving::factory()->create(),
+            'serving_id' => Serving::factory(),
             'adults' => $this->faker->boolean,
             'kids' => $this->faker->boolean,
-            'timing_id' => Timing::factory()->create(),
+            'timing_id' => Timing::factory(),
         ];
     }
 }
