@@ -18,4 +18,15 @@ class MealController extends Controller
     {
         $meal = Meal::create($request->validated());
     }
+
+    /**
+     * Update existing meal
+     * 
+     * @param \App\Http\Requests\StoreMeal  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(StoreMeal $request, Meal $meal)
+    {
+        $meal->update($request->validated());
+    }
 }
