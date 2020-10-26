@@ -37,4 +37,12 @@ class Meal extends Model
     {
         return $this->belongsTo('App\Models\Timing');
     }
+
+    /**
+     * Get the url path for the Meal
+     */
+    public function path()
+    {
+        return route('meals.show', [$this->id]);
+    }
 }
