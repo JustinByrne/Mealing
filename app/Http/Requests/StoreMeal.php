@@ -26,8 +26,8 @@ class StoreMeal extends FormRequest
         return [
             'name' => 'required',
             'serving_id' => 'required',
-            'adults' => 'present',
-            'kids' => 'present',
+            'adults' => 'required',
+            'kids' => 'required',
             'timing_id' => 'required'
         ];
     }
@@ -42,8 +42,8 @@ class StoreMeal extends FormRequest
         return [
             'name.required' => 'A name is required',
             'serving_id.required' => 'A Serving quantity is required',
-            'adults.present' => 'Please select the meal is for an adult or not',
-            'kids.present' => 'Please select the meal is for an kid or not',
+            'adults.required' => 'Please select the meal is for an adult or not',
+            'kids.required' => 'Please select the meal is for an kid or not',
             'timing_id.required' => 'A time frame is required'
         ];
     }
