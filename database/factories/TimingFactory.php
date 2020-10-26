@@ -22,7 +22,7 @@ class TimingFactory extends Factory
     public function definition()
     {
         return [
-            'timeFrame' => $this->faker->randomDigitNotNull,
+            'timeFrame' => $this->faker->lexify('???'),
         ];
     }
 }

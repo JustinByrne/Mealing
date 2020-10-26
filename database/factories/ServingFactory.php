@@ -22,7 +22,7 @@ class ServingFactory extends Factory
     public function definition()
     {
         return [
-            'quantity' => $this->faker->randomDigitNotNull,
+            'quantity' => $this->faker->lexify('???'),
         ];
     }
 }
