@@ -19,5 +19,6 @@ Route::get('/', function () {
 });
 
 Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+Route::get('/meals/{meal}', [MealController::class, 'show'])->name('meals.show');
 Route::patch('/meals/{meal}', [MealController::class, 'update'])->name('meals.update');
 Route::delete('/meals/{meal}', [MealController::class, 'destroy'])->name('meals.destroy');
