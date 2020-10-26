@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
+Route::patch('/meals/{meal}', [MealController::class, 'update'])->name('meals.update');
