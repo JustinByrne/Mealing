@@ -36,7 +36,7 @@ class MealController extends Controller
     }
 
     /**
-     * delete existing meal
+     * Delete existing meal
      * 
      * @param \App\Models\Meal $meal
      * @return \Illuminate\Http\Response
