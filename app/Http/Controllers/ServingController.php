@@ -9,7 +9,7 @@ use App\Models\Serving;
 class ServingController extends Controller
 {
     /**
-     * Create new meal
+     * Create new Serving
      * 
      * @param \App\Http\Requests\StoreServing  $request
      * @return \Illuminate\Http\Response
@@ -19,5 +19,30 @@ class ServingController extends Controller
         $serving = Serving::create($request->validated());
 
         return redirect($serving->path());
+    }
+
+    /**
+     * Update existing serving
+     * 
+     * @param \App\Http\Requests\StoreServing  $request
+     * @param \App\Models\Serving $serving
+     * @return \Illuminate\Http\Response
+     */
+    public function update(StoreServing $request, Serving $serving)
+    {
+        $serving->update($request->validated());
+
+        return redirect($serving->path());
+    }
+
+    /**
+     * Delete existing serving
+     * 
+     * @param \App\Models\Serving $serving
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Serving $serving)
+    {
+        $serving->delete();
     }
 }
