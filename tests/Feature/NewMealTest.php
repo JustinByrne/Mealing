@@ -21,7 +21,7 @@ class NewMealTest extends TestCase
      */
     public function testNewMeal()
     {
-        $response = $this->post('/meals', [
+        $response = $this->post(route('meals.store'), [
             'name' => $this->faker->name,
             'serving_id' => Serving::factory()->create()->id,
             'adults' => $this->faker->boolean,
@@ -42,7 +42,7 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithNameNull()
     {
-        $response = $this->post('/meals', [
+        $response = $this->post(route('meals.store'), [
             'name' => null,
             'serving_id' => Serving::factory()->create()->id,
             'adults' => $this->faker->boolean,
@@ -60,7 +60,7 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithServingNull()
     {
-        $response = $this->post('/meals', [
+        $response = $this->post(route('meals.store'), [
             'name' => $this->faker->name,
             'serving_id' => null,
             'adults' => $this->faker->boolean,
@@ -78,7 +78,7 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithTimingNull()
     {
-        $response = $this->post('/meals', [
+        $response = $this->post(route('meals.store'), [
             'name' => $this->faker->name,
             'serving_id' => Serving::factory()->create()->id,
             'adults' => $this->faker->boolean,
@@ -96,7 +96,7 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithAdultsNull()
     {
-        $response = $this->post('/meals', [
+        $response = $this->post(route('meals.store'), [
             'name' => $this->faker->name,
             'serving_id' => Serving::factory()->create()->id,
             'adults' => null,
@@ -114,7 +114,7 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithKidsNull()
     {
-        $response = $this->post('/meals', [
+        $response = $this->post(route('meals.store'), [
             'name' => $this->faker->name,
             'serving_id' => Serving::factory()->create()->id,
             'adults' => $this->faker->boolean,
@@ -132,15 +132,7 @@ class NewMealTest extends TestCase
      */
     public function testMealCanBeUpdated()
     {
-        $this->post('/meals', [
-            'name' => $this->faker->name,
-            'serving_id' => Serving::factory()->create()->id,
-            'adults' => $this->faker->boolean,
-            'kids' => $this->faker->boolean,
-            'timing_id' => Timing::factory()->create()->id,
-        ]);
-
-        $meal = Meal::first();
+        $meal = Meal::factory()->create();
 
         // new data
         $name = $this->faker->name;
@@ -176,9 +168,9 @@ class NewMealTest extends TestCase
         
         $meal = Meal::factory()->create();
 
-        $this->assertDatabaseCount('meals', 1);
+        $this->assertDatabaseCount($meal->getTable(), 1);
 
-        $this->delete('/meals/' . $meal->id);
+        $this->delete(route('meals.destroy', [$meal->id]));
 
         $this->assertDeleted($meal);
     }
