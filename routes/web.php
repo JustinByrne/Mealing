@@ -25,4 +25,6 @@ Route::patch('/meals/{meal}', [MealController::class, 'update'])->name('meals.up
 Route::delete('/meals/{meal}', [MealController::class, 'destroy'])->name('meals.destroy');
 
 Route::post('/servings', [ServingController::class, 'store'])->name('servings.store');
-Route::get('/servings/{meal}', [ServingController::class, 'show'])->name('servings.show');
+Route::get('/servings/{serving}', [ServingController::class, 'show'])->name('servings.show');
+Route::patch('/servings/{serving}', [ServingController::class, 'update'])->name('servings.update');
+Route::delete('/servings/{serving}', [ServingController::class, 'destroy'])->name('servings.destroy');
