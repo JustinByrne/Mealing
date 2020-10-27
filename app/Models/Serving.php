@@ -25,4 +25,12 @@ class Serving extends Model
     {
         return $this->hasMany('App\Models\Meal');
     }
+
+    /**
+     * Get the url path for the Meal
+     */
+    public function path()
+    {
+        return route('servings.show', [$this->id]);
+    }
 }
