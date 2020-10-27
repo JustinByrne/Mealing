@@ -141,7 +141,7 @@ class NewMealTest extends TestCase
         $kids = $this->faker->boolean;
         $timing = Timing::factory()->create()->id;
 
-        $response = $this->patch('/meals/' . $meal->id, [
+        $response = $this->patch(route('meals.update', [$meal->id]), [
             'name' => $name,
             'serving_id' => $serving,
             'adults' => $adults,
