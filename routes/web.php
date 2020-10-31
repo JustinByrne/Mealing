@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\ServingController;
+use App\Http\Controllers\TimingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,6 @@ Route::post('/servings', [ServingController::class, 'store'])->name('servings.st
 Route::get('/servings/{serving}', [ServingController::class, 'show'])->name('servings.show');
 Route::patch('/servings/{serving}', [ServingController::class, 'update'])->name('servings.update');
 Route::delete('/servings/{serving}', [ServingController::class, 'destroy'])->name('servings.destroy');
+
+Route::post('/timings', [TimingController::class, 'store'])->name('timing.store');
+Route::get('/timings', [TimingController::class, 'show'])->name('timing.show');
