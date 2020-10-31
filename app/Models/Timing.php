@@ -26,4 +26,12 @@ class Timing extends Model
     {
         return $this->hasMany('App\Models\Meal');
     }
+
+    /**
+     * Get the url path for the Timing
+     */
+    public function path()
+    {
+        return route('timing.show', [$this->id]);
+    }
 }
