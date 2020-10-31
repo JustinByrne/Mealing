@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreMeal;
+use App\Http\Requests\StoreMealRequest;
+use App\Http\Requests\UpdateMealRequest;
 use App\Models\Meal;
 
 class MealController extends Controller
@@ -11,10 +12,10 @@ class MealController extends Controller
     /**
      * Create new meal
      * 
-     * @param \App\Http\Requests\StoreMeal  $request
+     * @param \App\Http\Requests\StoreMealRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMeal $request)
+    public function store(StoreMealRequest $request)
     {
         $meal = Meal::create($request->validated());
 
@@ -24,11 +25,11 @@ class MealController extends Controller
     /**
      * Update existing meal
      * 
-     * @param \App\Http\Requests\StoreMeal  $request
+     * @param \App\Http\Requests\UpdateMealRequest  $request
      * @param \App\Models\Meal $meal
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreMeal $request, Meal $meal)
+    public function update(UpdateMealRequest $request, Meal $meal)
     {
         $meal->update($request->validated());
 

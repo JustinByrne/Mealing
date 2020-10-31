@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreServing;
+use App\Http\Requests\StoreServingRequest;
+use App\Http\Requests\UpdateServingRequest;
 use App\Models\Serving;
 
 class ServingController extends Controller
@@ -11,10 +12,10 @@ class ServingController extends Controller
     /**
      * Create new Serving
      * 
-     * @param \App\Http\Requests\StoreServing  $request
+     * @param \App\Http\Requests\StoreServingRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreServing $request)
+    public function store(StoreServingRequest $request)
     {
         $serving = Serving::create($request->validated());
 
@@ -24,11 +25,11 @@ class ServingController extends Controller
     /**
      * Update existing serving
      * 
-     * @param \App\Http\Requests\StoreServing  $request
+     * @param \App\Http\Requests\UpdateServingRequest  $request
      * @param \App\Models\Serving $serving
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreServing $request, Serving $serving)
+    public function update(UpdateServingRequest $request, Serving $serving)
     {
         $serving->update($request->validated());
 
