@@ -13,7 +13,7 @@ class StoreTimingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,19 @@ class StoreTimingRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'timeFrame' => 'required',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'timeFrame.required' => 'A time frame is required',
         ];
     }
 }
