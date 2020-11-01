@@ -21,4 +21,29 @@ class TimingController extends Controller
 
         return redirect($timing->path());
     }
+
+    /**
+     * Update timing
+     * 
+     * @param \App\Http\Requests\UpdateTimingRequest $request
+     * @param \App\Models\Timing $timing
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateTimingRequest $request, Timing $timing)
+    {
+        $timing->update($request->validated());
+
+        return redirect($timing->path());
+    }
+
+    /**
+     * Delete timing
+     * 
+     * @param \App\Models\Timing $timing
+     * @return void
+     */
+    public function destroy(Timing $timing)
+    {
+        $timing->delete();
+    }
 }
