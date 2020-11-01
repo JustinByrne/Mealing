@@ -21,6 +21,7 @@ class CreateMealsTable extends Migration
             $table->boolean('kids');
             $table->foreignId('timing_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

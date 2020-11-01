@@ -17,6 +17,7 @@ class CreateTimingsTable extends Migration
             $table->id();
             $table->string('timeFrame');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

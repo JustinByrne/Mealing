@@ -17,6 +17,7 @@ class CreateServingsTable extends Migration
             $table->id();
             $table->string('quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
