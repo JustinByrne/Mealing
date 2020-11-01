@@ -38,7 +38,7 @@ jobs:
                 composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
                 php artisan key:generate
                 chmod -R 777 storage bootstrap/cache
-                php artisan migrate --seed
+                php artisan migrate:fresh --seed
             - name: Execute tests (Unit and Feature tests) via PHPUnit
               env:
                 DB_CONNECTION: mysql
