@@ -172,6 +172,6 @@ class NewMealTest extends TestCase
 
         $this->delete(route('meals.destroy', [$meal->id]));
 
-        $this->assertDeleted($meal);
+        $this->assertSoftDeleted($meal);
     }
 }

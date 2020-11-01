@@ -78,6 +78,6 @@ class NewTimingTest extends TestCase
 
         $this->delete(route('timing.destroy', [$timing->id]));
 
-        $this->assertDeleted($timing);
+        $this->assertSoftDeleted($timing);
     }
 }

@@ -78,6 +78,6 @@ class NewServingTest extends TestCase
 
         $this->delete(route('servings.destroy', [$serving->id]));
 
-        $this->assertDeleted($serving);
+        $this->assertSoftDeleted($serving);
     }
 }
