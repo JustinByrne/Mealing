@@ -31,4 +31,6 @@ Route::patch('/servings/{serving}', [ServingController::class, 'update'])->name(
 Route::delete('/servings/{serving}', [ServingController::class, 'destroy'])->name('servings.destroy');
 
 Route::post('/timings', [TimingController::class, 'store'])->name('timing.store');
-Route::get('/timings', [TimingController::class, 'show'])->name('timing.show');
+Route::get('/timings/{timing}', [TimingController::class, 'show'])->name('timing.show');
+Route::patch('/timings/{timing}', [TimingController::class, 'update'])->name('timing.update');
+Route::delete('/timings/{timing}', [TimingController::class, 'destroy'])->name('timing.destroy');
