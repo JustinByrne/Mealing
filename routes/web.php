@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\ServingController;
 use App\Http\Controllers\TimingController;
+use App\Http\Controllers\IngredientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,8 @@ Route::post('/timings', [TimingController::class, 'store'])->name('timing.store'
 Route::get('/timings/{timing}', [TimingController::class, 'show'])->name('timing.show');
 Route::patch('/timings/{timing}', [TimingController::class, 'update'])->name('timing.update');
 Route::delete('/timings/{timing}', [TimingController::class, 'destroy'])->name('timing.destroy');
+
+Route::post('/ingredients', [IngredientController::class, 'store'])->name('ingredient.store');
+Route::get('/ingredients/{ingredient}', [IngredientController::class, 'show'])->name('ingredient.show');
+Route::patch('/ingredients/{ingredient}', [IngredientController::class, 'update'])->name('ingredient.update');
+Route::delete('/ingredients/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredient.destroy');
