@@ -18,4 +18,12 @@ class Ingredient extends Model
     protected $fillable = [
         'name',
     ];
+
+    /**
+     * Get the url path for the Timing
+     */
+    public function path()
+    {
+        return route('ingredient.show', [$this->id]);
+    }
 }
