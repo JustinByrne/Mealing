@@ -5,6 +5,7 @@ use App\Http\Controllers\MealController;
 use App\Http\Controllers\ServingController;
 use App\Http\Controllers\TimingController;
 use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,22 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/meals', [MealController::class, 'store'])->name('meals.store');
-Route::get('/meals/{meal}', [MealController::class, 'show'])->name('meals.show');
-Route::patch('/meals/{meal}', [MealController::class, 'update'])->name('meals.update');
-Route::delete('/meals/{meal}', [MealController::class, 'destroy'])->name('meals.destroy');
-
-Route::post('/servings', [ServingController::class, 'store'])->name('servings.store');
-Route::get('/servings/{serving}', [ServingController::class, 'show'])->name('servings.show');
-Route::patch('/servings/{serving}', [ServingController::class, 'update'])->name('servings.update');
-Route::delete('/servings/{serving}', [ServingController::class, 'destroy'])->name('servings.destroy');
-
-Route::post('/timings', [TimingController::class, 'store'])->name('timing.store');
-Route::get('/timings/{timing}', [TimingController::class, 'show'])->name('timing.show');
-Route::patch('/timings/{timing}', [TimingController::class, 'update'])->name('timing.update');
-Route::delete('/timings/{timing}', [TimingController::class, 'destroy'])->name('timing.destroy');
-
-Route::post('/ingredients', [IngredientController::class, 'store'])->name('ingredient.store');
-Route::get('/ingredients/{ingredient}', [IngredientController::class, 'show'])->name('ingredient.show');
-Route::patch('/ingredients/{ingredient}', [IngredientController::class, 'update'])->name('ingredient.update');
-Route::delete('/ingredients/{ingredient}', [IngredientController::class, 'destroy'])->name('ingredient.destroy');
+Route::resources([
+    'meals' => MealController::class,
+    'servings' => ServingController::class,
+    'timings' => TimingController::class,
+    'ingredients' => IngredientController::class,
+    'roles' => RoleController::class,
+]);
