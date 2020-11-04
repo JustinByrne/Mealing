@@ -19,7 +19,7 @@ class NewTimingTest extends TestCase
      */
     public function testNewTiming()
     {    
-        $response = $this->post(route('timing.store'), [
+        $response = $this->post(route('timings.store'), [
             'timeFrame' => $this->faker->lexify('???'),
         ]);
 
@@ -36,7 +36,7 @@ class NewTimingTest extends TestCase
      */
     public function testNewTimingWithTimeFrameNull()
     {
-        $response = $this->post(route('timing.store'), [
+        $response = $this->post(route('timings.store'), [
             'timeFrame' => null,
         ]);
 
@@ -55,7 +55,7 @@ class NewTimingTest extends TestCase
         // new data
         $timeFrame = $this->faker->lexify('???');
 
-        $response = $this->patch(route('timing.update', [$timing->id]), [
+        $response = $this->patch(route('timings.update', [$timing->id]), [
             'timeFrame' => $timeFrame,
         ]);
 
@@ -76,7 +76,7 @@ class NewTimingTest extends TestCase
 
         $this->assertDatabaseCount($timing->getTable(), 1);
 
-        $this->delete(route('timing.destroy', [$timing->id]));
+        $this->delete(route('timings.destroy', [$timing->id]));
 
         $this->assertSoftDeleted($timing);
     }
