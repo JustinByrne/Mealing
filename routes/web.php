@@ -6,6 +6,7 @@ use App\Http\Controllers\ServingController;
 use App\Http\Controllers\TimingController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,5 @@ Route::resources([
     'timings' => TimingController::class,
     'ingredients' => IngredientController::class,
     'roles' => RoleController::class,
+    'permissions' => PermissionController::class,
 ]);
