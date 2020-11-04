@@ -21,7 +21,7 @@ class NewIngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $response = $this->post(route('ingredient.store'), [
+        $response = $this->post(route('ingredients.store'), [
             'name' => $this->faker->name,
         ]);
 
@@ -38,7 +38,7 @@ class NewIngredientTest extends TestCase
      */
     public function testNewIngredientWithNameNull()
     {
-        $response = $this->post(route('ingredient.store'), [
+        $response = $this->post(route('ingredients.store'), [
             'name' => null,
         ]);
 
@@ -59,7 +59,7 @@ class NewIngredientTest extends TestCase
         // new data
         $name = $this->faker->name;
 
-        $response = $this->patch(route('ingredient.update', [$ingredient->id]), [
+        $response = $this->patch(route('ingredients.update', [$ingredient->id]), [
             'name' => $name,
         ]);
 
@@ -80,7 +80,7 @@ class NewIngredientTest extends TestCase
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
-        $this->delete(route('ingredient.destroy', $ingredient->id));
+        $this->delete(route('ingredients.destroy', $ingredient->id));
 
         $this->assertSoftDeleted($ingredient);
     }
