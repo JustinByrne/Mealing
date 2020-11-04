@@ -33,6 +33,6 @@ class Timing extends Model
      */
     public function path()
     {
-        return route('timing.show', [$this->id]);
+        return route('timings.show', [$this->id]);
     }
 }
