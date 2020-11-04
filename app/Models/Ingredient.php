@@ -24,6 +24,6 @@ class Ingredient extends Model
      */
     public function path()
     {
-        return route('ingredient.show', [$this->id]);
+        return route('ingredients.show', [$this->id]);
     }
 }
