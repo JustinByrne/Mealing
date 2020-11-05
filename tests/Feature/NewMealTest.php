@@ -213,12 +213,17 @@ class NewMealTest extends TestCase
     public function testMealCanBeDeleted()
     {
         $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
         
         $meal = Meal::factory()->create();
 
         $this->assertDatabaseCount($meal->getTable(), 1);
 
-        $this->delete(route('meals.destroy', [$meal->id]));
+        $this->actingAs($user)->delete(route('meals.destroy', [$meal->id]));
 
         $this->assertSoftDeleted($meal);
     }
