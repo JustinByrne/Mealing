@@ -15,8 +15,16 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::upsert([
-            ['title' => 'Admin', 'description' => 'Full Administrative User'],
-            ['title' => 'User', 'description' => 'Regular non-admin User'],
-        ], 'title', ['description']);
+            [
+                'id'            =>  '1',
+                'title'         =>  'Admin',
+                'description'   =>  'Full Administrative User'
+            ],
+            [
+                'id'            =>  '2',
+                'title'         =>  'User',
+                'description'   =>  'Regular non-admin User'
+            ],
+        ], 'id', ['title', 'description']);
     }
 }
