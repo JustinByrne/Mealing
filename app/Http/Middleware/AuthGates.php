@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facade\Gate;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Role;
 use App\Models\User;
 
