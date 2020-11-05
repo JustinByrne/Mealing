@@ -17,7 +17,7 @@ class NewMealTest extends TestCase
     use WithFaker;
     
     /**
-     * test create new meal.
+     * Test create new meal.
      *
      * @return void
      */
@@ -46,7 +46,7 @@ class NewMealTest extends TestCase
     }
 
     /**
-     * test create new meal with name null.
+     * Test create new meal with name null.
      *
      * @return void
      */
@@ -70,7 +70,7 @@ class NewMealTest extends TestCase
     }
 
     /**
-     * test create new meal with serving null.
+     * Test create new meal with serving null.
      *
      * @return void
      */
@@ -94,7 +94,7 @@ class NewMealTest extends TestCase
     }
 
     /**
-     * test create new meal with timing null.
+     * Test create new meal with timing null.
      *
      * @return void
      */
@@ -118,7 +118,7 @@ class NewMealTest extends TestCase
     }
 
     /**
-     * test create new meal with adults null.
+     * Test create new meal with adults null.
      *
      * @return void
      */
@@ -142,7 +142,7 @@ class NewMealTest extends TestCase
     }
 
     /**
-     * test create new meal with kids null.
+     * Test create new meal with kids null.
      *
      * @return void
      */
@@ -166,7 +166,29 @@ class NewMealTest extends TestCase
     }
 
     /**
-     * test a meal can be updated
+     * Test create new meal without permission.
+     * 
+     * @return void
+     */
+    public function testNewMealWithoutAccess()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->post(route('meals.store'), [
+                'name' => $this->faker->name,
+                'serving_id' => Serving::factory()->create()->id,
+                'adults' => $this->faker->boolean,
+                'kids' => $this->faker->boolean,
+                'timing_id' => Timing::factory()->create()->id,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * Test a meal can be updated.
      * 
      * @return void
      */
@@ -206,7 +228,38 @@ class NewMealTest extends TestCase
     }
 
     /**
-     * Test that a meal can be deleted
+     * Test updating meal without permission.
+     * 
+     * @return void
+     */
+    public function testCanBeUpdatedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $meal = Meal::factory()->create();
+
+        // new data
+        $name = $this->faker->name;
+        $serving = Serving::factory()->create()->id;
+        $adults = $this->faker->boolean;
+        $kids = $this->faker->boolean;
+        $timing = Timing::factory()->create()->id;
+
+        $response = $this->actingAs($user)
+            ->patch(route('meals.update', [$meal->id]), [
+                'name' => $name,
+                'serving_id' => $serving,
+                'adults' => $adults,
+                'kids' => $kids,
+                'timing_id' => $timing,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * Test that a meal can be deleted.
      * 
      * @return void
      */
@@ -226,5 +279,24 @@ class NewMealTest extends TestCase
         $this->actingAs($user)->delete(route('meals.destroy', [$meal->id]));
 
         $this->assertSoftDeleted($meal);
+    }
+
+    /**
+     * Test meal can be deleted without permission.
+     * 
+     * @return void
+     */
+    public function testMealCanBeDeletedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $meal = Meal::factory()->create();
+
+        $this->assertDatabaseCount($meal->getTable(), 1);
+
+        $response = $this->actingAs($user)->delete(route('meals.destroy', [$meal->id]));
+
+        $response->assertStatus(403);
     }
 }
