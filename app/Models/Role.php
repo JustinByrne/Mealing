@@ -34,4 +34,12 @@ class Role extends Model
     {
         return route('roles.show', [$this->id]);
     }
+
+    /**
+     * Get the permissions that belong to the role.
+     */
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
 }
