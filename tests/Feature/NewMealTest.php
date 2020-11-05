@@ -8,6 +8,8 @@ use Tests\TestCase;
 use App\Models\Meal;
 use App\Models\Serving;
 use App\Models\Timing;
+use App\Models\User;
+use App\Models\Role;
 
 class NewMealTest extends TestCase
 {
@@ -21,12 +23,20 @@ class NewMealTest extends TestCase
      */
     public function testNewMeal()
     {
-        $response = $this->post(route('meals.store'), [
-            'name' => $this->faker->name,
-            'serving_id' => Serving::factory()->create()->id,
-            'adults' => $this->faker->boolean,
-            'kids' => $this->faker->boolean,
-            'timing_id' => Timing::factory()->create()->id,
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('meals.store'), [
+                'name' => $this->faker->name,
+                'serving_id' => Serving::factory()->create()->id,
+                'adults' => $this->faker->boolean,
+                'kids' => $this->faker->boolean,
+                'timing_id' => Timing::factory()->create()->id,
         ]);
 
         $meal = Meal::first();
@@ -42,12 +52,18 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithNameNull()
     {
-        $response = $this->post(route('meals.store'), [
-            'name' => null,
-            'serving_id' => Serving::factory()->create()->id,
-            'adults' => $this->faker->boolean,
-            'kids' => $this->faker->boolean,
-            'timing_id' => Timing::factory()->create()->id,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('meals.store'), [
+                'name' => null,
+                'serving_id' => Serving::factory()->create()->id,
+                'adults' => $this->faker->boolean,
+                'kids' => $this->faker->boolean,
+                'timing_id' => Timing::factory()->create()->id,
         ]);
 
         $response->assertSessionHasErrors(['name']);
@@ -60,12 +76,18 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithServingNull()
     {
-        $response = $this->post(route('meals.store'), [
-            'name' => $this->faker->name,
-            'serving_id' => null,
-            'adults' => $this->faker->boolean,
-            'kids' => $this->faker->boolean,
-            'timing_id' => Timing::factory()->create()->id,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('meals.store'), [
+                'name' => $this->faker->name,
+                'serving_id' => null,
+                'adults' => $this->faker->boolean,
+                'kids' => $this->faker->boolean,
+                'timing_id' => Timing::factory()->create()->id,
         ]);
 
         $response->assertSessionHasErrors(['serving_id']);
@@ -78,12 +100,18 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithTimingNull()
     {
-        $response = $this->post(route('meals.store'), [
-            'name' => $this->faker->name,
-            'serving_id' => Serving::factory()->create()->id,
-            'adults' => $this->faker->boolean,
-            'kids' => $this->faker->boolean,
-            'timing_id' => null,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('meals.store'), [
+                'name' => $this->faker->name,
+                'serving_id' => Serving::factory()->create()->id,
+                'adults' => $this->faker->boolean,
+                'kids' => $this->faker->boolean,
+                'timing_id' => null,
         ]);
 
         $response->assertSessionHasErrors(['timing_id']);
@@ -96,12 +124,18 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithAdultsNull()
     {
-        $response = $this->post(route('meals.store'), [
-            'name' => $this->faker->name,
-            'serving_id' => Serving::factory()->create()->id,
-            'adults' => null,
-            'kids' => $this->faker->boolean,
-            'timing_id' => Timing::factory()->create()->id,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('meals.store'), [
+                'name' => $this->faker->name,
+                'serving_id' => Serving::factory()->create()->id,
+                'adults' => null,
+                'kids' => $this->faker->boolean,
+                'timing_id' => Timing::factory()->create()->id,
         ]);
 
         $response->assertSessionHasErrors(['adults']);
@@ -114,12 +148,18 @@ class NewMealTest extends TestCase
      */
     public function testNewMealWithKidsNull()
     {
-        $response = $this->post(route('meals.store'), [
-            'name' => $this->faker->name,
-            'serving_id' => Serving::factory()->create()->id,
-            'adults' => $this->faker->boolean,
-            'kids' => null,
-            'timing_id' => Timing::factory()->create()->id,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('meals.store'), [
+                'name' => $this->faker->name,
+                'serving_id' => Serving::factory()->create()->id,
+                'adults' => $this->faker->boolean,
+                'kids' => null,
+                'timing_id' => Timing::factory()->create()->id,
         ]);
 
         $response->assertSessionHasErrors(['kids']);
@@ -132,6 +172,13 @@ class NewMealTest extends TestCase
      */
     public function testMealCanBeUpdated()
     {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
         $meal = Meal::factory()->create();
 
         // new data
@@ -141,12 +188,13 @@ class NewMealTest extends TestCase
         $kids = $this->faker->boolean;
         $timing = Timing::factory()->create()->id;
 
-        $response = $this->patch(route('meals.update', [$meal->id]), [
-            'name' => $name,
-            'serving_id' => $serving,
-            'adults' => $adults,
-            'kids' => $kids,
-            'timing_id' => $timing,
+        $response = $this->actingAs($user)
+            ->patch(route('meals.update', [$meal->id]), [
+                'name' => $name,
+                'serving_id' => $serving,
+                'adults' => $adults,
+                'kids' => $kids,
+                'timing_id' => $timing,
         ]);
 
         $this->assertEquals($name, Meal::first()->name);
