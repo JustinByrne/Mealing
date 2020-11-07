@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Serving;
+use App\Models\User;
+use App\Models\Role;
 
 class NewServingTest extends TestCase
 {
@@ -19,8 +21,16 @@ class NewServingTest extends TestCase
      */
     public function testNewServing()
     {
-        $response = $this->post(route('servings.store'), [
-            'quantity' => $this->faker->lexify('???'),
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('servings.store'), [
+                'quantity' => $this->faker->lexify('???'),
         ]);
 
         $serving = Serving::first();
@@ -36,8 +46,14 @@ class NewServingTest extends TestCase
      */
     public function testNewServingWithQuantityNull()
     {
-        $response = $this->post(route('servings.store'), [
-            'quantity' => null,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('servings.store'), [
+                'quantity' => null,
         ]);
 
         $response->assertSessionHasErrors(['quantity']);
@@ -50,13 +66,21 @@ class NewServingTest extends TestCase
      */
     public function testServingCanBeUpdated()
     {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
         $serving = Serving::factory()->create();
 
         // new data
         $quantity = $this->faker->lexify('???');
 
-        $response = $this->patch(route('servings.update', [$serving->id]), [
-            'quantity' => $quantity,
+        $response = $this->actingAs($user)
+            ->patch(route('servings.update', [$serving->id]), [
+                'quantity' => $quantity,
         ]);
 
         $this->assertEquals($quantity, Serving::first()->quantity);
@@ -71,12 +95,18 @@ class NewServingTest extends TestCase
     public function testServingCanBeDeleted()
     {
         $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
         
         $serving = Serving::factory()->create();
 
         $this->assertDatabaseCount($serving->getTable(), 1);
 
-        $this->delete(route('servings.destroy', [$serving->id]));
+        $this->ActingAs($user)
+            ->delete(route('servings.destroy', [$serving->id]));
 
         $this->assertSoftDeleted($serving);
     }

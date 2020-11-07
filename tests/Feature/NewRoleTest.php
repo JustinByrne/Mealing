@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Role;
+use App\Models\User;
 
 class NewRoleTest extends TestCase
 {
@@ -20,14 +21,22 @@ class NewRoleTest extends TestCase
     public function testNewRole()
     {
         $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $title = $this->faker->lexify('???');
         
-        $response = $this->post(route('roles.store'), [
-            'title' => $this->faker->lexify('???'),
+        $response = $this->actingAs($user)
+            ->post(route('roles.store'), [
+                'title' => $title,
         ]);
 
-        $role = Role::first();
+        $role = Role::where('title', $title)->first();
 
-        $this->assertDatabaseCount($role->getTable(), 1);
+        $this->assertDatabaseHas($role->getTable(), ['title' => $title]);
         $response->assertRedirect($role->path());
     }
 
@@ -38,8 +47,14 @@ class NewRoleTest extends TestCase
      */
     public function testNewRoleWithTitleNull()
     {
-        $response = $this->post(route('roles.store'), [
-            'title' => null,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('roles.store'), [
+                'title' => null,
         ]);
 
         $response->assertSessionHasErrors(['title']);
@@ -53,17 +68,23 @@ class NewRoleTest extends TestCase
     public function testRoleCanBeUpdated()
     {
         $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
         
         $role = Role::factory()->create();
 
         // new data
         $title = $this->faker->lexify('???');
 
-        $response = $this->patch(route('roles.update', [$role->id]), [
-            'title' => $title,
+        $response = $this->actingAs($user)
+            ->patch(route('roles.update', [$role->id]), [
+                'title' => $title,
         ]);
 
-        $this->assertEquals($title, Role::first()->title);
+        $this->assertDatabaseHas($role->getTable(), ['title' => $title]);
         $response->assertRedirect($role->path());
     }
 
@@ -76,11 +97,17 @@ class NewRoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
         $role = Role::factory()->create();
 
-        $this->assertDatabaseCount($role->getTable(), 1);
+        $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);
 
-        $response = $this->delete(route('roles.destroy', [$role->id]));
+        $response = $this->actingAs($user)
+            ->delete(route('roles.destroy', [$role->id]));
 
         $this->assertSoftDeleted($role);
     }

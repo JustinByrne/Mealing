@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Permission;
+use App\Models\User;
+use App\Models\Role;
 
 class NewPermissionTest extends TestCase
 {
@@ -21,14 +23,22 @@ class NewPermissionTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->post(route('permissions.store'), [
-            'title' => $this->faker->lexify('???'),
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $title = $this->faker->lexify('???');
+
+        $response = $this->actingAs($user)
+            ->post(route('permissions.store'), [
+                'title' => $title,
         ]);
 
         $permission = Permission::first();
 
-        $this->assertDatabaseCount($permission->getTable(), 1);
-        $response->assertRedirect($permission->path());
+        $this->assertDatabaseHas($permission->getTable(), ['title' => $title]);
+        $response->assertRedirect(Permission::where('title', $title)->first()->path());
     }
 
     /**
@@ -38,8 +48,14 @@ class NewPermissionTest extends TestCase
      */
     public function testNewPermissionWithTitleNull()
     {
-        $response = $this->post(route('permissions.store'), [
-            'title' => null,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('permissions.store'), [
+                'title' => null,
         ]);
 
         $response->assertSessionHasErrors(['title']);
@@ -52,18 +68,26 @@ class NewPermissionTest extends TestCase
      */
     public function testPermissionCanBeUpdated()
     {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
         $permission = Permission::factory()->create();
 
-        $this->assertDatabaseCount($permission->getTable(), 1);
+        $this->assertDatabaseHas($permission->getTable(), ['id' => $permission->id]);
 
         // new data
         $title = $this->faker->lexify('???');
 
-        $response = $this->patch(route('permissions.update', $permission->id), [
-            'title' => $title,
+        $response = $this->actingAs($user)
+            ->patch(route('permissions.update', $permission->id), [
+                'title' => $title,
         ]);
 
-        $this->assertEquals($title, Permission::first()->title);
+        $this->assertDatabaseHas($permission->getTable(), ['title' => $title]);
         $response->assertRedirect($permission->path());
     }
 
@@ -74,9 +98,17 @@ class NewPermissionTest extends TestCase
      */
     public function testPermissionCanBeDeleted()
     {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
         $permission = Permission::factory()->create();
 
-        $response = $this->delete(route('permissions.destroy', [$permission->id]));
+        $response = $this->actingAs($user)
+            ->delete(route('permissions.destroy', [$permission->id]));
 
         $this->assertSoftDeleted($permission);
     }

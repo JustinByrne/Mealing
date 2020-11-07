@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Ingredient;
+use App\Models\User;
+use App\Models\Role;
 
 class NewIngredientTest extends TestCase
 {
@@ -20,9 +22,15 @@ class NewIngredientTest extends TestCase
     public function testNewIngredient()
     {
         $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
         
-        $response = $this->post(route('ingredients.store'), [
-            'name' => $this->faker->name,
+        $response = $this->actingAs($user)
+            ->post(route('ingredients.store'), [
+                'name' => $this->faker->name,
         ]);
 
         $ingredient = Ingredient::first();
@@ -38,8 +46,14 @@ class NewIngredientTest extends TestCase
      */
     public function testNewIngredientWithNameNull()
     {
-        $response = $this->post(route('ingredients.store'), [
-            'name' => null,
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)
+            ->post(route('ingredients.store'), [
+                'name' => null,
         ]);
 
         $response->assertSessionHasErrors(['name']);
@@ -54,13 +68,19 @@ class NewIngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
         $ingredient = Ingredient::factory()->create();
 
         // new data
         $name = $this->faker->name;
 
-        $response = $this->patch(route('ingredients.update', [$ingredient->id]), [
-            'name' => $name,
+        $response = $this->actingAs($user)
+            ->patch(route('ingredients.update', [$ingredient->id]), [
+                'name' => $name,
         ]);
 
         $this->assertEquals($name, Ingredient::first()->name);
@@ -76,11 +96,17 @@ class NewIngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
         $ingredient = Ingredient::factory()->create();
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
-        $this->delete(route('ingredients.destroy', $ingredient->id));
+        $this->actingAs($user)
+            ->delete(route('ingredients.destroy', $ingredient->id));
 
         $this->assertSoftDeleted($ingredient);
     }
