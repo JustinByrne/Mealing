@@ -9,7 +9,7 @@ use App\Models\Serving;
 use App\Models\User;
 use App\Models\Role;
 
-class NewServingTest extends TestCase
+class ServingTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

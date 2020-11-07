@@ -8,7 +8,7 @@ use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
 
-class NewRoleTest extends TestCase
+class RoleTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

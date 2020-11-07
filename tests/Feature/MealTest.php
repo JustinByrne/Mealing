@@ -11,7 +11,7 @@ use App\Models\Timing;
 use App\Models\User;
 use App\Models\Role;
 
-class NewMealTest extends TestCase
+class MealTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

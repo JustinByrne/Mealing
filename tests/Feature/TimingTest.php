@@ -9,7 +9,7 @@ use App\Models\Timing;
 use App\Models\User;
 use App\Models\Role;
 
-class NewTimingTest extends TestCase
+class TimingTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

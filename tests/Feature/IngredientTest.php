@@ -9,7 +9,7 @@ use App\Models\Ingredient;
 use App\Models\User;
 use App\Models\Role;
 
-class NewIngredientTest extends TestCase
+class IngredientTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;

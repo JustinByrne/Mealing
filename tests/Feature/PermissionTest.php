@@ -9,7 +9,7 @@ use App\Models\Permission;
 use App\Models\User;
 use App\Models\Role;
 
-class NewPermissionTest extends TestCase
+class PermissionTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
