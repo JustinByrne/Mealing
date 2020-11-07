@@ -60,6 +60,24 @@ class NewTimingTest extends TestCase
     }
 
     /**
+     * test create new timing without permission.
+     *
+     * @return void
+     */
+    public function testNewTimingWithoutPermission()
+    {    
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $response = $this->actingAs($user)
+            ->post(route('timings.store'), [
+                'timeFrame' => $this->faker->lexify('???'),
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test update timing.
      * 
      * @return void
@@ -88,6 +106,29 @@ class NewTimingTest extends TestCase
     }
 
     /**
+     * test update timing without permission.
+     * 
+     * @return void
+     */
+    public function testUpdateTimingWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $timing = Timing::factory()->create();
+
+        // new data
+        $timeFrame = $this->faker->lexify('???');
+
+        $response = $this->actingAs($user)
+            ->patch(route('timings.update', [$timing->id]), [
+                'timeFrame' => $timeFrame,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test timing can be deleted.
      * 
      * @return void
@@ -109,5 +150,25 @@ class NewTimingTest extends TestCase
             ->delete(route('timings.destroy', [$timing->id]));
 
         $this->assertSoftDeleted($timing);
+    }
+
+    /**
+     * test timing can be deleted without permission.
+     * 
+     * @return void
+     */
+    public function testDeleteTimingWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $timing = Timing::factory()->create();
+
+        $this->assertDatabaseCount($timing->getTable(), 1);
+
+        $response = $this->actingAs($user)
+            ->delete(route('timings.destroy', [$timing->id]));
+
+        $response->assertStatus(403);
     }
 }

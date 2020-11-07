@@ -60,6 +60,24 @@ class NewIngredientTest extends TestCase
     }
 
     /**
+     * Test create new ingredient without permission.
+     * 
+     * @return void
+     */
+    public function testNewIngredientWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $response = $this->actingAs($user)
+            ->post(route('ingredients.store'), [
+                'name' => $this->faker->name,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test an ingredient can be updated
      * 
      * @return void
@@ -88,6 +106,29 @@ class NewIngredientTest extends TestCase
     }
 
     /**
+     * test an ingredient can be updated without permission
+     * 
+     * @return void
+     */
+    public function testIngredientCanBeUpdatedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $ingredient = Ingredient::factory()->create();
+
+        // new data
+        $name = $this->faker->name;
+
+        $response = $this->actingAs($user)
+            ->patch(route('ingredients.update', [$ingredient->id]), [
+                'name' => $name,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test an ingredient can be deleted
      * 
      * @return void
@@ -109,5 +150,25 @@ class NewIngredientTest extends TestCase
             ->delete(route('ingredients.destroy', $ingredient->id));
 
         $this->assertSoftDeleted($ingredient);
+    }
+
+    /**
+     * test an ingredient can be deleted without permisison
+     * 
+     * @return void
+     */
+    public function testIngredientCanBeDeletedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $ingredient = Ingredient::factory()->create();
+
+        $this->assertDatabaseCount($ingredient->getTable(), 1);
+
+        $response = $this->actingAs($user)
+            ->delete(route('ingredients.destroy', $ingredient->id));
+
+        $response->assertStatus(403);
     }
 }

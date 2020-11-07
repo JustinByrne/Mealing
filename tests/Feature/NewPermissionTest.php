@@ -62,6 +62,26 @@ class NewPermissionTest extends TestCase
     }
 
     /**
+     * Test create a new permission without permission.
+     *
+     * @return void
+     */
+    public function testNewPermissionWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $title = $this->faker->lexify('???');
+
+        $response = $this->actingAs($user)
+            ->post(route('permissions.store'), [
+                'title' => $title,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * Test a permission can be updated
      * 
      * @return void
@@ -92,6 +112,31 @@ class NewPermissionTest extends TestCase
     }
 
     /**
+     * Test a permission can be updated without permission.
+     * 
+     * @return void
+     */
+    public function testPermissionCanBeUpdatedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $permission = Permission::factory()->create();
+
+        $this->assertDatabaseHas($permission->getTable(), ['id' => $permission->id]);
+
+        // new data
+        $title = $this->faker->lexify('???');
+
+        $response = $this->actingAs($user)
+            ->patch(route('permissions.update', $permission->id), [
+                'title' => $title,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * Test a permission can be deleted
      * 
      * @return void
@@ -111,5 +156,23 @@ class NewPermissionTest extends TestCase
             ->delete(route('permissions.destroy', [$permission->id]));
 
         $this->assertSoftDeleted($permission);
+    }
+
+    /**
+     * Test a permission can be deleted without permission.
+     * 
+     * @return void
+     */
+    public function testPermissionCanBeDeletedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $permission = Permission::factory()->create();
+
+        $response = $this->actingAs($user)
+            ->delete(route('permissions.destroy', [$permission->id]));
+
+        $response->assertStatus(403);
     }
 }

@@ -61,6 +61,26 @@ class NewRoleTest extends TestCase
     }
 
     /**
+     * test create new role without permission.
+     *
+     * @return void
+     */
+    public function testNewRoleWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $title = $this->faker->lexify('???');
+        
+        $response = $this->actingAs($user)
+            ->post(route('roles.store'), [
+                'title' => $title,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test a role can be updated.
      * 
      * @return void
@@ -89,6 +109,29 @@ class NewRoleTest extends TestCase
     }
 
     /**
+     * test a role can be updated without permission.
+     * 
+     * @return void
+     */
+    public function testRoleCanBeUpdatedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $role = Role::factory()->create();
+
+        // new data
+        $title = $this->faker->lexify('???');
+
+        $response = $this->actingAs($user)
+            ->patch(route('roles.update', [$role->id]), [
+                'title' => $title,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test a role can be deleted.
      * 
      * @return void
@@ -110,5 +153,25 @@ class NewRoleTest extends TestCase
             ->delete(route('roles.destroy', [$role->id]));
 
         $this->assertSoftDeleted($role);
+    }
+
+    /**
+     * test a role can be deleted without permission.
+     * 
+     * @return void
+     */
+    public function testRoleCanBeDeletedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $role = Role::factory()->create();
+
+        $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);
+
+        $response = $this->actingAs($user)
+            ->delete(route('roles.destroy', [$role->id]));
+
+        $response->assertStatus(403);
     }
 }

@@ -60,6 +60,24 @@ class NewServingTest extends TestCase
     }
 
     /**
+     * test create new serving without permission.
+     *
+     * @return void
+     */
+    public function testNewServingWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $response = $this->actingAs($user)
+            ->post(route('servings.store'), [
+                'quantity' => $this->faker->lexify('???'),
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test a serving can be updated.
      * 
      * @return void
@@ -88,7 +106,30 @@ class NewServingTest extends TestCase
     }
 
     /**
-     * test a serving can be deleted
+     * test a serving can be updated without permission.
+     * 
+     * @return void
+     */
+    public function testServingCanBeUpdatedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $serving = Serving::factory()->create();
+
+        // new data
+        $quantity = $this->faker->lexify('???');
+
+        $response = $this->actingAs($user)
+            ->patch(route('servings.update', [$serving->id]), [
+                'quantity' => $quantity,
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test a serving can be deleted.
      * 
      * @return void
      */
@@ -109,5 +150,25 @@ class NewServingTest extends TestCase
             ->delete(route('servings.destroy', [$serving->id]));
 
         $this->assertSoftDeleted($serving);
+    }
+
+    /**
+     * test a serving can be deleted without permission.
+     * 
+     * @return void
+     */
+    public function testServingCanBeDeletedWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        
+        $serving = Serving::factory()->create();
+
+        $this->assertDatabaseCount($serving->getTable(), 1);
+
+        $response = $this->ActingAs($user)
+            ->delete(route('servings.destroy', [$serving->id]));
+
+        $response->assertStatus(403);
     }
 }
