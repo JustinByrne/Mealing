@@ -13,6 +13,37 @@ class IngredientTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+
+    /**
+     * test the index of ingredients.
+     * 
+     * @return void
+     */
+    public function testIngredientIndex()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)->get(route('ingredients.index'));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test the index of ingredients without permission.
+     * 
+     * @return void
+     */
+    public function testIngredientIndexWithoutPermission()
+    {
+        $response = $this->get(route('ingredients.index'));
+
+        $response->assertStatus(403);
+    }
     
     /**
      * test create new ingredient.
@@ -73,6 +104,76 @@ class IngredientTest extends TestCase
             ->post(route('ingredients.store'), [
                 'name' => $this->faker->name,
         ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test an ingredient can be shown.
+     * 
+     * @return void
+     */
+    public function testShowingIngredient()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $ingredient = Ingredient::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('ingredients.show', [$ingredient->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test an ingredient can be shown without permission.
+     * 
+     * @return void
+     */
+    public function testShowingIngredientWithoutPermission()
+    {
+        $ingredient = Ingredient::factory()->create();
+
+        $response = $this->get(route('ingredients.show', [$ingredient->id]));
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test ingredient edit form.
+     * 
+     * @return void
+     */
+    public function testIngredientEditForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $ingredient = Ingredient::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test ingredient edit form without permission.
+     * 
+     * @return void
+     */
+    public function testIngredientEditFormWithoutPermission()
+    {
+        $ingredient = Ingredient::factory()->create();
+
+        $response = $this->get(route('ingredients.edit', [$ingredient->id]));
 
         $response->assertStatus(403);
     }
