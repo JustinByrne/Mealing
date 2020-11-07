@@ -12,6 +12,28 @@ use Gate;
 class IngredientController extends Controller
 {
     /**
+     * Show all ingredients
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $ingredients = Ingredient::all();
+    }
+
+    /**
+     * Show the form to create a new ingredient
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        abort_if(Gate::denies('ingredient_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+    
+    /**
      * Create new ingredient
      * 
      * @param App\Http\Requests\StoreIngredientRequest  $request
@@ -22,6 +44,28 @@ class IngredientController extends Controller
         $ingredient = Ingredient::create($request->validated());
 
         return redirect($ingredient->path());
+    }
+
+    /**
+     * Show the specified ingredient
+     * 
+     * @param \App\Models\Ingredient $ingredient
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Ingredient $ingredient)
+    {
+        abort_if(Gate::denies('ingredient_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+
+    /**
+     * Show the form to edit the specified ingredient
+     * 
+     * @param \App\Models\Ingredient $ingredient
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Ingredient $ingredient)
+    {
+        abort_if(Gate::denies('ingredient_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
     /**
