@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\StoreIngredientRequest;
 use App\Http\Requests\UpdateIngredientRequest;
 use App\Models\Ingredient;
+use Gate;
 
 class IngredientController extends Controller
 {
@@ -44,6 +46,8 @@ class IngredientController extends Controller
      */
     public function destroy(Ingredient $ingredient)
     {
+        abort_if(Gate::denies('ingredient_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         $ingredient->delete();
     }
 }

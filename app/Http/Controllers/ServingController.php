@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\StoreServingRequest;
 use App\Http\Requests\UpdateServingRequest;
 use App\Models\Serving;
+use Gate;
 
 class ServingController extends Controller
 {
@@ -44,6 +46,8 @@ class ServingController extends Controller
      */
     public function destroy(Serving $serving)
     {
+        abort_if(Gate::denies('serving_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         $serving->delete();
     }
 }

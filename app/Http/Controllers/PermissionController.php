@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Permission;
+use Gate;
 
 class PermissionController extends Controller
 {
@@ -44,6 +46,8 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
+        abort_if(Gate::denies('permission_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         $permission->delete();
     }
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\StoreTimingRequest;
 use App\Http\Requests\UpdateTimingRequest;
 use App\Models\Timing;
+use Gate;
 
 class TimingController extends Controller
 {
@@ -44,6 +46,8 @@ class TimingController extends Controller
      */
     public function destroy(Timing $timing)
     {
+        abort_if(Gate::denies('timing_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
         $timing->delete();
     }
 }
