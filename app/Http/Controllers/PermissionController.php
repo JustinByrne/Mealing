@@ -12,6 +12,28 @@ use Gate;
 class PermissionController extends Controller
 {
     /**
+     * Show all the permissions
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        abort_if(Gate::denies('permission_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $permissions = Permission::all();
+    }
+
+    /**
+     * Show the form to create a permission
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+
+    /**
      * Create new permission
      * 
      * @param \App\Http\Requests\StorePermissionRequest  $request
@@ -22,6 +44,28 @@ class PermissionController extends Controller
         $permission = Permission::create($request->validated());
 
         return redirect($permission->path());
+    }
+
+    /**
+     * Show all the individual permission
+     * 
+     * @param \App\Models\Permission $permission
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Permission $permission)
+    {
+        abort_if(Gate::denies('permission_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+
+    /**
+     * Show the form to edit a permission
+     * 
+     * @param \App\Models\Permission $permission
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Permission $permission)
+    {
+        abort_if(Gate::denies('permission_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
     /**

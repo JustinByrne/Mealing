@@ -15,6 +15,72 @@ class PermissionTest extends TestCase
     use WithFaker;
 
     /**
+     * test the index of permissions.
+     * 
+     * @return void
+     */
+    public function testPermissionIndex()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)->get(route('permissions.index'));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test the index of permissions without permission.
+     * 
+     * @return void
+     */
+    public function testPermissionIndexWithoutPermission()
+    {
+        $response = $this->get(route('permissions.index'));
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test permission create form.
+     * 
+     * @return void
+     */
+    public function testPermissionCreateForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $permission = Permission::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('permissions.create', [$permission->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test permission create form without permission.
+     * 
+     * @return void
+     */
+    public function testPermissionCreateFormWithoutPermission()
+    {
+        $permission = Permission::factory()->create();
+
+        $response = $this->get(route('permissions.create', [$permission->id]));
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * Test create a new permission.
      *
      * @return void
@@ -77,6 +143,79 @@ class PermissionTest extends TestCase
             ->post(route('permissions.store'), [
                 'title' => $title,
         ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test a permission can be shown.
+     * 
+     * @return void
+     */
+    public function testShowingPermission()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $permission = Permission::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('permissions.show', [$permission->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test a permission can be shown without permission.
+     * 
+     * @return void
+     */
+    public function testShowingPermissionWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $permission = Permission::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('permissions.show', [$permission->id]));
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test permission edit form.
+     * 
+     * @return void
+     */
+    public function testPermissionEditForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $permission = Permission::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('permissions.edit', [$permission->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test permission edit form without permission.
+     * 
+     * @return void
+     */
+    public function testPermissionEditFormWithoutPermission()
+    {
+        $permission = Permission::factory()->create();
+
+        $response = $this->get(route('permissions.edit', [$permission->id]));
 
         $response->assertStatus(403);
     }
