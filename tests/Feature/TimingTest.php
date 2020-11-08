@@ -15,6 +15,72 @@ class TimingTest extends TestCase
     use WithFaker;
 
     /**
+     * test the index of timings.
+     * 
+     * @return void
+     */
+    public function testTimingIndex()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)->get(route('timings.index'));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test the index of timings without permission.
+     * 
+     * @return void
+     */
+    public function testTimingIndexWithoutPermission()
+    {
+        $response = $this->get(route('timings.index'));
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test timing create form.
+     * 
+     * @return void
+     */
+    public function testTimingCreateForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $timing = Timing::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('timings.create', [$timing->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test timing create form without permission.
+     * 
+     * @return void
+     */
+    public function testTimingCreateFormWithoutPermission()
+    {
+        $timing = Timing::factory()->create();
+
+        $response = $this->get(route('timings.create', [$timing->id]));
+
+        $response->assertStatus(403);
+    }
+
+    /**
      * test create new timing.
      *
      * @return void
@@ -77,6 +143,79 @@ class TimingTest extends TestCase
         $response->assertStatus(403);
     }
 
+    /**
+     * test a timing can be shown.
+     * 
+     * @return void
+     */
+    public function testShowingTiming()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $timing = Timing::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('timings.show', [$timing->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test a timing can be shown without permission.
+     * 
+     * @return void
+     */
+    public function testShowingTimingWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $timing = Timing::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('timings.show', [$timing->id]));
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test timing edit form.
+     * 
+     * @return void
+     */
+    public function testTimingEditForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $timing = Timing::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('timings.edit', [$timing->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test timing edit form without permission.
+     * 
+     * @return void
+     */
+    public function testTimingEditFormWithoutPermission()
+    {
+        $timing = Timing::factory()->create();
+
+        $response = $this->get(route('timings.edit', [$timing->id]));
+
+        $response->assertStatus(403);
+    }
+    
     /**
      * test update timing.
      * 
