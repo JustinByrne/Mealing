@@ -12,6 +12,28 @@ use Gate;
 class RoleController extends Controller
 {
     /**
+     * Show all the roles
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        abort_if(Gate::denies('role_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::all();
+    }
+
+    /**
+     * Show the form to create a role
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        abort_if(Gate::denies('role_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+
+    /**
      * Create new role
      * 
      * @param App\Http\Requests\StoreRoleRequest $request
@@ -22,6 +44,28 @@ class RoleController extends Controller
         $role = Role::create($request->validated());
 
         return redirect($role->path());
+    }
+
+    /**
+     * Show all the individual role
+     * 
+     * @param \App\Models\Role $role
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Role $role)
+    {
+        abort_if(Gate::denies('role_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+
+    /**
+     * Show the form to edit a role
+     * 
+     * @param \App\Models\Role $role
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Role $role)
+    {
+        abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
     /**
