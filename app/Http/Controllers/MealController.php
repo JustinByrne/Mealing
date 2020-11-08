@@ -47,7 +47,7 @@ class MealController extends Controller
     }
 
     /**
-     * Show all the individual meal
+     * Show the specified meal
      * 
      * @param \App\Models\Meal $meal
      * @return \Illuminate\Http\Response

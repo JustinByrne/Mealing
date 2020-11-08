@@ -47,7 +47,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show all the individual role
+     * Show the specified role
      * 
      * @param \App\Models\Role $role
      * @return \Illuminate\Http\Response

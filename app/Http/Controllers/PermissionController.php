@@ -47,7 +47,7 @@ class PermissionController extends Controller
     }
 
     /**
-     * Show all the individual permission
+     * Show the specified permission
      * 
      * @param \App\Models\Permission $permission
      * @return \Illuminate\Http\Response

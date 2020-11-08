@@ -47,7 +47,7 @@ class ServingController extends Controller
     }
 
     /**
-     * Show all the individual serving
+     * Show the specified serving
      * 
      * @param \App\Models\Serving $serving
      * @return \Illuminate\Http\Response

@@ -47,7 +47,7 @@ class TimingController extends Controller
     }
 
     /**
-     * Show all the individual timing
+     * Show the specified timing
      * 
      * @param \App\Models\Timing $timing
      * @return \Illuminate\Http\Response
