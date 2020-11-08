@@ -44,6 +44,41 @@ class IngredientTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    /**
+     * test ingredient create form.
+     * 
+     * @return void
+     */
+    public function testIngredientCreateForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $ingredient = Ingredient::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('ingredients.create', [$ingredient->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test ingredient create form without permission.
+     * 
+     * @return void
+     */
+    public function testIngredientCreateFormWithoutPermission()
+    {
+        $ingredient = Ingredient::factory()->create();
+
+        $response = $this->get(route('ingredients.create', [$ingredient->id]));
+
+        $response->assertStatus(403);
+    }
     
     /**
      * test create new ingredient.
