@@ -48,4 +48,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class);
     }
+
+    /**
+     * Getting the path of the individual user
+     */
+    public function path()
+    {
+        return route('users.show', [$this->id]);
+    }
 }
