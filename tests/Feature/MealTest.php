@@ -15,6 +15,72 @@ class MealTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
+
+    /**
+     * test the index of meals.
+     * 
+     * @return void
+     */
+    public function testMealIndex()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)->get(route('meals.index'));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test the index of meals without permission.
+     * 
+     * @return void
+     */
+    public function testMealIndexWithoutPermission()
+    {
+        $response = $this->get(route('meals.index'));
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test meal create form.
+     * 
+     * @return void
+     */
+    public function testMealCreateForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $meal = Meal::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('meals.create', [$meal->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test meal create form without permission.
+     * 
+     * @return void
+     */
+    public function testMealCreateFormWithoutPermission()
+    {
+        $meal = Meal::factory()->create();
+
+        $response = $this->get(route('meals.create', [$meal->id]));
+
+        $response->assertStatus(403);
+    }
     
     /**
      * Test create new meal.
@@ -183,6 +249,79 @@ class MealTest extends TestCase
                 'kids' => $this->faker->boolean,
                 'timing_id' => Timing::factory()->create()->id,
         ]);
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test a meal can be shown.
+     * 
+     * @return void
+     */
+    public function testShowingMeal()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $meal = Meal::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('meals.show', [$meal->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test a meal can be shown without permission.
+     * 
+     * @return void
+     */
+    public function testShowingMealWithoutPermission()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+
+        $meal = Meal::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('meals.show', [$meal->id]));
+
+        $response->assertStatus(403);
+    }
+
+    /**
+     * test meal edit form.
+     * 
+     * @return void
+     */
+    public function testMealEditForm()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $meal = Meal::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('meals.edit', [$meal->id]));
+
+        $response->assertOk();
+    }
+
+    /**
+     * test meal edit form without permission.
+     * 
+     * @return void
+     */
+    public function testMealEditFormWithoutPermission()
+    {
+        $meal = Meal::factory()->create();
+
+        $response = $this->get(route('meals.edit', [$meal->id]));
 
         $response->assertStatus(403);
     }

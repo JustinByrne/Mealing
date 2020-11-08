@@ -12,6 +12,28 @@ use Gate;
 class MealController extends Controller
 {
     /**
+     * Show all the meals
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        abort_if(Gate::denies('meal_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $meals = Meal::all();
+    }
+
+    /**
+     * Show the form to create a meal
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        abort_if(Gate::denies('meal_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+    
+    /**
      * Create new meal
      * 
      * @param \App\Http\Requests\StoreMealRequest  $request
@@ -22,6 +44,28 @@ class MealController extends Controller
         $meal = Meal::create($request->validated());
 
         return redirect($meal->path());
+    }
+
+    /**
+     * Show all the individual meal
+     * 
+     * @param \App\Models\Meal $meal
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Meal $meal)
+    {
+        abort_if(Gate::denies('meal_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
+
+    /**
+     * Show the form to edit a meal
+     * 
+     * @param \App\Models\Meal $meal
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Meal $meal)
+    {
+        abort_if(Gate::denies('meal_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
     /**
