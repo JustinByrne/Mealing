@@ -1,7 +1,6 @@
 # To do list
 
 - Add new Controllers with tests and permissions
-  - UserController
   - AuthController
     - Login
     - Register
@@ -13,5 +12,6 @@
   - [ ] Role
   - [ ] Serving
   - [ ] Timing
+  - [ ] User
 - Create homepage design
 - Implement livewire to improve UX
