@@ -18,7 +18,7 @@ class AuthController extends Controller
      */
     public function register()
     {
-        return true;
+        return view('auth.register');
     }
 
     /**
@@ -43,7 +43,7 @@ class AuthController extends Controller
      */
     public function login()
     {
-        return true;
+        return view('auth.login');
     }
 
     /**
