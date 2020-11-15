@@ -39,6 +39,10 @@ jobs:
                 php artisan key:generate
                 chmod -R 777 storage bootstrap/cache
                 php artisan migrate:fresh --seed
+            - name: Install NPM dependencies
+              run: npm install
+            - name: Compile assets
+              run: npm run productionn
             - name: Execute tests (Unit and Feature tests) via PHPUnit
               env:
                 DB_CONNECTION: mysql
