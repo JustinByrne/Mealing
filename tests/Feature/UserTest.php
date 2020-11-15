@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Role;
+use Hash;
 
 class UserTest extends TestCase
 {
@@ -99,8 +100,8 @@ class UserTest extends TestCase
             ->post(route('users.store'), [
                 'name' => $this->faker->name,
                 'email' => $email,
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'password' => 'password',
+                'password_confirmation' => 'password',
         ]);
 
         $newUser = User::where('email', $email)->first();
@@ -122,8 +123,8 @@ class UserTest extends TestCase
             ->post(route('users.store'), [
                 'name' => $this->faker->name,
                 'email' => $this->faker->unique()->safeEmail,
-                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-                'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'password' => 'password',
+                'password_confirmation' => 'password',
         ]);
 
         $response->assertStatus(403);
@@ -222,21 +223,27 @@ class UserTest extends TestCase
         // new data
         $name = $this->faker->name;
         $email = $this->faker->unique()->safeEmail;
-        $password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
-        $password_confirmation = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+        $password = 'password';
 
         $response = $this->actingAs($user)->patch(route('users.update', [$newUser->id]), [
             'name' => $name,
             'email' => $email,
             'password' => $password,
-            'password_confirmation' => $password_confirmation,
+            'password_confirmation' => $password,
         ]);
 
         $this->assertDatabaseHas($newUser->getTable(), [
             'name' => $name,
             'email' => $email,
+        ]);
+
+        $login = $this->post(route('login.authenticate'), [
+            'email' => $email,
             'password' => $password,
         ]);
+
+        $this->assertAuthenticatedAs($newUser);
+
         $response->assertRedirect($newUser->path());
     }
 
@@ -254,14 +261,13 @@ class UserTest extends TestCase
         // new data
         $name = $this->faker->name;
         $email = $this->faker->unique()->safeEmail;
-        $password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
-        $password_confirmation = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
+        $password = 'password';
 
         $response = $this->actingAs($user)->patch(route('users.update', [$newUser->id]), [
             'name' => $name,
             'email' => $email,
             'password' => $password,
-            'password_confirmation' => $password_confirmation,
+            'password_confirmation' => $password,
         ]);
 
         $response->assertStatus(403);

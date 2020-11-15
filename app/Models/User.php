@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -52,9 +53,21 @@ class User extends Authenticatable
 
     /**
      * Getting the path of the individual user
+     * 
+     * @return Illuminate\Support\Facades\Route;
      */
     public function path()
     {
         return route('users.show', [$this->id]);
+    }
+
+    /**
+     * 
+     */
+    public function setPasswordAttribute($input)
+    {
+        if ($input) {
+            $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
+        }
     }
 }

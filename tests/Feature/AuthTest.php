@@ -39,8 +39,8 @@ class AuthTest extends TestCase
         $response = $this->post(route('register.store'), [
             'name' => $this->faker->name,
             'email' => $email,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
         $this->assertDatabaseHas('users', ['email' => $email]);
@@ -56,8 +56,8 @@ class AuthTest extends TestCase
         $response = $this->post(route('register.store'), [
             'name' => null,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertSessionHasErrors(['name']);
@@ -73,8 +73,8 @@ class AuthTest extends TestCase
         $response = $this->post(route('register.store'), [
             'name' => $this->faker->name,
             'email' => null,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -92,8 +92,8 @@ class AuthTest extends TestCase
         $response = $this->post(route('register.store'), [
             'name' => $this->faker->name,
             'email' => $user->email,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -110,7 +110,7 @@ class AuthTest extends TestCase
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => null,
-            'password_confirmation' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password_confirmation' => 'password',
         ]);
 
         $response->assertSessionHasErrors(['password']);
@@ -126,7 +126,7 @@ class AuthTest extends TestCase
         $response = $this->post(route('register.store'), [
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => 'password',
             'password_confirmation' => null,
         ]);
 
