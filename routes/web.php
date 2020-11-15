@@ -22,7 +22,7 @@ use App\Http\Controllers\AuthController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
