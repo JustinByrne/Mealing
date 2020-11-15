@@ -21,6 +21,8 @@ class Ingredient extends Model
 
     /**
      * Get the url path for the Timing
+     * 
+     * @return Illuminate\Support\Facades\Route;
      */
     public function path()
     {

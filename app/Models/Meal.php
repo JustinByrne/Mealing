@@ -41,6 +41,8 @@ class Meal extends Model
 
     /**
      * Get the url path for the Meal
+     * 
+     * @return Illuminate\Support\Facades\Route;
      */
     public function path()
     {

@@ -37,6 +37,8 @@ class Role extends Model
 
     /**
      * Get the permissions that belong to the role.
+     * 
+     * @return Illuminate\Support\Facades\Route;
      */
     public function permissions()
     {
