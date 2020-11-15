@@ -42,7 +42,7 @@ jobs:
             - name: Install NPM dependencies
               run: npm install
             - name: Compile assets
-              run: npm run productionn
+              run: npm run production
             - name: Execute tests (Unit and Feature tests) via PHPUnit
               env:
                 DB_CONNECTION: mysql
