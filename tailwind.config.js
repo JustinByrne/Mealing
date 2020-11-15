@@ -3,10 +3,14 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: [
-    './storage/framework/views/*.php',
-    './resources/views/**/*.blade.php'
-  ],
+  purge: {
+    mode: 'layers',
+    layers: ['base', 'components', 'utilities'],
+    content: [
+      './storage/framework/views/*.php',
+      './resources/views/**/*.blade.php'
+    ],
+  },
   theme: {
     extend: {},
   },
