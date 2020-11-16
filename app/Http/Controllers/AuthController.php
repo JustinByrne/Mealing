@@ -59,7 +59,9 @@ class AuthController extends Controller
         }
 
         return back()->withErrors([
-            'failed' => 'Incorrect username or password.',
-        ]);
+            'failed' => 'Incorrect email or password.',
+            'email' => true,
+            'password' => true,
+        ])->withInput();
     }
 }

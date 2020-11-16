@@ -214,7 +214,7 @@ class AuthTest extends TestCase
             'password' => 'password',
         ]);
 
-        $response->assertSessionHasErrors(['failed']);
+        $response->assertSessionHasErrors(['failed', 'email', 'password']);
     }
 
     /**
