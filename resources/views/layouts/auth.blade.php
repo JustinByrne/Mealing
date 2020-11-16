@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     </head>
 
-    <body class="antialiased bg-gray-200">
+    <body class="antialiased bg-gray-800">
         @yield('content')
     </body>
 </html>
