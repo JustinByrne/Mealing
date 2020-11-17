@@ -35,6 +35,8 @@ class AuthController extends Controller
 
         $user->roles()->sync($userRole);
 
+        Auth::login($user);
+
         return redirect(route('dashboard'));
     }
 
