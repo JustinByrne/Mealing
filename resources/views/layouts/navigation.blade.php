@@ -1,6 +1,6 @@
-<header class="lg:px-16 px-6 bg-white items-center lg:py-0 py-2 mb-5">
+<header class="lg:px-16 px-6 bg-gray-800 items-center lg:py-0 py-2 mb-5">
     <div class="container mx-auto flex flex-wrap">
-        <div class="flex-1 flex justify-between items-center">
+        <div class="flex-1 flex justify-between items-center text-base text-gray-300">
             <a href="#">
                 Mealing
             </a>
@@ -11,21 +11,26 @@
 
         <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
             <nav class="lg:mb-0 mb-2">
-                <ul class="lg:flex items-center justify-between text-base text-gray-700 pt-4 lg:pt-0">
+                <ul class="lg:flex items-center justify-between text-base text-gray-300 pt-4 lg:pt-0">
                     @auth
                         <li>
-                            <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
-                                {{ __('Home') }}
+                            <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+                        </li>
+                        <li>
+                            <x-nav-link href="{{ route('logout') }}">
+                                {{ __('Logout') }}
                             </x-nav-link>
                         </li>
                     @else
                         <li>
-                            <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            <x-nav-link href="{{ route('login') }}">
                                 {{ __('Login') }}
                             </x-nav-link>
                         </li>
                         <li>
-                            <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                            <x-nav-link href="{{ route('register') }}">
                                 {{ __('Register') }}
                             </x-nav-link>
                         </li>

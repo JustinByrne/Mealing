@@ -12,7 +12,7 @@
         </style>
     </head>
 
-    <body class="antialiased bg-gray-200">
+    <body class="antialiased bg-gray-900">
         @include('layouts.navigation')
         @yield('content')
     </body>
