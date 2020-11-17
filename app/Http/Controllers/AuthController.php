@@ -66,4 +66,11 @@ class AuthController extends Controller
             'password' => true,
         ])->withInput();
     }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect(route('landing'));
+    }
 }

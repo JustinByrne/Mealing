@@ -237,4 +237,23 @@ class AuthTest extends TestCase
 
         $response->assertSessionHasErrors(['failed']);
     }
+
+    /**
+     * Test logout of authenticated user
+     * 
+     * @return void
+     */
+    public function testLogout()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->assertDatabaseHas($user->getTable(), $user->toArray());
+
+        $response = $this->actingAs($user)->get(route('logout'));
+
+        $response->assertRedirect(route('landing'));
+        $this->assertGuest();
+    }
 }
