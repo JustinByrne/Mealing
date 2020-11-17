@@ -15,4 +15,14 @@ class PagesController extends Controller
     {
         return view('landing');
     }
+
+    /**
+     * Show dashboard page
+     * 
+     * @return \Illuminate\View\View
+     */
+    public function dashboard()
+    {
+        return view('dashboard');
+    }
 }

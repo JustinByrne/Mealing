@@ -31,6 +31,8 @@ Route::middleware(['guest'])->group(function()  {
 });
 
 Route::middleware(['auth'])->group(function() {
+    Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
+
     Route::resources([
         'meals' => MealController::class,
         'servings' => ServingController::class,

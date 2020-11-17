@@ -34,6 +34,8 @@ class AuthController extends Controller
         $userRole = Role::find(2);
 
         $user->roles()->sync($userRole);
+
+        return redirect(route('dashboard'));
     }
 
     /**
@@ -55,7 +57,7 @@ class AuthController extends Controller
     public function authenticate(AuthLoginRequest $request)
     {
         if (Auth::attempt($request->validated())) {
-            return true;
+            return redirect(route('dashboard'));
         }
 
         return back()->withErrors([

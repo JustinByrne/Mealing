@@ -44,6 +44,7 @@ class AuthTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('users', ['email' => $email]);
+        $response->assertRedirect(route('dashboard'));
     }
 
     /**
@@ -166,6 +167,7 @@ class AuthTest extends TestCase
         ]);
 
         $this->assertAuthenticatedAs($user);
+        $response->assertRedirect(route('dashboard'));
     }
 
     /**
