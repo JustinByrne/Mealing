@@ -41,7 +41,7 @@ class RoleTest extends TestCase
     {
         $response = $this->get(route('roles.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -76,7 +76,7 @@ class RoleTest extends TestCase
 
         $response = $this->get(route('roles.create', [$role->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
     
     /**
@@ -216,7 +216,7 @@ class RoleTest extends TestCase
 
         $response = $this->get(route('roles.edit', [$role->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**

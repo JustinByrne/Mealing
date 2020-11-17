@@ -44,7 +44,7 @@ class MealTest extends TestCase
     {
         $response = $this->get(route('meals.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -79,7 +79,7 @@ class MealTest extends TestCase
 
         $response = $this->get(route('meals.create', [$meal->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
     
     /**
@@ -323,7 +323,7 @@ class MealTest extends TestCase
 
         $response = $this->get(route('meals.edit', [$meal->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**

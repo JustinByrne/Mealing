@@ -42,7 +42,7 @@ class ServingTest extends TestCase
     {
         $response = $this->get(route('servings.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -77,7 +77,7 @@ class ServingTest extends TestCase
 
         $response = $this->get(route('servings.create', [$serving->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -213,7 +213,7 @@ class ServingTest extends TestCase
 
         $response = $this->get(route('servings.edit', [$serving->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**

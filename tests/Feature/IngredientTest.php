@@ -42,7 +42,7 @@ class IngredientTest extends TestCase
     {
         $response = $this->get(route('ingredients.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -77,7 +77,7 @@ class IngredientTest extends TestCase
 
         $response = $this->get(route('ingredients.create', [$ingredient->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
     
     /**
@@ -175,7 +175,7 @@ class IngredientTest extends TestCase
 
         $response = $this->get(route('ingredients.show', [$ingredient->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -210,7 +210,7 @@ class IngredientTest extends TestCase
 
         $response = $this->get(route('ingredients.edit', [$ingredient->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**

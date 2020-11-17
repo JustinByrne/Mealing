@@ -42,7 +42,7 @@ class PermissionTest extends TestCase
     {
         $response = $this->get(route('permissions.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -77,7 +77,7 @@ class PermissionTest extends TestCase
 
         $response = $this->get(route('permissions.create', [$permission->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -217,7 +217,7 @@ class PermissionTest extends TestCase
 
         $response = $this->get(route('permissions.edit', [$permission->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**

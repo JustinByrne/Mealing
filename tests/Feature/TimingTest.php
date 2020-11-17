@@ -42,7 +42,7 @@ class TimingTest extends TestCase
     {
         $response = $this->get(route('timings.index'));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -77,7 +77,7 @@ class TimingTest extends TestCase
 
         $response = $this->get(route('timings.create', [$timing->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -213,7 +213,7 @@ class TimingTest extends TestCase
 
         $response = $this->get(route('timings.edit', [$timing->id]));
 
-        $response->assertStatus(403);
+        $response->assertRedirect(route('login'));
     }
     
     /**
