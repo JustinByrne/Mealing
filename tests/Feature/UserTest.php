@@ -237,12 +237,7 @@ class UserTest extends TestCase
             'email' => $email,
         ]);
 
-        $login = $this->post(route('login.authenticate'), [
-            'email' => $email,
-            'password' => $password,
-        ]);
-
-        $this->assertAuthenticatedAs($newUser);
+        $this->assertTrue(Hash::check($password, $newUser->password));
 
         $response->assertRedirect($newUser->path());
     }
