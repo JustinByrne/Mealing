@@ -9,6 +9,14 @@
   - [ ] Serving
   - [ ] Timing
   - [ ] User
-- Create view for auth register and login
 - Create homepage design
 - Implement livewire to improve UX
+- Add 2fa
+- Add remember me to login page
+- Add email verification
+- Add reCAPTCHA to login and register forms
+- Add profile page for user to do the following
+  - Change password
+  - Change email
+    - This email will need to be verified
+  - Change name
