@@ -30,12 +30,14 @@ Route::post('/register', [AuthController::class, 'registerStore'])->name('regist
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');
 
-Route::resources([
-    'meals' => MealController::class,
-    'servings' => ServingController::class,
-    'timings' => TimingController::class,
-    'ingredients' => IngredientController::class,
-    'roles' => RoleController::class,
-    'permissions' => PermissionController::class,
-    'users' => UserController::class,
-]);
+Route::middleware(['auth'])->group(function() {
+    Route::resources([
+        'meals' => MealController::class,
+        'servings' => ServingController::class,
+        'timings' => TimingController::class,
+        'ingredients' => IngredientController::class,
+        'roles' => RoleController::class,
+        'permissions' => PermissionController::class,
+        'users' => UserController::class,
+    ]);
+});
