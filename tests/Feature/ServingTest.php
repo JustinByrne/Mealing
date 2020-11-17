@@ -140,7 +140,7 @@ class ServingTest extends TestCase
                 'quantity' => $this->faker->lexify('???'),
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -178,7 +178,7 @@ class ServingTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('servings.show', [$serving->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -264,7 +264,7 @@ class ServingTest extends TestCase
                 'quantity' => $quantity,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -308,6 +308,6 @@ class ServingTest extends TestCase
         $response = $this->ActingAs($user)
             ->delete(route('servings.destroy', [$serving->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 }

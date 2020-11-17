@@ -144,7 +144,7 @@ class PermissionTest extends TestCase
                 'title' => $title,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -182,7 +182,7 @@ class PermissionTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('permissions.show', [$permission->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -272,7 +272,7 @@ class PermissionTest extends TestCase
                 'title' => $title,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -312,6 +312,6 @@ class PermissionTest extends TestCase
         $response = $this->actingAs($user)
             ->delete(route('permissions.destroy', [$permission->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 }

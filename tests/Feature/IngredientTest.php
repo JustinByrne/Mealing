@@ -140,7 +140,7 @@ class IngredientTest extends TestCase
                 'name' => $this->faker->name,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -261,7 +261,7 @@ class IngredientTest extends TestCase
                 'name' => $name,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -305,6 +305,6 @@ class IngredientTest extends TestCase
         $response = $this->actingAs($user)
             ->delete(route('ingredients.destroy', $ingredient->id));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 }

@@ -143,7 +143,7 @@ class RoleTest extends TestCase
                 'title' => $title,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -181,7 +181,7 @@ class RoleTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('roles.show', [$role->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -267,7 +267,7 @@ class RoleTest extends TestCase
                 'title' => $title,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -311,6 +311,6 @@ class RoleTest extends TestCase
         $response = $this->actingAs($user)
             ->delete(route('roles.destroy', [$role->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 }

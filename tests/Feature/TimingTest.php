@@ -140,7 +140,7 @@ class TimingTest extends TestCase
                 'timeFrame' => $this->faker->lexify('???'),
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -178,7 +178,7 @@ class TimingTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('timings.show', [$timing->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -264,7 +264,7 @@ class TimingTest extends TestCase
                 'timeFrame' => $timeFrame,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -308,6 +308,6 @@ class TimingTest extends TestCase
         $response = $this->actingAs($user)
             ->delete(route('timings.destroy', [$timing->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 }

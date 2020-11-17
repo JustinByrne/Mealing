@@ -250,7 +250,7 @@ class MealTest extends TestCase
                 'timing_id' => Timing::factory()->create()->id,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -288,7 +288,7 @@ class MealTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('meals.show', [$meal->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -394,7 +394,7 @@ class MealTest extends TestCase
                 'timing_id' => $timing,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -436,6 +436,6 @@ class MealTest extends TestCase
 
         $response = $this->actingAs($user)->delete(route('meals.destroy', [$meal->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 }

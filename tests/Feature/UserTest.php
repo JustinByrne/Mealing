@@ -44,7 +44,7 @@ class UserTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('users.index'));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -77,7 +77,7 @@ class UserTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('users.create'));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -127,7 +127,7 @@ class UserTest extends TestCase
                 'password_confirmation' => 'password',
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -164,7 +164,7 @@ class UserTest extends TestCase
 
         $response = $this->actingAs($user)->get($newUser->path());
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -201,7 +201,7 @@ class UserTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('users.edit', [$newUser->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -265,7 +265,7 @@ class UserTest extends TestCase
             'password_confirmation' => $password,
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     /**
@@ -302,6 +302,6 @@ class UserTest extends TestCase
 
         $response = $this->actingAs($user)->delete(route('users.destroy', [$newUser->id]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 }
