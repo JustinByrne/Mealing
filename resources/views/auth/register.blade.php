@@ -6,9 +6,11 @@
 <x-auth-card>
     <p class="text-red-500 text-sm text-center font-bold pb-2">
         {{ $errors->first('failed') }}
+        {{ $errors->first('recaptcha_token') }}
     </p>
     <form class="w-full max-w-sm" method="POST" action="{{ route('register.store') }}">
         @csrf
+        <input type='hidden' name='recaptcha_token' id='recaptcha_token'>
         <div class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
                 <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="inline-full-name">
@@ -71,4 +73,13 @@
         </div>
     </form>
 </x-auth-card>
+<script src="https://www.google.com/recaptcha/api.js?render={{ env('RECAPTCHA_SITE_KEY') }}"></script>
+<script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', {action: 'register'})
+            .then(function(token) {
+                document.getElementById("recaptcha_token").value = token;
+        });
+    });
+</script>
 @endsection

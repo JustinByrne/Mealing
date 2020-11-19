@@ -14,7 +14,6 @@
 - Add 2fa
 - Add remember me to login page
 - Add email verification
-- Add reCAPTCHA to login and register forms
 - Add profile page for user to do the following
   - Change password
   - Change email
