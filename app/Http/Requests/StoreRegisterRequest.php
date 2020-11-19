@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\RecaptchaRule;
 
 class StoreRegisterRequest extends FormRequest
 {
@@ -26,7 +27,8 @@ class StoreRegisterRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|unique:App\Models\User,email',
-            'password' => 'required|confirmed'
+            'password' => 'required|confirmed',
+            'recaptcha_token' => ['required', new RecaptchaRule($this->recaptcha_token) ],
         ];
     }
 

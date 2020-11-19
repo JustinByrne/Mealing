@@ -58,7 +58,7 @@ class AuthController extends Controller
      */
     public function authenticate(AuthLoginRequest $request)
     {
-        if (Auth::attempt($request->validated())) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             return redirect(route('dashboard'));
         }
 
