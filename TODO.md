@@ -19,3 +19,4 @@
   - Change email
     - This email will need to be verified
   - Change name
+- Create a good README.md file
