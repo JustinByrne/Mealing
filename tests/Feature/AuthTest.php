@@ -250,6 +250,31 @@ class AuthTest extends TestCase
     }
 
     /**
+     * Test login authentication
+     * 
+     * @return void
+     */
+    public function testLoginAuthenticationWithRememberMe()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->assertDatabaseHas($user->getTable(), $user->toArray());
+
+        $response = $this->post(route('login.authenticate'), [
+            'email' => $user->email,
+            'password' => 'password',
+            'recaptcha_token' => true,
+            'remember' => 'on',
+        ]);
+
+        $this->assertAuthenticatedAs($user);
+        $this->assertNotNull($user->remember_token);
+        $response->assertRedirect(route('dashboard'));
+    }
+
+    /**
      * Test logout of authenticated user
      * 
      * @return void

@@ -36,6 +36,15 @@
                 </p>
             </div>
         </div>
+        <div class="md:flex md:items-center mb-6">
+            <div class="md:w-1/3 text-right"></div>
+            <div class="md:w-2/3">
+                <input class="mr-3" name="remember" type="checkbox">
+                <label class="text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="password">
+                    Remember Me
+                </label>
+            </div>
+        </div>
         <div class="md:flex md:items-center">
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">

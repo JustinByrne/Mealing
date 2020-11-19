@@ -12,7 +12,6 @@
 - Create homepage design
 - Implement livewire to improve UX
 - Add 2fa
-- Add remember me to login page
 - Add email verification
 - Add profile page for user to do the following
   - Change password
