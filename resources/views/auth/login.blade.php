@@ -7,7 +7,7 @@
     <p class="text-red-500 text-sm text-center font-bold pb-2">
         {{ $errors->first('failed') }}
     </p>
-    <form class="w-full max-w-sm" method="POST" action="{{ route('login.authenticate') }}">
+    <form class="w-full max-w-sm" method="POST" action="{{ route('login.authenticate') }}" id="loginForm">
         @csrf
         <input type='hidden' name='recaptcha_token' id='recaptcha_token'>
         <div class="md:flex md:items-center mb-6">
@@ -61,10 +61,17 @@
 <script src="https://www.google.com/recaptcha/api.js?render={{ env('RECAPTCHA_SITE_KEY') }}"></script>
 <script>
     grecaptcha.ready(function() {
-        grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', {action: 'register'})
-            .then(function(token) {
-                document.getElementById("recaptcha_token").value = token;
+
+        document.getElementById('loginForm').addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', {action: 'login'})
+                .then(function(token) {
+                    document.getElementById("recaptcha_token").value = token;
+                    document.getElementById('loginForm').submit();
+            });
         });
+
     });
 </script>
 @endsection
