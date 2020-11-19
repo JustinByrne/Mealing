@@ -41,6 +41,7 @@ class AuthTest extends TestCase
             'email' => $email,
             'password' => 'password',
             'password_confirmation' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $this->assertDatabaseHas('users', ['email' => $email]);
@@ -59,6 +60,7 @@ class AuthTest extends TestCase
             'email' => $this->faker->unique()->safeEmail,
             'password' => 'password',
             'password_confirmation' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['name']);
@@ -76,6 +78,7 @@ class AuthTest extends TestCase
             'email' => null,
             'password' => 'password',
             'password_confirmation' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -95,6 +98,7 @@ class AuthTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
             'password_confirmation' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -112,6 +116,7 @@ class AuthTest extends TestCase
             'email' => $this->faker->unique()->safeEmail,
             'password' => null,
             'password_confirmation' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['password']);
@@ -129,6 +134,7 @@ class AuthTest extends TestCase
             'email' => $this->faker->unique()->safeEmail,
             'password' => 'password',
             'password_confirmation' => null,
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['password']);
@@ -164,6 +170,7 @@ class AuthTest extends TestCase
         $response = $this->post(route('login.authenticate'), [
             'email' => $user->email,
             'password' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $this->assertAuthenticatedAs($user);
@@ -180,6 +187,7 @@ class AuthTest extends TestCase
         $response = $this->post(route('login.authenticate'), [
             'email' => null,
             'password' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['email']);
@@ -199,6 +207,7 @@ class AuthTest extends TestCase
         $response = $this->post(route('login.authenticate'), [
             'email' => $user->email,
             'password' => null,
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['password']);
@@ -214,6 +223,7 @@ class AuthTest extends TestCase
         $response = $this->post(route('login.authenticate'), [
             'email' => 'test@example.com',
             'password' => 'password',
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['failed', 'email', 'password']);
@@ -233,6 +243,7 @@ class AuthTest extends TestCase
         $response = $this->post(route('login.authenticate'), [
             'email' => $user->email,
             'password' => 'let me in',
+            'recaptcha_token' => true,
         ]);
 
         $response->assertSessionHasErrors(['failed']);

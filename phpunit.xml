@@ -28,5 +28,6 @@
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
         <server name="DB_DATABASE" value="db_test"/>
+        <env name="RECAPTCHA_PHPUNIT_TESTS" value="true"/>
     </php>
 </phpunit>
