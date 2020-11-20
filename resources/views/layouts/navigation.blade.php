@@ -1,45 +1,47 @@
-<header class="lg:px-16 px-6 bg-gray-800 items-center lg:py-0 py-2 mb-5">
-    <div class="container mx-auto flex flex-wrap">
-        <div class="flex-1 flex justify-between items-center text-base text-gray-300">Mealing</div>
-        <label for="menu-toggle" class="cursor-pointer lg:hidden block"><svg class="fill-current text-gray-900" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><title>menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path></svg></label>
-        <input class="hidden" type="checkbox" id="menu-toggle" />
-        <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu">
-            <nav class="lg:mb-0 mb-2">
-                <ul class="lg:flex items-center justify-between text-base text-gray-300 pt-4 lg:pt-0">
-                    @auth
-                        <li>
-                            <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
-                        </li>
-                        <li>
-                            <x-nav-link href="{{ route('logout') }}">
-                                {{ __('Logout') }}
-                            </x-nav-link>
-                        </li>
-                    @else
-                        <li>
-                            <x-nav-link href="{{ route('login') }}">
-                                {{ __('Login') }}
-                            </x-nav-link>
-                        </li>
-                        <li>
-                            <x-nav-link href="{{ route('register') }}">
-                                {{ __('Register') }}
-                            </x-nav-link>
-                        </li>
-                    @endif
-                </ul>
-            </nav>
+<header class="flex items-center bg-gray-800 px-8 flex-wrap">
+    <a href="#" class="px-3 py-2 mr-4 inline-flex intems-center">
+        <span class="text-xl text-white font-bold tracking-wide">
+            Mealing
+        </span>
+    </a>
+    <button class="text-white inline-flex p-3 rounded ml-auto hover:bg-gray-900 lg:hidden navToggler" data-toggle="#navLinks">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="hidden w-full lg:inline-flex lg:flex-grow lg:w-auto" id="navLinks">
+        <nav class="flex flex-col lg:inline-flex lg:flex-row lg:ml-auto">
             @auth
-                <div href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
-                    <img
-                        class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400"
-                        src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?s=40"
-                        alt="{{ Auth::user()->name }}"
-                    >
+                <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard*')">Dashboard</x-nav-link>
+                <x-nav-link href="#" :active="request()->routeIs('menu*')">Menus</x-nav-link>
+                <x-nav-link href="{{ route('meals.index') }}" :active="request()->routeIs('meal*')">Meals</x-nav-link>
+                <x-nav-link href="{{ route('ingredients.index') }}" :active="request()->routeIs('ingredient*')">Ingredients</x-nav-link>
+
+                <div class="relative px-2 ml-5">
+                    <button class="block mt-3 navToggler focus:outline-none" data-toggle="#userLinks" id="btnUserLinks">
+                        <img
+                            class="rounded-full w-7 h-7 border-2 border-transparent hover:border-orange-300"
+                            src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?s=30"
+                            alt="{{ Auth::user()->name }}"
+                        >
+                    </button>
+                    <div class="hidden right-0 bg-gray-100 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" id="userLinks">
+                        <x-user-nav-link href="#">Profile</x-user-nav-link>
+                        <x-user-nav-link href="#">Settings</x-user-nav-link>
+                        <x-user-nav-link href="{{ route('logout') }}">Log Out</x-user-nav-link>
+                    </div>
                 </div>
-            @endif
-        </div>
+            @else
+                <x-nav-link href="{{ route('login') }}">Login</x-nav-link>
+                <x-nav-link href="{{ route('register') }}">Register</x-nav-link>
+            @endauth
+        </nav>
     </div>
 </header>
+
+@section('scripts')
+<script type="text/javascript">
+    $('.navToggler').click(function()  {
+        var toggle = $(this).data('toggle');
+        $(toggle).toggleClass('hidden');
+    });
+</script>
+@endsection
