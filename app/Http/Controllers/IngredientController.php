@@ -21,6 +21,8 @@ class IngredientController extends Controller
         abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $ingredients = Ingredient::all();
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**

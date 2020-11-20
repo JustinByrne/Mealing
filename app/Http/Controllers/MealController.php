@@ -21,6 +21,8 @@ class MealController extends Controller
         abort_if(Gate::denies('meal_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $meals = Meal::all();
+
+        return view('meals.index', compact('meals'));
     }
 
     /**
