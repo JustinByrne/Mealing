@@ -13,6 +13,7 @@
 - Implement livewire to improve UX
 - Add 2fa
 - Add email verification
+- Change profile picture on nav to a dropdown with extra links
 - Add profile page for user to do the following
   - Change password
   - Change email

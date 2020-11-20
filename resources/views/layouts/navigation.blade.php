@@ -32,13 +32,13 @@
                 </ul>
             </nav>
             @auth
-                <a href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
+                <div href="#" class="lg:ml-4 flex items-center justify-start lg:mb-0 mb-4 pointer-cursor">
                     <img
                         class="rounded-full w-10 h-10 border-2 border-transparent hover:border-indigo-400"
                         src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?s=40"
                         alt="{{ Auth::user()->name }}"
                     >
-                </a>
+                </div>
             @endif
         </div>
     </div>
