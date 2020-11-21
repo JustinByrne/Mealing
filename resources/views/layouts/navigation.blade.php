@@ -1,10 +1,10 @@
-<header class="flex items-center bg-gray-800 px-8 flex-wrap">
+<header class="flex items-center bg-blueGray-800 px-8 flex-wrap">
     <a href="#" class="px-3 py-2 mr-4 inline-flex intems-center">
         <span class="text-xl text-white font-bold tracking-wide">
             Mealing
         </span>
     </a>
-    <button class="text-white inline-flex p-3 rounded ml-auto hover:bg-gray-900 lg:hidden navToggler" data-toggle="#navLinks">
+    <button class="text-white inline-flex p-3 rounded ml-auto hover:bg-blueGray-900 lg:hidden navToggler" data-toggle="#navLinks">
         <i class="fas fa-bars"></i>
     </button>
     <div class="hidden w-full lg:inline-flex lg:flex-grow lg:w-auto" id="navLinks">
@@ -23,7 +23,7 @@
                             alt="{{ Auth::user()->name }}"
                         >
                     </button>
-                    <div class="hidden right-0 bg-gray-100 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" id="userLinks">
+                    <div class="hidden right-0 bg-blueGray-100 rounded py-2 text-blueGray-600 mt-3 shadow-xl lg:w-56 lg:absolute" id="userLinks">
                         <x-user-nav-link href="#">Profile</x-user-nav-link>
                         <x-user-nav-link href="#">Settings</x-user-nav-link>
                         <x-user-nav-link href="{{ route('logout') }}">Log Out</x-user-nav-link>
