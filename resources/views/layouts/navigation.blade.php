@@ -16,14 +16,13 @@
                 <x-nav-link href="{{ route('meals.index') }}" :active="request()->routeIs('meal*')">Meals</x-nav-link>
                 <x-nav-link href="{{ route('ingredients.index') }}" :active="request()->routeIs('ingredient*')">Ingredients</x-nav-link>
 
-                <div class="relative px-2 hidden md:block" x-data="{ userShow: false }">
+                <div class="relative px-2 hidden md:block" x-data="{ userShow: false }" @click.away="userShow = false" @keydown.escape.window="userShow = false">
                     <div class="py-3">
-                        <button class="relative z-10 block focus:outline-none" @click="userShow = !userShow" aria-expanded="userShow ? 'true' : 'false'" :class="{ 'active': 'userShow' }">
+                        <button class="relative z-10 block focus:outline-none" @click.prevent="userShow = !userShow" aria-expanded="userShow ? 'true' : 'false'" :class="{ 'active': 'userShow' }">
                             <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-orange-300" src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?s=40" alt="{{ Auth::user()->name }}">
                         </button>
                     </div>
-                    <button class="fixed inset-0 bg-black opacity-30 h-full w-full cursor-default" x-show="userShow" @click="userShow = false"></button>
-                    <div class="right-0 bg-gray-100 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" x-show="userShow">
+                    <div class="right-0 bg-gray-100 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" x-show.transition.opacity.duration.300ms="userShow">
                         <x-user-nav-link href="#">Profile</x-user-nav-link>
                         <x-user-nav-link href="#">Settings</x-user-nav-link>
                         <x-user-nav-link href="{{ route('logout') }}">Log Out</x-user-nav-link>
