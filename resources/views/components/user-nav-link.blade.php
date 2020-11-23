@@ -1,5 +1,5 @@
 @php
-    $classes = 'block px-4 py-2 mx-1 rounded-lg hover:text-orange-300 hover:bg-gray-900';
+    $classes = 'block px-5 py-2 hover:text-orange-300 hover:bg-gray-700';
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>

@@ -22,7 +22,7 @@
                             <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-orange-300" src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?s=40" alt="{{ Auth::user()->name }}">
                         </button>
                     </div>
-                    <div class="right-0 bg-gray-100 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" x-show.transition.opacity.duration.300ms="userShow">
+                    <div class="right-0 bg-gray-100 border-2 border-blueGray-700 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" x-show.transition.opacity.duration.300ms="userShow">
                         <x-user-nav-link href="#">Profile</x-user-nav-link>
                         <x-user-nav-link href="#">Settings</x-user-nav-link>
                         <x-user-nav-link href="{{ route('logout') }}">Log Out</x-user-nav-link>
