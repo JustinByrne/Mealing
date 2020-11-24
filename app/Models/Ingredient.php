@@ -20,6 +20,14 @@ class Ingredient extends Model
     ];
 
     /**
+     * The meals that belong to the ingredient.
+     */
+    public function meals()
+    {
+        return $this->belongsToMany('App\Models\Meal');
+    }
+
+    /**
      * Get the url path for the Timing
      * 
      * @return Illuminate\Support\Facades\Route;

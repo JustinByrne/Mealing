@@ -40,6 +40,14 @@ class Meal extends Model
     }
 
     /**
+     * The ingredients that belong to the meal.
+     */
+    public function ingredients()
+    {
+        return $this->belongsToMany('App\Models\Ingredient');
+    }
+
+    /**
      * Get the url path for the Meal
      * 
      * @return Illuminate\Support\Facades\Route;
