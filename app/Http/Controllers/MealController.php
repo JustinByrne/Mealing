@@ -95,5 +95,7 @@ class MealController extends Controller
         abort_if(Gate::denies('meal_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         $meal->delete();
+
+        return redirect()->back();
     }
 }

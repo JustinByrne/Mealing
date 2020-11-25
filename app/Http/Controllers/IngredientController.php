@@ -95,5 +95,7 @@ class IngredientController extends Controller
         abort_if(Gate::denies('ingredient_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         $ingredient->delete();
+
+        return redirect()->back();
     }
 }
