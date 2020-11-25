@@ -23,6 +23,5 @@
                 </div>
             @endif
         </div>
-        @livewireScripts
     </body>
 </html>
