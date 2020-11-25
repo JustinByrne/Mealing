@@ -13,10 +13,14 @@
 - Implement livewire to improve UX
 - Add 2fa
 - Add email verification
-- Change profile picture on nav to a dropdown with extra links
 - Add profile page for user to do the following
   - Change password
   - Change email
     - This email will need to be verified
   - Change name
 - Create a good README.md file
+- Ratings for meals
+- Search for meals/ingredients
+- Comments for meals
+- Dietary tagging
+- Meal Categories (dinner/lunch/pudding/savoury/sweet)

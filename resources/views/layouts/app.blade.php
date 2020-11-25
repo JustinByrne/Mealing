@@ -17,9 +17,12 @@
                     </ul>
                 </div>
             </div>
-            <div class="w-full p-8 mt-6 text-gray-900 leading-normal shadow-lg bg-white rounded lg:mt-0 lg:w-4/5">
-                @yield('content')
-            </div>
+            @if (trim($__env->yieldContent('content')))
+                <div class="w-full p-8 mt-6 text-gray-900 leading-normal shadow-lg bg-white rounded lg:mt-0 lg:w-4/5">
+                    @yield('content')
+                </div>
+            @endif
         </div>
+        @livewireScripts
     </body>
 </html>
