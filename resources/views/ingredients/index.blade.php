@@ -2,9 +2,7 @@
 
 @section('title', 'Ingredients')
 
-@section('side-links')
-    <x-side-link href="{{ route('ingredients.create') }}">Create new Ingredient</x-side-link>
-@endsection
+@include('ingredients.sidebar')
 
 @section('content')
     <div class="font-sans">

@@ -33,6 +33,8 @@ class IngredientController extends Controller
     public function create()
     {
         abort_if(Gate::denies('ingredient_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('ingredients.create');
     }
     
     /**
