@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionRolePivotTable extends Migration
+class AddUserIdToIngredientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreatePermissionRolePivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('permission_role', function (Blueprint $table) {
-            $table->foreignId('permission_id')->constrained()->onDelete('cascade');;
-            $table->foreignId('role_id')->constrained()->onDelete('cascade');;
+        Schema::table('ingredients', function (Blueprint $table) {
+            $table->foreignId('user_id')->after('name')->constrained()->onDelete('cascade');
         });
     }
 
@@ -26,6 +25,8 @@ class CreatePermissionRolePivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission_role');
+        Schema::table('ingredients', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+        });
     }
 }
