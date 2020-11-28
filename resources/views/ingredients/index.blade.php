@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Ingredients')
+@if (request()->routeIs('ingredients.all'))
+    @section('title', 'All Ingredients')
+@else
+    @section('title', 'My Ingredients')
+@endif
 
 @include('ingredients.sidebar')
 
