@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::get('/ingredients/all', [IngredientController::class, 'all'])->name('ingredients.all');
+
     Route::resources([
         'meals' => MealController::class,
         'servings' => ServingController::class,

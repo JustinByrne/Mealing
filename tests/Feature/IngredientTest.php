@@ -34,6 +34,25 @@ class IngredientTest extends TestCase
     }
 
     /**
+     * test the all page for ingredients/
+     * 
+     * @return void
+     */
+    public function testIngredientAll()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)->get(route('ingredients.all'));
+
+        $response->assertOk();
+    }
+
+    /**
      * test the index of ingredients without permission.
      * 
      * @return void

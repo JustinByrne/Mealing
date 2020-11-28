@@ -13,7 +13,7 @@ use Auth;
 class IngredientController extends Controller
 {
     /**
-     * Show all ingredients
+     * Show all owned ingredients
      * 
      * @return \Illuminate\Http\Response
      */
@@ -22,6 +22,20 @@ class IngredientController extends Controller
         abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $ingredients = Auth::User()->Ingredients;
+
+        return view('ingredients.index', compact('ingredients'));
+    }
+
+    /**
+     * Show all ingredients
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $ingredients = Ingredient::all();
 
         return view('ingredients.index', compact('ingredients'));
     }
