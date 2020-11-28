@@ -8,7 +8,7 @@
         {{ $errors->first('failed') }}
         {{ $errors->first('recaptcha_token') }}
     </p>
-    <form class="w-full max-w-sm" method="POST" action="{{ route('register.store') }}">
+    <form class="w-full max-w-sm" method="POST" action="{{ route('register.store') }}" id="registerForm">
         @csrf
         <input type='hidden' name='recaptcha_token' id='recaptcha_token'>
         <div class="md:flex md:items-center mb-6">
@@ -77,13 +77,13 @@
 <script>
     grecaptcha.ready(function() {
 
-        document.getElementById('loginForm').addEventListener("submit", function(event) {
+        document.getElementById('registerForm').addEventListener("submit", function(event) {
             event.preventDefault();
 
             grecaptcha.execute('{{ env('RECAPTCHA_SITE_KEY') }}', {action: 'register'})
                 .then(function(token) {
                     document.getElementById("recaptcha_token").value = token;
-                    document.getElementById('loginForm').submit();
+                    document.getElementById('registerForm').submit();
             });
         });
 
