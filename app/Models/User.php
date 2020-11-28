@@ -52,6 +52,14 @@ class User extends Authenticatable
     }
 
     /**
+     * The Ingredients that belong to the user
+     */
+    public function Ingredients()
+    {
+        return $this->hasMany(Ingredient::class);
+    }
+
+    /**
      * Getting the path of the individual user
      * 
      * @return Illuminate\Support\Facades\Route;
