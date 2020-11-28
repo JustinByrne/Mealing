@@ -30,14 +30,16 @@
                                     <x-td>{{ $ingredient->meals()->count() }}</x-td>
                                     @if (request()->routeIs('ingredients.all')) <x-td>{{ $ingredient->user->name }}</x-td> @endif
                                     <x-td class="text-right font-medium">
-                                        <div class="inline-flex">
-                                            <a href="{{ $ingredient->path() }}/edit" class="px-2 py-1 text-blueGray-600 rounded-full  hover:text-white hover:bg-green-600">Edit</a>
-                                            <form action="{{ $ingredient->path() }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="px-2 py-1 text-blueGray-600 rounded-full font-medium hover:text-white hover:bg-red-600">Delete</button>
-                                            </form>
-                                        </div>
+                                        @if ($ingredient->user->id == Auth::Id())
+                                            <div class="inline-flex">
+                                                <a href="{{ $ingredient->path() }}/edit" class="px-2 py-1 text-blueGray-600 rounded-full  hover:text-white hover:bg-green-600">Edit</a>
+                                                <form action="{{ $ingredient->path() }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="px-2 py-1 text-blueGray-600 rounded-full font-medium hover:text-white hover:bg-red-600">Delete</button>
+                                                </form>
+                                            </div>
+                                        @endif
                                     </x-td>
                                 </tr>
                             @endforeach
