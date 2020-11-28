@@ -87,6 +87,8 @@ class IngredientController extends Controller
         abort_if(Gate::denies('ingredient_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         abort_if($ingredient->user->id != \Auth::id(), 403);
+
+        return view('ingredients.edit', compact('ingredient'));
     }
 
     /**
