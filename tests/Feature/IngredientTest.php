@@ -211,7 +211,9 @@ class IngredientTest extends TestCase
         $adminId = Role::find(1)->id;
         $user->roles()->sync([$adminId]);
 
-        $ingredient = Ingredient::factory()->create();
+        $ingredient = $user->ingredients()->create([
+            'name' => 'cool food',
+        ]);
 
         $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->id]));
 
@@ -233,6 +235,25 @@ class IngredientTest extends TestCase
     }
 
     /**
+     * test ingredient edit form if not owner.
+     * 
+     * @return void
+     */
+    public function testIngredientEditFormNotOwner()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $ingredient = Ingredient::factory()->create();
+
+        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->id]));
+
+        $response->assertForbidden();
+    }
+
+    /**
      * test an ingredient can be updated
      * 
      * @return void
@@ -246,7 +267,9 @@ class IngredientTest extends TestCase
         $adminId = Role::find(1)->id;
         $user->roles()->sync([$adminId]);
 
-        $ingredient = Ingredient::factory()->create();
+        $ingredient = $user->ingredients()->create([
+            'name' => 'cool food',
+        ]);
 
         // new data
         $name = $this->faker->name;
@@ -284,6 +307,31 @@ class IngredientTest extends TestCase
     }
 
     /**
+     * test an ingredient can be updated when not the owner
+     * 
+     * @return void
+     */
+    public function testIngredientCanBeUpdatedNotOwner()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $ingredient = Ingredient::factory()->create();
+
+        // new data
+        $name = $this->faker->name;
+
+        $response = $this->actingAs($user)
+            ->patch(route('ingredients.update', [$ingredient->id]), [
+                'name' => $name,
+        ]);
+
+        $response->assertForbidden();
+    }
+
+    /**
      * test an ingredient can be deleted
      * 
      * @return void
@@ -297,7 +345,9 @@ class IngredientTest extends TestCase
         $adminId = Role::find(1)->id;
         $user->roles()->sync([$adminId]);
 
-        $ingredient = Ingredient::factory()->create();
+        $ingredient = $user->ingredients()->create([
+            'name' => 'cool food',
+        ]);
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
@@ -316,6 +366,28 @@ class IngredientTest extends TestCase
     {
         $this->seed();
         $user = User::factory()->create();
+
+        $ingredient = Ingredient::factory()->create();
+
+        $this->assertDatabaseCount($ingredient->getTable(), 1);
+
+        $response = $this->actingAs($user)
+            ->delete(route('ingredients.destroy', $ingredient->id));
+
+        $response->assertForbidden();
+    }
+
+    /**
+     * test an ingredient can be deleted when not the owner
+     * 
+     * @return void
+     */
+    public function testIngredientCanBeDeletedNotOwner()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
 
         $ingredient = Ingredient::factory()->create();
 

@@ -85,6 +85,8 @@ class IngredientController extends Controller
     public function edit(Ingredient $ingredient)
     {
         abort_if(Gate::denies('ingredient_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        abort_if($ingredient->user->id != \Auth::id(), 403);
     }
 
     /**
@@ -96,6 +98,8 @@ class IngredientController extends Controller
      */
     public function update(UpdateIngredientRequest $request, Ingredient $ingredient)
     {
+        abort_if($ingredient->user->id != \Auth::id(), 403);
+        
         $ingredient->update($request->validated());
 
         return redirect($ingredient->path());
@@ -110,6 +114,8 @@ class IngredientController extends Controller
     public function destroy(Ingredient $ingredient)
     {
         abort_if(Gate::denies('ingredient_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        abort_if($ingredient->user->id != \Auth::id(), 403);
         
         $ingredient->delete();
 
