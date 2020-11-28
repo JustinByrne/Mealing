@@ -24,4 +24,3 @@
 - Comments for meals
 - Dietary tagging
 - Meal Categories (dinner/lunch/pudding/savoury/sweet)
-- Update tests to check if an ingredient has already been created

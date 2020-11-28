@@ -22,7 +22,7 @@
             <div class="w-full md:w-3/4">
                 <x-input name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ Request::old('name') }}" required class="md:w-80"></x-input>
                 <p class="text-red-500 text-xs italic">
-                    @if ($errors->first('name') != true) {{ $errors->first('name') }} @endif
+                    {{ $errors->first('name') }}
                 </p>
             </div>
         </div>

@@ -28,7 +28,7 @@ class StoreIngredientRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:App\Models\Ingredient,name',
         ];
     }
 
@@ -41,6 +41,7 @@ class StoreIngredientRequest extends FormRequest
     {
         return [
             'name.required' => 'A name is required',
+            'name.unique' => 'This Ingredient already exists',
         ];
     }
 }
