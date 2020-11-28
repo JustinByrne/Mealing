@@ -23,6 +23,7 @@ class IngredientFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
+            'user_id' => \App\Models\User::factory()->create()->id,
         ];
     }
 }

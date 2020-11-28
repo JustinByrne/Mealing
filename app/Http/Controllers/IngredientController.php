@@ -8,6 +8,7 @@ use App\Http\Requests\StoreIngredientRequest;
 use App\Http\Requests\UpdateIngredientRequest;
 use App\Models\Ingredient;
 use Gate;
+use Auth;
 
 class IngredientController extends Controller
 {
@@ -20,7 +21,7 @@ class IngredientController extends Controller
     {
         abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ingredients = Ingredient::all();
+        $ingredients = Auth::User()->Ingredients;
 
         return view('ingredients.index', compact('ingredients'));
     }
@@ -45,7 +46,7 @@ class IngredientController extends Controller
      */
     public function store(StoreIngredientRequest $request)
     {
-        $ingredient = Ingredient::create($request->validated());
+        $ingredient = Auth::User()->Ingredients()->create($request->validated());
 
         return redirect($ingredient->path());
     }
