@@ -34,16 +34,23 @@
                                     <x-td>{{ $ingredient->meals()->count() }}</x-td>
                                     @if (request()->routeIs('ingredients.all')) <x-td>{{ $ingredient->user->name }}</x-td> @endif
                                     <x-td class="text-right font-medium">
-                                        @if ($ingredient->user->id == Auth::Id())
-                                            <div class="inline-flex">
-                                                <a href="{{ $ingredient->path() }}/edit" class="px-2 py-1 text-blueGray-600 rounded-full  hover:text-white hover:bg-green-600">Edit</a>
+                                        <div class="inline-flex">
+                                            <a href="{{ $ingredient->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            @if ($ingredient->user->id == Auth::Id())
+                                                <a href="{{ $ingredient->path() }}/edit" class="px-2 py-1 text-blueGray-600 font-medium hover:text-lime-600">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
                                                 <form action="{{ $ingredient->path() }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button class="px-2 py-1 text-blueGray-600 rounded-full font-medium hover:text-white hover:bg-red-600">Delete</button>
+                                                    <button type="submit" class="px-2 py-1 text-blueGray-600 font-medium hover:text-red-700">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
                                                 </form>
-                                            </div>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </x-td>
                                 </tr>
                             @endforeach
