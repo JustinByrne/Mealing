@@ -8,6 +8,7 @@ use App\Http\Requests\StoreMealRequest;
 use App\Http\Requests\UpdateMealRequest;
 use App\Models\Meal;
 use Gate;
+use Auth;
 
 class MealController extends Controller
 {
@@ -43,7 +44,7 @@ class MealController extends Controller
      */
     public function store(StoreMealRequest $request)
     {
-        $meal = Meal::create($request->validated());
+        $meal = Auth::User()->Meals()->create($request->validated());
 
         return redirect($meal->path());
     }

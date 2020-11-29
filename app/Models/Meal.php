@@ -48,6 +48,14 @@ class Meal extends Model
     }
 
     /**
+     * The User that owns the Ingredient
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Get the url path for the Meal
      * 
      * @return Illuminate\Support\Facades\Route;

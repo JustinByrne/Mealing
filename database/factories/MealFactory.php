@@ -29,6 +29,7 @@ class MealFactory extends Factory
             'adults' => $this->faker->boolean,
             'kids' => $this->faker->boolean,
             'timing_id' => Timing::factory(),
+            'user_id' => \App\Models\User::factory()->create()->id,
         ];
     }
 }

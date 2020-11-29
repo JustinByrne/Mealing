@@ -58,6 +58,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ingredient::class);
     }
+    
+    /**
+     * The Meals that belong to the user
+     */
+    public function Meals()
+    {
+        return $this->hasMany(Meal::class);
+    }
 
     /**
      * Getting the path of the individual user
