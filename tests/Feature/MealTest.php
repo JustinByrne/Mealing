@@ -63,7 +63,7 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('meals.create', [$meal->id]));
+        $response = $this->actingAs($user)->get(route('meals.create', [$meal->slug]));
 
         $response->assertOk();
     }
@@ -77,7 +77,7 @@ class MealTest extends TestCase
     {
         $meal = Meal::factory()->create();
 
-        $response = $this->get(route('meals.create', [$meal->id]));
+        $response = $this->get(route('meals.create', [$meal->slug]));
 
         $response->assertRedirect(route('login'));
     }
@@ -269,7 +269,7 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('meals.show', [$meal->id]));
+        $response = $this->actingAs($user)->get($meal->path());
 
         $response->assertOk();
     }
@@ -286,7 +286,7 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('meals.show', [$meal->id]));
+        $response = $this->actingAs($user)->get($meal->path());
 
         $response->assertForbidden();
     }
@@ -307,7 +307,7 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('meals.edit', [$meal->id]));
+        $response = $this->actingAs($user)->get(route('meals.edit', [$meal->slug]));
 
         $response->assertOk();
     }
@@ -321,7 +321,7 @@ class MealTest extends TestCase
     {
         $meal = Meal::factory()->create();
 
-        $response = $this->get(route('meals.edit', [$meal->id]));
+        $response = $this->get(route('meals.edit', [$meal->slug]));
 
         $response->assertRedirect(route('login'));
     }
@@ -350,7 +350,7 @@ class MealTest extends TestCase
         $timing = Timing::factory()->create()->id;
 
         $response = $this->actingAs($user)
-            ->patch(route('meals.update', [$meal->id]), [
+            ->patch(route('meals.update', [$meal->slug]), [
                 'name' => $name,
                 'serving_id' => $serving,
                 'adults' => $adults,
@@ -363,7 +363,7 @@ class MealTest extends TestCase
         $this->assertEquals($adults, Meal::first()->adults);
         $this->assertEquals($kids, Meal::first()->kids);
         $this->assertEquals($timing, Meal::first()->timing_id);
-        $response->assertRedirect($meal->path());
+        $response->assertRedirect(Meal::first()->path());
     }
 
     /**
@@ -386,7 +386,7 @@ class MealTest extends TestCase
         $timing = Timing::factory()->create()->id;
 
         $response = $this->actingAs($user)
-            ->patch(route('meals.update', [$meal->id]), [
+            ->patch(route('meals.update', [$meal->slug]), [
                 'name' => $name,
                 'serving_id' => $serving,
                 'adults' => $adults,
@@ -415,7 +415,7 @@ class MealTest extends TestCase
 
         $this->assertDatabaseCount($meal->getTable(), 1);
 
-        $this->actingAs($user)->delete(route('meals.destroy', [$meal->id]));
+        $this->actingAs($user)->delete(route('meals.destroy', [$meal->slug]));
 
         $this->assertSoftDeleted($meal);
     }
@@ -434,7 +434,7 @@ class MealTest extends TestCase
 
         $this->assertDatabaseCount($meal->getTable(), 1);
 
-        $response = $this->actingAs($user)->delete(route('meals.destroy', [$meal->id]));
+        $response = $this->actingAs($user)->delete(route('meals.destroy', [$meal->slug]));
 
         $response->assertForbidden();
     }

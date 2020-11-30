@@ -81,7 +81,7 @@ class IngredientTest extends TestCase
 
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('ingredients.create', [$ingredient->id]));
+        $response = $this->actingAs($user)->get(route('ingredients.create', [$ingredient->slug]));
 
         $response->assertOk();
     }
@@ -95,7 +95,7 @@ class IngredientTest extends TestCase
     {
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->get(route('ingredients.create', [$ingredient->id]));
+        $response = $this->get(route('ingredients.create', [$ingredient->slug]));
 
         $response->assertRedirect(route('login'));
     }
@@ -179,7 +179,7 @@ class IngredientTest extends TestCase
 
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('ingredients.show', [$ingredient->id]));
+        $response = $this->actingAs($user)->get(route('ingredients.show', [$ingredient->slug]));
 
         $response->assertOk();
     }
@@ -193,7 +193,7 @@ class IngredientTest extends TestCase
     {
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->get(route('ingredients.show', [$ingredient->id]));
+        $response = $this->get(route('ingredients.show', [$ingredient->slug]));
 
         $response->assertRedirect(route('login'));
     }
@@ -216,7 +216,7 @@ class IngredientTest extends TestCase
             'name' => 'cool food',
         ]);
 
-        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->id]));
+        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->slug]));
 
         $response->assertOk();
     }
@@ -230,7 +230,7 @@ class IngredientTest extends TestCase
     {
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->get(route('ingredients.edit', [$ingredient->id]));
+        $response = $this->get(route('ingredients.edit', [$ingredient->slug]));
 
         $response->assertRedirect(route('login'));
     }
@@ -249,7 +249,7 @@ class IngredientTest extends TestCase
         
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->id]));
+        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->slug]));
 
         $response->assertForbidden();
     }
@@ -269,19 +269,19 @@ class IngredientTest extends TestCase
         $user->roles()->sync([$adminId]);
 
         $ingredient = $user->ingredients()->create([
-            'name' => 'cool food',
+            'name' => 'updated food',
         ]);
 
         // new data
         $name = $this->faker->name;
 
         $response = $this->actingAs($user)
-            ->patch(route('ingredients.update', [$ingredient->id]), [
+            ->patch(route('ingredients.update', [$ingredient->slug]), [
                 'name' => $name,
         ]);
 
         $this->assertEquals($name, Ingredient::first()->name);
-        $response->assertRedirect($ingredient->path());
+        $response->assertRedirect(Ingredient::first()->path());
     }
 
     /**
@@ -300,7 +300,7 @@ class IngredientTest extends TestCase
         $name = $this->faker->name;
 
         $response = $this->actingAs($user)
-            ->patch(route('ingredients.update', [$ingredient->id]), [
+            ->patch(route('ingredients.update', [$ingredient->slug]), [
                 'name' => $name,
         ]);
 
@@ -325,7 +325,7 @@ class IngredientTest extends TestCase
         $name = $this->faker->name;
 
         $response = $this->actingAs($user)
-            ->patch(route('ingredients.update', [$ingredient->id]), [
+            ->patch(route('ingredients.update', [$ingredient->slug]), [
                 'name' => $name,
         ]);
 
@@ -353,7 +353,7 @@ class IngredientTest extends TestCase
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
         $this->actingAs($user)
-            ->delete(route('ingredients.destroy', $ingredient->id));
+            ->delete(route('ingredients.destroy', $ingredient->slug));
 
         $this->assertSoftDeleted($ingredient);
     }
@@ -373,7 +373,7 @@ class IngredientTest extends TestCase
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
         $response = $this->actingAs($user)
-            ->delete(route('ingredients.destroy', $ingredient->id));
+            ->delete(route('ingredients.destroy', $ingredient->slug));
 
         $response->assertForbidden();
     }
@@ -395,7 +395,7 @@ class IngredientTest extends TestCase
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
         $response = $this->actingAs($user)
-            ->delete(route('ingredients.destroy', $ingredient->id));
+            ->delete(route('ingredients.destroy', $ingredient->slug));
 
         $response->assertForbidden();
     }
