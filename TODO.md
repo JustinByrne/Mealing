@@ -24,5 +24,4 @@
 - Comments for meals
 - Dietary tagging
 - Meal Categories (dinner/lunch/pudding/savoury/sweet)
-- Add slugs to ingredients and meals
-- Add method to meals
+- Add slugs to meals

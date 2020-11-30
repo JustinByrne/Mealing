@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Models\Ingredient;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Str;
 
 class IngredientTest extends TestCase
 {

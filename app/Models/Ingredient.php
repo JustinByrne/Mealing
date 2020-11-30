@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ingredient extends Model
@@ -42,6 +43,27 @@ class Ingredient extends Model
      */
     public function path()
     {
-        return route('ingredients.show', [$this->id]);
+        return route('ingredients.show', [$this->slug]);
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    /**
+     * Creating the slug from the name
+     */
+    public function setNameAttribute($value)
+    {
+        if ($value)  {
+            $this->attributes['name'] = $value;
+            $this->attributes['slug'] = Str::slug($value, '-');
+        }
     }
 }
