@@ -70,4 +70,14 @@ class Meal extends Model
             $this->attributes['slug'] = Str::slug($value, '-');
         }
     }
+
+    /**
+     * Change the minutes into a human readable format
+     * 
+     * @return \Carbon\CarbonInterval
+     */
+    public function getReadableTimingAttribute()
+    {
+        return \Carbon\CarbonInterval::minutes($this->timing)->cascade()->forHumans();
+    }
 }
