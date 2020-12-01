@@ -41,6 +41,14 @@ class Meal extends Model
     }
 
     /**
+     * The ratings that belong to the meal
+     */
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    /**
      * Get the url path for the Meal
      * 
      * @return Illuminate\Support\Facades\Route;
