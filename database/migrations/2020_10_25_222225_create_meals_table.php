@@ -16,10 +16,10 @@ class CreateMealsTable extends Migration
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('serving_id')->constrained()->onDelete('cascade');
+            $table->foreignId('servings');
             $table->boolean('adults');
             $table->boolean('kids');
-            $table->foreignId('timing_id')->constrained()->onDelete('cascade');
+            $table->foreignId('timing');
             $table->timestamps();
             $table->softDeletes();
         });

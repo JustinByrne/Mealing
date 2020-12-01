@@ -4,8 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Meal;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\Serving;
-use App\Models\Timing;
 
 class MealFactory extends Factory
 {
@@ -25,10 +23,10 @@ class MealFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'serving_id' => Serving::factory(),
+            'servings' => $this->faker->randomDigit,
             'adults' => $this->faker->boolean,
             'kids' => $this->faker->boolean,
-            'timing_id' => Timing::factory(),
+            'timing' => $this->faker->randomDigit,
             'user_id' => \App\Models\User::factory()->create()->id,
         ];
     }

@@ -18,27 +18,11 @@ class Meal extends Model
      */
     protected $fillable = [
         'name',
-        'serving_id',
+        'servings',
         'adults',
         'kids',
-        'timing_id',
+        'timing',
     ];
-
-    /**
-     * Get the serving for the meal.
-     */
-    public function serving()
-    {
-        return $this->belongsTo('App\Models\Serving');
-    }
-
-    /**
-     * Get the timing for the meal.
-     */
-    public function timing()
-    {
-        return $this->belongsTo('App\Models\Timing');
-    }
 
     /**
      * The ingredients that belong to the meal.

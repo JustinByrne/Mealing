@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Meal;
-use App\Models\Serving;
-use App\Models\Timing;
 use App\Models\User;
 use App\Models\Role;
 
@@ -99,10 +97,10 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
-                'serving_id' => Serving::factory()->create()->id,
+                'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
                 'kids' => $this->faker->boolean,
-                'timing_id' => Timing::factory()->create()->id,
+                'timing' => $this->faker->randomDigitNotNull,
         ]);
 
         $meal = Meal::first();
@@ -126,10 +124,10 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('meals.store'), [
                 'name' => null,
-                'serving_id' => Serving::factory()->create()->id,
+                'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
                 'kids' => $this->faker->boolean,
-                'timing_id' => Timing::factory()->create()->id,
+                'timing' => $this->faker->randomDigitNotNull,
         ]);
 
         $response->assertSessionHasErrors(['name']);
@@ -150,13 +148,13 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
-                'serving_id' => null,
+                'servings' => null,
                 'adults' => $this->faker->boolean,
                 'kids' => $this->faker->boolean,
-                'timing_id' => Timing::factory()->create()->id,
+                'timing' => $this->faker->randomDigitNotNull,
         ]);
 
-        $response->assertSessionHasErrors(['serving_id']);
+        $response->assertSessionHasErrors(['servings']);
     }
 
     /**
@@ -174,13 +172,13 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
-                'serving_id' => Serving::factory()->create()->id,
+                'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
                 'kids' => $this->faker->boolean,
-                'timing_id' => null,
+                'timing' => null,
         ]);
 
-        $response->assertSessionHasErrors(['timing_id']);
+        $response->assertSessionHasErrors(['timing']);
     }
 
     /**
@@ -198,10 +196,10 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
-                'serving_id' => Serving::factory()->create()->id,
+                'servings' => $this->faker->randomDigitNotNull,
                 'adults' => null,
                 'kids' => $this->faker->boolean,
-                'timing_id' => Timing::factory()->create()->id,
+                'timing' => $this->faker->randomDigitNotNull,
         ]);
 
         $response->assertSessionHasErrors(['adults']);
@@ -222,10 +220,10 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
-                'serving_id' => Serving::factory()->create()->id,
+                'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
                 'kids' => null,
-                'timing_id' => Timing::factory()->create()->id,
+                'timing' => $this->faker->randomDigitNotNull,
         ]);
 
         $response->assertSessionHasErrors(['kids']);
@@ -244,10 +242,10 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
-                'serving_id' => Serving::factory()->create()->id,
+                'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
                 'kids' => $this->faker->boolean,
-                'timing_id' => Timing::factory()->create()->id,
+                'timing' => $this->faker->randomDigitNotNull,
         ]);
 
         $response->assertForbidden();
@@ -344,25 +342,25 @@ class MealTest extends TestCase
 
         // new data
         $name = $this->faker->name;
-        $serving = Serving::factory()->create()->id;
+        $serving = $this->faker->randomDigitNotNull;
         $adults = $this->faker->boolean;
         $kids = $this->faker->boolean;
-        $timing = Timing::factory()->create()->id;
+        $timing = $this->faker->randomDigitNotNull;
 
         $response = $this->actingAs($user)
             ->patch(route('meals.update', [$meal->slug]), [
                 'name' => $name,
-                'serving_id' => $serving,
+                'servings' => $serving,
                 'adults' => $adults,
                 'kids' => $kids,
-                'timing_id' => $timing,
+                'timing' => $timing,
         ]);
 
         $this->assertEquals($name, Meal::first()->name);
-        $this->assertEquals($serving, Meal::first()->serving_id);
+        $this->assertEquals($serving, Meal::first()->servings);
         $this->assertEquals($adults, Meal::first()->adults);
         $this->assertEquals($kids, Meal::first()->kids);
-        $this->assertEquals($timing, Meal::first()->timing_id);
+        $this->assertEquals($timing, Meal::first()->timing);
         $response->assertRedirect(Meal::first()->path());
     }
 
@@ -380,18 +378,18 @@ class MealTest extends TestCase
 
         // new data
         $name = $this->faker->name;
-        $serving = Serving::factory()->create()->id;
+        $serving = $this->faker->randomDigitNotNull;
         $adults = $this->faker->boolean;
         $kids = $this->faker->boolean;
-        $timing = Timing::factory()->create()->id;
+        $timing = $this->faker->randomDigitNotNull;
 
         $response = $this->actingAs($user)
             ->patch(route('meals.update', [$meal->slug]), [
                 'name' => $name,
-                'serving_id' => $serving,
+                'servings' => $serving,
                 'adults' => $adults,
                 'kids' => $kids,
-                'timing_id' => $timing,
+                'timing' => $timing,
         ]);
 
         $response->assertForbidden();
