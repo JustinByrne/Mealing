@@ -1,5 +1,9 @@
 @props(['rating'])
 
+@php
+    $rating = $rating + 0
+@endphp
+
 <span title="{{ $rating }}">
     @foreach(range(1,5) as $i)
         
