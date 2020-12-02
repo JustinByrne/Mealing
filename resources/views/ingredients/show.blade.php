@@ -23,6 +23,8 @@
                             <thead>
                                 <tr>
                                     <x-th>Meal</x-th>
+                                    <x-th>Servings</x-th>
+                                    <x-th>Timing</x-th>
                                     <x-th>Rating</x-th>
                                     <x-th></x-th>
                                 </tr>
@@ -31,7 +33,9 @@
                                 @foreach ($ingredient->meals as $meal)
                                     <tr>
                                         <x-td>{{ $meal->name }}</x-td>
-                                        <x-td></x-td>
+                                        <x-td>{{ $meal->servings }}</x-td>
+                                        <x-td>{{ $meal->readable_timing }}</x-td>
+                                        <x-td><x-rating :rating="$meal->ratings()->avg('score')"></x-rating></x-td>
                                         <x-td class="text-right font-medium">
                                             <div class="inline-flex">
                                                 <a href="{{ $meal->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">

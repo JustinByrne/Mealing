@@ -23,7 +23,6 @@
                             <tr>
                                 <x-th>Ingredient</x-th>
                                 <x-th>Number of Meals</x-th>
-                                @if (request()->routeIs('ingredients.all')) <x-th>Owner</x-th> @endif
                                 <x-th></x-th>
                             </tr>
                         </thead>
@@ -32,7 +31,6 @@
                                 <tr>
                                     <x-td>{{ $ingredient->name }}</x-td>
                                     <x-td>{{ $ingredient->meals()->count() }}</x-td>
-                                    @if (request()->routeIs('ingredients.all')) <x-td>{{ $ingredient->user->name }}</x-td> @endif
                                     <x-td class="text-right font-medium">
                                         <div class="inline-flex">
                                             <a href="{{ $ingredient->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
