@@ -34,6 +34,25 @@ class MealTest extends TestCase
     }
 
     /**
+     * test the all meals function.
+     * 
+     * @return void
+     */
+    public function testMealAll()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+        
+        $response = $this->actingAs($user)->get(route('meals.all'));
+
+        $response->assertOk();
+    }
+
+    /**
      * test the index of meals without permission.
      * 
      * @return void

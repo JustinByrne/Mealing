@@ -21,6 +21,20 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $meals = \Auth::User()->meals()->get();
+
+        return view('meals.index', compact('meals'));
+    }
+
+    /**
+     * Show all the meals
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function all()
+    {
+        abort_if(Gate::denies('meal_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $meals = Meal::all();
 
         return view('meals.index', compact('meals'));
