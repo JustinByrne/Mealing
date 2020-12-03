@@ -26,6 +26,6 @@ class CreateIngredientMealPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingredient_meal_pivot');
+        Schema::dropIfExists('ingredient_meal');
     }
 }
