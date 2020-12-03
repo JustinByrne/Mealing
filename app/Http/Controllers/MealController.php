@@ -72,6 +72,8 @@ class MealController extends Controller
     public function show(Meal $meal)
     {
         abort_if(Gate::denies('meal_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('meals.show', compact('meal'));
     }
 
     /**
