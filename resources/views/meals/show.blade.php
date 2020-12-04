@@ -6,7 +6,23 @@
 
 @section('content')
     <div class="font-sans">
-        <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">{{ $meal->name }}</h1>
+        <div class="flex justify-between">
+            <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">{{ $meal->name }}</h1>
+            @if ($meal->user->id == Auth::Id())
+                <div class="pt-6 inline-flex">
+                    <a href="{{ $meal->path() }}/edit" class="px-2 py-1 text-blueGray-600 font-medium hover:text-lime-600">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <form action="{{ $meal->path() }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="px-2 py-1 text-blueGray-600 font-medium hover:text-red-700">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            @endif
+        </div>
         <hr class="border-b border-gray-400">
     </div>
 
