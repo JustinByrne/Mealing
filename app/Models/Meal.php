@@ -49,6 +49,15 @@ class Meal extends Model
     }
 
     /**
+     * The comments that belong to the meal
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
+    /**
      * Get the url path for the Meal
      * 
      * @return Illuminate\Support\Facades\Route;
