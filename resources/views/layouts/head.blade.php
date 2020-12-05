@@ -4,5 +4,4 @@
 @livewireStyles
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 <script src="https://kit.fontawesome.com/a357069ed8.js" crossorigin="anonymous"></script>
-@livewireScripts
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
