@@ -289,6 +289,7 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)->get($meal->path());
 
         $response->assertOk();
+        $response->assertSeeLivewire('comments');
     }
 
     /**

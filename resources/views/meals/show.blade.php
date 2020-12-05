@@ -44,4 +44,6 @@
             {!! $meal->instruction !!}
         </div>
     </div>
+
+    @livewire('comments', ['meal' => $meal])
 @endsection
