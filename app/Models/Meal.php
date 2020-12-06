@@ -53,7 +53,7 @@ class Meal extends Model
      */
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderBy('created_at', 'DESC');
     }
 
 
@@ -96,5 +96,15 @@ class Meal extends Model
     public function getReadableTimingAttribute()
     {
         return \Carbon\CarbonInterval::minutes($this->timing)->cascade()->forHumans();
+    }
+
+    /**
+     * Check if user already has a comment
+     * 
+     * @return boolean
+     */
+    public function hasCommentsFromUser()
+    {
+        return !is_null($this->comments->firstWhere('user_id', \Auth::Id()));
     }
 }
