@@ -8,6 +8,8 @@ use Tests\TestCase;
 use App\Models\Meal;
 use App\Models\User;
 use App\Models\Role;
+use Livewire\Livewire;
+use App\Http\Livewire\Comments;
 
 class MealTest extends TestCase
 {
@@ -307,6 +309,53 @@ class MealTest extends TestCase
         $response = $this->actingAs($user)->get($meal->path());
 
         $response->assertForbidden();
+    }
+
+    /**
+     * test adding a comment
+     * 
+     * @return void
+     */
+    public function testAddingCommentToMeal()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $meal = Meal::factory()->create();
+        
+        $this->actingAs($user);
+
+        Livewire::test(Comments::class, ['meal' => $meal])
+            ->set('comment', 'foo')
+            ->call('addComment');
+        
+        $this->assertTrue(!is_null($meal->refresh()->comments->firstWhere('comment', 'foo')));
+    }
+
+    /**
+     * test adding a comment
+     * 
+     * @return void
+     */
+    public function testAddingCommentToMealWithoutComment()
+    {
+        $this->seed();
+        $user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $user->roles()->sync([$adminId]);
+
+        $meal = Meal::factory()->create();
+        
+        $this->actingAs($user);
+
+        Livewire::test(Comments::class, ['meal' => $meal])
+            ->set('comment', null)
+            ->call('addComment')
+            ->assertHasErrors(['comment' => 'required']);
     }
 
     /**
