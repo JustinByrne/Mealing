@@ -12,7 +12,7 @@ class Comments extends Component
     public function render()
     {
         return view('livewire.comments', [
-            'comments' => $this->meal->comments,
+            'meal' => $this->meal,
         ]);
     }
 }
