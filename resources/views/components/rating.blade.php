@@ -4,7 +4,7 @@
     $rating = $rating + 0
 @endphp
 
-<span title="{{ $rating }}">
+<span title="{{ $rating }}" {{ $attributes->merge() }}>
     @foreach(range(1,5) as $i)
         
         @if($rating > 0)
