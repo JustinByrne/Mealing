@@ -7,7 +7,9 @@
 @section('content')
     <div class="font-sans">
         <div class="flex justify-between">
-            <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">{{ $meal->name }}</h1>
+            <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">
+                {{ $meal->name }} <x-rating :rating="$meal->ratings()->avg('score')" class="text-xs"></x-rating>
+            </h1>
             @if ($meal->user->id == Auth::Id())
                 <div class="pt-6 inline-flex">
                     <a href="{{ $meal->path() }}/edit" class="px-2 py-1 text-blueGray-600 font-medium hover:text-lime-600">
@@ -44,6 +46,10 @@
             {!! $meal->instruction !!}
         </div>
     </div>
+
+    <h2 class="font-sans break-normal text-orange-600 text-lg pb-2 mt-12">
+        Comments
+    </h2>
 
     @livewire('comments', ['meal' => $meal])
 @endsection
