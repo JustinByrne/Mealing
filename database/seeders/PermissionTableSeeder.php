@@ -159,6 +159,6 @@ class PermissionTableSeeder extends Seeder
                 'id'    => '36',
                 'title' => 'meal_access',
             ]
-            ], 'id');
+        ], 'id');
     }
 }
