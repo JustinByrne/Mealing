@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Permission;
 use Database\Seeders\PermissionRoleTableSeeder;
 
 class CommentRoleSeeder extends Seeder
