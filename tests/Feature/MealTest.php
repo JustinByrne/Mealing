@@ -327,9 +327,8 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
         
-        $this->actingAs($user);
-
-        Livewire::test(Comments::class, ['meal' => $meal])
+        Livewire::actingAs($user)
+            ->test(Comments::class, ['meal' => $meal])
             ->set('comment', 'foo')
             ->call('addComment');
         
@@ -337,11 +336,11 @@ class MealTest extends TestCase
     }
 
     /**
-     * test adding a comment
+     * test adding a comment with a null comment
      * 
      * @return void
      */
-    public function testAddingCommentToMealWithoutComment()
+    public function testAddingCommentToMealWithCommentNull()
     {
         $this->seed();
         $user = User::factory()->create();
@@ -350,9 +349,8 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
         
-        $this->actingAs($user);
-
-        Livewire::test(Comments::class, ['meal' => $meal])
+        Livewire::actingAs($user)
+            ->test(Comments::class, ['meal' => $meal])
             ->set('comment', null)
             ->call('addComment')
             ->assertHasErrors(['comment' => 'required']);
