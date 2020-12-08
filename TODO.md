@@ -2,7 +2,6 @@
 
 - Add view templates
 - Create view for index, create, show, edit functions for the following controllers
-  - [ ] Ingredient
   - [ ] Meal
   - [ ] Permission
   - [ ] Role
@@ -10,7 +9,6 @@
   - [ ] Timing
   - [ ] User
 - Create homepage design
-- Implement livewire to improve UX
 - Add 2fa
 - Add email verification
 - Add profile page for user to do the following
@@ -21,6 +19,5 @@
 - Create a good README.md file
 - Ratings for meals
 - Search for meals/ingredients
-- Comments for meals
 - Dietary tagging
 - Meal Categories (dinner/lunch/pudding/savoury/sweet)
