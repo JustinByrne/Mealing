@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/ingredients/all', [IngredientController::class, 'all'])->name('ingredients.all');
+    Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');
 
     Route::resources([

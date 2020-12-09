@@ -21,23 +21,7 @@ class IngredientController extends Controller
     {
         abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ingredients = Auth::User()->Ingredients()->orderBy('name')->get();
-
-        return view('ingredients.index', compact('ingredients'));
-    }
-
-    /**
-     * Show all ingredients
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function all()
-    {
-        abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $ingredients = Ingredient::orderBy('name')->get();
-
-        return view('ingredients.index', compact('ingredients'));
+        return view('ingredients.index');
     }
 
     /**
