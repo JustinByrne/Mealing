@@ -18,6 +18,5 @@
   - Change name
 - Create a good README.md file
 - Ratings for meals
-- Search for meals/ingredients
 - Dietary tagging
 - Meal Categories (dinner/lunch/pudding/savoury/sweet)
