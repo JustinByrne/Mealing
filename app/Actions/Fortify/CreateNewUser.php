@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
+use App\Rules\RecaptchaRule;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -30,6 +31,7 @@ class CreateNewUser implements CreatesNewUsers
                 Rule::unique(User::class),
             ],
             'password' => $this->passwordRules(),
+            'recaptcha_token' => ['required', new RecaptchaRule($input['recaptcha_token']) ],
         ])->validate();
 
         return User::create([
