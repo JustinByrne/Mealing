@@ -8,17 +8,18 @@ use App\Models\Ingredient;
 class Ingredients extends Component
 {
     public $search;
+    Public $allIngredients;
     
     public function render()
     {
-        if (request()->routeIs('ingredients.index'))    {
-            return view('livewire.ingredients', [
-                'ingredients' => \Auth::User()->Ingredients()->where('name', 'like', '%' . $this->search . '%')->get(),
-            ]);
+        if ($this->allIngredients) {
+            $ingredients = Ingredient::where('name', 'like', '%' . $this->search . '%')->get();
         } else {
-            return view('livewire.ingredients', [
-                'ingredients' => Ingredient::where('name', 'like', '%' . $this->search . '%')->get(),
-            ]);
+            $ingredients = \Auth::User()->Ingredients()->where('name', 'like', '%' . $this->search . '%')->get();
         }
+
+        return view('livewire.ingredients', [
+            'ingredients' => $ingredients,
+        ]);
     }
 }

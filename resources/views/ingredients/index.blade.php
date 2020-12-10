@@ -9,5 +9,9 @@
 @include('ingredients.sidebar')
 
 @section('content')
-    @livewire('ingredients')
+    @if (\Request::routeIs('ingredients.all'))
+        @livewire('ingredients', ['allIngredients' => True])
+    @else
+        @livewire('ingredients')
+    @endif
 @endsection
