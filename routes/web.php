@@ -24,15 +24,10 @@ use App\Http\Controllers\PagesController;
 
 Route::middleware(['guest'])->group(function()  {
     Route::get('/', [PagesController::class, 'landing'])->name('landing');
-    Route::get('/register', [AuthController::class, 'register'])->name('register');
-    Route::post('/register', [AuthController::class, 'registerStore'])->name('register.store');
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');
 });
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');

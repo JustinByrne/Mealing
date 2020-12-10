@@ -8,7 +8,7 @@
         {{ $errors->first('failed') }}
         {{ $errors->first('recaptcha_token') }}
     </p>
-    <form class="w-full max-w-sm" method="POST" action="{{ route('register.store') }}" id="registerForm">
+    <form class="w-full max-w-sm" method="POST" action="{{ route('register') }}" id="registerForm">
         @csrf
         <input type='hidden' name='recaptcha_token' id='recaptcha_token'>
         <div class="md:flex md:items-center mb-6">

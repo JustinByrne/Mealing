@@ -7,7 +7,7 @@
     <p class="text-red-500 text-sm text-center font-bold pb-2">
         {{ $errors->first('failed') }}
     </p>
-    <form class="w-full max-w-sm" method="POST" action="{{ route('login.authenticate') }}" id="loginForm">
+    <form class="w-full max-w-sm" method="POST" action="/login" id="loginForm">
         @csrf
         <input type='hidden' name='recaptcha_token' id='recaptcha_token'>
         <div class="md:flex md:items-center mb-6">

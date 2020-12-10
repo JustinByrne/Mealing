@@ -25,7 +25,10 @@
                     <div class="right-0 bg-gray-100 border-2 border-blueGray-700 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" x-show.transition.opacity.duration.300ms="userShow">
                         <x-user-nav-link href="#">Profile</x-user-nav-link>
                         <x-user-nav-link href="#">Settings</x-user-nav-link>
-                        <x-user-nav-link href="{{ route('logout') }}">Log Out</x-user-nav-link>
+                        <x-user-nav-link href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</x-user-nav-link>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
                     </div>
                 </div>
 
@@ -36,7 +39,12 @@
                     <div class="flex flex-col">
                         <x-nav-link href="#">Profile</x-nav-link>
                         <x-nav-link href="#">Settings</x-nav-link>
-                        <x-nav-link href="{{ route('logout') }}">Log Out</x-nav-link>
+                        <x-nav-link href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Log Out
+                        </x-nav-link>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             @else
