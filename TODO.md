@@ -10,7 +10,6 @@
   - [ ] User
 - Create homepage design
 - Add 2fa
-- Add email verification
 - Add profile page for user to do the following
   - Change password
   - Change email

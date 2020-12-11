@@ -3,12 +3,8 @@
 @section('title', 'Register')
 
 @section('content')
-<x-auth-card>
-    <p class="text-red-500 text-sm text-center font-bold pb-2">
-        {{ $errors->first('failed') }}
-        {{ $errors->first('recaptcha_token') }}
-    </p>
-    <form class="w-full max-w-sm" method="POST" action="{{ route('register.store') }}" id="registerForm">
+<x-auth-card title="Register">
+    <form class="w-full max-w-sm" method="POST" action="{{ route('register') }}" id="registerForm">
         @csrf
         <input type='hidden' name='recaptcha_token' id='recaptcha_token'>
         <div class="md:flex md:items-center mb-6">
@@ -19,9 +15,11 @@
             </div>
             <div class="md:w-2/3">
                 <x-input name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ Request::old('name') }}" required></x-input>
-                <p class="text-red-500 text-xs italic">
-                    {{ $errors->first('name') }}
-                </p>
+                @error('name')
+                    <p class="text-red-500 text-xs italic">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
         </div>
         <div class="md:flex md:items-center mb-6">
@@ -32,9 +30,11 @@
             </div>
             <div class="md:w-2/3">
                 <x-input name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email') }}" required></x-input>
-                <p class="text-red-500 text-xs italic">
-                    {{ $errors->first('email') }}
-                </p>
+                @error('email')
+                    <p class="text-red-500 text-xs italic">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
         </div>
         <div class="md:flex md:items-center mb-6">
@@ -45,9 +45,11 @@
             </div>
             <div class="md:w-2/3">
                 <x-input name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
-                <p class="text-red-500 text-xs italic">
-                    {{ $errors->first('password') }}
-                </p>
+                @error('password')
+                    <p class="text-red-500 text-xs italic">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
         </div>
         <div class="md:flex md:items-center mb-6">
