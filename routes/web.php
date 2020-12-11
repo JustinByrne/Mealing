@@ -26,7 +26,7 @@ Route::middleware(['guest'])->group(function()  {
     Route::get('/', [PagesController::class, 'landing'])->name('landing');
 });
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
