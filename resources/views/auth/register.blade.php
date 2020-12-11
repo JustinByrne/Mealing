@@ -3,7 +3,7 @@
 @section('title', 'Register')
 
 @section('content')
-<x-auth-card>
+<x-auth-card title="Register">
     <form class="w-full max-w-sm" method="POST" action="{{ route('register') }}" id="registerForm">
         @csrf
         <input type='hidden' name='recaptcha_token' id='recaptcha_token'>
