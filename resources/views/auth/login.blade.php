@@ -4,9 +4,6 @@
 
 @section('content')
 <x-auth-card>
-    <p class="text-red-500 text-sm text-center font-bold pb-2">
-        {{ $errors->first('failed') }}
-    </p>
     <form class="w-full max-w-sm" method="POST" action="/login" id="loginForm">
         @csrf
         <div class="md:flex md:items-center mb-6">
@@ -17,9 +14,11 @@
             </div>
             <div class="md:w-2/3">
                 <x-input name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email') }}" required></x-input>
-                <p class="text-red-500 text-xs italic">
-                    @if ($errors->first('email') != true) {{ $errors->first('email') }} @endif
-                </p>
+                @error('email')
+                    <p class="text-red-500 text-xs italic">
+                        {{ $message }}
+                    </p>
+                @enderror
             </div>
         </div>
         <div class="md:flex md:items-center mb-6">
@@ -29,10 +28,7 @@
                 </label>
             </div>
             <div class="md:w-2/3">
-                <x-input name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
-                <p class="text-red-500 text-xs italic">
-                    @if ($errors->first('password') != true) {{ $errors->first('password') }} @endif
-                </p>
+                <x-input name="password" type="password" placeholder="******************" required></x-input>
             </div>
         </div>
         <div class="md:flex md:items-center mb-6">
