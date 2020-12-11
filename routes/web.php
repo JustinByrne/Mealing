@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MealController;
-use App\Http\Controllers\ServingController;
-use App\Http\Controllers\TimingController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
@@ -34,8 +32,6 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::resources([
         'meals' => MealController::class,
-        'servings' => ServingController::class,
-        'timings' => TimingController::class,
         'ingredients' => IngredientController::class,
         'roles' => RoleController::class,
         'permissions' => PermissionController::class,
