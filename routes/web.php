@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PagesController;
 
 /*
@@ -26,6 +27,8 @@ Route::middleware(['guest'])->group(function()  {
 
 Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
+
+    Route::get('/user/profile/2fa', [ProfileController::class, 'twoFactorAuthPage'])->name('profile.2fa');
 
     Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');
