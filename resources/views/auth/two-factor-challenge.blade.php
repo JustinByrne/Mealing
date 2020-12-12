@@ -1,9 +1,12 @@
 @extends('layouts.auth')
 
-@section('title', 'Login')
+@section('title', 'Authenticate Your Account')
 
 @section('content')
-<x-auth-card title="Login">
+<x-auth-card title="Authenticate Your Account">
+    <p class="text-sm font-light leading-relaxed mt-0 mb-4 text-lightGray-800">
+        Enter your 6 digit code from your two factor authenticator app.
+    </p>
     <form class="w-full max-w-sm" method="POST" action="{{ route('two-factor.login') }}">
         @csrf
         <div class="md:flex md:items-center mb-6">
@@ -13,7 +16,7 @@
                 </label>
             </div>
             <div class="md:w-2/3">
-                <x-input name="code" type="code" placeholder="code" :error="$errors->has('code')" value="{{ Request::old('code') }}" required></x-input>
+                <x-input name="code" type="code" placeholder="X X X X X X" :error="$errors->has('code')" value="{{ Request::old('code') }}" required></x-input>
                 @error('code')
                     <p class="text-red-500 text-xs italic">
                         {{ $message }}
@@ -26,7 +29,7 @@
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
                 <x-button type="submit">
-                    Login
+                    Authenticate
                 </x-button>
             </div>
         </div>
