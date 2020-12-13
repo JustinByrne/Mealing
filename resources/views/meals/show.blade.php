@@ -28,8 +28,8 @@
         <hr class="border-b border-gray-400">
     </div>
 
-    <div class="grid grid-cols-3 gap-4 pt-6">
-        <div class="">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-6">
+        <div class="grid-cols-full lg:grid-cols-1">
             <h2 class="font-sans break-normal text-orange-600 text-lg pb-2">
                 Ingredients
             </h2>
@@ -39,7 +39,7 @@
                 </p>
             @endforeach
         </div>
-        <div class="col-span-2">
+        <div class="grid-cols-full lg:col-span-2">
             <h2 class="font-sans break-normal text-orange-600 text-lg pb-3">
                 Method
             </h2>

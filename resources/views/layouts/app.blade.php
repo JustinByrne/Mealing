@@ -6,8 +6,8 @@
 
     <body class="antialiased bg-blueGray-600">
         @include('layouts.navigation')
-        <div class="container w-full flex flex-wrap mx-auto mt-12">
-            <div class="w-full lg:w-1/5 lg:px-6 text-xl text-gray-800 leading-normal">    
+        <div class="container w-full flex flex-wrap mx-auto mt-6 lg:mt-12">
+            <div class="w-full ml-5 lg:ml-0 lg:w-1/5 lg:px-6 text-xl text-gray-800 leading-normal">    
                 <p class="text-base font-bold py-2 lg:pb-6 text-white">
                     @if (trim($__env->yieldContent('side-links'))) Menu @endif
                 </p>

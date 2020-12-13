@@ -32,7 +32,11 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach ($ingredient->meals as $meal)
                                     <tr>
-                                        <x-td>{{ $meal->name }}</x-td>
+                                        <x-td>
+                                            <a href="{{ $meal->path() }}" class="hover:text-orange-500 hover:underline">
+                                                {{ $meal->name }}
+                                            </a>
+                                        </x-td>
                                         <x-td>{{ $meal->servings }}</x-td>
                                         <x-td>{{ $meal->readable_timing }}</x-td>
                                         <x-td><x-rating :rating="$meal->ratings()->avg('score')"></x-rating></x-td>
