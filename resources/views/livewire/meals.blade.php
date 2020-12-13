@@ -25,25 +25,25 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
-                                <x-th>Meal</x-th>
-                                <x-th>Servings</x-th>
-                                <x-th>Timing</x-th>
-                                <x-th>Rating</x-th>
-                                <x-th></x-th>
+                                <x-table.th>Meal</x-table.th>
+                                <x-table.th>Servings</x-table.th>
+                                <x-table.th>Timing</x-table.th>
+                                <x-table.th>Rating</x-table.th>
+                                <x-table.th></x-table.th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($meals as $meal)
                                 <tr>
-                                    <x-td>
+                                    <x-table.td>
                                         <a href="{{ $meal->path() }}" class="hover:text-orange-500 hover:underline">
                                             {{ $meal->name }}
                                         </a>
-                                    </x-td>
-                                    <x-td>{{ $meal->servings }}</x-td>
-                                    <x-td>{{ $meal->readable_timing }}</x-td>
-                                    <x-td><x-rating :rating="$meal->ratings()->avg('score')"></x-rating></x-td>
-                                    <x-td class="text-right font-medium">
+                                    </x-table.td>
+                                    <x-table.td>{{ $meal->servings }}</x-table.td>
+                                    <x-table.td>{{ $meal->readable_timing }}</x-table.td>
+                                    <x-table.td><x-rating :rating="$meal->ratings()->avg('score')"></x-rating></x-table.td>
+                                    <x-table.td class="text-right font-medium">
                                         <div class="inline-flex">
                                             <a href="{{ $meal->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
                                                 <i class="fas fa-eye"></i>
@@ -61,7 +61,7 @@
                                                 </form>
                                             @endif
                                         </div>
-                                    </x-td>
+                                    </x-table.td>
                                 </tr>
                             @endforeach
                         </tbody>

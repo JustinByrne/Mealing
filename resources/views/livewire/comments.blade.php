@@ -3,7 +3,7 @@
     <form wire:submit.prevent="addComment">
         <div class="pb-6 text-right">    
             <textarea wire:model="comment" class="w-full p-4 bg-gray-200 appearance-none border-2 border-gray-200 rounded text-gray-700 leading-tight focus:outline-none focus:bg-white"></textarea>
-            <x-inputs.button type="submit" class="justify-items-end">Comment</x-button>
+            <x-inputs.button type="submit" class="justify-items-end">Comment</x-inputs.button>
         </div>
     </form>
     @endif

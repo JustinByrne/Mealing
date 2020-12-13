@@ -19,7 +19,7 @@
             @csrf
             <x-inputs.button type="submit">
                 Request new verification link
-            </x-button>
+            </x-inputs.button>
         </form>
     </div>
 </x-auth-card>

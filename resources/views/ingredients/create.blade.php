@@ -20,7 +20,7 @@
                 </label>
             </div>
             <div class="w-full md:w-3/4">
-                <x-inputs.text name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ Request::old('name') }}" required class="md:w-80"></x-input>
+                <x-inputs.text name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ Request::old('name') }}" required class="md:w-80"></x-inputs.text>
                 <p class="text-red-500 text-xs italic">
                     {{ $errors->first('name') }}
                 </p>
@@ -31,7 +31,7 @@
             <div class="w-full">
                 <x-inputs.button type="submit">
                     Submit
-                </x-button>
+                </x-inputs.button>
             </div>
         </div>
     

@@ -23,7 +23,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3">
-                    <x-inputs.text name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email', request()->get('email')) }}" required></x-input>
+                    <x-inputs.text name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email', request()->get('email')) }}" required></x-inputs.text>
                     @error('email')
                         <p class="text-red-500 text-xs italic text-left">
                             {{ $message }}
@@ -39,7 +39,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3">
-                    <x-inputs.text name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
+                    <x-inputs.text name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-inputs.text>
                     @error('password')
                         <p class="text-red-500 text-xs italic text-left">
                             {{ $message }}
@@ -55,14 +55,14 @@
                     </label>
                 </div>
                 <div class="md:w-2/3">
-                    <x-inputs.text name="password_confirmation" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
+                    <x-inputs.text name="password_confirmation" type="password" placeholder="******************" :error="$errors->has('password')" required></x-inputs.text>
                 </div>
             </div>
             
             <div class="md:flex md:items-center">
                 <div class="md:w-1/3"></div>
                 <div class="md:w-2/3 text-left">
-                    <x-inputs.button type="submit" class="mx-auto">Reset Password</x-button>
+                    <x-inputs.button type="submit" class="mx-auto">Reset Password</x-inputs.button>
                 </div>
             </div>
         </form>

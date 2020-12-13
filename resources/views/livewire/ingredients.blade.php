@@ -25,21 +25,21 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
-                                <x-th>Ingredient</x-th>
-                                <x-th>Number of Meals</x-th>
-                                <x-th></x-th>
+                                <x-table.th>Ingredient</x-table.th>
+                                <x-table.th>Number of Meals</x-table.th>
+                                <x-table.th></x-table.th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($ingredients as $ingredient)
                                 <tr wire:key="{{ $loop->index }}">
-                                    <x-td>
+                                    <x-table.td>
                                         <a href="{{ $ingredient->path() }}" class="hover:text-orange-500 hover:underline">
                                             {{ $ingredient->name }}
                                         </a>
-                                    </x-td>
-                                    <x-td>{{ $ingredient->meals()->count() }}</x-td>
-                                    <x-td class="text-right font-medium">
+                                    </x-table.td>
+                                    <x-table.td>{{ $ingredient->meals()->count() }}</x-table.td>
+                                    <x-table.td class="text-right font-medium">
                                         <div class="inline-flex">
                                             <a href="{{ $ingredient->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
                                                 <i class="fas fa-eye"></i>
@@ -57,7 +57,7 @@
                                                 </form>
                                             @endif
                                         </div>
-                                    </x-td>
+                                    </x-table.td>
                                 </tr>
                             @endforeach
                         </tbody>
