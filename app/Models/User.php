@@ -89,6 +89,14 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * User fullname
+     */
+    public function getFullName()
+    {
+        return $this->name;
+    }
+    
+    /**
      * Gravatr image
      */
     public function getAvatar($size = 36)
