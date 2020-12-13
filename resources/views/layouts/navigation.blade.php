@@ -19,7 +19,7 @@
                 <div class="relative px-2 hidden md:block" x-data="{ userShow: false }" @click.away="userShow = false" @keydown.escape.window="userShow = false">
                     <div class="py-3">
                         <button class="relative z-10 block focus:outline-none" @click.prevent="userShow = !userShow" aria-expanded="userShow ? 'true' : 'false'" :class="{ 'active': 'userShow' }">
-                            <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-orange-300" src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?s=40" alt="{{ Auth::user()->name }}">
+                            <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-orange-300" src="{{ Auth::user()->getAvatar() }}" alt="{{ Auth::user()->name }}">
                         </button>
                     </div>
                     <div class="right-0 bg-gray-100 border-2 border-blueGray-700 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" x-show.transition.opacity.duration.300ms="userShow">
@@ -34,7 +34,7 @@
 
                 <div class="w-full md:hidden">
                     <div class="py-3 px-2">
-                        <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-orange-300" src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?s=40" alt="{{ Auth::user()->name }}">
+                        <img class="rounded-full w-10 h-10 border-2 border-transparent hover:border-orange-300" src="{{ Auth::user()->getAvatar() }}" alt="{{ Auth::user()->name }}">
                     </div>
                     <div class="flex flex-col">
                         <x-nav-link href="#">Profile</x-nav-link>

@@ -87,4 +87,12 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
         }
     }
+
+    /**
+     * Gravatr image
+     */
+    public function getAvatar($size = 36)
+    {
+        return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=' . $size;
+    }
 }
