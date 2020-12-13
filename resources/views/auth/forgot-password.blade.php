@@ -20,7 +20,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3">
-                    <x-input name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email') }}" required></x-input>
+                    <x-inputs.text name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email') }}" required></x-input>
                     @error('email')
                         <p class="text-red-500 text-xs italic">
                             {{ $message }}
@@ -31,7 +31,7 @@
             <div class="md:flex md:items-center">
                 <div class="md:w-1/3"></div>
                 <div>
-                    <x-button type="submit" class="mx-auto">Send link</x-button>
+                    <x-inputs.button type="submit" class="mx-auto">Send link</x-button>
                 </div>
             </div>
         </form>

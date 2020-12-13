@@ -14,7 +14,7 @@
                 </label>
             </div>
             <div class="md:w-2/3">
-                <x-input name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ Request::old('name') }}" required></x-input>
+                <x-inputs.text name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ Request::old('name') }}" required></x-input>
                 @error('name')
                     <p class="text-red-500 text-xs italic">
                         {{ $message }}
@@ -29,7 +29,7 @@
                 </label>
             </div>
             <div class="md:w-2/3">
-                <x-input name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email') }}" required></x-input>
+                <x-inputs.text name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email') }}" required></x-input>
                 @error('email')
                     <p class="text-red-500 text-xs italic">
                         {{ $message }}
@@ -44,7 +44,7 @@
                 </label>
             </div>
             <div class="md:w-2/3">
-                <x-input name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
+                <x-inputs.text name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
                 @error('password')
                     <p class="text-red-500 text-xs italic">
                         {{ $message }}
@@ -59,13 +59,13 @@
                 </label>
             </div>
             <div class="md:w-2/3">
-                <x-input name="password_confirmation" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
+                <x-inputs.text name="password_confirmation" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
             </div>
         </div>
         <div class="md:flex md:items-center">
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
-                <x-button type="submit">
+                <x-inputs.button type="submit">
                     {{ __('Register') }}
                 </x-button>
                 <a href="{{ route('login') }}" class="pl-4 text-blue-600 font-bold hover:text-blue-400">

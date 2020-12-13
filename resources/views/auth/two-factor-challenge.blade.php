@@ -16,7 +16,7 @@
                 </label>
             </div>
             <div class="md:w-2/3">
-                <x-input name="code" type="code" placeholder="X X X X X X" :error="$errors->has('code')" value="{{ Request::old('code') }}" required autofocus></x-input>
+                <x-inputs.text name="code" type="code" placeholder="X X X X X X" :error="$errors->has('code')" value="{{ Request::old('code') }}" required autofocus></x-input>
                 @error('code')
                     <p class="text-red-500 text-xs italic">
                         {{ $message }}
@@ -28,7 +28,7 @@
         <div class="md:flex md:items-center">
             <div class="md:w-1/3"></div>
             <div class="md:w-2/3">
-                <x-button type="submit">
+                <x-inputs.button type="submit">
                     Authenticate
                 </x-button>
             </div>

@@ -17,7 +17,7 @@
     <div class="text-center my-3">
         <form action="{{ route('verification.send') }}" method="POST">
             @csrf
-            <x-button type="submit">
+            <x-inputs.button type="submit">
                 Request new verification link
             </x-button>
         </form>

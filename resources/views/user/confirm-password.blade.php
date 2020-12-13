@@ -13,7 +13,7 @@
                     </label>
                 </div>
                 <div class="md:w-2/3">
-                    <x-input name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
+                    <x-inputs.text name="password" type="password" placeholder="******************" :error="$errors->has('password')" required></x-input>
                     @error('password')
                         <p class="text-red-500 text-xs italic">
                             {{ $message }}
@@ -24,7 +24,7 @@
             <div class="md:flex md:items-center">
                 <div class="md:w-1/3"></div>
                 <div class="md:w-2/3">
-                    <x-button type="submit">
+                    <x-inputs.button type="submit">
                         Confirm
                     </x-button>
                 </div>

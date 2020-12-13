@@ -21,7 +21,7 @@
                 </label>
             </div>
             <div class="w-full md:w-3/4">
-                <x-input name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ $ingredient->name }}" required class="md:w-80"></x-input>
+                <x-inputs.text name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ $ingredient->name }}" required class="md:w-80"></x-input>
                 <p class="text-red-500 text-xs italic">
                     {{ $errors->first('name') }}
                 </p>
@@ -30,7 +30,7 @@
 
         <div class="md:flex md:items-center">
             <div class="w-full">
-                <x-button type="submit">
+                <x-inputs.button type="submit">
                     Submit
                 </x-button>
             </div>
