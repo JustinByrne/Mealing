@@ -20,6 +20,18 @@ class ProfileController extends Controller
     }
 
     /**
+     * Profile page to disaply user settings
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function settings()
+    {
+        return view('user.profile.settings', [
+            'user' => Auth::user(),
+        ]);
+    }
+    
+    /**
      * Get 2FA page
      * 
      * @return \Illuminate\Http\Response

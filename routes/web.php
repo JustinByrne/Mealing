@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/user/profile', [ProfileController::class, 'profile'])->name('profile');
+    Route::get('/user/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
 
     Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');
