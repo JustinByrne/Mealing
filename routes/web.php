@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/user/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user/profile/settings', [ProfileController::class, 'settings'])->name('profile.settings');
+    Route::get('/user/profile/settings/security', [ProfileController::class, 'twoFactorAuthPage'])->name('profile.settings.security');
 
     Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');

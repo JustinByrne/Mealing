@@ -38,7 +38,7 @@ class ProfileController extends Controller
      */
     public function twoFactorAuthPage()
     {
-        return view('user.profile.2fa', [
+        return view('user.profile.security', [
             'user' => Auth::user(),
         ]);
     }

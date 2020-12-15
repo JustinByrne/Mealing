@@ -103,4 +103,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return 'https://www.gravatar.com/avatar/' . md5($this->email) . '?s=' . $size;
     }
+
+    /**
+     * checking is 2FA is enabled
+     * 
+     * @return boolean
+     */
+    public function get2faEnabled()
+    {
+        return !(is_null($this->two_factor_secret));
+    }
 }
