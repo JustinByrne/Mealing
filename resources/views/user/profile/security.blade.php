@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $user->getFullName() . ' - Profile Security')
+@section('title', 'My Security')
 
 @include('user.profile.sidebar')
 

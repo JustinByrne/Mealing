@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $user->getFullName() . ' - Profile')
+@section('title', 'My Profile')
 
 @include('user.profile.sidebar')
 
