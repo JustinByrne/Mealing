@@ -24,7 +24,7 @@
                     </div>
                     <div class="right-0 bg-gray-100 border-2 border-blueGray-700 rounded py-2 text-gray-600 mt-3 shadow-xl lg:w-56 lg:absolute" x-show.transition.opacity.duration.300ms="userShow">
                         <x-links.user-nav href="{{ route('profile') }}">Profile</x-links.user-nav>
-                        <x-links.user-nav href="{{ route('profile.settings') }}">Settings</x-links.user-nav>
+                        <x-links.user-nav href="{{ route('profile.settings.account') }}">Settings</x-links.user-nav>
                         <x-links.user-nav href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</x-links.user-nav>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST">
                             @csrf
@@ -38,7 +38,7 @@
                     </div>
                     <div class="flex flex-col">
                         <x-links.nav href="{{ route('profile') }}">Profile</x-links.nav>
-                        <x-links.nav href="{{ route('profile.settings') }}">Settings</x-links.nav>
+                        <x-links.nav href="{{ route('profile.settings.account') }}">Settings</x-links.nav>
                         <x-links.nav href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Log Out
                         </x-links.nav>

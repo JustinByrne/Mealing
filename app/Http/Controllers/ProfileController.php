@@ -20,13 +20,13 @@ class ProfileController extends Controller
     }
 
     /**
-     * Profile page to disaply user settings
+     * Profile page to disaply user account settings
      * 
      * @return \Illuminate\Http\Response
      */
-    public function settings()
+    public function accountSettings()
     {
-        return view('user.profile.settings', [
+        return view('user.profile.account', [
             'user' => Auth::user(),
         ]);
     }
@@ -36,7 +36,7 @@ class ProfileController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function twoFactorAuthPage()
+    public function securitySettings()
     {
         return view('user.profile.security', [
             'user' => Auth::user(),
