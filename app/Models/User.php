@@ -113,4 +113,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return !(is_null($this->two_factor_secret));
     }
+
+    /**
+     * Getting the users 2fa recovery keys
+     * 
+     * @return array
+     */
+    public function getRecoveryCodes()
+    {
+        return json_decode(decrypt($this->two_factor_recovery_codes));
+    }
 }
