@@ -11,9 +11,11 @@
         </div>
         <div class="col-span-full lg:col-span-3">
             <h1 class="font-sans break-normal text-gray-900 pt-6 pb-4 text-xl">Profile</h1>
-            <p class="text-sm font-light leading-relaxed mt-0 mb-2 text-lightGray-800"><strong>Name:</strong> {{ $user->getFullName() }}</p>
-            <p class="text-sm font-light leading-relaxed mt-0 mb-2 text-lightGray-800"><strong>Email:</strong> {{ $user->email }}</p>
-            <p class="text-sm font-light leading-relaxed mt-0 mb-2 text-lightGray-800"><strong>Subscripiton:</strong> Free</p>
+            <div class="text-sm font-light leading-relaxed mt-0 mb-2 text-lightGray-800">
+                <p><strong>Name:</strong> {{ $user->getFullName() }}</p>
+                <p><strong>Email:</strong> {{ $user->email }}</p>
+                <p><strong>Subscripiton:</strong> Free</p>
+            </div>
         </div>
     </div>
 @endsection
