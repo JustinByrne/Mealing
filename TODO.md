@@ -9,7 +9,6 @@
   - [ ] Timing
   - [ ] User
 - Create homepage design
-- Add 2fa
 - Add profile page for user to do the following
   - Change password
   - Change email
