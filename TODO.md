@@ -5,8 +5,6 @@
   - [ ] Meal
   - [ ] Permission
   - [ ] Role
-  - [ ] Serving
-  - [ ] Timing
   - [ ] User
 - Create homepage design
 - Add profile page for user to do the following
