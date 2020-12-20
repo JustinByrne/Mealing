@@ -6,57 +6,62 @@
 <x-auth-card title="Login">
     <form class="w-full max-w-sm" method="POST" action="/login" id="loginForm">
         @csrf
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="email">
-                    Email
-                </label>
+        <div class="space-y-4 p-2">
+            <div class="grid grid-cols-1 md:grid-cols-4 md:items-center">
+                <div>
+                    <label for="email" class="font-light text-sm md:text-base">
+                        Email
+                    </label>
+                </div>
+                <div class="md:col-span-3">
+                    <x-inputs.text type="email" name="email" id="email" placeholder="Email" :error="$errors->has('email')" required />
+                    @error('email')
+                        <p class="text-red-500 italic text-xs font-light">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
             </div>
-            <div class="md:w-2/3">
-                <x-inputs.text name="email" type="email" placeholder="Email" :error="$errors->has('email')" value="{{ Request::old('email') }}" required></x-inputs.text>
-                @error('email')
-                    <p class="text-red-500 text-xs italic">
-                        {{ $message }}
-                    </p>
-                @enderror
+            <div class="grid grid-cols-1 md:grid-cols-4 md:items-center">
+                <div>
+                    <label for="password" class="font-light text-sm md:text-base">
+                        Password
+                    </label>
+                </div>
+                <div class="md:col-span-3">
+                    <x-inputs.text type="password" name="password" id="password" placeholder="********" required />
+                </div>
             </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3">
-                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="password">
-                    Password
-                </label>
+            <div class="grid grid-cols-1 md:grid-cols-4">
+                <div></div>
+                <div class="md:col-span-3">
+                    <label for="remember" class="text-sm font-light items-center md:text-base">
+                        <input type="checkbox" name="remember" id="remember" class="text-green-600">
+                        <span>
+                            Remember Me
+                        </span>
+                    </label>
+                </div>
             </div>
-            <div class="md:w-2/3">
-                <x-inputs.text name="password" type="password" placeholder="******************" required></x-inputs.text>
+            <div class="grid grid-cols-1 md:grid-cols-4">
+                <div></div>
+                <div class="md:col-span-3">
+                    <a href="{{ route('password.request') }}" class="text-sm font-light text-blue-500 hover:text-blue-800">
+                        Forgotten My Password
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3"></div>
-            <label class="md:w-2/3 block text-gray-500 font-bold">
-                <input class="mr-2 leading-tight" type="checkbox" name="remember">
-                <span class="text-sm">
-                    Remember Me
-                </span>
-            </label>
-        </div>
-        <div class="md:flex md:items-center mb-6">
-            <div class="md:w-1/3"></div>
-            <div class="md:w-2/3 block text-gray-500 font-bold">
-                <a href="{{ route('password.request') }}" class="text-sm text-blue-600 font-bold hover:text-blue-400">
-                    Forgotten Password
-                </a>
-            </div>
-        </div>
-        <div class="md:flex md:items-center">
-            <div class="md:w-1/3"></div>
-            <div class="md:w-2/3">
-                <x-inputs.button type="submit">
-                    Login
-                </x-inputs.button>
-                <a href="{{ route('register') }}" class="pl-4 text-blue-600 font-bold hover:text-blue-400">
-                    Register
-                </a>
+            <div class="grid grid-cols-1 md:grid-cols-4">
+                <div>
+                </div>
+                <div class="space-y-2 md:col-span-3">
+                    <x-inputs.button type="submit">
+                        Login
+                    </x-inputs.button>
+                    <x-inputs.link href="{{ route('register') }}">
+                        Register
+                    </x-inputs.link>
+                </div>
             </div>
         </div>
     </form>
