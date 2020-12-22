@@ -26,6 +26,10 @@ jobs:
                     --health-retries=3
         steps:
             - uses: actions/checkout@v2
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: '7.4'
             - name: Copy .env file
               run: cp .env.example .env
             - name: Install dependencies
