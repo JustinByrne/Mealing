@@ -1,4 +1,4 @@
-name: Laravel Automated Test
+name: Laravel Tests
 on:
     push:
         branches:
