@@ -10,7 +10,7 @@
                                 <i class="fas fa-search"></i>
                             </button>
                         </span>
-                        <input class="py-2 text-sm rounded-md pl-2 pr-10 border-2 focus:outline-none focus:text-gray-900" placeholder="Search..." autocomplete="off" wire:model="search">
+                        <input class="py-2 text-sm rounded-md pl-2 pr-10 border-2 focus:outline-none focus:text-gray-900" placeholder="Search..." autocomplete="off" wire:model.debounce.300ms="search">
                     </div>
                 </div>
             </div>
