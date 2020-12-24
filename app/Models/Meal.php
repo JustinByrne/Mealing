@@ -107,4 +107,14 @@ class Meal extends Model
     {
         return !is_null($this->comments->firstWhere('user_id', \Auth::Id()));
     }
+
+    /**
+     * Getting the average rating for a meal
+     * 
+     * @return float
+     */
+    public function getAvgRatingAttribute()
+    {
+        return $this->ratings()->avg('score');
+    }
 }

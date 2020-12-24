@@ -42,7 +42,7 @@
                                     </x-table.td>
                                     <x-table.td>{{ $meal->servings }}</x-table.td>
                                     <x-table.td>{{ $meal->readable_timing }}</x-table.td>
-                                    <x-table.td><x-rating :rating="$meal->ratings()->avg('score')"></x-rating></x-table.td>
+                                    <x-table.td><x-rating :rating="$meal->avg_rating"></x-rating></x-table.td>
                                     <x-table.td class="text-right font-medium">
                                         <div class="inline-flex">
                                             <a href="{{ $meal->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
