@@ -32,7 +32,7 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($ingredients as $ingredient)
-                                <tr wire:key="{{ $loop->index }}">
+                                <tr>
                                     <x-table.td>
                                         <a href="{{ $ingredient->path() }}" class="hover:text-orange-500 hover:underline">
                                             {{ $ingredient->name }}
