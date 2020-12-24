@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\StoreMealRequest;
 use App\Http\Requests\UpdateMealRequest;
 use App\Models\Meal;
@@ -19,7 +18,7 @@ class MealController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('meal_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('meal_access'), 403);
 
         $meals = \Auth::User()->meals()->get();
 
@@ -33,7 +32,7 @@ class MealController extends Controller
      */
     public function all()
     {
-        abort_if(Gate::denies('meal_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('meal_access'), 403);
 
         $meals = Meal::all();
 
@@ -47,7 +46,7 @@ class MealController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('meal_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('meal_create'), 403);
     }
     
     /**
@@ -71,7 +70,7 @@ class MealController extends Controller
      */
     public function show(Meal $meal)
     {
-        abort_if(Gate::denies('meal_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('meal_show'), 403);
 
         return view('meals.show', compact('meal'));
     }
@@ -84,7 +83,7 @@ class MealController extends Controller
      */
     public function edit(Meal $meal)
     {
-        abort_if(Gate::denies('meal_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('meal_edit'), 403);
     }
 
     /**
@@ -109,7 +108,7 @@ class MealController extends Controller
      */
     public function destroy(Meal $meal)
     {
-        abort_if(Gate::denies('meal_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('meal_delete'), 403);
         
         $meal->delete();
 

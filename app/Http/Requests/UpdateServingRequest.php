@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
 use Gate;
 
 class UpdateServingRequest extends FormRequest
@@ -15,7 +14,7 @@ class UpdateServingRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('serving_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('serving_edit'), 403);
         
         return true;
     }

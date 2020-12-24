@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use App\Http\Requests\StoreIngredientRequest;
 use App\Http\Requests\UpdateIngredientRequest;
 use App\Models\Ingredient;
@@ -19,7 +18,7 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('ingredient_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ingredient_access'), 403);
 
         return view('ingredients.index');
     }
@@ -31,7 +30,7 @@ class IngredientController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('ingredient_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ingredient_create'), 403);
 
         return view('ingredients.create');
     }
@@ -57,7 +56,7 @@ class IngredientController extends Controller
      */
     public function show(Ingredient $ingredient)
     {
-        abort_if(Gate::denies('ingredient_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ingredient_show'), 403);
 
         return view('ingredients.show', compact('ingredient'));
     }
@@ -70,7 +69,7 @@ class IngredientController extends Controller
      */
     public function edit(Ingredient $ingredient)
     {
-        abort_if(Gate::denies('ingredient_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ingredient_edit'), 403);
 
         abort_if($ingredient->user->id != \Auth::id(), 403);
 
@@ -101,7 +100,7 @@ class IngredientController extends Controller
      */
     public function destroy(Ingredient $ingredient)
     {
-        abort_if(Gate::denies('ingredient_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('ingredient_delete'), 403);
 
         abort_if($ingredient->user->id != \Auth::id(), 403);
         
