@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::get('/user/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user/profile/settings/account', [ProfileController::class, 'accountSettings'])->name('profile.settings.account');
+    Route::patch('/user/profile/settings/account', [ProfileController::class, 'update']);
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
     Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
