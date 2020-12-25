@@ -24,8 +24,6 @@ class ProfileTest extends TestCase
 
         $this->seed();
         $this->user = User::factory()->create();
-        $adminId = \App\Models\Role::find(1)->id;
-        $this->user->roles()->sync([$adminId]);
     }
     
     /**
@@ -39,6 +37,7 @@ class ProfileTest extends TestCase
         
         $response = $this->actingAs($this->user)->get('/user/profile');
 
+        $this->assertAuthenticated($guard = null);
         $response->assertOk();
         $response->assertSeeText($this->user->getFullname(), $escaped = true);
     }
@@ -56,7 +55,7 @@ class ProfileTest extends TestCase
     }
 
     /**
-     * test the account settings page is a 404
+     * test the account settings page
      * 
      * @return void
      */
@@ -67,6 +66,29 @@ class ProfileTest extends TestCase
         $response = $this->actingAs($this->user)->get('/user/profile/settings/account');
 
         $response->assertOk();
+    }
+
+    /**
+     * test that the user can update their profile details
+     * 
+     * @return void
+     */
+    public function testUserCanUpdateTheirNameOrEmail()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->actingAs($this->user)->patch('/user/profile/settings/account', [
+            'name' => 'foo bar',
+            'email' => 'foo@bar.com'
+        ]);
+
+        $this->user->refresh();
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'foo bar',
+            'email' => 'foo@bar.com'
+        ]);
+        $response->assertRedirect('/user/profile/settings/account');
     }
 
     /**
