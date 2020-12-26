@@ -47,7 +47,7 @@ class ProfileTest extends TestCase
      * 
      * @return void
      */
-    public function testSettingsPage()
+    public function testSettingsPageDoesNotExist()
     {
         $response = $this->actingAs($this->user)->get('/user/profile/settings');
 
@@ -79,16 +79,46 @@ class ProfileTest extends TestCase
 
         $response = $this->actingAs($this->user)->patch('/user/profile/settings/account', [
             'name' => 'foo bar',
-            'email' => 'foo@bar.com'
+            'email' => 'foo@gmail.com'
         ]);
 
         $this->user->refresh();
 
         $this->assertDatabaseHas('users', [
             'name' => 'foo bar',
-            'email' => 'foo@bar.com'
+            'email' => 'foo@gmail.com'
         ]);
         $response->assertRedirect('/user/profile/settings/account');
+    }
+
+    /**
+     * test that an error happens if no name
+     * 
+     * @return void
+     */
+    public function testErrorWhenUpdatingProfileWithNoName()
+    {
+        $response = $this->actingAs($this->user)->patch('/user/profile/settings/account', [
+            'name' => null,
+            'email' => 'foo@bar.com'
+        ]);
+
+        $response->assertSessionHasErrors(['name']);
+    }
+
+    /**
+     * test that an error happens if no email
+     * 
+     * @return void
+     */
+    public function testErrorWhenUpdatingProfileWithNoEmail()
+    {
+        $response = $this->actingAs($this->user)->patch('/user/profile/settings/account', [
+            'name' => 'foo',
+            'email' => null
+        ]);
+
+        $response->assertSessionHasErrors(['email']);
     }
 
     /**
