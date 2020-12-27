@@ -42,9 +42,6 @@
                         <x-links.nav href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Log Out
                         </x-links.nav>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                            @csrf
-                        </form>
                     </div>
                 </div>
             @else
