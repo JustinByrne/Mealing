@@ -12,18 +12,32 @@
         @csrf
         @method('PATCH')
         <div class="space-y-4">
-            <div class="items-center md:flex md:space-x-6">
-                <label for="name" class="font-light text-xs md:text-base">
+            <div class="items-top md:flex md:space-x-6">
+                <label for="name" class="font-light text-xs md:pt-2 md:text-base">
                     Name
                 </label>
-                <x-inputs.text type="text" class="font-light text-sm md:max-w-md" name="name" id="name" value="{{ \Auth::User()->name }}" />
+                <div class="w-full md:max-w-md">
+                    <x-inputs.text type="text" class="font-light text-sm" name="name" id="name" value="{{ \Auth::User()->name }}" :error="$errors->has('name')" required="required" />
+                    @error('name')
+                        <p class="text-red-500 italic text-xs font-light">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
             </div>
 
-            <div class="items-center md:flex md:space-x-6">
-                <label for="email" class="font-light text-xs md:text-base">
+            <div class="items-top md:flex md:space-x-6">
+                <label for="email" class="font-light text-xs md:pt-2 md:text-base">
                     Email
                 </label>
-                <x-inputs.text type="email" class="font-light text-sm md:max-w-md" name="email" id="email" value="{{ \Auth::User()->email }}" />
+                <div class="w-full md:max-w-md">
+                    <x-inputs.text type="email" class="font-light text-sm" name="email" id="email" value="{{ \Auth::User()->email }}" :error="$errors->has('name')" required="required" />
+                    @error('name')
+                        <p class="text-red-500 italic text-xs font-light">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
             </div>
             
             <div>
