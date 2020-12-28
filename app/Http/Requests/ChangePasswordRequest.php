@@ -26,7 +26,7 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'current' => ['required', new CurrentPasswordRule ],
-            'password' => ['required', 'confirmed','password:web']
+            'password' => ['required', 'confirmed']
         ];
     }
 }
