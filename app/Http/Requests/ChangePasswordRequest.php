@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CurrentPasswordRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChangePasswordRequest extends FormRequest
@@ -24,7 +25,7 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'current' => ['required', new CurrentPasswordRule($input['current']) ],
+            'current' => ['required', new CurrentPasswordRule ],
             'password' => ['required', 'confirmed','password:web']
         ];
     }
