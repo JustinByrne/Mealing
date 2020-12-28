@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateAccountRequest;
+use App\Http\Requests\ChangePasswordRequest;
 
 class ProfileController extends Controller
 {
@@ -55,6 +57,23 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         $user->update($request->only('name', 'email'));
+
+        return redirect(route('profile.settings.account'));
+    }
+
+    /**
+     * Updating users password
+     * 
+     * @param App\Http\Requests\ChangePasswordRequest $request
+     * @return Illuminate\Http\Response
+     */
+    public function password(ChangePasswordRequest $request)
+    {
+        $user = Auth::User();
+
+        $user->update([
+            'password' => Hash::make($request['password'])
+        ]);
 
         return redirect(route('profile.settings.account'));
     }
