@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProfileTest extends TestCase
 {
@@ -119,6 +121,31 @@ class ProfileTest extends TestCase
         ]);
 
         $response->assertSessionHasErrors(['email']);
+    }
+
+    /**
+     * test the user can change their password
+     * 
+     * @return void
+     */
+    public function testUserCanChangeTheirPassword()
+    {
+        $this->withoutExceptionHandling();
+        
+        $user = User::create([
+            'name' => 'Mr Man',
+            'email' => 'mrman@gmail.com',
+            'email_verified_at' => Carbon::now()->subMonth(),
+            'password' => 'password'
+        ]);
+        
+        $response = $this->actingAs($user)->post('/user/profile/settings/account/password', [
+            'current' => 'password',
+            'password' => 'Passw0rd!',
+            'password_confirmation' => 'Passw0rd!'
+        ]);
+
+        $this->assertTrue(Hash::check('Passw0rd!', $user->password));
     }
 
     /**
