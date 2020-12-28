@@ -75,6 +75,6 @@ class ProfileController extends Controller
             'password' => Hash::make($request['password'])
         ]);
 
-        return redirect(route('profile.settings.account'));
+        return redirect(route('profile.settings.account'))->with('passwordStatus', 'Password Changed Successfully');
     }
 }

@@ -139,6 +139,7 @@ class ProfileTest extends TestCase
         ]);
 
         $response->assertRedirect('/user/profile/settings/account');
+        $response->assertSessionHas('passwordStatus');
         $this->assertTrue(Hash::check('Passw0rd!', $this->user->password));
     }
 
