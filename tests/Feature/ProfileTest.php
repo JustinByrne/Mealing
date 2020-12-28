@@ -132,19 +132,13 @@ class ProfileTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $user = User::create([
-            'name' => 'Mr Man',
-            'email' => 'mrman@gmail.com',
-            'email_verified_at' => Carbon::now()->subMonth(),
-            'password' => 'password'
-        ]);
-        
-        $response = $this->actingAs($user)->post('/user/profile/settings/account/password', [
+        $response = $this->actingAs($this->user)->post('/user/profile/settings/account/password', [
             'current' => 'password',
             'password' => 'Passw0rd!',
             'password_confirmation' => 'Passw0rd!'
         ]);
 
+        $response->assertRedirect('/user/profile/settings/account');
         $this->assertTrue(Hash::check('Passw0rd!', $user->password));
     }
 
