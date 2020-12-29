@@ -144,6 +144,86 @@ class ProfileTest extends TestCase
     }
 
     /**
+     * test that an error happens if no current password
+     * 
+     * @return void
+     */
+    public function testErrorWhenChangingPasswordWithNoCurrentPassword()
+    {
+        $response = $this->actingAs($this->user)->post('/user/profile/settings/account/password', [
+            'current' => null,
+            'password' => 'Passw0rd!',
+            'password_confirmation' => 'Passw0rd!'
+        ]);
+
+        $response->assertSessionHasErrors(['current']);
+    }
+
+    /**
+     * test that an error happens if incorrect password
+     * 
+     * @return void
+     */
+    public function testErrorWhenChangingPasswordWithIncorrectPassword()
+    {
+        $response = $this->actingAs($this->user)->post('/user/profile/settings/account/password', [
+            'current' => 'Sandwich',
+            'password' => 'Passw0rd!',
+            'password_confirmation' => 'Passw0rd!'
+        ]);
+
+        $response->assertSessionHasErrors(['current']);
+    }
+
+    /**
+     * test that an error happens if no new password
+     * 
+     * @return void
+     */
+    public function testErrorWhenChangingPasswordWithNoNewPassword()
+    {
+        $response = $this->actingAs($this->user)->post('/user/profile/settings/account/password', [
+            'current' => 'password',
+            'password' => null,
+            'password_confirmation' => 'Passw0rd!'
+        ]);
+
+        $response->assertSessionHasErrors(['password']);
+    }
+
+    /**
+     * test that an error happens if not confirming password
+     * 
+     * @return void
+     */
+    public function testErrorWhenChangingPasswordWithNoPasswordConfirmation()
+    {
+        $response = $this->actingAs($this->user)->post('/user/profile/settings/account/password', [
+            'current' => 'password',
+            'password' => 'Passw0rd!',
+            'password_confirmation' => null
+        ]);
+
+        $response->assertSessionHasErrors(['password']);
+    }
+
+    /**
+     * test that an error happens if confrmed password does not match
+     * 
+     * @return void
+     */
+    public function testErrorWhenChangingPasswordWhenNewPasswordAndConfirmedDontMatch()
+    {
+        $response = $this->actingAs($this->user)->post('/user/profile/settings/account/password', [
+            'current' => 'password',
+            'password' => 'Passw0rd!',
+            'password_confirmation' => 'Passw0rd!!'
+        ]);
+
+        $response->assertSessionHasErrors(['password']);
+    }
+
+    /**
      * test the settings security page
      * 
      * @return void
