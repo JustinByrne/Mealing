@@ -91,6 +91,7 @@ class ProfileTest extends TestCase
             'email' => 'foo@gmail.com'
         ]);
         $response->assertRedirect('/user/profile/settings/account');
+        $response->assertSessionHas('profileStatus', 'Account Successfully Updated');
     }
 
     /**
@@ -139,7 +140,7 @@ class ProfileTest extends TestCase
         ]);
 
         $response->assertRedirect('/user/profile/settings/account');
-        $response->assertSessionHas('passwordStatus');
+        $response->assertSessionHas('passwordStatus', 'Password Changed Successfully');
         $this->assertTrue(Hash::check('Passw0rd!', $this->user->password));
     }
 
