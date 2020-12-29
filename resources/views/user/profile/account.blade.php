@@ -11,6 +11,11 @@
     <div class="space-y-10">
         <div>
             <h2 class="font-bold pb-2">Profile</h2>
+            @if (session('profileStatus'))
+                <x-alert type="info">
+                    {{ session('profileStatus') }}
+                </x-alert>
+            @endif
             <form method="POST">
                 @csrf
                 @method('PATCH')
