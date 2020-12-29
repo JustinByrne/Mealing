@@ -20,11 +20,11 @@
                 @csrf
                 @method('PATCH')
                 <div class="space-y-4">
-                    <div class="items-top md:flex md:space-x-6">
+                    <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
                         <label for="name" class="font-light text-xs md:pt-2 md:text-base">
                             Name
                         </label>
-                        <div class="w-full md:max-w-md">
+                        <div class="w-full md:col-span-4">
                             <x-inputs.text type="text" class="font-light text-sm" name="name" id="name" value="{{ \Auth::User()->name }}" :error="$errors->has('name')" required="required" />
                             @error('name')
                                 <p class="text-red-500 italic text-xs font-light">
@@ -34,11 +34,11 @@
                         </div>
                     </div>
 
-                    <div class="items-top md:flex md:space-x-6">
+                    <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
                         <label for="email" class="font-light text-xs md:pt-2 md:text-base">
                             Email
                         </label>
-                        <div class="w-full md:max-w-md">
+                        <div class="w-full md:col-span-4">
                             <x-inputs.text type="email" class="font-light text-sm" name="email" id="email" value="{{ \Auth::User()->email }}" :error="$errors->has('name')" required="required" />
                             @error('name')
                                 <p class="text-red-500 italic text-xs font-light">
@@ -67,11 +67,11 @@
             <form action="{{ route('profile.settings.password') }}" method="POST">
                 @csrf
                 <div class="space-y-4">
-                    <div class="items-top md:flex md:space-x-6">
+                    <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
                         <label for="current" class="font-light text-xs md:pt-2 md:text-base">
                             Current Password
                         </label>
-                        <div class="w-full md:max-w-md">
+                        <div class="w-full md:col-span-4">
                             <x-inputs.text type="password" class="font-light text-sm" name="current" id="current" :error="$errors->has('current')" required="required" />
                             @error('current')
                                 <p class="text-red-500 italic text-xs font-light">
@@ -80,11 +80,11 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="items-top md:flex md:space-x-6">
+                    <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
                         <label for="password" class="font-light text-xs md:pt-2 md:text-base">
                             New Password
                         </label>
-                        <div class="w-full md:max-w-md">
+                        <div class="w-full md:col-span-4">
                             <x-inputs.text type="password" class="font-light text-sm" name="password" id="password" :error="$errors->has('password')" required="required" />
                             @error('password')
                                 <p class="text-red-500 italic text-xs font-light">
@@ -93,11 +93,11 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="items-top md:flex md:space-x-6">
+                    <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
                         <label for="password_confirmation" class="font-light text-xs md:pt-2 md:text-base">
                             Confirm
                         </label>
-                        <div class="w-full md:max-w-md">
+                        <div class="w-full md:col-span-4">
                             <x-inputs.text type="password" class="font-light text-sm" name="password_confirmation" id="password_confirmation" :error="$errors->has('password_confirmation')" required="required" />
                         </div>
                     </div>
