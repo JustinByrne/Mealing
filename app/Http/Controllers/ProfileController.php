@@ -56,6 +56,12 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
+        if ($user->email != $request['email'])  {
+            $user->update([
+                'email_verified_at' => null,
+            ]);
+        }
+
         $user->update($request->only('name', 'email'));
 
         return redirect(route('profile.settings.account'))->with('profileStatus', 'Account Successfully Updated');
