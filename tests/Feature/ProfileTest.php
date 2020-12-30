@@ -75,7 +75,7 @@ class ProfileTest extends TestCase
      * 
      * @return void
      */
-    public function testUserCanUpdateTheirNameOrEmail()
+    public function testUserCanUpdateTheirNameAndEmail()
     {
         $this->withoutExceptionHandling();
 
@@ -88,7 +88,57 @@ class ProfileTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'foo bar',
-            'email' => 'foo@gmail.com'
+            'email' => 'foo@gmail.com',
+            'email_verified_at' => null
+        ]);
+        $response->assertRedirect('/user/profile/settings/account');
+        $response->assertSessionHas('profileStatus', 'Account Successfully Updated');
+    }
+
+    /**
+     * test that the user can update their profile details
+     * 
+     * @return void
+     */
+    public function testUserCanUpdateTheirName()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->actingAs($this->user)->patch('/user/profile/settings/account', [
+            'name' => 'foo bar',
+            'email' => $this->user->email
+        ]);
+
+        $this->user->refresh();
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'foo bar',
+            'email' => $this->user->email
+        ]);
+        $response->assertRedirect('/user/profile/settings/account');
+        $response->assertSessionHas('profileStatus', 'Account Successfully Updated');
+    }
+
+    /**
+     * test that the user can update their profile details
+     * 
+     * @return void
+     */
+    public function testUserCanUpdateTheirEmail()
+    {
+        $this->withoutExceptionHandling();
+
+        $response = $this->actingAs($this->user)->patch('/user/profile/settings/account', [
+            'name' => $this->user->name,
+            'email' => 'email@gmail.com'
+        ]);
+
+        $this->user->refresh();
+
+        $this->assertDatabaseHas('users', [
+            'name' => $this->user->name,
+            'email' => 'email@gmail.com',
+            'email_verified_at' => null
         ]);
         $response->assertRedirect('/user/profile/settings/account');
         $response->assertSessionHas('profileStatus', 'Account Successfully Updated');
