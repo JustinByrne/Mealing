@@ -45,6 +45,19 @@ class ProfileTest extends TestCase
     }
 
     /**
+     * test the profile page redirects when not logged in.
+     *
+     * @return void
+     */
+    public function testRedirectedWhenAccessingProfilePageNotLoggedIn()
+    {
+        $response = $this->get('/user/profile');
+
+        $this->assertGuest($guard = null);
+        $response->assertRedirect(route('login'));
+    }
+
+    /**
      * test the settings page is a 404
      * 
      * @return void
@@ -68,6 +81,19 @@ class ProfileTest extends TestCase
         $response = $this->actingAs($this->user)->get('/user/profile/settings/account');
 
         $response->assertOk();
+    }
+
+    /**
+     * test the account settings page redirects when not logged in.
+     *
+     * @return void
+     */
+    public function testRedirectedWhenAccessingAccountsSettingsPageNotLoggedIn()
+    {
+        $response = $this->get('/user/profile/settings/account');
+
+        $this->assertGuest($guard = null);
+        $response->assertRedirect(route('login'));
     }
 
     /**
@@ -286,5 +312,18 @@ class ProfileTest extends TestCase
         $response = $this->actingAs($this->user)->get('/user/profile/settings/security');
 
         $response->assertOk();
+    }
+
+    /**
+     * test the settings security page redirects when not logged in.
+     *
+     * @return void
+     */
+    public function testRedirectedWhenAccessingSecuritySettingsPageNotLoggedIn()
+    {
+        $response = $this->get('/user/profile/settings/security');
+
+        $this->assertGuest($guard = null);
+        $response->assertRedirect(route('login'));
     }
 }
