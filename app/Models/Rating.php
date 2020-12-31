@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Rating extends Model
 {
     use HasFactory;
+
+    public function meal()
+    {
+        return $this->belongsTo(Meal::class);
+    }
 }
