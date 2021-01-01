@@ -2,16 +2,32 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RoleTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
+
+    public $user;
+
+    /**
+     * setting up a user to be used in all tests
+     * 
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+        $this->user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $this->user->roles()->sync([$adminId]);
+    }
 
     /**
      * test the index of roles.
@@ -21,13 +37,8 @@ class RoleTest extends TestCase
     public function testRoleIndex()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)->get(route('roles.index'));
+        $response = $this->actingAs($this->user)->get(route('roles.index'));
 
         $response->assertOk();
     }
@@ -53,14 +64,9 @@ class RoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $role = Role::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('roles.create', [$role->id]));
+        $response = $this->actingAs($this->user)->get(route('roles.create', [$role->id]));
 
         $response->assertOk();
     }
@@ -88,14 +94,9 @@ class RoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $title = $this->faker->lexify('???');
         
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('roles.store'), [
                 'title' => $title,
         ]);
@@ -113,12 +114,7 @@ class RoleTest extends TestCase
      */
     public function testNewRoleWithTitleNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('roles.store'), [
                 'title' => null,
         ]);
@@ -133,7 +129,6 @@ class RoleTest extends TestCase
      */
     public function testNewRoleWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
 
         $title = $this->faker->lexify('???');
@@ -155,14 +150,9 @@ class RoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $role = Role::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('roles.show', [$role->id]));
+        $response = $this->actingAs($this->user)->get(route('roles.show', [$role->id]));
 
         $response->assertOk();
     }
@@ -174,9 +164,7 @@ class RoleTest extends TestCase
      */
     public function testShowingRoleWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
-
         $role = Role::factory()->create();
 
         $response = $this->actingAs($user)->get(route('roles.show', [$role->id]));
@@ -193,14 +181,9 @@ class RoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $role = Role::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('roles.edit', [$role->id]));
+        $response = $this->actingAs($this->user)->get(route('roles.edit', [$role->id]));
 
         $response->assertOk();
     }
@@ -227,18 +210,13 @@ class RoleTest extends TestCase
     public function testRoleCanBeUpdated()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
         $role = Role::factory()->create();
 
         // new data
         $title = $this->faker->lexify('???');
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->patch(route('roles.update', [$role->id]), [
                 'title' => $title,
         ]);
@@ -254,9 +232,7 @@ class RoleTest extends TestCase
      */
     public function testRoleCanBeUpdatedWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
-        
         $role = Role::factory()->create();
 
         // new data
@@ -279,16 +255,11 @@ class RoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $role = Role::factory()->create();
 
         $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->delete(route('roles.destroy', [$role->id]));
 
         $this->assertSoftDeleted($role);
@@ -301,9 +272,7 @@ class RoleTest extends TestCase
      */
     public function testRoleCanBeDeletedWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
-
         $role = Role::factory()->create();
 
         $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);

@@ -2,17 +2,33 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Role;
 use Hash;
+use Tests\TestCase;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
+
+    public $user;
+
+    /**
+     * setting up a user to be used in all tests
+     * 
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+        $this->user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $this->user->roles()->sync([$adminId]);
+    }
 
     /**
      * Test all users can be found.
@@ -23,12 +39,7 @@ class UserTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync($adminId);
-
-        $response = $this->actingAs($user)->get(route('users.index'));
+        $response = $this->actingAs($this->user)->get(route('users.index'));
 
         $response->assertOk();
     }
@@ -56,12 +67,7 @@ class UserTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync($adminId);
-
-        $response = $this->actingAs($user)->get(route('users.create'));
+        $response = $this->actingAs($this->user)->get(route('users.create'));
 
         $response->assertOk();
     }
@@ -89,14 +95,9 @@ class UserTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync($adminId);
-
         $email = $this->faker->unique()->safeEmail;
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('users.store'), [
                 'name' => $this->faker->name,
                 'email' => $email,
@@ -139,14 +140,9 @@ class UserTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync($adminId);
-
         $newUser = User::factory()->create();
 
-        $response = $this->actingAs($user)->get($newUser->path());
+        $response = $this->actingAs($this->user)->get($newUser->path());
 
         $response->assertOk();
     }
@@ -159,7 +155,6 @@ class UserTest extends TestCase
     public function testUserShowPageWithoutPermission()
     {
         $user = User::factory()->create();
-
         $newUser = User::factory()->create();
 
         $response = $this->actingAs($user)->get($newUser->path());
@@ -176,14 +171,9 @@ class UserTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync($adminId);
-
         $newUser = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.edit', [$newUser->id]));
+        $response = $this->actingAs($this->user)->get(route('users.edit', [$newUser->id]));
 
         $response->assertOk();
     }
@@ -196,7 +186,6 @@ class UserTest extends TestCase
     public function testUserEditFormWithoutPermission()
     {
         $user = User::factory()->create();
-
         $newUser = User::factory()->create();
 
         $response = $this->actingAs($user)->get(route('users.edit', [$newUser->id]));
@@ -213,11 +202,6 @@ class UserTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync($adminId);
-
         $newUser = User::factory()->create();
 
         // new data
@@ -225,7 +209,7 @@ class UserTest extends TestCase
         $email = $this->faker->unique()->safeEmail;
         $password = 'password';
 
-        $response = $this->actingAs($user)->patch(route('users.update', [$newUser->id]), [
+        $response = $this->actingAs($this->user)->patch(route('users.update', [$newUser->id]), [
             'name' => $name,
             'email' => $email,
             'password' => $password,
@@ -250,7 +234,6 @@ class UserTest extends TestCase
     public function testUserCanBeUpdatedWithoutPermission()
     {
         $user = User::factory()->create();
-
         $newUser = User::factory()->create();
 
         // new data
@@ -277,14 +260,9 @@ class UserTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync($adminId);
-
         $newUser = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('users.destroy', [$newUser->id]));
+        $response = $this->actingAs($this->user)->delete(route('users.destroy', [$newUser->id]));
 
         $this->assertSoftDeleted($newUser);
     }
@@ -297,7 +275,6 @@ class UserTest extends TestCase
     public function testUserCanBeDeletedWithoutPermission()
     {
         $user = User::factory()->create();
-
         $newUser = User::factory()->create();
 
         $response = $this->actingAs($user)->delete(route('users.destroy', [$newUser->id]));

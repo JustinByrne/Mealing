@@ -2,18 +2,34 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Ingredient;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
+use App\Models\Ingredient;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class IngredientTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
+
+    public $user;
+
+    /**
+     * setting up a user to be used in all tests
+     * 
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+        $this->user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $this->user->roles()->sync([$adminId]);
+    }
 
     /**
      * test the index of ingredients.
@@ -23,13 +39,8 @@ class IngredientTest extends TestCase
     public function testIngredientIndex()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)->get(route('ingredients.index'));
+        $response = $this->actingAs($this->user)->get(route('ingredients.index'));
 
         $response->assertOk();
     }
@@ -42,13 +53,8 @@ class IngredientTest extends TestCase
     public function testIngredientAll()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)->get(route('ingredients.all'));
+        $response = $this->actingAs($this->user)->get(route('ingredients.all'));
 
         $response->assertOk();
     }
@@ -74,14 +80,9 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('ingredients.create', [$ingredient->slug]));
+        $response = $this->actingAs($this->user)->get(route('ingredients.create', [$ingredient->slug]));
 
         $response->assertOk();
     }
@@ -108,13 +109,8 @@ class IngredientTest extends TestCase
     public function testNewIngredient()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('ingredients.store'), [
                 'name' => $this->faker->name,
         ]);
@@ -132,12 +128,7 @@ class IngredientTest extends TestCase
      */
     public function testNewIngredientWithNameNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('ingredients.store'), [
                 'name' => null,
         ]);
@@ -152,7 +143,6 @@ class IngredientTest extends TestCase
      */
     public function testNewIngredientWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
         
         $response = $this->actingAs($user)
@@ -172,14 +162,9 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('ingredients.show', [$ingredient->slug]));
+        $response = $this->actingAs($this->user)->get(route('ingredients.show', [$ingredient->slug]));
 
         $response->assertOk();
     }
@@ -207,16 +192,11 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
-        $ingredient = $user->ingredients()->create([
+        $ingredient = $this->user->ingredients()->create([
             'name' => 'cool food',
         ]);
 
-        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->slug]));
+        $response = $this->actingAs($this->user)->get(route('ingredients.edit', [$ingredient->slug]));
 
         $response->assertOk();
     }
@@ -242,14 +222,9 @@ class IngredientTest extends TestCase
      */
     public function testIngredientEditFormNotOwner()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
         $ingredient = Ingredient::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('ingredients.edit', [$ingredient->slug]));
+        $response = $this->actingAs($this->user)->get(route('ingredients.edit', [$ingredient->slug]));
 
         $response->assertForbidden();
     }
@@ -263,19 +238,14 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
-        $ingredient = $user->ingredients()->create([
+        $ingredient = $this->user->ingredients()->create([
             'name' => 'updated food',
         ]);
 
         // new data
         $name = $this->faker->name;
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->patch(route('ingredients.update', [$ingredient->slug]), [
                 'name' => $name,
         ]);
@@ -291,7 +261,6 @@ class IngredientTest extends TestCase
      */
     public function testIngredientCanBeUpdatedWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
 
         $ingredient = Ingredient::factory()->create();
@@ -314,17 +283,12 @@ class IngredientTest extends TestCase
      */
     public function testIngredientCanBeUpdatedNotOwner()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $ingredient = Ingredient::factory()->create();
 
         // new data
         $name = $this->faker->name;
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->patch(route('ingredients.update', [$ingredient->slug]), [
                 'name' => $name,
         ]);
@@ -341,18 +305,13 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
-        $ingredient = $user->ingredients()->create([
+        $ingredient = $this->user->ingredients()->create([
             'name' => 'cool food',
         ]);
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
-        $this->actingAs($user)
+        $this->actingAs($this->user)
             ->delete(route('ingredients.destroy', $ingredient->slug));
 
         $this->assertSoftDeleted($ingredient);
@@ -365,7 +324,6 @@ class IngredientTest extends TestCase
      */
     public function testIngredientCanBeDeletedWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
 
         $ingredient = Ingredient::factory()->create();
@@ -385,16 +343,11 @@ class IngredientTest extends TestCase
      */
     public function testIngredientCanBeDeletedNotOwner()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $ingredient = Ingredient::factory()->create();
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->delete(route('ingredients.destroy', $ingredient->slug));
 
         $response->assertForbidden();

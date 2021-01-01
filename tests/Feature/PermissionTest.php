@@ -2,17 +2,33 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\Permission;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
+use App\Models\Permission;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PermissionTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
+
+    public $user;
+
+    /**
+     * setting up a user to be used in all tests
+     * 
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+        $this->user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $this->user->roles()->sync([$adminId]);
+    }
 
     /**
      * test the index of permissions.
@@ -22,13 +38,8 @@ class PermissionTest extends TestCase
     public function testPermissionIndex()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)->get(route('permissions.index'));
+        $response = $this->actingAs($this->user)->get(route('permissions.index'));
 
         $response->assertOk();
     }
@@ -54,14 +65,9 @@ class PermissionTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('permissions.create', [$permission->id]));
+        $response = $this->actingAs($this->user)->get(route('permissions.create', [$permission->id]));
 
         $response->assertOk();
     }
@@ -89,14 +95,9 @@ class PermissionTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $title = $this->faker->lexify('???');
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('permissions.store'), [
                 'title' => $title,
         ]);
@@ -114,12 +115,7 @@ class PermissionTest extends TestCase
      */
     public function testNewPermissionWithTitleNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('permissions.store'), [
                 'title' => null,
         ]);
@@ -156,14 +152,9 @@ class PermissionTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('permissions.show', [$permission->id]));
+        $response = $this->actingAs($this->user)->get(route('permissions.show', [$permission->id]));
 
         $response->assertOk();
     }
@@ -175,7 +166,6 @@ class PermissionTest extends TestCase
      */
     public function testShowingPermissionWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
 
         $permission = Permission::factory()->create();
@@ -194,14 +184,9 @@ class PermissionTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('permissions.edit', [$permission->id]));
+        $response = $this->actingAs($this->user)->get(route('permissions.edit', [$permission->id]));
 
         $response->assertOk();
     }
@@ -228,11 +213,6 @@ class PermissionTest extends TestCase
     public function testPermissionCanBeUpdated()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
         $permission = Permission::factory()->create();
 
@@ -241,7 +221,7 @@ class PermissionTest extends TestCase
         // new data
         $title = $this->faker->lexify('???');
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->patch(route('permissions.update', $permission->id), [
                 'title' => $title,
         ]);
@@ -257,7 +237,6 @@ class PermissionTest extends TestCase
      */
     public function testPermissionCanBeUpdatedWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
         
         $permission = Permission::factory()->create();
@@ -283,15 +262,10 @@ class PermissionTest extends TestCase
     public function testPermissionCanBeDeleted()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->delete(route('permissions.destroy', [$permission->id]));
 
         $this->assertSoftDeleted($permission);
@@ -304,7 +278,6 @@ class PermissionTest extends TestCase
      */
     public function testPermissionCanBeDeletedWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
         
         $permission = Permission::factory()->create();

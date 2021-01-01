@@ -2,19 +2,35 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Meal;
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use Livewire\Livewire;
 use App\Http\Livewire\Comments;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MealTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
+
+    public $user;
+
+    /**
+     * setting up a user to be used in all tests
+     * 
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+        $this->user = User::factory()->create();
+        $adminId = Role::find(1)->id;
+        $this->user->roles()->sync([$adminId]);
+    }
 
     /**
      * test the index of meals.
@@ -24,13 +40,8 @@ class MealTest extends TestCase
     public function testMealIndex()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)->get(route('meals.index'));
+        $response = $this->actingAs($this->user)->get(route('meals.index'));
 
         $response->assertOk();
     }
@@ -43,13 +54,8 @@ class MealTest extends TestCase
     public function testMealAll()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)->get(route('meals.all'));
+        $response = $this->actingAs($this->user)->get(route('meals.all'));
 
         $response->assertOk();
     }
@@ -75,14 +81,9 @@ class MealTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('meals.create', [$meal->slug]));
+        $response = $this->actingAs($this->user)->get(route('meals.create', [$meal->slug]));
 
         $response->assertOk();
     }
@@ -109,13 +110,8 @@ class MealTest extends TestCase
     public function testNewMeal()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
                 'servings' => $this->faker->randomDigitNotNull,
@@ -137,12 +133,7 @@ class MealTest extends TestCase
      */
     public function testNewMealWithNameNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => null,
                 'servings' => $this->faker->randomDigitNotNull,
@@ -161,12 +152,7 @@ class MealTest extends TestCase
      */
     public function testNewMealWithServingNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
                 'servings' => null,
@@ -185,12 +171,7 @@ class MealTest extends TestCase
      */
     public function testNewMealWithTimingNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
                 'servings' => $this->faker->randomDigitNotNull,
@@ -209,12 +190,7 @@ class MealTest extends TestCase
      */
     public function testNewMealWithAdultsNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
                 'servings' => $this->faker->randomDigitNotNull,
@@ -233,12 +209,7 @@ class MealTest extends TestCase
      */
     public function testNewMealWithKidsNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-        
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
                 'servings' => $this->faker->randomDigitNotNull,
@@ -281,14 +252,9 @@ class MealTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($user)->get($meal->path());
+        $response = $this->actingAs($this->user)->get($meal->path());
 
         $response->assertOk();
         $response->assertSeeLivewire('comments');
@@ -320,14 +286,9 @@ class MealTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $meal = Meal::factory()->create();
         
-        Livewire::actingAs($user)
+        Livewire::actingAs($this->user)
             ->test(Comments::class, ['meal' => $meal])
             ->set('comment', 'foo')
             ->call('addComment');
@@ -342,14 +303,9 @@ class MealTest extends TestCase
      */
     public function testAddingCommentToMealWithCommentNull()
     {
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $meal = Meal::factory()->create();
         
-        Livewire::actingAs($user)
+        Livewire::actingAs($this->user)
             ->test(Comments::class, ['meal' => $meal])
             ->set('comment', null)
             ->call('addComment')
@@ -365,14 +321,9 @@ class MealTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
-
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('meals.edit', [$meal->slug]));
+        $response = $this->actingAs($this->user)->get(route('meals.edit', [$meal->slug]));
 
         $response->assertOk();
     }
@@ -399,11 +350,6 @@ class MealTest extends TestCase
     public function testMealCanBeUpdated()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
         $meal = Meal::factory()->create();
 
@@ -414,7 +360,7 @@ class MealTest extends TestCase
         $kids = $this->faker->boolean;
         $timing = $this->faker->randomDigitNotNull;
 
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($this->user)
             ->patch(route('meals.update', [$meal->slug]), [
                 'name' => $name,
                 'servings' => $serving,
@@ -470,17 +416,12 @@ class MealTest extends TestCase
     public function testMealCanBeDeleted()
     {
         $this->withoutExceptionHandling();
-
-        $this->seed();
-        $user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $user->roles()->sync([$adminId]);
         
         $meal = Meal::factory()->create();
 
         $this->assertDatabaseCount($meal->getTable(), 1);
 
-        $this->actingAs($user)->delete(route('meals.destroy', [$meal->slug]));
+        $this->actingAs($this->user)->delete(route('meals.destroy', [$meal->slug]));
 
         $this->assertSoftDeleted($meal);
     }
