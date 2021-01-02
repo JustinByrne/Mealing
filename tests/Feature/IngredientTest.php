@@ -36,7 +36,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientIndex()
+    public function testCanAccessTheMyIngredientsPage()
     {
         $this->withoutExceptionHandling();
         
@@ -50,7 +50,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientAll()
+    public function testCanAccessTheAllIngredientsPage()
     {
         $this->withoutExceptionHandling();
         
@@ -64,7 +64,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientIndexWithoutPermission()
+    public function testUnathorisedAccessToIngredientIndexWhenNotLoggedIn()
     {
         $response = $this->get(route('ingredients.index'));
 
@@ -76,7 +76,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCreateForm()
+    public function testCanAccessIngredientCreateForm()
     {
         $this->withoutExceptionHandling();
 
@@ -92,7 +92,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCreateFormWithoutPermission()
+    public function testUnauthorisedAccessToIngredientCreateFormWhenNotLoggedIn()
     {
         $ingredient = Ingredient::factory()->create();
 
@@ -106,7 +106,7 @@ class IngredientTest extends TestCase
      *
      * @return void
      */
-    public function testNewIngredient()
+    public function testCanCreateANewIngredient()
     {
         $this->withoutExceptionHandling();
         
@@ -126,7 +126,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testNewIngredientWithNameNull()
+    public function testErrorWhenCreatingANewIngredientWithoutName()
     {
         $response = $this->actingAs($this->user)
             ->post(route('ingredients.store'), [
@@ -141,7 +141,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testNewIngredientWithoutPermission()
+    public function testDeniedAccessToCreateANewIngredientWithoutPermission()
     {
         $user = User::factory()->create();
         
@@ -158,7 +158,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingIngredient()
+    public function testCanAccessAnIngredientPage()
     {
         $this->withoutExceptionHandling();
 
@@ -167,6 +167,7 @@ class IngredientTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('ingredients.show', [$ingredient->slug]));
 
         $response->assertOk();
+        $response->assertSee($ingredient->name);
     }
 
     /**
@@ -174,7 +175,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingIngredientWithoutPermission()
+    public function testDeniedAccessToShowingIngredientWithoutPermission()
     {
         $ingredient = Ingredient::factory()->create();
 
@@ -188,7 +189,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientEditForm()
+    public function testCanAccessTheIngredientEditForm()
     {
         $this->withoutExceptionHandling();
 
@@ -206,7 +207,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientEditFormWithoutPermission()
+    public function testDeniedAccessToIngredientEditFormWithoutPermission()
     {
         $ingredient = Ingredient::factory()->create();
 
@@ -220,7 +221,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientEditFormNotOwner()
+    public function testDeniedAccessToEditTheIngredientWhenNotTheOwner()
     {
         $ingredient = Ingredient::factory()->create();
 
@@ -234,7 +235,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCanBeUpdated()
+    public function testAnIngredientCanBeUpdated()
     {
         $this->withoutExceptionHandling();
 
@@ -259,7 +260,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCanBeUpdatedWithoutPermission()
+    public function testDeniedAccessToIngredientCanBeUpdatedWithoutPermission()
     {
         $user = User::factory()->create();
 
@@ -281,7 +282,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCanBeUpdatedNotOwner()
+    public function testDeniedAccessToUpdateIngredientWhenNotTheOwner()
     {
         $ingredient = Ingredient::factory()->create();
 
@@ -301,7 +302,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCanBeDeleted()
+    public function testAnIngredientCanBeDeleted()
     {
         $this->withoutExceptionHandling();
 
@@ -322,7 +323,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCanBeDeletedWithoutPermission()
+    public function testDeniedAccessToIngredientCanBeDeletedWithoutPermission()
     {
         $user = User::factory()->create();
 
@@ -341,7 +342,7 @@ class IngredientTest extends TestCase
      * 
      * @return void
      */
-    public function testIngredientCanBeDeletedNotOwner()
+    public function testDeniedAccessToDeleteIngredientWhenNotTheOwner()
     {
         $ingredient = Ingredient::factory()->create();
 
