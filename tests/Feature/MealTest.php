@@ -190,7 +190,6 @@ class MealTest extends TestCase
      */
     public function testDeniedAccessToCreateANewMealWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
@@ -229,9 +228,7 @@ class MealTest extends TestCase
      */
     public function testDeniedAccessToViewIndividualMealWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
-
         $meal = Meal::factory()->create();
 
         $response = $this->actingAs($user)->get($meal->path());
@@ -346,9 +343,7 @@ class MealTest extends TestCase
      */
     public function testDeniedAccessWhenUpdatingAMealWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
-
         $meal = Meal::factory()->create();
 
         // new data
@@ -395,9 +390,7 @@ class MealTest extends TestCase
      */
     public function testDeniedAccessDeletingAMealWithoutPermission()
     {
-        $this->seed();
         $user = User::factory()->create();
-        
         $meal = Meal::factory()->create();
 
         $this->assertDatabaseCount($meal->getTable(), 1);
