@@ -37,7 +37,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealIndex()
+    public function testCanAccessMyMealsPage()
     {
         $this->withoutExceptionHandling();
         
@@ -51,7 +51,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealAll()
+    public function testCanAccessAllMealsPage()
     {
         $this->withoutExceptionHandling();
         
@@ -65,7 +65,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealIndexWithoutPermission()
+    public function testDeniedUnauthorisedAccessToMyMealsWhenNotLoggedIn()
     {
         $response = $this->get(route('meals.index'));
 
@@ -77,7 +77,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealCreateForm()
+    public function testCanAccessCreateMealFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -93,7 +93,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealCreateFormWithoutPermission()
+    public function testDeniedUnauthorisedAccessToCreateMealFormWhenNotLoggedIn()
     {
         $meal = Meal::factory()->create();
 
@@ -107,7 +107,7 @@ class MealTest extends TestCase
      *
      * @return void
      */
-    public function testNewMeal()
+    public function testCanCreateANewMeal()
     {
         $this->withoutExceptionHandling();
         
@@ -131,7 +131,7 @@ class MealTest extends TestCase
      *
      * @return void
      */
-    public function testNewMealWithNameNull()
+    public function testErrorWhenCreatingANewMealWithoutAName()
     {
         $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
@@ -150,7 +150,7 @@ class MealTest extends TestCase
      *
      * @return void
      */
-    public function testNewMealWithServingNull()
+    public function testErrorWhenCreatingANewMealWithoutAServing()
     {
         $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
@@ -169,7 +169,7 @@ class MealTest extends TestCase
      *
      * @return void
      */
-    public function testNewMealWithTimingNull()
+    public function testErrorWhenCreatingANewMealWithoutTiming()
     {
         $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
@@ -184,49 +184,11 @@ class MealTest extends TestCase
     }
 
     /**
-     * Test create new meal with adults null.
-     *
-     * @return void
-     */
-    public function testNewMealWithAdultsNull()
-    {
-        $response = $this->actingAs($this->user)
-            ->post(route('meals.store'), [
-                'name' => $this->faker->name,
-                'servings' => $this->faker->randomDigitNotNull,
-                'adults' => null,
-                'kids' => $this->faker->boolean,
-                'timing' => $this->faker->randomDigitNotNull,
-        ]);
-
-        $response->assertSessionHasErrors(['adults']);
-    }
-
-    /**
-     * Test create new meal with kids null.
-     *
-     * @return void
-     */
-    public function testNewMealWithKidsNull()
-    {
-        $response = $this->actingAs($this->user)
-            ->post(route('meals.store'), [
-                'name' => $this->faker->name,
-                'servings' => $this->faker->randomDigitNotNull,
-                'adults' => $this->faker->boolean,
-                'kids' => null,
-                'timing' => $this->faker->randomDigitNotNull,
-        ]);
-
-        $response->assertSessionHasErrors(['kids']);
-    }
-
-    /**
      * Test create new meal without permission.
      * 
      * @return void
      */
-    public function testNewMealWithoutAccess()
+    public function testDeniedAccessToCreateANewMealWithoutPermission()
     {
         $this->seed();
         $user = User::factory()->create();
@@ -248,7 +210,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingMeal()
+    public function testCanAccessIndividualMealPage()
     {
         $this->withoutExceptionHandling();
 
@@ -265,7 +227,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingMealWithoutPermission()
+    public function testDeniedAccessToViewIndividualMealWithoutPermission()
     {
         $this->seed();
         $user = User::factory()->create();
@@ -282,7 +244,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testAddingCommentToMeal()
+    public function testCanAddACommentToMeal()
     {
         $this->withoutExceptionHandling();
 
@@ -301,7 +263,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testAddingCommentToMealWithCommentNull()
+    public function testErrorWhenAddingACommentToMealWithoutAComment()
     {
         $meal = Meal::factory()->create();
         
@@ -317,7 +279,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealEditForm()
+    public function testCanAccessEditMealFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -333,7 +295,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealEditFormWithoutPermission()
+    public function testDeniedUnauthorisedAccessToEditMealFormWhenNotLoggedIn()
     {
         $meal = Meal::factory()->create();
 
@@ -347,7 +309,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealCanBeUpdated()
+    public function testCanUpdateAMealsDetails()
     {
         $this->withoutExceptionHandling();
         
@@ -382,7 +344,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testCanBeUpdatedWithoutPermission()
+    public function testDeniedAccessWhenUpdatingAMealWithoutPermission()
     {
         $this->seed();
         $user = User::factory()->create();
@@ -413,7 +375,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealCanBeDeleted()
+    public function testCanDeleteAMeal()
     {
         $this->withoutExceptionHandling();
         
@@ -431,7 +393,7 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testMealCanBeDeletedWithoutPermission()
+    public function testDeniedAccessDeletingAMealWithoutPermission()
     {
         $this->seed();
         $user = User::factory()->create();

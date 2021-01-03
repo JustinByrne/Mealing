@@ -34,7 +34,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleIndex()
+    public function testCanAccessRoleIndexPage()
     {
         $this->withoutExceptionHandling();
         
@@ -48,7 +48,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleIndexWithoutPermission()
+    public function testDeniedAccessToRoleIndexPageWhenNotLoggedIn()
     {
         $response = $this->get(route('roles.index'));
 
@@ -60,7 +60,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleCreateForm()
+    public function testCanAccessCreateRoleFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -76,7 +76,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleCreateFormWithoutPermission()
+    public function testDeniedAccessToCreateRoleFormWhenNotLoggedIn()
     {
         $role = Role::factory()->create();
 
@@ -90,7 +90,7 @@ class RoleTest extends TestCase
      *
      * @return void
      */
-    public function testNewRole()
+    public function testCanCreateANewRole()
     {
         $this->withoutExceptionHandling();
 
@@ -112,7 +112,7 @@ class RoleTest extends TestCase
      *
      * @return void
      */
-    public function testNewRoleWithTitleNull()
+    public function testErrorWhenCreatingANewRoleWithoutATitle()
     {
         $response = $this->actingAs($this->user)
             ->post(route('roles.store'), [
@@ -127,7 +127,7 @@ class RoleTest extends TestCase
      *
      * @return void
      */
-    public function testNewRoleWithoutPermission()
+    public function testDeniedAccessToCreateANewRoleWithoutPermission()
     {
         $user = User::factory()->create();
 
@@ -146,7 +146,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingRole()
+    public function testCanAccessIndividualRolePage()
     {
         $this->withoutExceptionHandling();
 
@@ -162,7 +162,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingRoleWithoutPermission()
+    public function testDeniedAccessToIndividualRolePageWithoutPermission()
     {
         $user = User::factory()->create();
         $role = Role::factory()->create();
@@ -177,7 +177,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleEditForm()
+    public function testCanAccessEditRoleFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -193,7 +193,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleEditFormWithoutPermission()
+    public function testDeniedAccessToEditRoleFormPageWithoutPermission()
     {
         $role = Role::factory()->create();
 
@@ -207,7 +207,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleCanBeUpdated()
+    public function testARoleCanBeUpdated()
     {
         $this->withoutExceptionHandling();
         
@@ -230,7 +230,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleCanBeUpdatedWithoutPermission()
+    public function testDeniedAccessToUpdateARoleWithoutPermission()
     {
         $user = User::factory()->create();
         $role = Role::factory()->create();
@@ -251,7 +251,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleCanBeDeleted()
+    public function testARoleCanBeDeleted()
     {
         $this->withoutExceptionHandling();
 
@@ -270,7 +270,7 @@ class RoleTest extends TestCase
      * 
      * @return void
      */
-    public function testRoleCanBeDeletedWithoutPermission()
+    public function testDeniedAccessToDeleteARoleWithoutPermission()
     {
         $user = User::factory()->create();
         $role = Role::factory()->create();

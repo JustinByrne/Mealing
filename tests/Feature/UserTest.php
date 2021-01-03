@@ -35,7 +35,7 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function testUserIndexPage()
+    public function testCanAccessUserIndexPage()
     {
         $this->withoutExceptionHandling();
 
@@ -49,7 +49,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserIndexPageWithoutPermission()
+    public function testDeniedAccesToUserIndexPageWithoutPermission()
     {
         $user = User::factory()->create();
 
@@ -63,7 +63,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserCreateForm()
+    public function testCanAccessCreateUserFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -77,7 +77,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserCreateFormWithoutPermission()
+    public function testDeniedAccessToCreateUserFormPageWithoutPermission()
     {
         $user = User::factory()->create();
 
@@ -91,7 +91,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testNewUser()
+    public function testCanCreateANewUser()
     {
         $this->withoutExceptionHandling();
 
@@ -116,7 +116,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testNewUserWithoutPermission()
+    public function testDeniedAccessToCreateANewUserWithoutPermission()
     {
         $user = User::factory()->create();
 
@@ -136,7 +136,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserShowPage()
+    public function testCanAccessIndividualUserPage()
     {
         $this->withoutExceptionHandling();
 
@@ -152,7 +152,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserShowPageWithoutPermission()
+    public function testDeniedAccessToIndividualUserPageWithoutPermission()
     {
         $user = User::factory()->create();
         $newUser = User::factory()->create();
@@ -167,7 +167,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserEditForm()
+    public function testCanAccessEditUserFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -183,7 +183,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserEditFormWithoutPermission()
+    public function testDeniedAccessToEditUserFormPageWithoutPermission()
     {
         $user = User::factory()->create();
         $newUser = User::factory()->create();
@@ -198,7 +198,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserCanBeUpdated()
+    public function testAUserCanBeUpdated()
     {
         $this->withoutExceptionHandling();
 
@@ -231,7 +231,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserCanBeUpdatedWithoutPermission()
+    public function testDeniedAccessToUpdateAUserWithoutPermission()
     {
         $user = User::factory()->create();
         $newUser = User::factory()->create();
@@ -256,7 +256,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserCanBeDeleted()
+    public function testAUserCanBeDeleted()
     {
         $this->withoutExceptionHandling();
 
@@ -272,7 +272,7 @@ class UserTest extends TestCase
      * 
      * @return void
      */
-    public function testUserCanBeDeletedWithoutPermission()
+    public function testDeniedAccessToDeleteAUserWithoutPermission()
     {
         $user = User::factory()->create();
         $newUser = User::factory()->create();

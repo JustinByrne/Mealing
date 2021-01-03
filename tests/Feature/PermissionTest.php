@@ -35,7 +35,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionIndex()
+    public function testCanAccessPermissionIndexPage()
     {
         $this->withoutExceptionHandling();
         
@@ -49,7 +49,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionIndexWithoutPermission()
+    public function testDeniedAccessToPermissionIndexPageWithoutPermission()
     {
         $response = $this->get(route('permissions.index'));
 
@@ -61,7 +61,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionCreateForm()
+    public function testCanAccessCreatePermissionFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -77,7 +77,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionCreateFormWithoutPermission()
+    public function testDeniedUnauthorisedAccessToCreatePermissionFormPageWhenNotLogeedIn()
     {
         $permission = Permission::factory()->create();
 
@@ -91,7 +91,7 @@ class PermissionTest extends TestCase
      *
      * @return void
      */
-    public function testNewPermission()
+    public function testCanCreateANewPermission()
     {
         $this->withoutExceptionHandling();
 
@@ -113,7 +113,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testNewPermissionWithTitleNull()
+    public function testErrorWhenCreatingANewPermissionWithoutATitle()
     {
         $response = $this->actingAs($this->user)
             ->post(route('permissions.store'), [
@@ -128,7 +128,7 @@ class PermissionTest extends TestCase
      *
      * @return void
      */
-    public function testNewPermissionWithoutPermission()
+    public function testDeniedAccessToCreateANewPermissionWithoutPermission()
     {
         $this->seed();
         $user = User::factory()->create();
@@ -148,7 +148,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingPermission()
+    public function testCanAccessIndividualPermissionPage()
     {
         $this->withoutExceptionHandling();
 
@@ -164,7 +164,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testShowingPermissionWithoutPermission()
+    public function testDeniedAccessToIndividualPermissionPageWithoutPermission()
     {
         $user = User::factory()->create();
 
@@ -180,7 +180,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionEditForm()
+    public function testCanAccessEditPermissionFormPage()
     {
         $this->withoutExceptionHandling();
 
@@ -196,7 +196,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionEditFormWithoutPermission()
+    public function testDeniedUnauthorisedAccessToEditPermissionFormWhenNotLoggedIn()
     {
         $permission = Permission::factory()->create();
 
@@ -210,7 +210,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionCanBeUpdated()
+    public function testAPermissionCanBeUpdated()
     {
         $this->withoutExceptionHandling();
         
@@ -235,7 +235,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionCanBeUpdatedWithoutPermission()
+    public function testDeniedUpdatingAPermissionWithoutPermission()
     {
         $user = User::factory()->create();
         
@@ -259,7 +259,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionCanBeDeleted()
+    public function testAPermissionCanBeDeleted()
     {
         $this->withoutExceptionHandling();
         
@@ -276,7 +276,7 @@ class PermissionTest extends TestCase
      * 
      * @return void
      */
-    public function testPermissionCanBeDeletedWithoutPermission()
+    public function testDeniedAccessDeletingAPermissionWithoutPermission()
     {
         $user = User::factory()->create();
         
