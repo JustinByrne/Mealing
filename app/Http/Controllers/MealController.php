@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Gate;
+use App\Models\Meal;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMealRequest;
 use App\Http\Requests\UpdateMealRequest;
-use App\Models\Meal;
-use Gate;
-use Auth;
 
 class MealController extends Controller
 {
@@ -57,7 +58,13 @@ class MealController extends Controller
      */
     public function store(StoreMealRequest $request)
     {
-        $meal = Auth::User()->Meals()->create($request->validated());
+        $meal = Auth::User()->Meals()->create($request->only('name', 'servings', 'adults', 'kids', 'timing'));
+
+        for($i = 0; $i < count($request['ingredients']); $i++)   {
+            $ingredient = Ingredient::find($request['ingredients'][$i]);
+
+            $meal->ingredients()->attach($ingredient, ['quantity' => $request['quantities'][$i]]);
+        }
 
         return redirect($meal->path());
     }
