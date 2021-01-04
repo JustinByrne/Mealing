@@ -131,15 +131,15 @@ class MealTest extends TestCase
 
         $this->assertDatabaseCount($meal->getTable(), 1);
         $this->assertDatabaseHas('ingredient_meal', [
-            'ingredient_id' => '1',
+            'ingredient_id' => $ingredients[0],
             'meal_id' => $meal->id,
         ]);
         $this->assertDatabaseHas('ingredient_meal', [
-            'ingredient_id' => '2',
+            'ingredient_id' => $ingredients[1],
             'meal_id' => $meal->id,
         ]);
         $this->assertDatabaseHas('ingredient_meal', [
-            'ingredient_id' => '3',
+            'ingredient_id' => $ingredients[2],
             'meal_id' => $meal->id,
         ]);
         $response->assertRedirect($meal->path());
