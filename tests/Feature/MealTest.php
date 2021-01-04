@@ -7,6 +7,7 @@ use App\Models\Meal;
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Livewire;
+use App\Models\Ingredient;
 use App\Http\Livewire\Comments;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -110,19 +111,37 @@ class MealTest extends TestCase
     public function testCanCreateANewMeal()
     {
         $this->withoutExceptionHandling();
+
+        Ingredient::factory()->count(3)->create();
+
+        $ingredients = Ingredient::pluck('id')->take(5)->toArray();
+        $quantities = array('1kg', '2tbsp', '1 cup');
         
-        $response = $this->actingAs($this->user)
-            ->post(route('meals.store'), [
-                'name' => $this->faker->name,
-                'servings' => $this->faker->randomDigitNotNull,
-                'adults' => $this->faker->boolean,
-                'kids' => $this->faker->boolean,
-                'timing' => $this->faker->randomDigitNotNull,
+        $response = $this->actingAs($this->user)->post(route('meals.store'), [
+            'name' => $this->faker->name,
+            'servings' => $this->faker->randomDigitNotNull,
+            'adults' => $this->faker->boolean,
+            'kids' => $this->faker->boolean,
+            'timing' => $this->faker->randomDigitNotNull,
+            'quantities' => $quantities,
+            'ingredients' => $ingredients
         ]);
 
         $meal = Meal::first();
 
         $this->assertDatabaseCount($meal->getTable(), 1);
+        $this->assertDatabaseHas('ingredient_meal', [
+            'ingredient_id' => '1',
+            'meal_id' => $meal->id,
+        ]);
+        $this->assertDatabaseHas('ingredient_meal', [
+            'ingredient_id' => '2',
+            'meal_id' => $meal->id,
+        ]);
+        $this->assertDatabaseHas('ingredient_meal', [
+            'ingredient_id' => '3',
+            'meal_id' => $meal->id,
+        ]);
         $response->assertRedirect($meal->path());
     }
 
