@@ -87,6 +87,7 @@ class MealTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('meals.create', [$meal->slug]));
 
         $response->assertOk();
+        $response->assertViewIs('meals.create');
     }
 
     /**
