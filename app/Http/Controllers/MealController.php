@@ -48,6 +48,8 @@ class MealController extends Controller
     public function create()
     {
         abort_if(Gate::denies('meal_create'), 403);
+
+        return view('meals.create');
     }
     
     /**
