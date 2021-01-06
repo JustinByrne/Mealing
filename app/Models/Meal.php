@@ -22,6 +22,7 @@ class Meal extends Model
         'adults',
         'kids',
         'timing',
+        'instruction'
     ];
 
     /**
