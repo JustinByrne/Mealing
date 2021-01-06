@@ -60,7 +60,14 @@ class MealController extends Controller
      */
     public function store(StoreMealRequest $request)
     {
-        $meal = Auth::User()->Meals()->create($request->only('name', 'servings', 'adults', 'kids', 'timing', 'instruction'));
+        $meal = Auth::User()->Meals()->create([
+            'name' => $request['name'],
+            'servings' => $request['servings'],
+            'adults' => $request->has('adults'),
+            'kids' => $request->has('kids'),
+            'timing' => $request['timing'],
+            'instruction' => $request['instruction']
+        ]);
 
         for($i = 0; $i < count($request['ingredients']); $i++)   {
             $ingredient = Ingredient::find($request['ingredients'][$i]);
