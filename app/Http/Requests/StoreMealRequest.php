@@ -29,9 +29,10 @@ class StoreMealRequest extends FormRequest
         return [
             'name' => 'required',
             'servings' => 'required',
-            'adults' => 'required',
-            'kids' => 'required',
-            'timing' => 'required'
+            'adults' => 'nullable',
+            'kids' => 'nullable',
+            'timing' => 'required',
+            'instruction' => 'required'
         ];
     }
 

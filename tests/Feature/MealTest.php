@@ -115,6 +115,7 @@ class MealTest extends TestCase
 
         Ingredient::factory()->count(3)->create();
 
+        $instructions = $this->faker->paragraph;
         $ingredients = Ingredient::pluck('id')->take(5)->toArray();
         $quantities = array('1kg', '2tbsp', '1 cup');
         
@@ -124,6 +125,7 @@ class MealTest extends TestCase
             'adults' => $this->faker->boolean,
             'kids' => $this->faker->boolean,
             'timing' => $this->faker->randomDigitNotNull,
+            'instruction' => $instructions,
             'quantities' => $quantities,
             'ingredients' => $ingredients
         ]);
@@ -131,6 +133,9 @@ class MealTest extends TestCase
         $meal = Meal::first();
 
         $this->assertDatabaseCount($meal->getTable(), 1);
+        $this->assertDatabaseHas($meal->getTable(), [
+            'instruction' => $instructions,
+        ]);
         $this->assertDatabaseHas('ingredient_meal', [
             'ingredient_id' => $ingredients[0],
             'meal_id' => $meal->id,
