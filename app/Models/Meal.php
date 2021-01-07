@@ -116,6 +116,6 @@ class Meal extends Model
      */
     public function getAvgRatingAttribute()
     {
-        return $this->ratings()->avg('score');
+        return $this->ratings->avg('score');
     }
 }

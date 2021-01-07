@@ -13,9 +13,9 @@ class Meals extends Component
     public function render()
     {
         if ($this->allMeals) {
-            $meals = Meal::where('name', 'like', '%' . $this->search . '%')->get();
+            $meals = Meal::with('ratings')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
         } else {
-            $meals = \Auth::User()->Meals()->where('name', 'like', '%' . $this->search . '%')->get();
+            $meals = \Auth::User()->Meals()->with('ratings')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
         }
         
         return view('livewire.meals', compact('meals'));

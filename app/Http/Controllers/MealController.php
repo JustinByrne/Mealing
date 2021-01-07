@@ -21,9 +21,7 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_access'), 403);
 
-        $meals = \Auth::User()->meals()->get();
-
-        return view('meals.index', compact('meals'));
+        return view('meals.index');
     }
 
     /**
