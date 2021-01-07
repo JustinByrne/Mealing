@@ -13,9 +13,9 @@ class Ingredients extends Component
     public function render()
     {
         if ($this->allIngredients) {
-            $ingredients = Ingredient::where('name', 'like', '%' . $this->search . '%')->get();
+            $ingredients = Ingredient::with('meals')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
         } else {
-            $ingredients = \Auth::User()->Ingredients()->where('name', 'like', '%' . $this->search . '%')->get();
+            $ingredients = \Auth::User()->Ingredients()->with('meals')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
         }
 
         return view('livewire.ingredients', [

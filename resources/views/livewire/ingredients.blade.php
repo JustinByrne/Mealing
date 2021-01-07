@@ -38,7 +38,7 @@
                                             {{ $ingredient->name }}
                                         </a>
                                     </x-table.td>
-                                    <x-table.td>{{ $ingredient->meals()->count() }}</x-table.td>
+                                    <x-table.td>{{ $ingredient->meals->count() }}</x-table.td>
                                     <x-table.td class="text-right font-medium">
                                         <div class="inline-flex">
                                             <a href="{{ $ingredient->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
