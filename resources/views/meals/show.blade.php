@@ -8,7 +8,7 @@
     <div class="font-sans">
         <div class="flex justify-between">
             <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">
-                {{ $meal->name }} <x-rating :rating="$meal->ratings()->avg('score')" class="text-xs"></x-rating>
+                {{ $meal->name }} <x-rating :rating="$meal->avg_rating" class="text-xs"></x-rating>
             </h1>
             @if ($meal->user->id == Auth::Id())
                 <div class="pt-6 inline-flex">
@@ -43,7 +43,9 @@
             <h2 class="font-sans break-normal text-orange-600 text-lg pb-3">
                 Method
             </h2>
-            {!! $meal->instruction !!}
+            <div class="text-base font-light leading-relaxed mt-0 space-y-3 text-lightGray-800">
+                {!! $meal->instruction !!}
+            </div>
         </div>
     </div>
 
