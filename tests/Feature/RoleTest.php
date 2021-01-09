@@ -41,6 +41,7 @@ class RoleTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('roles.index'));
 
         $response->assertOk();
+        $response->assertViewIs('admin.roles.index');
     }
 
     /**
@@ -69,6 +70,7 @@ class RoleTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('roles.create', [$role->id]));
 
         $response->assertOk();
+        $response->assertViewIs('admin.roles.create');
     }
 
     /**
@@ -155,6 +157,7 @@ class RoleTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('roles.show', [$role->id]));
 
         $response->assertOk();
+        $response->assertViewIs('admin.roles.show');
     }
 
     /**
@@ -186,6 +189,7 @@ class RoleTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('roles.edit', [$role->id]));
 
         $response->assertOk();
+        $response->assertViewIs('admin.roles.edit');
     }
 
     /**
