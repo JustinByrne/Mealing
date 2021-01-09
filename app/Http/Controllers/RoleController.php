@@ -20,6 +20,8 @@ class RoleController extends Controller
         abort_if(Gate::denies('role_access'), 403);
 
         $roles = Role::all();
+
+        return view('admin.roles.index', compact('roles'));
     }
 
     /**
@@ -30,6 +32,8 @@ class RoleController extends Controller
     public function create()
     {
         abort_if(Gate::denies('role_create'), 403);
+
+        return view('admin.roles.create');
     }
 
     /**
@@ -54,6 +58,8 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         abort_if(Gate::denies('role_show'), 403);
+
+        return view('admin.roles.show', compact('role'));
     }
 
     /**
@@ -65,6 +71,8 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         abort_if(Gate::denies('role_edit'), 403);
+
+        return view('admin.roles.edit');
     }
 
     /**
