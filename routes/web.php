@@ -39,8 +39,8 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::resources([
         'meals' => MealController::class,
         'ingredients' => IngredientController::class,
-        'roles' => RoleController::class,
-        'permissions' => PermissionController::class,
-        'users' => UserController::class,
+        'admin/roles' => RoleController::class,
+        'admin/permissions' => PermissionController::class,
+        'admin/users' => UserController::class,
     ]);
 });
