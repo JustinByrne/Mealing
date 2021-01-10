@@ -19,9 +19,7 @@ class RoleController extends Controller
     {
         abort_if(Gate::denies('role_access'), 403);
 
-        $roles = Role::with('permissions')->with('users')->get();
-
-        return view('admin.roles.index', compact('roles'));
+        return view('admin.roles.index');
     }
 
     /**
