@@ -32,7 +32,7 @@ class Role extends Model
      */
     public function path()
     {
-        return route('roles.show', [$this->id]);
+        return route('admin.roles.show', [$this->id]);
     }
 
     /**

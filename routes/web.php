@@ -36,10 +36,13 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');
 
+    Route::prefix('admin')->name('admin.')->group(function()   {
+        Route::resource('roles', RoleController::class);
+    });
+
     Route::resources([
         'meals' => MealController::class,
         'ingredients' => IngredientController::class,
-        'admin/roles' => RoleController::class,
         'admin/permissions' => PermissionController::class,
         'admin/users' => UserController::class,
     ]);

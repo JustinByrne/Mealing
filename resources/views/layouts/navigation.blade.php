@@ -23,7 +23,7 @@
                 <x-links.nav href="{{ route('ingredients.index') }}" :active="request()->routeIs('ingredient*')">
                     Ingredients
                 </x-links.nav>
-                <x-links.nav href="/admin" :active="request()->is('admin*')">
+                <x-links.nav href="/admin" :active="request()->routeIs('admin*')">
                     Admin
                 </x-links.nav>
 

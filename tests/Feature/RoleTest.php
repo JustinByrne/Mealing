@@ -38,7 +38,7 @@ class RoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $response = $this->actingAs($this->user)->get(route('roles.index'));
+        $response = $this->actingAs($this->user)->get(route('admin.roles.index'));
 
         $response->assertOk();
         $response->assertViewIs('admin.roles.index');
@@ -51,7 +51,7 @@ class RoleTest extends TestCase
      */
     public function testDeniedAccessToRoleIndexPageWhenNotLoggedIn()
     {
-        $response = $this->get(route('roles.index'));
+        $response = $this->get(route('admin.roles.index'));
 
         $response->assertRedirect(route('login'));
     }
@@ -67,7 +67,7 @@ class RoleTest extends TestCase
 
         $role = Role::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('roles.create', [$role->id]));
+        $response = $this->actingAs($this->user)->get(route('admin.roles.create', [$role->id]));
 
         $response->assertOk();
         $response->assertViewIs('admin.roles.create');
@@ -82,7 +82,7 @@ class RoleTest extends TestCase
     {
         $role = Role::factory()->create();
 
-        $response = $this->get(route('roles.create', [$role->id]));
+        $response = $this->get(route('admin.roles.create', [$role->id]));
 
         $response->assertRedirect(route('login'));
     }
@@ -99,7 +99,7 @@ class RoleTest extends TestCase
         $title = $this->faker->lexify('???');
         
         $response = $this->actingAs($this->user)
-            ->post(route('roles.store'), [
+            ->post(route('admin.roles.store'), [
                 'title' => $title,
         ]);
 
@@ -117,7 +117,7 @@ class RoleTest extends TestCase
     public function testErrorWhenCreatingANewRoleWithoutATitle()
     {
         $response = $this->actingAs($this->user)
-            ->post(route('roles.store'), [
+            ->post(route('admin.roles.store'), [
                 'title' => null,
         ]);
 
@@ -136,7 +136,7 @@ class RoleTest extends TestCase
         $title = $this->faker->lexify('???');
         
         $response = $this->actingAs($user)
-            ->post(route('roles.store'), [
+            ->post(route('admin.roles.store'), [
                 'title' => $title,
         ]);
 
@@ -154,7 +154,7 @@ class RoleTest extends TestCase
 
         $role = Role::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('roles.show', [$role->id]));
+        $response = $this->actingAs($this->user)->get(route('admin.roles.show', [$role->id]));
 
         $response->assertOk();
         $response->assertViewIs('admin.roles.show');
@@ -170,7 +170,7 @@ class RoleTest extends TestCase
         $user = User::factory()->create();
         $role = Role::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('roles.show', [$role->id]));
+        $response = $this->actingAs($user)->get(route('admin.roles.show', [$role->id]));
 
         $response->assertForbidden();
     }
@@ -186,7 +186,7 @@ class RoleTest extends TestCase
 
         $role = Role::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('roles.edit', [$role->id]));
+        $response = $this->actingAs($this->user)->get(route('admin.roles.edit', [$role->id]));
 
         $response->assertOk();
         $response->assertViewIs('admin.roles.edit');
@@ -201,7 +201,7 @@ class RoleTest extends TestCase
     {
         $role = Role::factory()->create();
 
-        $response = $this->get(route('roles.edit', [$role->id]));
+        $response = $this->get(route('admin.roles.edit', [$role->id]));
 
         $response->assertRedirect(route('login'));
     }
@@ -221,7 +221,7 @@ class RoleTest extends TestCase
         $title = $this->faker->lexify('???');
 
         $response = $this->actingAs($this->user)
-            ->patch(route('roles.update', [$role->id]), [
+            ->patch(route('admin.roles.update', [$role->id]), [
                 'title' => $title,
         ]);
 
@@ -243,7 +243,7 @@ class RoleTest extends TestCase
         $title = $this->faker->lexify('???');
 
         $response = $this->actingAs($user)
-            ->patch(route('roles.update', [$role->id]), [
+            ->patch(route('admin.roles.update', [$role->id]), [
                 'title' => $title,
         ]);
 
@@ -264,7 +264,7 @@ class RoleTest extends TestCase
         $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);
 
         $response = $this->actingAs($this->user)
-            ->delete(route('roles.destroy', [$role->id]));
+            ->delete(route('admin.roles.destroy', [$role->id]));
 
         $this->assertSoftDeleted($role);
     }
@@ -282,7 +282,7 @@ class RoleTest extends TestCase
         $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);
 
         $response = $this->actingAs($user)
-            ->delete(route('roles.destroy', [$role->id]));
+            ->delete(route('admin.roles.destroy', [$role->id]));
 
         $response->assertForbidden();
     }
