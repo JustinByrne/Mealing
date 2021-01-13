@@ -84,7 +84,7 @@
                     <label for="instruction" class="font-light text-xs md:pt-2 md:text-base">
                         Instructions
                     </label>
-                    <x-inputs.textarea name="instruction" id="instruction" required="required" />
+                    <x-inputs.textarea name="instruction" id="instruction" required="required" class="h-96" />
                 </div>
 
                 <div>
