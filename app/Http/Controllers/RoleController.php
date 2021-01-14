@@ -70,7 +70,7 @@ class RoleController extends Controller
     {
         abort_if(Gate::denies('role_edit'), 403);
 
-        return view('admin.roles.edit');
+        return view('admin.roles.edit', compact('role'));
     }
 
     /**
