@@ -21,7 +21,7 @@
                         Title
                     </label>
                     <div class="w-full md:col-span-4">
-                        <x-inputs.text type="text" class="font-light text-sm" name="title" id="title" value="{{ Request::old('title') }}" :error="$errors->has('title')" required="required" />
+                        <x-inputs.text type="text" class="font-light text-sm" name="title" id="title" value="{{ old('title') }}" :error="$errors->has('title')" required="required" />
                         @error('title')
                             <p class="text-red-500 italic text-xs font-light">
                                 {{ $message }}
@@ -39,7 +39,7 @@
                             {{ $message }}
                         </p>
                     @enderror
-                    <x-inputs.textarea name="description" id="description" required="required" class="h-48" />
+                    <x-inputs.textarea name="description" id="description" required="required" class="h-48">{{ old('description') }}</x-inputs.textarea>
                 </div>
 
                 <div>
