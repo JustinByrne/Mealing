@@ -28,6 +28,7 @@ class UpdateRoleRequest extends FormRequest
     {
         return [
             'title' => 'required',
+            'description' => 'nullable'
         ];
     }
 

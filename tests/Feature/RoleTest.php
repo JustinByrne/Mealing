@@ -96,16 +96,20 @@ class RoleTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $title = $this->faker->lexify('???');
+        $title = $this->faker->word;
+        $description = $this->faker->paragraph;
         
-        $response = $this->actingAs($this->user)
-            ->post(route('admin.roles.store'), [
-                'title' => $title,
+        $response = $this->actingAs($this->user)->post(route('admin.roles.store'), [
+            'title' => $title,
+            'description' => $description
         ]);
 
         $role = Role::where('title', $title)->first();
 
-        $this->assertDatabaseHas($role->getTable(), ['title' => $title]);
+        $this->assertDatabaseHas($role->getTable(), [
+            'title' => $title,
+            'description' => $description
+        ]);
         $response->assertRedirect($role->path());
     }
 
@@ -133,11 +137,12 @@ class RoleTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $title = $this->faker->lexify('???');
+        $title = $this->faker->word;
+        $description = $this->faker->paragraph;
         
-        $response = $this->actingAs($user)
-            ->post(route('admin.roles.store'), [
-                'title' => $title,
+        $response = $this->actingAs($user)->post(route('admin.roles.store'), [
+            'title' => $title,
+            'description' => $description
         ]);
 
         $response->assertForbidden();
@@ -218,14 +223,19 @@ class RoleTest extends TestCase
         $role = Role::factory()->create();
 
         // new data
-        $title = $this->faker->lexify('???');
+        $title = $this->faker->word;
+        $description = $this->faker->paragraph;
 
         $response = $this->actingAs($this->user)
             ->patch(route('admin.roles.update', [$role->id]), [
                 'title' => $title,
+                'description' => $description
         ]);
 
-        $this->assertDatabaseHas($role->getTable(), ['title' => $title]);
+        $this->assertDatabaseHas($role->getTable(), [
+            'title' => $title,
+            'description' => $description
+        ]);
         $response->assertRedirect($role->path());
     }
 
@@ -240,7 +250,7 @@ class RoleTest extends TestCase
         $role = Role::factory()->create();
 
         // new data
-        $title = $this->faker->lexify('???');
+        $title = $this->faker->word;
 
         $response = $this->actingAs($user)
             ->patch(route('admin.roles.update', [$role->id]), [
