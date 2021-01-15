@@ -42,7 +42,7 @@
                                 <x-table.th></x-table.th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($roles as $role)
                                 <tr>
                                     <x-table.td>
