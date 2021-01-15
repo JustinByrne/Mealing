@@ -53,9 +53,11 @@ class RoleController extends Controller
      * @param \App\Models\Role $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(int $id)
     {
         abort_if(Gate::denies('role_show'), 403);
+
+        $role = Role::with('permissions')->find($id);
 
         return view('admin.roles.show', compact('role'));
     }
