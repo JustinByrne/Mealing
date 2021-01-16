@@ -25,7 +25,7 @@ class Permission extends Model
      */
     public function path()
     {
-        return route('permissions.show', [$this->id]);
+        return route('admin.permissions.show', [$this->id]);
     }
 
     /**

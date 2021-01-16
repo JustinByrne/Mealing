@@ -38,12 +38,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::resource('roles', RoleController::class);
+        Route::resource('permissions', PermissionController::class);
     });
 
     Route::resources([
         'meals' => MealController::class,
         'ingredients' => IngredientController::class,
-        'admin/permissions' => PermissionController::class,
         'admin/users' => UserController::class,
     ]);
 });
