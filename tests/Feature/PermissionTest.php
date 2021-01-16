@@ -39,9 +39,10 @@ class PermissionTest extends TestCase
     {
         $this->withoutExceptionHandling();
         
-        $response = $this->actingAs($this->user)->get(route('permissions.index'));
+        $response = $this->actingAs($this->user)->get(route('admin.permissions.index'));
 
         $response->assertOk();
+        $response->assertViewIs('admin.permissions.index');
     }
 
     /**
@@ -51,7 +52,7 @@ class PermissionTest extends TestCase
      */
     public function testDeniedAccessToPermissionIndexPageWithoutPermission()
     {
-        $response = $this->get(route('permissions.index'));
+        $response = $this->get(route('admin.permissions.index'));
 
         $response->assertRedirect(route('login'));
     }
@@ -67,9 +68,10 @@ class PermissionTest extends TestCase
 
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('permissions.create', [$permission->id]));
+        $response = $this->actingAs($this->user)->get(route('admin.permissions.create', [$permission->id]));
 
         $response->assertOk();
+        $response->assertViewIs('admin.permissions.create');
     }
 
     /**
@@ -81,7 +83,7 @@ class PermissionTest extends TestCase
     {
         $permission = Permission::factory()->create();
 
-        $response = $this->get(route('permissions.create', [$permission->id]));
+        $response = $this->get(route('admin.permissions.create', [$permission->id]));
 
         $response->assertRedirect(route('login'));
     }
@@ -97,8 +99,7 @@ class PermissionTest extends TestCase
 
         $title = $this->faker->lexify('???');
 
-        $response = $this->actingAs($this->user)
-            ->post(route('permissions.store'), [
+        $response = $this->actingAs($this->user)->post(route('admin.permissions.store'), [
                 'title' => $title,
         ]);
 
@@ -115,8 +116,7 @@ class PermissionTest extends TestCase
      */
     public function testErrorWhenCreatingANewPermissionWithoutATitle()
     {
-        $response = $this->actingAs($this->user)
-            ->post(route('permissions.store'), [
+        $response = $this->actingAs($this->user)->post(route('admin.permissions.store'), [
                 'title' => null,
         ]);
 
@@ -135,8 +135,7 @@ class PermissionTest extends TestCase
 
         $title = $this->faker->lexify('???');
 
-        $response = $this->actingAs($user)
-            ->post(route('permissions.store'), [
+        $response = $this->actingAs($user)->post(route('admin.permissions.store'), [
                 'title' => $title,
         ]);
 
@@ -154,9 +153,10 @@ class PermissionTest extends TestCase
 
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('permissions.show', [$permission->id]));
+        $response = $this->actingAs($this->user)->get(route('admin.permissions.show', [$permission->id]));
 
         $response->assertOk();
+        $response->assertViewIs('admin.permissions.show');
     }
 
     /**
@@ -170,7 +170,7 @@ class PermissionTest extends TestCase
 
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('permissions.show', [$permission->id]));
+        $response = $this->actingAs($user)->get(route('admin.permissions.show', [$permission->id]));
 
         $response->assertForbidden();
     }
@@ -186,9 +186,10 @@ class PermissionTest extends TestCase
 
         $permission = Permission::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('permissions.edit', [$permission->id]));
+        $response = $this->actingAs($this->user)->get(route('admin.permissions.edit', [$permission->id]));
 
         $response->assertOk();
+        $response->assertViewIs('admin.permissions.edit');
     }
 
     /**
@@ -200,7 +201,7 @@ class PermissionTest extends TestCase
     {
         $permission = Permission::factory()->create();
 
-        $response = $this->get(route('permissions.edit', [$permission->id]));
+        $response = $this->get(route('admin.permissions.edit', [$permission->id]));
 
         $response->assertRedirect(route('login'));
     }
@@ -222,7 +223,7 @@ class PermissionTest extends TestCase
         $title = $this->faker->lexify('???');
 
         $response = $this->actingAs($this->user)
-            ->patch(route('permissions.update', $permission->id), [
+            ->patch(route('admin.permissions.update', $permission->id), [
                 'title' => $title,
         ]);
 
@@ -247,7 +248,7 @@ class PermissionTest extends TestCase
         $title = $this->faker->lexify('???');
 
         $response = $this->actingAs($user)
-            ->patch(route('permissions.update', $permission->id), [
+            ->patch(route('admin.permissions.update', $permission->id), [
                 'title' => $title,
         ]);
 
@@ -266,7 +267,7 @@ class PermissionTest extends TestCase
         $permission = Permission::factory()->create();
 
         $response = $this->actingAs($this->user)
-            ->delete(route('permissions.destroy', [$permission->id]));
+            ->delete(route('admin.permissions.destroy', [$permission->id]));
 
         $this->assertSoftDeleted($permission);
     }
@@ -283,7 +284,7 @@ class PermissionTest extends TestCase
         $permission = Permission::factory()->create();
 
         $response = $this->actingAs($user)
-            ->delete(route('permissions.destroy', [$permission->id]));
+            ->delete(route('admin.permissions.destroy', [$permission->id]));
 
         $response->assertForbidden();
     }
