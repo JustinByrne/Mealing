@@ -19,7 +19,9 @@ class PermissionController extends Controller
     {
         abort_if(Gate::denies('permission_access'), 403);
 
-        $permissions = Permission::all();
+        $permissions = Permission::with('roles')->get();
+
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     /**
@@ -30,6 +32,8 @@ class PermissionController extends Controller
     public function create()
     {
         abort_if(Gate::denies('permission_create'), 403);
+
+        return view('admin.permissions.create');
     }
 
     /**
@@ -54,6 +58,10 @@ class PermissionController extends Controller
     public function show(Permission $permission)
     {
         abort_if(Gate::denies('permission_show'), 403);
+
+        $permission = Permission::with('roles')->find($permission);
+
+        return view('admin.permissions.show', compact('permission'));
     }
 
     /**
@@ -65,6 +73,8 @@ class PermissionController extends Controller
     public function edit(Permission $permission)
     {
         abort_if(Gate::denies('permission_edit'), 403);
+
+        return view('admin.permissions.edit', compact('permission'));
     }
 
     /**
