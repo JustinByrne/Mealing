@@ -19,9 +19,7 @@ class PermissionController extends Controller
     {
         abort_if(Gate::denies('permission_access'), 403);
 
-        $permissions = Permission::with('roles')->get();
-
-        return view('admin.permissions.index', compact('permissions'));
+        return view('admin.permissions.index');
     }
 
     /**
