@@ -66,4 +66,7 @@
             </div>
         </div>
     </div>
+    <div class="mt-3">
+        {{ $roles->links() }}
+    </div>
 </div>
