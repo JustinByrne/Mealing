@@ -50,10 +50,10 @@ class PermissionController extends Controller
     /**
      * Show the specified permission
      * 
-     * @param \App\Models\Permission $permission
+     * @param int $permission
      * @return \Illuminate\Http\Response
      */
-    public function show(Permission $permission)
+    public function show(int $permission)
     {
         abort_if(Gate::denies('permission_show'), 403);
 
