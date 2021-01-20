@@ -12,6 +12,10 @@
         <hr class="border-b border-gray-400">
     </div>
 
+    <p class="text-base font-light leading-relaxed mt-3 text-lightGray-800">
+        {{ $role->description }}
+    </p>
+
     <h2 class="font-sans break-normal text-gray-900 pt-3 text-base font-bold">
         Permissions
     </h2>
