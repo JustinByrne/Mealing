@@ -46,7 +46,9 @@
                             @foreach ($roles as $role)
                                 <tr>
                                     <x-table.td>
-                                        {{ $role->title }}
+                                        <a href="{{ $role->path() }}" class="hover:text-orange-500 hover:underline">
+                                            {{ $role->title }}
+                                        </a>
                                     </x-table.td>
                                     <x-table.td>
                                         {{ $role->description }}
