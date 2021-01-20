@@ -26,12 +26,12 @@
                                 @foreach ($role->permissions->chunk(5) as $row)
                                     <tr>
                                         @foreach ($row as $permission)
-                                            <x-table.td class="bg-white border border-gray-200">
+                                            <x-table.td class="bg-white border border-gray-200 w-1/5">
                                                 {{ $permission->title }}
                                             </x-table.td>
                                             @if ($loop->parent->last)
                                                 @for ($i = $loop->count; $i < 5; $i++)
-                                                    <x-table.td class="bg-white border border-gray-200" />
+                                                    <x-table.td class="bg-white border border-gray-200 w-1/5" />
                                                 @endfor
                                             @endif
                                         @endforeach
