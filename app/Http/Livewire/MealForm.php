@@ -7,9 +7,25 @@ use App\Models\Ingredient;
 
 class MealForm extends Component
 {
-    public $quantity, $ingredient;
-    public $inputs = array();
-    public $i = 0;
+    public $quantity;
+    public $ingredient;
+    public $query;
+    public $ingredients;
+    public $inputs;
+    public $i;
+
+    /**
+     * setting up variable deafults
+     * 
+     * @return void
+     */
+    public function mount()
+    {
+        $this->query = '';
+        $this->ingredients = array();
+        $this->inputs = array();
+        $this->i = 0;
+    }
 
     /**
      * getting the view
@@ -18,8 +34,7 @@ class MealForm extends Component
      */
     public function render()
     {
-        $ingredients = Ingredient::all();
-        return view('livewire.meal-form', compact('ingredients'));
+        return view('livewire.meal-form');
     }
 
     /**
@@ -33,5 +48,19 @@ class MealForm extends Component
         $this->inputs['ingredient'][$i] = $this->ingredient;
 
         $this->i = $i + 1;
+    }
+
+    /**
+     * get all the ingredients from the query
+     * 
+     * @return void
+     */
+    public function updatedQuery()
+    {
+        if ($this->query != '') {
+            $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')->get()->toArray();
+        } else {
+            $this->ingredients = array();
+        }
     }
 }
