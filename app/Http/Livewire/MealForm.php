@@ -20,10 +20,20 @@ class MealForm extends Component
      */
     public function mount()
     {
-        $this->query = '';
-        $this->ingredients = array();
+        $this->resetQuery();
         $this->inputs = array();
         $this->i = 0;
+    }
+
+    /**
+     * reseting query variables
+     * 
+     * @return void
+     */
+    public function resetQuery()
+    {
+        $this->query = '';
+        $this->ingredients = array();
     }
 
     /**
