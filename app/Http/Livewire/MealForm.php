@@ -8,7 +8,6 @@ use App\Models\Ingredient;
 class MealForm extends Component
 {
     public $quantity;
-    public $ingredient;
     public $query;
     public $ingredients;
     public $inputs;
