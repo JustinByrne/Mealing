@@ -71,7 +71,6 @@ class MealForm extends Component
     public function updatedQuery()
     {
         if ($this->query != '') {
-            sleep(2);
             $this->autocomplete = false;
             $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')->get()->toArray();
         } else {
