@@ -5,22 +5,26 @@
         </div>
         <div class="w-full relative md:col-span-4">
             <x-inputs.text placeholder="Search Ingredients..." wire:model.debounce.300ms="query" wire:keydown.escape="resetQuery" wire:keydown.tab="resetQuery" class="z-10" />
-
+            <input type="hidden" name="ingredientId" value="{{ $ingredientId }}" />
+            
             <div class="absolute z-10 w-full bg-white rounded-b-lg shadow-lg">
                 <p wire:loading wire:target="query" class="px-2 py-1">
                     Searching...
                 </p>
             </div>
 
-            @if (!empty($query))
+            @if (!empty($query) && !$autocomplete)
                 <div class="absolute z-10 w-full bg-white rounded-b-lg shadow-lg">
                     @if (!empty($ingredients))
                         @foreach ($ingredients as $ingredient)
-                            @if ($loop->last)
-                                <p class="px-2 py-1 cursor-pointer rounded-b-lg hover:bg-blueGray-200">
-                            @else
-                                <p class="px-2 py-1 cursor-pointer hover:bg-blueGray-200">
-                            @endif
+                            <p
+                                @if ($loop->last)
+                                    class="px-2 py-1 cursor-pointer rounded-b-lg hover:bg-blueGray-200"
+                                @else
+                                    class="px-2 py-1 cursor-pointer hover:bg-blueGray-200"
+                                @endif
+                                wire:click="autocomplete('{{ $ingredient['name'] }}', {{ $ingredient['id'] }})"
+                            >
                                 {{ $ingredient['name'] }}
                             </p>
                         @endforeach

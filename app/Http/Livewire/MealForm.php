@@ -10,6 +10,8 @@ class MealForm extends Component
     public $quantity;
     public $query;
     public $ingredients;
+    public $ingredientId;
+    public $autocomplete;
     public $inputs;
     public $i;
 
@@ -34,6 +36,8 @@ class MealForm extends Component
     {
         $this->query = '';
         $this->ingredients = array();
+        $this->ingredientId = '';
+        $this->autocomplete = false;
     }
 
     /**
@@ -67,9 +71,23 @@ class MealForm extends Component
     public function updatedQuery()
     {
         if ($this->query != '') {
+            sleep(2);
+            $this->autocomplete = false;
             $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')->get()->toArray();
         } else {
             $this->ingredients = array();
         }
+    }
+
+    /**
+     * change query and ingredientId value on selection
+     * 
+     * @return void
+     */
+    public function autocomplete($query, $id)
+    {
+        $this->query = $query;
+        $this->ingredientId = $id;
+        $this->autocomplete = true;
     }
 }
