@@ -7,7 +7,7 @@
             <x-inputs.text placeholder="Search Ingredients..." wire:model.debounce.300ms="query" wire:keydown.escape="resetQuery" wire:keydown.tab="resetQuery" class="z-10" />
 
             <div class="absolute z-10 w-full bg-white rounded-b-lg shadow-lg">
-                <p wire:loading class="px-2 py-1">
+                <p wire:loading wire:target="query" class="px-2 py-1">
                     Searching...
                 </p>
             </div>
