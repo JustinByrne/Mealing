@@ -5,7 +5,6 @@
         </div>
         <div class="w-full relative md:col-span-4">
             <x-inputs.text placeholder="Search Ingredients..." wire:model.debounce.300ms="query" wire:keydown.escape="resetQuery" wire:keydown.tab="resetQuery" class="z-10" />
-            <input type="hidden" name="ingredientId" value="{{ $ingredientId }}" />
             
             <div class="absolute z-10 w-full bg-white rounded-b-lg shadow-lg">
                 <p wire:loading wire:target="query" class="px-2 py-1">
@@ -41,5 +40,16 @@
                 <i class="fas fa-plus"></i>
             </x-inputs.button>
         </div>
+    </div>
+    <div>
+        @if (!empty($inputs))
+            <ul>
+                @foreach ($inputs as $item)
+                    <li class="font-light text-xs md:pt-2 md:text-base">
+                        {{ $item['quantity'] }} - {{ $item['ingredient'] }}
+                    </li>
+                @endforeach
+            </ul>
+        @endif
     </div>
 </div>

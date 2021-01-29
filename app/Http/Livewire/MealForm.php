@@ -35,6 +35,7 @@ class MealForm extends Component
     public function resetQuery()
     {
         $this->query = '';
+        $this->quantity = '';
         $this->ingredients = array();
         $this->ingredientId = '';
         $this->autocomplete = false;
@@ -57,10 +58,13 @@ class MealForm extends Component
      */
     public function add($i)
     {
-        $this->inputs['quantity'][$i] = $this->quantity;
-        $this->inputs['ingredient'][$i] = $this->ingredient;
+        $this->inputs[$i]['quantity'] = $this->quantity;
+        $this->inputs[$i]['ingredient'] = $this->query;
+        $this->inputs[$i]['ingredientIds'] = $this->ingredientId;
 
         $this->i = $i + 1;
+
+        $this->resetQuery();
     }
 
     /**
