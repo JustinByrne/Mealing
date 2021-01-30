@@ -68,6 +68,16 @@ class MealForm extends Component
     }
 
     /**
+     * removing inputs from the array
+     * 
+     * @return void
+     */
+    public function remove($i)
+    {
+        unset($this->inputs[$i]);
+    }
+
+    /**
      * get all the ingredients from the query
      * 
      * @return void
