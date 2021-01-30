@@ -44,9 +44,12 @@
     <div>
         @if (!empty($inputs))
             <ul>
-                @foreach ($inputs as $item)
+                @foreach ($inputs as $key => $item)
                     <li class="font-light text-xs md:pt-2 md:text-base">
                         {{ $item['quantity'] }} - {{ $item['ingredient'] }}
+                        <button class="shadow bg-red-500 text-white font-bold py-1 px-1.5 text-xs mb-2 rounded w-full md:w-auto hover:bg-red-400" wire:click.prevent="remove({{ $key }})">
+                            <i class="fas fa-minus"></i>
+                        </button>
                     </li>
                 @endforeach
             </ul>
