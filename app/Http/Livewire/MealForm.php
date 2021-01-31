@@ -12,6 +12,7 @@ class MealForm extends Component
     public $ingredients;
     public $ingredientId;
     public $autocomplete;
+    public $ids;
     public $inputs;
     public $i;
 
@@ -25,6 +26,7 @@ class MealForm extends Component
         $this->resetQuery();
         $this->inputs = array();
         $this->i = 0;
+        $this->ids = array();
     }
 
     /**
@@ -62,6 +64,8 @@ class MealForm extends Component
         $this->inputs[$i]['ingredient'] = $this->query;
         $this->inputs[$i]['ingredientIds'] = $this->ingredientId;
 
+        array_push($this->ids, $this->ingredientId);
+
         $this->i = $i + 1;
 
         $this->resetQuery();
@@ -74,6 +78,10 @@ class MealForm extends Component
      */
     public function remove($i)
     {
+        if (($key = array_search($this->inputs[$i]['ingredientIds'], $this->ids)) !== false)  {
+            unset($this->ids[$key]);
+        }
+        
         unset($this->inputs[$i]);
     }
 
@@ -86,7 +94,7 @@ class MealForm extends Component
     {
         if ($this->query != '') {
             $this->autocomplete = false;
-            $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')->get()->toArray();
+            $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')->whereNotIn('id', $this->ids)->get()->toArray();
         } else {
             $this->ingredients = array();
         }
