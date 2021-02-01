@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Ingredient;
+use Illuminate\Support\Facades\Validator;
 
 class MealForm extends Component
 {
@@ -60,15 +61,18 @@ class MealForm extends Component
      */
     public function add($i)
     {
-        $this->inputs[$i]['quantity'] = $this->quantity;
-        $this->inputs[$i]['ingredient'] = $this->query;
-        $this->inputs[$i]['ingredientIds'] = $this->ingredientId;
-
-        array_push($this->ids, $this->ingredientId);
-
-        $this->i = $i + 1;
-
-        $this->resetQuery();
+        if ($this->quantity != null && $this->query != null && $this->ingredientId != null)    {
+            $this->inputs[$i]['quantity'] = $this->quantity;
+            $this->inputs[$i]['ingredient'] = $this->query;
+            $this->inputs[$i]['ingredientIds'] = $this->ingredientId;
+    
+            array_push($this->ids, $this->ingredientId);
+    
+            $this->i = $i + 1;
+    
+            $this->resetQuery();
+        }
+        
     }
 
     /**
