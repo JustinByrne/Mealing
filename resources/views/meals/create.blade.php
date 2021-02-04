@@ -77,7 +77,7 @@
                     <label for="instruction" class="font-light text-xs md:pt-2 md:text-base">
                         Ingredients
                     </label>
-                    @livewire('meal-form')
+                    @livewire('meals.create')
                 </div>
 
                 <div class="md:space-y-2">

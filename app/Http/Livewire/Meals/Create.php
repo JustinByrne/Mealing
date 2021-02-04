@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Meals;
 
 use Livewire\Component;
 use App\Models\Ingredient;
 use Illuminate\Support\Facades\Validator;
 
-class MealForm extends Component
+class Create extends Component
 {
     public $quantity;
     public $query;
@@ -51,7 +51,7 @@ class MealForm extends Component
      */
     public function render()
     {
-        return view('livewire.meal-form');
+        return view('livewire.meals.create');
     }
 
     /**

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Meals;
 
 use Livewire\Component;
 use App\Models\Meal;
 
-class Meals extends Component
+class Index extends Component
 {
     public $search;
     Public $allMeals;
@@ -18,6 +18,6 @@ class Meals extends Component
             $meals = \Auth::User()->Meals()->with('ratings')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
         }
         
-        return view('livewire.meals', compact('meals'));
+        return view('livewire.meals.index', compact('meals'));
     }
 }
