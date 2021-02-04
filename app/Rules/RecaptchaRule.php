@@ -28,7 +28,7 @@ class RecaptchaRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (env('RECAPTCHA_PHPUNIT_TESTS'))   {
+        if (config('recaptcha.testing'))   {
             return true;
         }
         
@@ -40,7 +40,7 @@ class RecaptchaRule implements Rule
             return false;
         }
 
-        $recaptcha = new Recaptcha(env('RECAPTCHA_SECRET_KEY'));
+        $recaptcha = new Recaptcha(config('recaptcha.secret_key'));
 
         $resp = $recaptcha->setExpectedHostname($_SERVER['HTTP_HOST'])
                   ->setScoreThreshold($rScore)
