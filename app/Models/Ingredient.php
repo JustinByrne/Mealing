@@ -66,4 +66,12 @@ class Ingredient extends Model
             $this->attributes['slug'] = Str::slug($value, '-');
         }
     }
+
+    /**
+     * static function to get table name
+     */
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
 }
