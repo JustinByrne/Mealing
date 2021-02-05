@@ -109,15 +109,17 @@ class IngredientTest extends TestCase
     public function testCanCreateANewIngredient()
     {
         $this->withoutExceptionHandling();
+
+        $data = [
+            'name' => $this->faker->name,
+        ];
         
-        $response = $this->actingAs($this->user)
-            ->post(route('ingredients.store'), [
-                'name' => $this->faker->name,
-        ]);
+        $response = $this->actingAs($this->user)->post(route('ingredients.store'), $data);
 
         $ingredient = Ingredient::first();
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
+        $this->assertDatabaseHas($ingredient->getTable(), $data);
         $response->assertRedirect($ingredient->path());
     }
 
@@ -128,11 +130,13 @@ class IngredientTest extends TestCase
      */
     public function testErrorWhenCreatingANewIngredientWithoutName()
     {
-        $response = $this->actingAs($this->user)
-            ->post(route('ingredients.store'), [
-                'name' => null,
-        ]);
+        $data = [
+            'name' => null,
+        ];
+        
+        $response = $this->actingAs($this->user)->post(route('ingredients.store'), $data);
 
+        $this->assertDatabaseMissing(Ingredient::getTableName(), $data);
         $response->assertSessionHasErrors(['name']);
     }
 
@@ -144,11 +148,12 @@ class IngredientTest extends TestCase
     public function testDeniedAccessToCreateANewIngredientWithoutPermission()
     {
         $user = User::factory()->create();
+
+        $data = [
+            'name' => $this->faker->name,
+        ];
         
-        $response = $this->actingAs($user)
-            ->post(route('ingredients.store'), [
-                'name' => $this->faker->name,
-        ]);
+        $response = $this->actingAs($user)->post(route('ingredients.store'), $data);
 
         $response->assertForbidden();
     }
@@ -193,9 +198,7 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $ingredient = $this->user->ingredients()->create([
-            'name' => 'cool food',
-        ]);
+        $ingredient = Ingredient::factory()->for($this->user)->create();
 
         $response = $this->actingAs($this->user)->get(route('ingredients.edit', [$ingredient->slug]));
 
@@ -209,7 +212,7 @@ class IngredientTest extends TestCase
      */
     public function testDeniedAccessToIngredientEditFormWithoutPermission()
     {
-        $ingredient = Ingredient::factory()->create();
+        $ingredient = Ingredient::factory()->for($this->user)->create();
 
         $response = $this->get(route('ingredients.edit', [$ingredient->slug]));
 
@@ -239,19 +242,15 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $ingredient = $this->user->ingredients()->create([
-            'name' => 'updated food',
-        ]);
+        $ingredient = Ingredient::factory()->for($this->user)->create();
 
-        // new data
-        $name = $this->faker->name;
+        $data = [
+            'name' => $this->faker->name
+        ];
 
-        $response = $this->actingAs($this->user)
-            ->patch(route('ingredients.update', [$ingredient->slug]), [
-                'name' => $name,
-        ]);
+        $response = $this->actingAs($this->user)->patch(route('ingredients.update', [$ingredient->slug]), $data);
 
-        $this->assertEquals($name, Ingredient::first()->name);
+        $this->assertDatabaseHas(Ingredient::getTableName(), $data);
         $response->assertRedirect(Ingredient::first()->path());
     }
 
@@ -264,15 +263,13 @@ class IngredientTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $ingredient = Ingredient::factory()->create();
+        $ingredient = Ingredient::factory()->for($user)->create();
 
-        // new data
-        $name = $this->faker->name;
+        $data = [
+            'name' => $this->faker->name
+        ];
 
-        $response = $this->actingAs($user)
-            ->patch(route('ingredients.update', [$ingredient->slug]), [
-                'name' => $name,
-        ]);
+        $response = $this->actingAs($user)->patch(route('ingredients.update', [$ingredient->slug]), $data);
 
         $response->assertForbidden();
     }
@@ -287,12 +284,11 @@ class IngredientTest extends TestCase
         $ingredient = Ingredient::factory()->create();
 
         // new data
-        $name = $this->faker->name;
+        $data = [
+            'name' => $this->faker->name
+        ];
 
-        $response = $this->actingAs($this->user)
-            ->patch(route('ingredients.update', [$ingredient->slug]), [
-                'name' => $name,
-        ]);
+        $response = $this->actingAs($this->user)->patch(route('ingredients.update', [$ingredient->slug]), $data);
 
         $response->assertForbidden();
     }
@@ -306,14 +302,11 @@ class IngredientTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $ingredient = $this->user->ingredients()->create([
-            'name' => 'cool food',
-        ]);
+        $ingredient = Ingredient::factory()->for($this->user)->create();
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
-        $this->actingAs($this->user)
-            ->delete(route('ingredients.destroy', $ingredient->slug));
+        $this->actingAs($this->user)->delete(route('ingredients.destroy', $ingredient->slug));
 
         $this->assertSoftDeleted($ingredient);
     }
@@ -327,12 +320,11 @@ class IngredientTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $ingredient = Ingredient::factory()->create();
+        $ingredient = Ingredient::factory()->for($user)->create();
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
-        $response = $this->actingAs($user)
-            ->delete(route('ingredients.destroy', $ingredient->slug));
+        $response = $this->actingAs($user)->delete(route('ingredients.destroy', $ingredient->slug));
 
         $response->assertForbidden();
     }
@@ -348,8 +340,7 @@ class IngredientTest extends TestCase
 
         $this->assertDatabaseCount($ingredient->getTable(), 1);
 
-        $response = $this->actingAs($this->user)
-            ->delete(route('ingredients.destroy', $ingredient->slug));
+        $response = $this->actingAs($this->user)->delete(route('ingredients.destroy', $ingredient->slug));
 
         $response->assertForbidden();
     }
