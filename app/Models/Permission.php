@@ -37,4 +37,14 @@ class Permission extends Model
     {
         return $this->belongsToMany(Role::class);
     }
+
+    /**
+     * Getting the table name
+     * 
+     * @return string
+     */
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
 }

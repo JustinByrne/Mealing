@@ -118,4 +118,14 @@ class Meal extends Model
     {
         return $this->ratings->avg('score');
     }
+
+    /**
+     * Getting the table name
+     * 
+     * @return string
+     */
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
 }

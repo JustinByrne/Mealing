@@ -36,4 +36,14 @@ class Comment extends Model
     {
         return \Carbon\Carbon::parse($value)->format('j<\s\up>S</\s\up> F Y');
     }
+
+    /**
+     * Getting the table name
+     * 
+     * @return string
+     */
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
 }

@@ -124,4 +124,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return json_decode(decrypt($this->two_factor_recovery_codes));
     }
+
+    /**
+     * Getting the table name
+     * 
+     * @return string
+     */
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
 }

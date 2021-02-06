@@ -68,7 +68,9 @@ class Ingredient extends Model
     }
 
     /**
-     * static function to get table name
+     * Getting the table name
+     * 
+     * @return string
      */
     public static function getTableName()
     {

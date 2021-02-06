@@ -45,4 +45,14 @@ class Role extends Model
     {
         return $this->belongsToMany(Permission::class);
     }
+
+    /**
+     * Getting the table name
+     * 
+     * @return string
+     */
+    public static function getTableName()
+    {
+        return (new self())->getTable();
+    }
 }
