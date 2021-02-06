@@ -10,8 +10,8 @@
 
 @section('content')
     @if (\Request::routeIs('ingredients.all'))
-        @livewire('ingredients', ['allIngredients' => True])
+        @livewire('ingredients.index', ['allIngredients' => True])
     @else
-        @livewire('ingredients')
+        @livewire('ingredients.index')
     @endif
 @endsection

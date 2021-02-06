@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Ingredients;
 
 use Livewire\Component;
 use App\Models\Ingredient;
 
-class Ingredients extends Component
+class Index extends Component
 {
     public $search;
     Public $allIngredients;
