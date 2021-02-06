@@ -1,10 +1,10 @@
 <div>
     <div class="items-top space-y-4 md:space-y-0 md:grid md:grid-cols-9 md:space-x-6">
         <div>
-            <x-inputs.text placeholder="Amount" wire:model="quantity" />
+            <x-inputs.text placeholder="Amount" wire:model="quantity" :error="$errors->has('quantity')" />
         </div>
         <div class="w-full relative md:col-span-4">
-            <x-inputs.text placeholder="Search Ingredients..." wire:model.debounce.300ms="query" wire:keydown.escape="resetQuery" wire:keydown.tab="resetQuery" class="z-10" />
+            <x-inputs.text placeholder="Search Ingredients..." wire:model.debounce.300ms="query" wire:keydown.escape="resetQuery" wire:keydown.tab="resetQuery" class="z-10" :error="$errors->has('query')" />
             
             <div class="absolute z-10 w-full bg-white rounded-b-lg shadow-lg">
                 <p wire:loading wire:target="query" class="px-2 py-1">

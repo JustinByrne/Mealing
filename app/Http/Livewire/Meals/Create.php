@@ -17,6 +17,12 @@ class Create extends Component
     public $inputs;
     public $i;
 
+    protected $rules = [
+        'quantity' => 'required',
+        'query' => 'required',
+        'ingredientId' => 'required|numeric'
+    ];
+
     /**
      * setting up variable deafults
      * 
@@ -61,18 +67,17 @@ class Create extends Component
      */
     public function add($i)
     {
-        if ($this->quantity != null && $this->query != null && $this->ingredientId != null)    {
-            $this->inputs[$i]['quantity'] = $this->quantity;
-            $this->inputs[$i]['ingredient'] = $this->query;
-            $this->inputs[$i]['ingredientIds'] = $this->ingredientId;
-    
-            array_push($this->ids, $this->ingredientId);
-    
-            $this->i = $i + 1;
-    
-            $this->resetQuery();
-        }
-        
+        $this->validate();
+
+        $this->inputs[$i]['quantity'] = $this->quantity;
+        $this->inputs[$i]['ingredient'] = $this->query;
+        $this->inputs[$i]['ingredientIds'] = $this->ingredientId;
+
+        array_push($this->ids, $this->ingredientId);
+
+        $this->i = $i + 1;
+
+        $this->resetQuery();
     }
 
     /**
