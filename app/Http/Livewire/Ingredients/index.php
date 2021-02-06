@@ -18,7 +18,7 @@ class Index extends Component
             $ingredients = \Auth::User()->Ingredients()->with('meals')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
         }
 
-        return view('livewire.ingredients', [
+        return view('livewire.ingredients.index', [
             'ingredients' => $ingredients,
         ]);
     }
