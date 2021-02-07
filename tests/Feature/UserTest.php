@@ -107,7 +107,7 @@ class UserTest extends TestCase
 
         $newUser = User::where('email', $email)->first();
 
-        $this->assertDatabaseHas($newUser->getTable(), ['email' => $email]);
+        $this->assertDatabaseHas(User::getTableName(), ['email' => $email]);
         $response->assertRedirect($newUser->path());
     }
 
@@ -216,7 +216,7 @@ class UserTest extends TestCase
             'password_confirmation' => $password,
         ]);
 
-        $this->assertDatabaseHas($newUser->getTable(), [
+        $this->assertDatabaseHas(User::getTableName(), [
             'name' => $name,
             'email' => $email,
         ]);

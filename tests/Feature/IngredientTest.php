@@ -118,8 +118,8 @@ class IngredientTest extends TestCase
 
         $ingredient = Ingredient::first();
 
-        $this->assertDatabaseCount($ingredient->getTable(), 1);
-        $this->assertDatabaseHas($ingredient->getTable(), $data);
+        $this->assertDatabaseCount(Ingredient::getTableName(), 1);
+        $this->assertDatabaseHas(Ingredient::getTableName(), $data);
         $response->assertRedirect($ingredient->path());
     }
 
@@ -304,7 +304,7 @@ class IngredientTest extends TestCase
 
         $ingredient = Ingredient::factory()->for($this->user)->create();
 
-        $this->assertDatabaseCount($ingredient->getTable(), 1);
+        $this->assertDatabaseCount(Ingredient::getTableName(), 1);
 
         $this->actingAs($this->user)->delete(route('ingredients.destroy', $ingredient->slug));
 
@@ -322,7 +322,7 @@ class IngredientTest extends TestCase
 
         $ingredient = Ingredient::factory()->for($user)->create();
 
-        $this->assertDatabaseCount($ingredient->getTable(), 1);
+        $this->assertDatabaseCount(Ingredient::getTableName(), 1);
 
         $response = $this->actingAs($user)->delete(route('ingredients.destroy', $ingredient->slug));
 
@@ -338,7 +338,7 @@ class IngredientTest extends TestCase
     {
         $ingredient = Ingredient::factory()->create();
 
-        $this->assertDatabaseCount($ingredient->getTable(), 1);
+        $this->assertDatabaseCount(Ingredient::getTableName(), 1);
 
         $response = $this->actingAs($this->user)->delete(route('ingredients.destroy', $ingredient->slug));
 

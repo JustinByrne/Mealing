@@ -105,7 +105,7 @@ class PermissionTest extends TestCase
 
         $permission = Permission::first();
 
-        $this->assertDatabaseHas($permission->getTable(), ['title' => $title]);
+        $this->assertDatabaseHas(Permission::getTableName(), ['title' => $title]);
         $response->assertRedirect(Permission::where('title', $title)->first()->path());
     }
 
@@ -217,7 +217,7 @@ class PermissionTest extends TestCase
         
         $permission = Permission::factory()->create();
 
-        $this->assertDatabaseHas($permission->getTable(), ['id' => $permission->id]);
+        $this->assertDatabaseHas(Permission::getTableName(), ['id' => $permission->id]);
 
         // new data
         $title = $this->faker->lexify('???');
@@ -227,7 +227,7 @@ class PermissionTest extends TestCase
                 'title' => $title,
         ]);
 
-        $this->assertDatabaseHas($permission->getTable(), ['title' => $title]);
+        $this->assertDatabaseHas(Permission::getTableName(), ['title' => $title]);
         $response->assertRedirect($permission->path());
     }
 
@@ -242,7 +242,7 @@ class PermissionTest extends TestCase
         
         $permission = Permission::factory()->create();
 
-        $this->assertDatabaseHas($permission->getTable(), ['id' => $permission->id]);
+        $this->assertDatabaseHas(Permission::getTableName(), ['id' => $permission->id]);
 
         // new data
         $title = $this->faker->lexify('???');

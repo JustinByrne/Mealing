@@ -106,7 +106,7 @@ class RoleTest extends TestCase
 
         $role = Role::where('title', $title)->first();
 
-        $this->assertDatabaseHas($role->getTable(), [
+        $this->assertDatabaseHas(Role::getTableName(), [
             'title' => $title,
             'description' => $description
         ]);
@@ -232,7 +232,7 @@ class RoleTest extends TestCase
                 'description' => $description
         ]);
 
-        $this->assertDatabaseHas($role->getTable(), [
+        $this->assertDatabaseHas(Role::getTableName(), [
             'title' => $title,
             'description' => $description
         ]);
@@ -271,7 +271,7 @@ class RoleTest extends TestCase
 
         $role = Role::factory()->create();
 
-        $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);
+        $this->assertDatabaseHas(Role::getTableName(), ['id' => $role->id]);
 
         $response = $this->actingAs($this->user)
             ->delete(route('admin.roles.destroy', [$role->id]));
@@ -289,7 +289,7 @@ class RoleTest extends TestCase
         $user = User::factory()->create();
         $role = Role::factory()->create();
 
-        $this->assertDatabaseHas($role->getTable(), ['id' => $role->id]);
+        $this->assertDatabaseHas(Role::getTableName(), ['id' => $role->id]);
 
         $response = $this->actingAs($user)
             ->delete(route('admin.roles.destroy', [$role->id]));
