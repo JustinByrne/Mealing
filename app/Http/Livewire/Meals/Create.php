@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Meals;
 
+use Auth;
 use Livewire\Component;
 use App\Models\Ingredient;
 use Illuminate\Support\Facades\Validator;
@@ -119,5 +120,23 @@ class Create extends Component
         $this->query = $query;
         $this->ingredientId = $id;
         $this->autocomplete = true;
+    }
+
+    /**
+     * create an ingredient if it doesn't exist
+     * 
+     * @return void
+     */
+    public function createIngredient()
+    {
+        $this->validate([
+            'query' => 'required|unique:App\Models\Ingredient,name',
+        ]);
+        
+        Auth::User()->Ingredients()->create([
+            'name' => $this->query
+        ]);
+
+        $this->updatedQuery();
     }
 }

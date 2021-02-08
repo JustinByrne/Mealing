@@ -28,8 +28,8 @@
                             </p>
                         @endforeach
                     @else
-                        <p class="px-2 py-1 cursor-pointer rounded-b-lg">
-                            No results...
+                        <p class="px-2 py-1 cursor-pointer rounded-b-lg" wire:click.prevent="createIngredient()">
+                            No Results - Add "{{ $query }}"
                         </p>
                     @endif
                 </div>
