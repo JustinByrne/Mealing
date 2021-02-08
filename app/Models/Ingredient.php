@@ -62,7 +62,7 @@ class Ingredient extends Model
     public function setNameAttribute($value)
     {
         if ($value)  {
-            $this->attributes['name'] = $value;
+            $this->attributes['name'] = ucwords($value);
             $this->attributes['slug'] = Str::slug($value, '-');
         }
     }
