@@ -133,10 +133,10 @@ class Create extends Component
             'query' => 'required|unique:App\Models\Ingredient,name',
         ]);
         
-        Auth::User()->Ingredients()->create([
+        $ingredient = Auth::User()->Ingredients()->create([
             'name' => $this->query
         ]);
 
-        $this->updatedQuery();
+        $this->autocomplete($this->query, $ingredient->id);
     }
 }
