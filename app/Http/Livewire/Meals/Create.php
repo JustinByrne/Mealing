@@ -72,7 +72,7 @@ class Create extends Component
 
         $this->inputs[$i]['quantity'] = $this->quantity;
         $this->inputs[$i]['ingredient'] = $this->query;
-        $this->inputs[$i]['ingredientIds'] = $this->ingredientId;
+        $this->inputs[$i]['ingredientId'] = $this->ingredientId;
 
         array_push($this->ids, $this->ingredientId);
 
@@ -88,7 +88,7 @@ class Create extends Component
      */
     public function remove($i)
     {
-        if (($key = array_search($this->inputs[$i]['ingredientIds'], $this->ids)) !== false)  {
+        if (($key = array_search($this->inputs[$i]['ingredientId'], $this->ids)) !== false)  {
             unset($this->ids[$key]);
         }
         
