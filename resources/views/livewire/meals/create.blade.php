@@ -50,6 +50,8 @@
                         <button class="shadow bg-red-500 text-white font-bold py-1 px-1.5 text-xs mb-2 rounded w-full md:w-auto hover:bg-red-400" wire:click.prevent="remove({{ $key }})">
                             <i class="fas fa-minus"></i>
                         </button>
+                        <input type="hidden" name="quantities[{{ $key }}]" value="{{ $item['quantity'] }}">
+                        <input type="hidden" name="ingredients[{{ $key }}]" value="{{ $item['ingredientId'] }}">
                     </li>
                 @endforeach
             </ul>

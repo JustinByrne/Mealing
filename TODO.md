@@ -11,4 +11,4 @@
 - Dietary tagging
 - Meal Categories (dinner/lunch/pudding/savoury/sweet)
 - Add audit trail of all user changes
-- add alpine/livewire dynamic ingredient with quantities - also include autocomplete for existing ingredients to meal create page
+- add livewire tests to meals and ingredient tests
