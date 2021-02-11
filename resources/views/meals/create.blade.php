@@ -13,7 +13,7 @@
     </div>
 
     <div class="pt-5">
-        <form action="{{ route('meals.index') }}" method="POST">
+        <form action="{{ route('meals.store') }}" method="POST">
             @csrf
             <div class="space-y-4">
                 <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
