@@ -98,6 +98,8 @@ class MealController extends Controller
     public function edit(Meal $meal)
     {
         abort_if(Gate::denies('meal_edit'), 403);
+
+        return view('meals.edit', compact('meal'));
     }
 
     /**
