@@ -92,13 +92,15 @@ class MealController extends Controller
     /**
      * Show the form to edit a meal
      * 
-     * @param \App\Models\Meal $meal
+     * @param string $meal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Meal $meal)
+    public function edit($meal)
     {
         abort_if(Gate::denies('meal_edit'), 403);
 
+        $meal = Meal::with('ingredients')->where('slug', $meal)->first();
+        
         return view('meals.edit', compact('meal'));
     }
 
