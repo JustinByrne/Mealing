@@ -13,7 +13,7 @@
     </div>
 
     <div class="pt-5">
-        <form action="{{ route('meals.update', [$meal->id]) }}" method="POST">
+        <form action="{{ route('meals.update', [$meal->slug]) }}" method="POST">
             @csrf
             @method('patch')
             <div class="space-y-4">
