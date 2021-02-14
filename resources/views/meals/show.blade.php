@@ -44,7 +44,7 @@
                 Method
             </h2>
             <div class="text-base font-light leading-relaxed mt-0 space-y-3 text-lightGray-800">
-                {!! $meal->instruction !!}
+                {!! nl2br($meal->instruction) !!}
             </div>
         </div>
     </div>
