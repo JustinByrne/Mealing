@@ -338,27 +338,20 @@ class MealTest extends TestCase
         $meal = Meal::factory()->create();
 
         // new data
-        $name = $this->faker->name;
-        $serving = $this->faker->randomDigitNotNull;
-        $adults = $this->faker->boolean;
-        $kids = $this->faker->boolean;
-        $timing = $this->faker->randomDigitNotNull;
+        $data = [
+            'name' => $this->faker->name,
+            'servings' => $this->faker->randomDigitNotNull,
+            'adults' => $this->faker->boolean,
+            'kids' => $this->faker->boolean,
+            'timing' => $this->faker->randomDigitNotNull,
+            'instruction' => $this->faker->paragraph,
+        ];
 
-        $response = $this->actingAs($this->user)
-            ->patch(route('meals.update', [$meal->slug]), [
-                'name' => $name,
-                'servings' => $serving,
-                'adults' => $adults,
-                'kids' => $kids,
-                'timing' => $timing,
-        ]);
+        $response = $this->actingAs($this->user)->patch(route('meals.update', $meal), $data);
+        $meal->refresh();
 
-        $this->assertEquals($name, Meal::first()->name);
-        $this->assertEquals($serving, Meal::first()->servings);
-        $this->assertEquals($adults, Meal::first()->adults);
-        $this->assertEquals($kids, Meal::first()->kids);
-        $this->assertEquals($timing, Meal::first()->timing);
-        $response->assertRedirect(Meal::first()->path());
+        $this->assertDatabaseHas(Meal::getTableName(), $data);
+        $response->assertRedirect($meal->path());
     }
 
     /**
