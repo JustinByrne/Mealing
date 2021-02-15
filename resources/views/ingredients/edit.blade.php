@@ -10,7 +10,7 @@
         <hr class="border-b border-gray-400">
     </div>
 
-    <form action="{{ route('ingredients.update', [$ingredient->id]) }}" method="POST">
+    <form action="{{ route('ingredients.update', $ingredient) }}" method="POST">
         @csrf
         @method('PATCH')
 
