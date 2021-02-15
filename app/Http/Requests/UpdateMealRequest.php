@@ -46,9 +46,8 @@ class UpdateMealRequest extends FormRequest
         return [
             'name.required' => 'A name is required',
             'servings.required' => 'A Serving quantity is required',
-            'adults.required' => 'Please select the meal is for an adult or not',
-            'kids.required' => 'Please select the meal is for an kid or not',
-            'timing.required' => 'A time frame is required'
+            'timing.required' => 'A time frame is required',
+            'instruction.required' => 'Instructions are required',
         ];
     }
 }
