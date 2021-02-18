@@ -28,9 +28,15 @@
                             </p>
                         @endforeach
                     @else
-                        <p class="px-2 py-1 cursor-pointer rounded-b-lg" wire:click.prevent="createIngredient()">
-                            No Results - Add "{{ $query }}"
-                        </p>
+                        @can ('ingredient_create')
+                            <p class="px-2 py-1 cursor-pointer rounded-b-lg" wire:click.prevent="createIngredient()">
+                                No Results - Add "{{ $query }}"
+                            </p>
+                        @else
+                            <p class="px-2 py-1 cursor-pointer rounded-b-lg">
+                                No Results
+                            </p>
+                        @endcan
                     @endif
                 </div>
             @endif
