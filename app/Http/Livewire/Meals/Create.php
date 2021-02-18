@@ -3,12 +3,14 @@
 namespace App\Http\Livewire\Meals;
 
 use Auth;
+use App\Models\Meal;
 use Livewire\Component;
 use App\Models\Ingredient;
 use Illuminate\Support\Facades\Validator;
 
 class Create extends Component
 {
+    public Meal $meal;
     public $quantity;
     public $query;
     public $ingredients;
@@ -35,6 +37,14 @@ class Create extends Component
         $this->inputs = array();
         $this->i = 0;
         $this->ids = array();
+
+        if (isset($this->meal)) {
+            foreach($this->meal->ingredients as $i=>$ingredient)  {
+                $this->inputs[$i]['quantity'] = $ingredient->pivot->quantity;
+                $this->inputs[$i]['ingredient'] = $ingredient->name;
+                $this->inputs[$i]['ingredientId'] = $ingredient->id;
+            }
+        }
     }
 
     /**
