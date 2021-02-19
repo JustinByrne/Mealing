@@ -27,6 +27,17 @@
                                 {{ $ingredient['name'] }}
                             </p>
                         @endforeach
+                        @foreach ($ingredients as $ingredient)
+                            @if (in_array(ucwords($query), $ingredient))
+                                @break
+                            @endif
+
+                            @if ($loop->last)
+                                <p class="px-2 py-1 cursor-pointer rounded-b-lg" wire:click.prevent="createIngredient()">
+                                    Add "{{ $query }}"
+                                </p>
+                        @endif
+                        @endforeach
                     @else
                         @can ('ingredient_create')
                             <p class="px-2 py-1 cursor-pointer rounded-b-lg" wire:click.prevent="createIngredient()">
