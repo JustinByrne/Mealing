@@ -114,7 +114,7 @@ class Create extends Component
     {
         if ($this->query != '') {
             $this->autocomplete = false;
-            $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')->whereNotIn('id', $this->ids)->get()->toArray();
+            $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')->whereNotIn('id', $this->ids)->take(5)->get()->toArray();
         } else {
             $this->ingredients = array();
         }
