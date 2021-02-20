@@ -84,7 +84,10 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('meals.create', [$meal->slug]));
+        $response = $this->actingAs($this->user)
+                    ->get(route('meals.create', [$meal->slug]))
+                    ->assertSeeLivewire('meals.create');
+
 
         $response->assertOk();
         $response->assertViewIs('meals.create');
@@ -307,7 +310,9 @@ class MealTest extends TestCase
 
         $meal = Meal::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('meals.edit', [$meal->slug]));
+        $response = $this->actingAs($this->user)
+                    ->get(route('meals.edit', [$meal->slug]))
+                    ->assertSeeLivewire('meals.create');
 
         $response->assertOk();
     }

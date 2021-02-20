@@ -11,6 +11,5 @@
 - Dietary tagging
 - Meal Categories (dinner/lunch/pudding/savoury/sweet)
 - Add audit trail of all user changes
-- add livewire tests to meals and ingredient tests
 - add image to meal
 - 

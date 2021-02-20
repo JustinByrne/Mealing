@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Role;
 use App\Models\User;
+use Livewire\Livewire;
 use App\Models\Ingredient;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -343,5 +344,20 @@ class IngredientTest extends TestCase
         $response = $this->actingAs($this->user)->delete(route('ingredients.destroy', $ingredient->slug));
 
         $response->assertForbidden();
+    }
+
+    /**
+     * test creating ingredient from livewire
+     * 
+     * @return void
+     */
+    public function testCanCreateANewIngredientWithLivewire()
+    {
+        Livewire::actingAs($this->user)
+                    ->test('meals.create')
+                    ->set('query', 'foo')
+                    ->call('createIngredient');
+        
+        $this->assertDatabaseHas(Ingredient::getTableName(), ['name' => 'foo']);
     }
 }
