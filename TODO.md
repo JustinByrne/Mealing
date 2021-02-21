@@ -14,4 +14,5 @@
 - add image to meal
 - move ingredients to a admin only section. These will only be created when adding meals
 - change the design to match a better UX experience
-- 
+- migrate to spatie role and permissions
+- Add allergens for meals
