@@ -12,6 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .copyDirectory('resources/fonts', 'public/fonts')
+    .copy('resources/css/vendor/erudus/icons.css', 'public/css/icons.css')
     .postCss('resources/css/app.css', 'public/css', [
         require('tailwindcss'),
     ]);
