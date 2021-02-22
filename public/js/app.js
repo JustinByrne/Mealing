@@ -2015,6 +2015,17 @@
 
 /***/ }),
 
+/***/ "./resources/css/vendor/erudus/icons.scss":
+/*!************************************************!*\
+  !*** ./resources/css/vendor/erudus/icons.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -2031,13 +2042,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!***********************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/css/app.css ***!
-  \***********************************************************/
+/*!****************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/css/vendor/erudus/icons.scss ./resources/css/app.css ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/justin/Documents/git/Mealing/app/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/justin/Documents/git/Mealing/app/resources/css/vendor/erudus/icons.scss */"./resources/css/vendor/erudus/icons.scss");
 module.exports = __webpack_require__(/*! /home/justin/Documents/git/Mealing/app/resources/css/app.css */"./resources/css/app.css");
 
 

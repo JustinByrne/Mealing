@@ -1,0 +1,245 @@
+/*!
+ *  Erudus Icons - http://www.erudus.com
+ *  License -  MIT License
+ */
+
+$fontpath: '../../../fonts/vendor/erudus';
+
+@font-face {
+  font-family: 'erudus';
+  src:  url($fontpath + '/erudus.eot?c2k7nf');
+  src:  url($fontpath +'/erudus.eot?c2k7nf#iefix') format('embedded-opentype'),
+  url($fontpath +'/erudus.ttf?c2k7nf') format('truetype'),
+  url($fontpath +'/erudus.woff?c2k7nf') format('woff'),
+  url($fontpath +'/erudus.svg?c2k7nf#erudus') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// ri colours
+$erudus-red     : #EF4444;
+$erudus-green   : #10B981;
+$erudus-amber   : #F59E0B;
+$erudus-default : #D1D5DB;
+
+.erudus-amber{
+  color : $erudus-amber;
+}
+.erudus-red{
+  color : $erudus-red;
+}
+.erudus-green{
+  color : $erudus-green;
+}
+
+// icon base class
+.eicon {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'erudus' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  font-size: 64px;
+  color: $erudus-default;
+  display: inline-block;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &.eicon-small {
+    font-size: 32px;
+  }
+
+}
+
+.eicon-small{
+  .eicon{
+    font-size: 32px;
+  }
+}
+
+// icon colour for levels
+.allergen-level-may .eicon{
+  color: $erudus-amber;
+}
+.allergen-level-yes .eicon {
+  color: $erudus-red;
+}
+
+.suitable-level-yes .eicon{
+  color: $erudus-green;
+}
+
+// icon lists
+.eicon-list{
+
+  list-style: none;
+  padding:0;
+  text-align:left;
+  position:relative;
+
+  li {
+
+    position: relative;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    text-align: center;
+    width: 64px;
+    font-size: 10px;
+    color: $erudus-default;
+    margin-bottom: 12px;
+    margin-right: 12px;
+    vertical-align:top;
+
+
+    &.allergen-level-may{
+
+      color: $erudus-amber;
+
+    }
+    &.allergen-level-yes{
+
+      color: $erudus-red;
+
+    }
+
+    &.suitable-level-yes{
+
+      color: $erudus-green;
+
+    }
+  }
+
+  &.eicon-small{
+    li{
+      width: 32px;
+      margin-right: 6px;
+      font-size: 6px;
+    }
+  }
+
+}
+
+// icons
+.eicon-halal:before {
+  content: "\e900";
+}
+.eicon-kosher:before {
+  content: "\e901";
+}
+.eicon-vegan:before {
+  content: "\e902";
+}
+.eicon-crustaceans:before {
+  content: "\e903";
+}
+.eicon-gluten:before {
+  content: "\e904";
+}
+.eicon-vegetarian:before {
+  content: "\e905";
+}
+.eicon-celery:before {
+  content: "\e906";
+}
+.eicon-lupin:before {
+  content: "\e907";
+}
+.eicon-sesame:before {
+  content: "\e908";
+}
+.eicon-so2:before {
+  content: "\e909";
+}
+.eicon-fish:before {
+  content: "\e90a";
+}
+.eicon-molluscs:before {
+  content: "\e90b";
+}
+.eicon-mustard:before {
+  content: "\e90c";
+}
+.eicon-eggs:before {
+  content: "\e90d";
+}
+.eicon-milk:before {
+  content: "\e90e";
+}
+.eicon-nuts:before {
+  content: "\e90f";
+}
+.eicon-peanuts:before {
+  content: "\e910";
+}
+.eicon-cereal:before {
+  content: "\e911";
+}
+.eicon-circle-kosher:before {
+  content: "\e912";
+}
+.eicon-soya:before {
+  content: "\e913";
+}
+.eicon-circle-halal:before {
+  content: "\e914";
+}
+.eicon-circle-vegan:before {
+  content: "\e915";
+}
+.eicon-circle-vegetarian:before {
+  content: "\e916";
+}
+.eicon-circle-celery:before {
+  content: "\e917";
+}
+.eicon-circle-crustaceans:before {
+  content: "\e918";
+}
+.eicon-circle-gluten:before {
+  content: "\e919";
+}
+.eicon-circle-so2:before {
+  content: "\e91a";
+}
+.eicon-circle-lupin:before {
+  content: "\e91b";
+}
+.eicon-circle-mustard:before {
+  content: "\e91c";
+}
+.eicon-circle-sesame:before {
+  content: "\e91d";
+}
+.eicon-circle-eggs:before {
+  content: "\e91e";
+}
+.eicon-circle-fish:before {
+  content: "\e91f";
+}
+.eicon-circle-molluscs:before {
+  content: "\e920";
+}
+.eicon-circle-cereal:before {
+  content: "\e921";
+}
+.eicon-circle-milk:before {
+  content: "\e922";
+}
+.eicon-circle-nuts:before {
+  content: "\e923";
+}
+.eicon-circle-peanuts:before {
+  content: "\e924";
+}
+.eicon-circle-soya:before {
+  content: "\e925";
+}
+.eicon-coeliac:before {
+  content: "\e926";
+}

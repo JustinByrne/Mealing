@@ -1,22 +1,33 @@
+@charset "UTF-8";
+
+/*!
+ *  Erudus Icons - http://www.erudus.com
+ *  License -  MIT License
+ */
+
 @font-face {
-  font-family: 'erudus';
-  src: url("../fonts/vendor/erudus/erudus.eot?c2k7nf");
-  src: url("../fonts/vendor/erudus/erudus.eot?c2k7nf#iefix") format("embedded-opentype"), url("../fonts/vendor/erudus/erudus.ttf?c2k7nf") format("truetype"), url("../fonts/vendor/erudus/erudus.woff?c2k7nf") format("woff"), url("../fonts/vendor/erudus/erudus.svg?c2k7nf#erudus") format("svg");
+  font-family: "erudus";
+  src: url(/fonts/erudus.eot?9fa3c5b013b11345a9dc280c2d8f48e0);
+  src: url(/fonts/erudus.eot?9fa3c5b013b11345a9dc280c2d8f48e0) format("embedded-opentype"), url(/fonts/erudus.ttf?c41f71ca0557d9750cdfe60c0a5a75ae) format("truetype"), url(/fonts/erudus.woff?fd8865cc118c1618d7b0e688c8543ba6) format("woff"), url(/fonts/erudus.svg?d2aaeea6ea7e9c7691515f1190dc37c3) format("svg");
   font-weight: normal;
-  font-style: normal; }
+  font-style: normal;
+}
 
 .erudus-amber {
-  color: #f0ad4e; }
+  color: #F59E0B;
+}
 
 .erudus-red {
-  color: #d9534f; }
+  color: #EF4444;
+}
 
 .erudus-green {
-  color: #5cb85c; }
+  color: #10B981;
+}
 
 .eicon {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'erudus' !important;
+  font-family: "erudus" !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -24,167 +35,225 @@
   text-transform: none;
   line-height: 1;
   font-size: 64px;
-  color: #d3d3d3;
+  color: #D1D5DB;
   display: inline-block;
   /* Better Font Rendering =========== */
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
-  .eicon.eicon-small {
-    font-size: 32px; }
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.eicon.eicon-small {
+  font-size: 32px;
+}
 
 .eicon-small .eicon {
-  font-size: 32px; }
+  font-size: 32px;
+}
 
 .allergen-level-may .eicon {
-  color: #f0ad4e; }
+  color: #F59E0B;
+}
 
 .allergen-level-yes .eicon {
-  color: #d9534f; }
+  color: #EF4444;
+}
 
 .suitable-level-yes .eicon {
-  color: #5cb85c; }
+  color: #10B981;
+}
 
 .eicon-list {
   list-style: none;
   padding: 0;
   text-align: left;
-  position: relative; }
-  .eicon-list li {
-    position: relative;
-    display: inline-block;
-    *display: inline;
-    zoom: 1;
-    text-align: center;
-    width: 64px;
-    font-size: 10px;
-    color: #d3d3d3;
-    margin-bottom: 12px;
-    margin-right: 12px;
-    vertical-align: top; }
-    .eicon-list li.allergen-level-may {
-      color: #f0ad4e; }
-    .eicon-list li.allergen-level-yes {
-      color: #d9534f; }
-    .eicon-list li.suitable-level-yes {
-      color: #5cb85c; }
-  .eicon-list.eicon-small li {
-    width: 32px;
-    margin-right: 6px;
-    font-size: 6px; }
+  position: relative;
+}
+
+.eicon-list li {
+  position: relative;
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  text-align: center;
+  width: 64px;
+  font-size: 10px;
+  color: #D1D5DB;
+  margin-bottom: 12px;
+  margin-right: 12px;
+  vertical-align: top;
+}
+
+.eicon-list li.allergen-level-may {
+  color: #F59E0B;
+}
+
+.eicon-list li.allergen-level-yes {
+  color: #EF4444;
+}
+
+.eicon-list li.suitable-level-yes {
+  color: #10B981;
+}
+
+.eicon-list.eicon-small li {
+  width: 32px;
+  margin-right: 6px;
+  font-size: 6px;
+}
 
 .eicon-halal:before {
-  content: "\e900"; }
+  content: "\E900";
+}
 
 .eicon-kosher:before {
-  content: "\e901"; }
+  content: "\E901";
+}
 
 .eicon-vegan:before {
-  content: "\e902"; }
+  content: "\E902";
+}
 
 .eicon-crustaceans:before {
-  content: "\e903"; }
+  content: "\E903";
+}
 
 .eicon-gluten:before {
-  content: "\e904"; }
+  content: "\E904";
+}
 
 .eicon-vegetarian:before {
-  content: "\e905"; }
+  content: "\E905";
+}
 
 .eicon-celery:before {
-  content: "\e906"; }
+  content: "\E906";
+}
 
 .eicon-lupin:before {
-  content: "\e907"; }
+  content: "\E907";
+}
 
 .eicon-sesame:before {
-  content: "\e908"; }
+  content: "\E908";
+}
 
 .eicon-so2:before {
-  content: "\e909"; }
+  content: "\E909";
+}
 
 .eicon-fish:before {
-  content: "\e90a"; }
+  content: "\E90A";
+}
 
 .eicon-molluscs:before {
-  content: "\e90b"; }
+  content: "\E90B";
+}
 
 .eicon-mustard:before {
-  content: "\e90c"; }
+  content: "\E90C";
+}
 
 .eicon-eggs:before {
-  content: "\e90d"; }
+  content: "\E90D";
+}
 
 .eicon-milk:before {
-  content: "\e90e"; }
+  content: "\E90E";
+}
 
 .eicon-nuts:before {
-  content: "\e90f"; }
+  content: "\E90F";
+}
 
 .eicon-peanuts:before {
-  content: "\e910"; }
+  content: "\E910";
+}
 
 .eicon-cereal:before {
-  content: "\e911"; }
+  content: "\E911";
+}
 
 .eicon-circle-kosher:before {
-  content: "\e912"; }
+  content: "\E912";
+}
 
 .eicon-soya:before {
-  content: "\e913"; }
+  content: "\E913";
+}
 
 .eicon-circle-halal:before {
-  content: "\e914"; }
+  content: "\E914";
+}
 
 .eicon-circle-vegan:before {
-  content: "\e915"; }
+  content: "\E915";
+}
 
 .eicon-circle-vegetarian:before {
-  content: "\e916"; }
+  content: "\E916";
+}
 
 .eicon-circle-celery:before {
-  content: "\e917"; }
+  content: "\E917";
+}
 
 .eicon-circle-crustaceans:before {
-  content: "\e918"; }
+  content: "\E918";
+}
 
 .eicon-circle-gluten:before {
-  content: "\e919"; }
+  content: "\E919";
+}
 
 .eicon-circle-so2:before {
-  content: "\e91a"; }
+  content: "\E91A";
+}
 
 .eicon-circle-lupin:before {
-  content: "\e91b"; }
+  content: "\E91B";
+}
 
 .eicon-circle-mustard:before {
-  content: "\e91c"; }
+  content: "\E91C";
+}
 
 .eicon-circle-sesame:before {
-  content: "\e91d"; }
+  content: "\E91D";
+}
 
 .eicon-circle-eggs:before {
-  content: "\e91e"; }
+  content: "\E91E";
+}
 
 .eicon-circle-fish:before {
-  content: "\e91f"; }
+  content: "\E91F";
+}
 
 .eicon-circle-molluscs:before {
-  content: "\e920"; }
+  content: "\E920";
+}
 
 .eicon-circle-cereal:before {
-  content: "\e921"; }
+  content: "\E921";
+}
 
 .eicon-circle-milk:before {
-  content: "\e922"; }
+  content: "\E922";
+}
 
 .eicon-circle-nuts:before {
-  content: "\e923"; }
+  content: "\E923";
+}
 
 .eicon-circle-peanuts:before {
-  content: "\e924"; }
+  content: "\E924";
+}
 
 .eicon-circle-soya:before {
-  content: "\e925"; }
+  content: "\E925";
+}
 
 .eicon-coeliac:before {
-    content: "\e926"; }
+  content: "\E926";
+}
+
