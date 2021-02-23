@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MealController;
-use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AllergenController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
+        Route::resource('allergens', AllergenController::class);
     });
 
     Route::resources([
