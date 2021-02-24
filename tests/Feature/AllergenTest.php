@@ -126,8 +126,8 @@ class AllergenTest extends TestCase
         $this->withoutExceptionHandling();
 
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
-            'name' => 'Gluten'
+            'icon' => $this->faker->word,
+            'name' => $this->faker->word,
         ];
 
         $response = $this->actingAs($this->user)->post(route('admin.allergens.store'), $data);
@@ -144,8 +144,8 @@ class AllergenTest extends TestCase
     public function testDeniedAccessToCreateAllergenWhenNotLoggedIn()
     {
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
-            'name' => 'Gluten'
+            'icon' => $this->faker->word,
+            'name' => $this->faker->word,
         ];
 
         $response = $this->post(route('admin.allergens.store'), $data);
@@ -165,8 +165,8 @@ class AllergenTest extends TestCase
         $user = User::factory()->create();
 
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
-            'name' => 'Gluten'
+            'icon' => $this->faker->word,
+            'name' => $this->faker->word,
         ];
 
         $response = $this->actingAs($user)->post(route('admin.allergens.store'), $data);
@@ -185,7 +185,7 @@ class AllergenTest extends TestCase
     {
         $data = [
             'icon' => null,
-            'name' => 'Gluten'
+            'name' => $this->faker->word,
         ];
 
         $response = $this->actingAs($this->user)->post(route('admin.allergens.store'), $data);
@@ -202,7 +202,7 @@ class AllergenTest extends TestCase
     public function testErrorWhenCreatingAnAllergenWithoutAName()
     {
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
+            'icon' => $this->faker->word,
             'name' => null
         ];
 
@@ -315,7 +315,7 @@ class AllergenTest extends TestCase
     {
         $allergen = Allergen::factory()->create();
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
+            'icon' => $this->faker->word,
             'name' => $this->faker->word,
         ];
         
@@ -334,7 +334,7 @@ class AllergenTest extends TestCase
     {
         $allergen = Allergen::factory()->create();
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
+            'icon' => $this->faker->word,
             'name' => $this->faker->word,
         ];
         
@@ -354,7 +354,7 @@ class AllergenTest extends TestCase
         $user = User::factory()->create();
         $allergen = Allergen::factory()->create();
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
+            'icon' => $this->faker->word,
             'name' => $this->faker->word,
         ];
         
@@ -373,7 +373,7 @@ class AllergenTest extends TestCase
     {
         $allergen = Allergen::factory()->create();
         $data = [
-            'icon' => 'eicon eicon-circle-gluten',
+            'icon' => $this->faker->word,
             'name' => null
         ];
 
@@ -393,7 +393,7 @@ class AllergenTest extends TestCase
         $allergen = Allergen::factory()->create();
         $data = [
             'icon' => null,
-            'name' => 'Gluten'
+            'name' => $this->faker->word,
         ];
 
         $response = $this->actingAs($this->user)->patch(route('admin.allergens.update', [$allergen]), $data);

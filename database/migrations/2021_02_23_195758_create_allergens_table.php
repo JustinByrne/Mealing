@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Database\Seeders\AllergenSeeder;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateAllergensTable extends Migration
 {
@@ -19,6 +20,9 @@ class CreateAllergensTable extends Migration
             $table->string('icon');
             $table->timestamps();
         });
+
+        $seeder = new AllergenSeeder;
+        $seeder->run();
     }
 
     /**
