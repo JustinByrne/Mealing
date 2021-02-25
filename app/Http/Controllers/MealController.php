@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Gate;
 use App\Models\Meal;
+use App\Models\Allergen;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreMealRequest;
@@ -86,7 +87,9 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_show'), 403);
 
-        return view('meals.show', compact('meal'));
+        $allergens = Allergen::all();
+
+        return view('meals.show', compact('meal', 'allergens'));
     }
 
     /**
