@@ -30,7 +30,7 @@ class Meal extends Model
      */
     public function ingredients()
     {
-        return $this->belongsToMany('App\Models\Ingredient')->withPivot('quantity');
+        return $this->belongsToMany(Ingredient::class)->withPivot('quantity');
     }
 
     /**
@@ -55,6 +55,14 @@ class Meal extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class)->orderBy('created_at', 'DESC');
+    }
+
+    /**
+     * The allergens that belong to the meal.
+     */
+    public function allergens()
+    {
+        return $this->belongsToMany(Allergen::class)->withPivot('level');
     }
 
 

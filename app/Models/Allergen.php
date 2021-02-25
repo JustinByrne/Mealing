@@ -28,4 +28,12 @@ class Allergen extends Model
     {
         return (new self())->getTable();
     }
+
+    /**
+     * The meals that belong to the allergen.
+     */
+    public function meals()
+    {
+        return $this->belongsToMany(Meal::class);
+    }
 }
