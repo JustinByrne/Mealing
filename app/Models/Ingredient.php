@@ -33,7 +33,7 @@ class Ingredient extends Model
      */
     public function meals()
     {
-        return $this->belongsToMany('App\Models\Meal');
+        return $this->belongsToMany(Meal::class);
     }
 
     /**
