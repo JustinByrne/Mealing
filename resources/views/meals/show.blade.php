@@ -31,8 +31,8 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-6">
         <div class="grid-cols-full lg:grid-cols-1">
             <div class="text-xl">
-                @foreach ($allergens as $allergen)
-                    <x-allergen icon="{{ $allergen->icon }}" name="{{ $allergen->name }}" />
+                @foreach ($allAllergens as $allergen)
+                    <x-allergen icon="{{ $allergen->icon }}" name="{{ $allergen->name }}" level="{{ array_key_exists($allergen->id, $allergens) ? $allergens[$allergen->id] : '' }}" />
                 @endforeach
             </div>
             <h2 class="font-sans break-normal text-orange-600 text-lg pb-2">

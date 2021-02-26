@@ -87,9 +87,10 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_show'), 403);
 
-        $allergens = Allergen::all();
+        $allergens = $meal->allergens()->pluck('level', 'allergen_id')->toArray();
+        $allAllergens = Allergen::all();
 
-        return view('meals.show', compact('meal', 'allergens'));
+        return view('meals.show', compact('meal', 'allAllergens', 'allergens'));
     }
 
     /**
