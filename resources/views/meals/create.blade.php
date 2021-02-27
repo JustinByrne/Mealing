@@ -73,6 +73,29 @@
                     </div>
                 </div>
 
+                <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
+                    <label class="font-light text-xs md:pt-2 md:text-base">
+                        Allergens
+                    </label>
+                    <div class="w-full md:col-span-4 md:pt-1 text-2xl">
+                        @foreach ($allergens as $allergen)
+                            <div class="inline" x-data="{ level: 'no' }">
+                                <x-allergen
+                                    icon="{{ $allergen->icon }}"
+                                    name="{{ $allergen->name }}"
+                                    x-on:click="level = changeLevel(level)"
+                                    x-bind:class="{
+                                        'allergen-level-no': level == 'no',
+                                        'allergen-level-may': level == 'may',
+                                        'allergen-level-yes': level == 'yes',
+                                    }"
+                                />
+                                <input type="hidden" name="allergen[][{{ $allergen->id }}]" x-model="level">
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
                 <div class="md:space-y-2">
                     <label class="font-light text-xs md:pt-2 md:text-base">
                         Ingredients
@@ -93,4 +116,22 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        function changeLevel($current)  {
+            switch($current) {
+                case 'no':
+                    return 'may';
+                    break;
+                case 'may':
+                    return 'yes';
+                    break;
+                case 'yes':
+                    return 'no';
+                    break;
+            }
+        }
+    </script>
 @endsection
