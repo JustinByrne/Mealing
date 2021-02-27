@@ -16,7 +16,7 @@
         <form action="{{ route('meals.store') }}" method="POST">
             @csrf
             <div class="space-y-4">
-                <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
+                <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
                     <label for="name" class="font-light text-xs md:pt-2 md:text-base">
                         Name
                     </label>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
+                <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
                     <label for="servings" class="font-light text-xs md:pt-2 md:text-base">
                         # of Servings
                     </label>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
+                <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
                     <label for="timing" class="font-light text-xs md:pt-2 md:text-base">
                         Time in Minutes
                     </label>
