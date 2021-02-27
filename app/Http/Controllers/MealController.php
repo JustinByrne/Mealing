@@ -48,7 +48,9 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_create'), 403);
 
-        return view('meals.create');
+        $allergens = Allergen::all();
+
+        return view('meals.create', compact('allergens'));
     }
     
     /**
