@@ -103,7 +103,7 @@ class RoleTest extends TestCase
         
         $response = $this->actingAs($this->user)->post(route('admin.roles.store'), $data);
 
-        $role = Role::where('title', $title)->first();
+        $role = Role::where('title', $data['title'])->first();
 
         $this->assertDatabaseHas(Role::getTableName(), $data);
         $response->assertRedirect($role->path());
@@ -116,9 +116,8 @@ class RoleTest extends TestCase
      */
     public function testErrorWhenCreatingANewRoleWithoutATitle()
     {
-        $response = $this->actingAs($this->user)
-            ->post(route('admin.roles.store'), [
-                'title' => null,
+        $response = $this->actingAs($this->user)->post(route('admin.roles.store'), [
+            'title' => null,
         ]);
 
         $response->assertSessionHasErrors(['title']);
@@ -263,8 +262,7 @@ class RoleTest extends TestCase
 
         $this->assertDatabaseHas(Role::getTableName(), ['id' => $role->id]);
 
-        $response = $this->actingAs($this->user)
-            ->delete(route('admin.roles.destroy', [$role->id]));
+        $response = $this->actingAs($this->user)->delete(route('admin.roles.destroy', [$role->id]));
 
         $this->assertSoftDeleted($role);
     }
@@ -281,8 +279,7 @@ class RoleTest extends TestCase
 
         $this->assertDatabaseHas(Role::getTableName(), ['id' => $role->id]);
 
-        $response = $this->actingAs($user)
-            ->delete(route('admin.roles.destroy', [$role->id]));
+        $response = $this->actingAs($user)->delete(route('admin.roles.destroy', [$role->id]));
 
         $response->assertForbidden();
     }
