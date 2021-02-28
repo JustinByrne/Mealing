@@ -22,7 +22,8 @@ class RoleFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->lexify('???'),
+            'title' => $this->faker->word,
+            'description' => $this->faker->sentence,
         ];
     }
 }
