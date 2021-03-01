@@ -76,6 +76,13 @@ class MealController extends Controller
             $meal->ingredients()->attach($ingredient, ['quantity' => $request['quantities'][$i]]);
         }
 
+        foreach($request['allergens'] as $id => $level)    {
+            if($level != 'no')  {
+                $allergen = Allergen::find($id);
+                $meal->allergens()->attach($allergen, ['level' => $level]);
+            }
+        }
+
         return redirect($meal->path());
     }
 

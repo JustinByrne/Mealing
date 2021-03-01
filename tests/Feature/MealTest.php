@@ -121,6 +121,7 @@ class MealTest extends TestCase
         $instructions = $this->faker->paragraph;
         $ingredients = Ingredient::pluck('id')->take(5)->toArray();
         $quantities = array('1kg', '2tbsp', '1 cup');
+        $allergens = array('1' => 'no', '2' => 'may', '3' => 'yes');
         
         $response = $this->actingAs($this->user)->post(route('meals.store'), [
             'name' => $this->faker->name,
@@ -130,27 +131,34 @@ class MealTest extends TestCase
             'timing' => $this->faker->randomDigitNotNull,
             'instruction' => $instructions,
             'quantities' => $quantities,
-            'ingredients' => $ingredients
+            'ingredients' => $ingredients,
+            'allergens' => $allergens
         ]);
 
         $meal = Meal::first();
 
-        $this->assertDatabaseCount($meal->getTable(), 1);
-        $this->assertDatabaseHas($meal->getTable(), [
+        $this->assertDatabaseCount(Meal::getTableName(), 1);
+        $this->assertDatabaseHas(Meal::getTableName(), [
             'instruction' => $instructions,
         ]);
-        $this->assertDatabaseHas('ingredient_meal', [
-            'ingredient_id' => $ingredients[0],
-            'meal_id' => $meal->id,
-        ]);
-        $this->assertDatabaseHas('ingredient_meal', [
-            'ingredient_id' => $ingredients[1],
-            'meal_id' => $meal->id,
-        ]);
-        $this->assertDatabaseHas('ingredient_meal', [
-            'ingredient_id' => $ingredients[2],
-            'meal_id' => $meal->id,
-        ]);
+
+        foreach($ingredients as $ingredient)    {
+            $this->assertDatabaseHas('ingredient_meal', [
+                'ingredient_id' => $ingredient,
+                'meal_id' => $meal->id,
+            ]);
+        }
+
+        foreach($allergens as $id => $level)    {
+            if($level != 'no')  {
+                $this->assertDatabaseHas('allergen_meal', [
+                    'allergen_id' => $id,
+                    'meal_id' => $meal->id,
+                    'level' => $level
+                ]);
+            }
+        }
+
         $response->assertRedirect($meal->path());
     }
 
