@@ -359,11 +359,21 @@ class MealTest extends TestCase
             'timing' => $this->faker->randomDigitNotNull,
             'instruction' => $this->faker->paragraph,
         ];
+        $allergens = array('1' => 'yes', '2' => 'no', '3' => 'may');
 
         $response = $this->actingAs($this->user)->patch(route('meals.update', $meal), $data);
         $meal->refresh();
 
         $this->assertDatabaseHas(Meal::getTableName(), $data);
+        foreach($allergens as $id => $level)    {
+            if($level != 'no')  {
+                $this->assertDatabaseHas('allergen_meal', [
+                    'allergen_id' => $id,
+                    'meal_id' => $meal->id,
+                    'level' => $level
+                ]);
+            }
+        }
         $response->assertRedirect($meal->path());
     }
 
