@@ -112,9 +112,11 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_edit'), 403);
 
-        $meal = Meal::with('ingredients')->where('slug', $meal)->first();
+        $meal = Meal::with('ingredients', 'allergens')->where('slug', $meal)->first();
+
+        $allergens = Allergen::all();
         
-        return view('meals.edit', compact('meal'));
+        return view('meals.edit', compact('meal', 'allergens'));
     }
 
     /**
