@@ -130,6 +130,17 @@ class MealController extends Controller
     {
         $meal->update($request->validated());
 
+        foreach($request['allergens'] as $id => $level)    {
+            if ($meal->allergens->contains($id)) {
+                $meal->allergens()->updateExistingPivot($id, [
+                    'level' => $level
+                ]);
+            } elseif ($level != 'no') {
+                $allergen = Allergen::find($id);
+                $meal->allergens()->attach($allergen, ['level' => $level]);
+            }
+        }
+
         return redirect($meal->path());
     }
 

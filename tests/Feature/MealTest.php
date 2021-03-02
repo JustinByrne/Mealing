@@ -7,6 +7,7 @@ use App\Models\Meal;
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Livewire;
+use App\Models\Allergen;
 use App\Models\Ingredient;
 use App\Http\Livewire\Comments;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -349,6 +350,8 @@ class MealTest extends TestCase
         $this->withoutExceptionHandling();
         
         $meal = Meal::factory()->create();
+        $meal->allergens()->attach(Allergen::find(1), ['level' => 'no']);
+        $allergens = array('1' => 'yes', '2' => 'no', '3' => 'may');
 
         // new data
         $data = [
@@ -358,13 +361,21 @@ class MealTest extends TestCase
             'kids' => $this->faker->boolean,
             'timing' => $this->faker->randomDigitNotNull,
             'instruction' => $this->faker->paragraph,
+            'allergens' => $allergens,
         ];
-        $allergens = array('1' => 'yes', '2' => 'no', '3' => 'may');
 
         $response = $this->actingAs($this->user)->patch(route('meals.update', $meal), $data);
         $meal->refresh();
 
-        $this->assertDatabaseHas(Meal::getTableName(), $data);
+        $this->assertDatabaseHas(Meal::getTableName(), [
+            'name' => $data['name'],
+            'servings' => $data['servings'],
+            'adults' => $data['adults'],
+            'kids' => $data['kids'],
+            'timing' => $data['timing'],
+            'instruction' => $data['instruction'],
+        ]);
+
         foreach($allergens as $id => $level)    {
             if($level != 'no')  {
                 $this->assertDatabaseHas('allergen_meal', [
