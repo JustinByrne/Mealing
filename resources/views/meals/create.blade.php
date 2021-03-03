@@ -90,7 +90,7 @@
                                         'allergen-level-yes': level == 'yes',
                                     }"
                                 />
-                                <input type="hidden" name="allergen[{{ $allergen->id }}]" x-model="level">
+                                <input type="hidden" name="allergens[{{ $allergen->id }}]" x-model="level">
                             </div>
                         @endforeach
                     </div>
