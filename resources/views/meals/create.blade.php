@@ -79,7 +79,7 @@
                     </label>
                     <div class="w-full md:col-span-4 md:pt-1 text-2xl">
                         @foreach ($allergens as $allergen)
-                            <div class="inline" x-data="{ level: 'no' }">
+                            <div class="inline cursor-pointer" x-data="{ level: 'no' }">
                                 <x-allergen
                                     icon="{{ $allergen->icon }}"
                                     name="{{ $allergen->name }}"
