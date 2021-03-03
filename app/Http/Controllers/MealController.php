@@ -114,9 +114,10 @@ class MealController extends Controller
 
         $meal = Meal::with('ingredients', 'allergens')->where('slug', $meal)->first();
 
-        $allergens = Allergen::all();
+        $allergens = $meal->allergens()->pluck('level', 'allergen_id')->toArray();
+        $allAllergens = Allergen::all();
         
-        return view('meals.edit', compact('meal', 'allergens'));
+        return view('meals.edit', compact('meal', 'allAllergens', 'allergens'));
     }
 
     /**
