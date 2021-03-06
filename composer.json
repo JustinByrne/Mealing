@@ -17,7 +17,8 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
-        "livewire/livewire": "^2.3"
+        "livewire/livewire": "^2.3",
+        "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
