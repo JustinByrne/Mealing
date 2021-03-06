@@ -17,4 +17,5 @@
 - migrate to spatie role and permissions
   - check the auth tests to see if new users get the user role
   - fix the permission and role tests
+  - update all permissions across resources
 - Class App\Http\Livewire\Ingredients\Index located in ./app/Http/Livewire/Ingredients/index.php does not comply with psr-4 autoloading standard. Skipping.
