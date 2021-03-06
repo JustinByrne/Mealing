@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Hash;
 use Tests\TestCase;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,8 +25,6 @@ class UserTest extends TestCase
 
         $this->seed();
         $this->user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $this->user->roles()->sync([$adminId]);
     }
 
     /**
@@ -38,6 +35,7 @@ class UserTest extends TestCase
     public function testCanAccessUserIndexPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_access');
 
         $response = $this->actingAs($this->user)->get(route('users.index'));
 
@@ -66,6 +64,7 @@ class UserTest extends TestCase
     public function testCanAccessCreateUserFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_create');
 
         $response = $this->actingAs($this->user)->get(route('users.create'));
 
@@ -94,6 +93,7 @@ class UserTest extends TestCase
     public function testCanCreateANewUser()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_create');
 
         $email = $this->faker->unique()->safeEmail;
 
@@ -139,6 +139,7 @@ class UserTest extends TestCase
     public function testCanAccessIndividualUserPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_show');
 
         $newUser = User::factory()->create();
 
@@ -170,6 +171,7 @@ class UserTest extends TestCase
     public function testCanAccessEditUserFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_edit');
 
         $newUser = User::factory()->create();
 
@@ -201,6 +203,7 @@ class UserTest extends TestCase
     public function testAUserCanBeUpdated()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_edit');
 
         $newUser = User::factory()->create();
 
@@ -259,6 +262,7 @@ class UserTest extends TestCase
     public function testAUserCanBeDeleted()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_delete');
 
         $newUser = User::factory()->create();
 

@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -25,8 +24,6 @@ class RoleTest extends TestCase
 
         $this->seed();
         $this->user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $this->user->roles()->sync([$adminId]);
     }
 
     /**
@@ -37,6 +34,7 @@ class RoleTest extends TestCase
     public function testCanAccessRoleIndexPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('role_access');
         
         $response = $this->actingAs($this->user)->get(route('admin.roles.index'));
 
@@ -64,6 +62,7 @@ class RoleTest extends TestCase
     public function testCanAccessCreateRoleFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('role_create');
 
         $role = Role::factory()->create();
 
@@ -95,6 +94,7 @@ class RoleTest extends TestCase
     public function testCanCreateANewRole()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('role_create');
 
         $data = [
             'title' => $this->faker->word,
@@ -116,6 +116,8 @@ class RoleTest extends TestCase
      */
     public function testErrorWhenCreatingANewRoleWithoutATitle()
     {
+        $this->user->givePermissionTo('role_create');
+        
         $response = $this->actingAs($this->user)->post(route('admin.roles.store'), [
             'title' => null,
         ]);
@@ -150,6 +152,7 @@ class RoleTest extends TestCase
     public function testCanAccessIndividualRolePage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('role_show');
 
         $role = Role::factory()->create();
 
@@ -182,6 +185,7 @@ class RoleTest extends TestCase
     public function testCanAccessEditRoleFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('role_edit');
 
         $role = Role::factory()->create();
 
@@ -213,6 +217,7 @@ class RoleTest extends TestCase
     public function testARoleCanBeUpdated()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('role_edit');
         
         $role = Role::factory()->create();
 
@@ -257,6 +262,7 @@ class RoleTest extends TestCase
     public function testARoleCanBeDeleted()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('role_delete');
 
         $role = Role::factory()->create();
 

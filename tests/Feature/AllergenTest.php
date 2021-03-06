@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Allergen;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -26,8 +25,6 @@ class AllergenTest extends TestCase
 
         $this->seed();
         $this->user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $this->user->roles()->sync([$adminId]);
     }
     
     /**
@@ -38,6 +35,7 @@ class AllergenTest extends TestCase
     public function testCanAccessAllergenIndexPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('allergen_access');
         
         $response = $this->actingAs($this->user)->get(route('admin.allergens.index'));
 
@@ -81,6 +79,7 @@ class AllergenTest extends TestCase
     public function testCanAccessAllergenCreatePage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('allergen_create');
 
         $response = $this->actingAs($this->user)->get(route('admin.allergens.create'));
 
@@ -124,6 +123,7 @@ class AllergenTest extends TestCase
     public function testCanCreateAnAllergen()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('allergen_create');
 
         $data = [
             'icon' => $this->faker->word,
@@ -183,6 +183,8 @@ class AllergenTest extends TestCase
      */
     public function testErrorWhenCreatingAnAllergenWithoutAnIcon()
     {
+        $this->user->givePermissionTo('allergen_create');
+        
         $data = [
             'icon' => null,
             'name' => $this->faker->word,
@@ -201,6 +203,8 @@ class AllergenTest extends TestCase
      */
     public function testErrorWhenCreatingAnAllergenWithoutAName()
     {
+        $this->user->givePermissionTo('allergen_create');
+        
         $data = [
             'icon' => $this->faker->word,
             'name' => null
@@ -220,6 +224,7 @@ class AllergenTest extends TestCase
     public function testCanAccessAllergenShowPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('allergen_show');
         $allergen = Allergen::factory()->create();
         
         $response = $this->actingAs($this->user)->get(route('admin.allergens.show', [$allergen]));
@@ -267,6 +272,7 @@ class AllergenTest extends TestCase
     public function testCanAccessAllergenEditPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('allergen_edit');
         $allergen = Allergen::factory()->create();
         
         $response = $this->actingAs($this->user)->get(route('admin.allergens.edit', [$allergen]));
@@ -313,6 +319,7 @@ class AllergenTest extends TestCase
      */
     public function testCanEditAnAllergen()
     {
+        $this->user->givePermissionTo('allergen_edit');
         $allergen = Allergen::factory()->create();
         $data = [
             'icon' => $this->faker->word,
@@ -371,6 +378,7 @@ class AllergenTest extends TestCase
      */
     public function testErrorWhenUpdatingAnAllergenWithoutAName()
     {
+        $this->user->givePermissionTo('allergen_edit');
         $allergen = Allergen::factory()->create();
         $data = [
             'icon' => $this->faker->word,
@@ -390,6 +398,7 @@ class AllergenTest extends TestCase
      */
     public function testErrorWhenUpdatingAnAllergenWithoutAnIcon()
     {
+        $this->user->givePermissionTo('allergen_edit');
         $allergen = Allergen::factory()->create();
         $data = [
             'icon' => null,
@@ -409,6 +418,7 @@ class AllergenTest extends TestCase
      */
     public function testCanDeleteAnAllergen()
     {
+        $this->user->givePermissionTo('allergen_delete');
         $allergen = Allergen::factory()->create();
         
         $response = $this->actingAs($this->user)->delete(route('admin.allergens.destroy', [$allergen]));

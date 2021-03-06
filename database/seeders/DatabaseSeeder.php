@@ -19,13 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            RoleTableSeeder::class,
-            PermissionTableSeeder::class,
-            PermissionRoleTableSeeder::class,
-            RoleUserTableSeeder::class,
-            CommentRoleSeeder::class,
-            AllergenPermissionSeeder::class,
-        ]);
+        // $this->call([
+        //     //
+        // ]);
     }
 }

@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\Meal;
-use App\Models\Role;
 use App\Models\User;
 use Livewire\Livewire;
 use App\Models\Allergen;
@@ -30,8 +29,6 @@ class MealTest extends TestCase
 
         $this->seed();
         $this->user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $this->user->roles()->sync([$adminId]);
     }
 
     /**
@@ -42,6 +39,7 @@ class MealTest extends TestCase
     public function testCanAccessMyMealsPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_access');
         
         $response = $this->actingAs($this->user)->get(route('meals.index'));
 
@@ -56,6 +54,7 @@ class MealTest extends TestCase
     public function testCanAccessAllMealsPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_access');
         
         $response = $this->actingAs($this->user)->get(route('meals.all'));
 
@@ -82,6 +81,7 @@ class MealTest extends TestCase
     public function testCanAccessCreateMealFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_create');
 
         $meal = Meal::factory()->create();
 
@@ -116,6 +116,7 @@ class MealTest extends TestCase
     public function testCanCreateANewMeal()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_create');
 
         Ingredient::factory()->count(3)->create();
 
@@ -170,6 +171,8 @@ class MealTest extends TestCase
      */
     public function testErrorWhenCreatingANewMealWithoutAName()
     {
+        $this->user->givePermissionTo('meal_create');
+        
         $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => null,
@@ -189,6 +192,8 @@ class MealTest extends TestCase
      */
     public function testErrorWhenCreatingANewMealWithoutAServing()
     {
+        $this->user->givePermissionTo('meal_create');
+        
         $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
@@ -208,6 +213,8 @@ class MealTest extends TestCase
      */
     public function testErrorWhenCreatingANewMealWithoutTiming()
     {
+        $this->user->givePermissionTo('meal_create');
+        
         $response = $this->actingAs($this->user)
             ->post(route('meals.store'), [
                 'name' => $this->faker->name,
@@ -249,6 +256,7 @@ class MealTest extends TestCase
     public function testCanAccessIndividualMealPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_show');
 
         $meal = Meal::factory()->create();
 
@@ -316,6 +324,7 @@ class MealTest extends TestCase
     public function testCanAccessEditMealFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_edit');
 
         $meal = Meal::factory()->create();
 
@@ -348,6 +357,7 @@ class MealTest extends TestCase
     public function testCanUpdateAMealsDetails()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_edit');
         
         $meal = Meal::factory()->create();
         $meal->allergens()->attach(Allergen::find(1), ['level' => 'no']);
@@ -425,6 +435,7 @@ class MealTest extends TestCase
     public function testCanDeleteAMeal()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_delete');
         
         $meal = Meal::factory()->create();
 

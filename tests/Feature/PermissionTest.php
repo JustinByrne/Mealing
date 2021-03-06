@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Role;
 use App\Models\User;
 use App\Models\Permission;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -26,8 +25,6 @@ class PermissionTest extends TestCase
 
         $this->seed();
         $this->user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $this->user->roles()->sync([$adminId]);
     }
 
     /**
@@ -38,6 +35,7 @@ class PermissionTest extends TestCase
     public function testCanAccessPermissionIndexPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('permission_access');
         
         $response = $this->actingAs($this->user)->get(route('admin.permissions.index'));
 
@@ -65,6 +63,7 @@ class PermissionTest extends TestCase
     public function testCanAccessCreatePermissionFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('permission_create');
 
         $permission = Permission::factory()->create();
 
@@ -96,6 +95,7 @@ class PermissionTest extends TestCase
     public function testCanCreateANewPermission()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('permission_create');
 
         $title = $this->faker->lexify('???');
 
@@ -116,6 +116,8 @@ class PermissionTest extends TestCase
      */
     public function testErrorWhenCreatingANewPermissionWithoutATitle()
     {
+        $this->user->givePermissionTo('permission_create');
+        
         $response = $this->actingAs($this->user)->post(route('admin.permissions.store'), [
                 'title' => null,
         ]);
@@ -150,6 +152,7 @@ class PermissionTest extends TestCase
     public function testCanAccessIndividualPermissionPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('permission_show');
 
         $permission = Permission::factory()->create();
 
@@ -183,6 +186,7 @@ class PermissionTest extends TestCase
     public function testCanAccessEditPermissionFormPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('permission_edit');
 
         $permission = Permission::factory()->create();
 
@@ -214,6 +218,7 @@ class PermissionTest extends TestCase
     public function testAPermissionCanBeUpdated()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('permission_edit');
         
         $permission = Permission::factory()->create();
 
@@ -263,6 +268,7 @@ class PermissionTest extends TestCase
     public function testAPermissionCanBeDeleted()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('permission_delete');
         
         $permission = Permission::factory()->create();
 

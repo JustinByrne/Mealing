@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Database\Seeders\PermissionSeeder;
 use Illuminate\Support\Facades\Schema;
-use Database\Seeders\AdminUserSeeder;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class AddNewUserToUsersTable extends Migration
+class SeedPermissionsAndRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddNewUserToUsersTable extends Migration
      */
     public function up()
     {
-        $seeder = new AdminUserSeeder;
+        $seeder = new PermissionSeeder;
         $seeder->run();
     }
 

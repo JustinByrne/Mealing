@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Role;
 use App\Models\User;
 use Livewire\Livewire;
 use App\Models\Ingredient;
@@ -28,8 +27,6 @@ class IngredientTest extends TestCase
 
         $this->seed();
         $this->user = User::factory()->create();
-        $adminId = Role::find(1)->id;
-        $this->user->roles()->sync([$adminId]);
     }
 
     /**
@@ -40,6 +37,7 @@ class IngredientTest extends TestCase
     public function testCanAccessTheMyIngredientsPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_access');
         
         $response = $this->actingAs($this->user)->get(route('ingredients.index'));
 
@@ -54,6 +52,7 @@ class IngredientTest extends TestCase
     public function testCanAccessTheAllIngredientsPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_access');
         
         $response = $this->actingAs($this->user)->get(route('ingredients.all'));
 
@@ -80,6 +79,7 @@ class IngredientTest extends TestCase
     public function testCanAccessIngredientCreateForm()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_create');
 
         $ingredient = Ingredient::factory()->create();
 
@@ -110,6 +110,7 @@ class IngredientTest extends TestCase
     public function testCanCreateANewIngredient()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_create');
 
         $data = [
             'name' => $this->faker->name,
@@ -131,6 +132,7 @@ class IngredientTest extends TestCase
      */
     public function testErrorWhenCreatingANewIngredientWithoutName()
     {
+        $this->user->givePermissionTo('ingredient_create');
         $data = [
             'name' => null,
         ];
@@ -167,6 +169,7 @@ class IngredientTest extends TestCase
     public function testCanAccessAnIngredientPage()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_show');
 
         $ingredient = Ingredient::factory()->create();
 
@@ -198,6 +201,7 @@ class IngredientTest extends TestCase
     public function testCanAccessTheIngredientEditForm()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_edit');
 
         $ingredient = Ingredient::factory()->for($this->user)->create();
 
@@ -242,6 +246,7 @@ class IngredientTest extends TestCase
     public function testAnIngredientCanBeUpdated()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_edit');
 
         $ingredient = Ingredient::factory()->for($this->user)->create();
 
@@ -302,6 +307,7 @@ class IngredientTest extends TestCase
     public function testAnIngredientCanBeDeleted()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('ingredient_delete');
 
         $ingredient = Ingredient::factory()->for($this->user)->create();
 
