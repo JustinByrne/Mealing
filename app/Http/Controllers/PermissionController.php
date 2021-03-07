@@ -65,7 +65,7 @@ class PermissionController extends Controller
     /**
      * Show the form to edit a permission
      * 
-     * @param \App\Models\Permission $permission
+     * @param \Spatie\Permission\Models\Permission $permission
      * @return \Illuminate\Http\Response
      */
     public function edit(Permission $permission)
@@ -79,7 +79,7 @@ class PermissionController extends Controller
      * Update existing permission
      * 
      * @param \App\Http\Requests\UpdatePermissionRequest $request
-     * @param \App\Models\Permission $permission
+     * @param \Spatie\Permission\Models\Permission $permission
      * @return \Illuminate\Http\Response
      */
     public function update(UpdatePermissionRequest $request, Permission $permission)
@@ -92,7 +92,7 @@ class PermissionController extends Controller
     /**
      * Delete existing permission
      * 
-     * @param \App\Models\Permission $permission
+     * @param \Spatie\Permission\Models\Permission $permission
      * @return \Illuminate\Http\Response
      */
     public function destroy(Permission $permission)
