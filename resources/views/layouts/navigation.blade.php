@@ -23,9 +23,11 @@
                 <x-links.nav href="{{ route('ingredients.index') }}" :active="request()->routeIs('ingredient*')">
                     Ingredients
                 </x-links.nav>
-                <x-links.nav href="/admin" :active="request()->routeIs('admin*')">
-                    Admin
-                </x-links.nav>
+                @can ('admin_access')
+                    <x-links.nav href="/admin" :active="request()->routeIs('admin*')">
+                        Admin
+                    </x-links.nav>
+                @endcan
 
                 <div class="relative px-2 hidden md:block" x-data="{ userShow: false }" @click.away="userShow = false" @keydown.escape.window="userShow = false">
                     <div class="py-3">
