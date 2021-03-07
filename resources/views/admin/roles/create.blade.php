@@ -17,29 +17,17 @@
             @csrf
             <div class="space-y-4">
                 <div class="items-top md:grid md:grid-cols-9 md:space-x-6">
-                    <label for="title" class="font-light text-xs md:pt-2 md:text-base">
-                        Title
+                    <label for="name" class="font-light text-xs md:pt-2 md:text-base">
+                        Name
                     </label>
                     <div class="w-full md:col-span-4">
-                        <x-inputs.text type="text" class="font-light text-sm" name="title" id="title" value="{{ old('title') }}" :error="$errors->has('title')" required="required" />
-                        @error('title')
+                        <x-inputs.text type="text" class="font-light text-sm" name="name" id="name" value="{{ old('name') }}" :error="$errors->has('name')" required="required" />
+                        @error('name')
                             <p class="text-red-500 italic text-xs font-light">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
-                </div>
-
-                <div class="md:space-y-2">
-                    <label for="description" class="font-light text-xs md:pt-2 md:text-base">
-                        Description
-                    </label>
-                    @error('description')
-                        <p class="text-red-500 italic text-xs font-light">
-                            {{ $message }}
-                        </p>
-                    @enderror
-                    <x-inputs.textarea name="description" id="description" required="required" class="h-48">{{ old('description') }}</x-inputs.textarea>
                 </div>
 
                 <div>

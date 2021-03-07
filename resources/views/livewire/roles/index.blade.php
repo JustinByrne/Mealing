@@ -31,9 +31,6 @@
                                     Name
                                 </x-table.th>
                                 <x-table.th>
-                                    Description
-                                </x-table.th>
-                                <x-table.th>
                                     # of Users
                                 </x-table.th>
                                 <x-table.th>
@@ -47,11 +44,8 @@
                                 <tr>
                                     <x-table.td>
                                         <a href="{{ route('admin.roles.show', [$role]) }}" class="hover:text-orange-500 hover:underline">
-                                            {{ $role->title }}
+                                            {{ $role->name }}
                                         </a>
-                                    </x-table.td>
-                                    <x-table.td>
-                                        {{ $role->description }}
                                     </x-table.td>
                                     <x-table.td>
                                         {{ $role->users->count()}}
