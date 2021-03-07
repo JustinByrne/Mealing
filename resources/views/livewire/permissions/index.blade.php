@@ -41,13 +41,16 @@
                                 <tr>
                                     <x-table.td>
                                         <a href="{{ route('admin.permissions.show', [$permission]) }}" class="hover:text-orange-500 hover:underline">
-                                            {{ $permission->title }}
+                                            {{ $permission->name }}
                                         </a>
                                     </x-table.td>
                                     <x-table.td>
+                                        <x-badge color="purple" class="mr-2">
+                                            Super Admin
+                                        </x-badge>
                                         @foreach ($permission->roles as $role)
                                             <x-badge color="teal" class="mr-2">
-                                                {{ $role->title }}
+                                                {{ $role->name }}
                                             </x-badge>
                                         @endforeach
                                     </x-table.td>

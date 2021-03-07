@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-@section('title', $permission->title . ' Permission - Admin')
+@section('title', $permission->name . ' Permission - Admin')
 
 @include('admin.sidebar')
 
 @section('content')
     <div>
         <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">
-            {{ $permission->title }} Permission
+            {{ $permission->name }} Permission
         </h1>
         <hr class="border-b border-gray-400">
     </div>
@@ -16,6 +16,7 @@
         Roles
     </h2>
 
+    @if ($permission->roles()->count() > 0)
     <div>
         <div class="flex flex-col mt-5">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -27,7 +28,7 @@
                                     <tr>
                                         @foreach ($row as $role)
                                             <x-table.td class="bg-white border border-gray-200 w-1/5">
-                                                {{ $role->title }}
+                                                {{ $role->name }}
                                             </x-table.td>
                                             @if ($loop->parent->last)
                                                 @for ($i = $loop->count; $i < 5; $i++)
@@ -44,4 +45,9 @@
             </div>
         </div>
     </div>
+    @else
+        <p>
+            There are no roles that have this permission assigned to it.
+        </p>
+    @endif
 @endsection
