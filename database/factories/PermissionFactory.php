@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Permission;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PermissionFactory extends Factory
@@ -22,7 +22,7 @@ class PermissionFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->lexify('???'),
+            'name' => $this->faker->lexify('???'),
         ];
     }
 }

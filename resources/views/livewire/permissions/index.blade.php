@@ -40,7 +40,7 @@
                             @foreach ($permissions as $permission)
                                 <tr>
                                     <x-table.td>
-                                        <a href="{{ $permission->path() }}" class="hover:text-orange-500 hover:underline">
+                                        <a href="{{ route('admin.permissions.show', [$permission]) }}" class="hover:text-orange-500 hover:underline">
                                             {{ $permission->title }}
                                         </a>
                                     </x-table.td>

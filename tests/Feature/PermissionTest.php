@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\Permission;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -65,7 +65,7 @@ class PermissionTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('permission_create');
 
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->actingAs($this->user)->get(route('admin.permissions.create', [$permission->id]));
 
@@ -80,7 +80,7 @@ class PermissionTest extends TestCase
      */
     public function testDeniedUnauthorisedAccessToCreatePermissionFormPageWhenNotLogeedIn()
     {
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->get(route('admin.permissions.create', [$permission->id]));
 
@@ -97,20 +97,20 @@ class PermissionTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('permission_create');
 
-        $title = $this->faker->lexify('???');
+        $name = $this->faker->lexify('???');
 
         $response = $this->actingAs($this->user)->post(route('admin.permissions.store'), [
-                'title' => $title,
+                'name' => $name,
         ]);
 
         $permission = Permission::first();
 
-        $this->assertDatabaseHas(Permission::getTableName(), ['title' => $title]);
-        $response->assertRedirect(Permission::where('title', $title)->first()->path());
+        $this->assertDatabaseHas('permissions', ['name' => $name]);
+        $response->assertRedirect(route('admin.permissions.show', [Permission::where('name', $name)->first()]));
     }
 
     /**
-     * Test create a new permission with title null.
+     * Test create a new permission with name null.
      * 
      * @return void
      */
@@ -119,10 +119,10 @@ class PermissionTest extends TestCase
         $this->user->givePermissionTo('permission_create');
         
         $response = $this->actingAs($this->user)->post(route('admin.permissions.store'), [
-                'title' => null,
+                'name' => null,
         ]);
 
-        $response->assertSessionHasErrors(['title']);
+        $response->assertSessionHasErrors(['name']);
     }
 
     /**
@@ -154,7 +154,7 @@ class PermissionTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('permission_show');
 
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->actingAs($this->user)->get(route('admin.permissions.show', [$permission->id]));
 
@@ -171,7 +171,7 @@ class PermissionTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->actingAs($user)->get(route('admin.permissions.show', [$permission->id]));
 
@@ -188,7 +188,7 @@ class PermissionTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('permission_edit');
 
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->actingAs($this->user)->get(route('admin.permissions.edit', [$permission->id]));
 
@@ -203,7 +203,7 @@ class PermissionTest extends TestCase
      */
     public function testDeniedUnauthorisedAccessToEditPermissionFormWhenNotLoggedIn()
     {
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->get(route('admin.permissions.edit', [$permission->id]));
 
@@ -220,20 +220,20 @@ class PermissionTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('permission_edit');
         
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
-        $this->assertDatabaseHas(Permission::getTableName(), ['id' => $permission->id]);
+        $this->assertDatabaseHas('permissions', ['id' => $permission->id]);
 
         // new data
-        $title = $this->faker->lexify('???');
+        $name = $this->faker->lexify('???');
 
         $response = $this->actingAs($this->user)
             ->patch(route('admin.permissions.update', $permission->id), [
-                'title' => $title,
+                'name' => $name,
         ]);
 
-        $this->assertDatabaseHas(Permission::getTableName(), ['title' => $title]);
-        $response->assertRedirect($permission->path());
+        $this->assertDatabaseHas('permissions', ['name' => $name]);
+        $response->assertRedirect(route('admin.permissions.show', [$permission]));
     }
 
     /**
@@ -245,9 +245,9 @@ class PermissionTest extends TestCase
     {
         $user = User::factory()->create();
         
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
-        $this->assertDatabaseHas(Permission::getTableName(), ['id' => $permission->id]);
+        $this->assertDatabaseHas('permissions', ['id' => $permission->id]);
 
         // new data
         $title = $this->faker->lexify('???');
@@ -270,12 +270,12 @@ class PermissionTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('permission_delete');
         
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->actingAs($this->user)
             ->delete(route('admin.permissions.destroy', [$permission->id]));
 
-        $this->assertSoftDeleted($permission);
+        $this->assertDeleted($permission);
     }
 
     /**
@@ -287,7 +287,7 @@ class PermissionTest extends TestCase
     {
         $user = User::factory()->create();
         
-        $permission = Permission::factory()->create();
+        $permission = Permission::create(['name' => 'test']);
 
         $response = $this->actingAs($user)
             ->delete(route('admin.permissions.destroy', [$permission->id]));

@@ -3,8 +3,8 @@
 namespace App\Http\Livewire\Permissions;
 
 use Livewire\Component;
-use App\Models\Permission;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Permission;
 
 class Index extends Component
 {
@@ -19,7 +19,7 @@ class Index extends Component
      */
     public function render()
     {
-        $permissions = Permission::with('roles')->where('title', 'like', '%' . $this->search . '%')->orderBy('title')->paginate(25);
+        $permissions = Permission::with('roles')->where('name', 'like', '%' . $this->search . '%')->orderBy('name')->paginate(25);
         
         return view('livewire.permissions.index', compact('permissions'));
     }

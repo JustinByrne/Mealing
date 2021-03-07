@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
-use App\Models\Permission;
-use Gate;
 
 class PermissionController extends Controller
 {
@@ -44,7 +44,7 @@ class PermissionController extends Controller
     {
         $permission = Permission::create($request->validated());
 
-        return redirect($permission->path());
+        return redirect()->route('admin.permissions.show', [$permission]);
     }
 
     /**
@@ -86,7 +86,7 @@ class PermissionController extends Controller
     {
         $permission->update($request->validated());
 
-        return redirect($permission->path());
+        return redirect()->route('admin.permissions.show', [$permission]);
     }
 
     /**
