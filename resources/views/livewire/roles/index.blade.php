@@ -46,7 +46,7 @@
                             @foreach ($roles as $role)
                                 <tr>
                                     <x-table.td>
-                                        <a href="{{ $role->path() }}" class="hover:text-orange-500 hover:underline">
+                                        <a href="{{ route('admin.roles.show', [$role]) }}" class="hover:text-orange-500 hover:underline">
                                             {{ $role->title }}
                                         </a>
                                     </x-table.td>

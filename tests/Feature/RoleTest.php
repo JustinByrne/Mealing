@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -64,7 +65,7 @@ class RoleTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('role_create');
 
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         $response = $this->actingAs($this->user)->get(route('admin.roles.create', [$role->id]));
 
@@ -79,7 +80,7 @@ class RoleTest extends TestCase
      */
     public function testDeniedAccessToCreateRoleFormWhenNotLoggedIn()
     {
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         $response = $this->get(route('admin.roles.create', [$role->id]));
 
@@ -97,20 +98,19 @@ class RoleTest extends TestCase
         $this->user->givePermissionTo('role_create');
 
         $data = [
-            'title' => $this->faker->word,
-            'description' => $this->faker->sentence,
+            'name' => $this->faker->word,
         ];
         
         $response = $this->actingAs($this->user)->post(route('admin.roles.store'), $data);
 
-        $role = Role::where('title', $data['title'])->first();
+        $role = Role::where('name', $data['name'])->first();
 
-        $this->assertDatabaseHas(Role::getTableName(), $data);
-        $response->assertRedirect($role->path());
+        $this->assertDatabaseHas('roles', $data);
+        $response->assertRedirect(route('admin.roles.show', [$role]));
     }
 
     /**
-     * test create new role with null title.
+     * test create new role with null name.
      *
      * @return void
      */
@@ -119,10 +119,10 @@ class RoleTest extends TestCase
         $this->user->givePermissionTo('role_create');
         
         $response = $this->actingAs($this->user)->post(route('admin.roles.store'), [
-            'title' => null,
+            'name' => null,
         ]);
 
-        $response->assertSessionHasErrors(['title']);
+        $response->assertSessionHasErrors(['name']);
     }
 
     /**
@@ -135,8 +135,7 @@ class RoleTest extends TestCase
         $user = User::factory()->create();
 
         $data = [
-            'title' => $this->faker->word,
-            'description' => $this->faker->sentence,
+            'name' => $this->faker->word,
         ];
         
         $response = $this->actingAs($user)->post(route('admin.roles.store'), $data);
@@ -154,7 +153,7 @@ class RoleTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('role_show');
 
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         $response = $this->actingAs($this->user)->get(route('admin.roles.show', [$role->id]));
 
@@ -170,7 +169,7 @@ class RoleTest extends TestCase
     public function testDeniedAccessToIndividualRolePageWithoutPermission()
     {
         $user = User::factory()->create();
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         $response = $this->actingAs($user)->get(route('admin.roles.show', [$role->id]));
 
@@ -187,7 +186,7 @@ class RoleTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('role_edit');
 
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         $response = $this->actingAs($this->user)->get(route('admin.roles.edit', [$role->id]));
 
@@ -202,7 +201,7 @@ class RoleTest extends TestCase
      */
     public function testDeniedAccessToEditRoleFormPageWithoutPermission()
     {
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         $response = $this->get(route('admin.roles.edit', [$role->id]));
 
@@ -219,18 +218,17 @@ class RoleTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('role_edit');
         
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         // new data
         $data = [
-            'title' => $this->faker->word,
-            'description' => $this->faker->sentence,
+            'name' => $this->faker->word,
         ];
 
         $response = $this->actingAs($this->user)->patch(route('admin.roles.update', [$role->id]), $data);
 
-        $this->assertDatabaseHas(Role::getTableName(), $data);
-        $response->assertRedirect($role->path());
+        $this->assertDatabaseHas('roles', $data);
+        $response->assertRedirect(route('admin.roles.show', [$role]));
     }
 
     /**
@@ -241,12 +239,11 @@ class RoleTest extends TestCase
     public function testDeniedAccessToUpdateARoleWithoutPermission()
     {
         $user = User::factory()->create();
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
         // new data
         $data = [
-            'title' => $this->faker->word,
-            'description' => $this->faker->sentence,
+            'name' => $this->faker->word,
         ];
 
         $response = $this->actingAs($user)->patch(route('admin.roles.update', [$role->id]), $data);
@@ -264,13 +261,13 @@ class RoleTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('role_delete');
 
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
-        $this->assertDatabaseHas(Role::getTableName(), ['id' => $role->id]);
+        $this->assertDatabaseHas('roles', ['id' => $role->id]);
 
         $response = $this->actingAs($this->user)->delete(route('admin.roles.destroy', [$role->id]));
 
-        $this->assertSoftDeleted($role);
+        $this->assertDeleted($role);
     }
 
     /**
@@ -281,9 +278,9 @@ class RoleTest extends TestCase
     public function testDeniedAccessToDeleteARoleWithoutPermission()
     {
         $user = User::factory()->create();
-        $role = Role::factory()->create();
+        $role = Role::create(['name' => 'testRole']);
 
-        $this->assertDatabaseHas(Role::getTableName(), ['id' => $role->id]);
+        $this->assertDatabaseHas('roles', ['id' => $role->id]);
 
         $response = $this->actingAs($user)->delete(route('admin.roles.destroy', [$role->id]));
 

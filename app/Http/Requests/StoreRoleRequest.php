@@ -27,8 +27,7 @@ class StoreRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'description' => 'nullable'
+            'name' => 'required',
         ];
     }
 
@@ -40,7 +39,7 @@ class StoreRoleRequest extends FormRequest
     public function messages()
     {
         return [
-            'title.required' => 'A name is required',
+            'name.required' => 'A name is required',
         ];
     }
 }

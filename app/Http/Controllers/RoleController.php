@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
-use App\Models\Role;
-use Gate;
 
 class RoleController extends Controller
 {
@@ -44,13 +44,13 @@ class RoleController extends Controller
     {
         $role = Role::create($request->validated());
 
-        return redirect($role->path());
+        return redirect()->route('admin.roles.show', [$role]);
     }
 
     /**
      * Show the specified role
      * 
-     * @param \App\Models\Role $role
+     * @param \Spatie\Permission\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function show(int $id)
@@ -65,7 +65,7 @@ class RoleController extends Controller
     /**
      * Show the form to edit a role
      * 
-     * @param \App\Models\Role $role
+     * @param \Spatie\Permission\Models\Role $role
      * @return \Illuminate\Http\Response
      */
     public function edit(Role $role)
@@ -79,20 +79,20 @@ class RoleController extends Controller
      * Update a role
      * 
      * @param App\Http\Requests\UpdateRoleRequest $request
-     * @param App\Models\Role $role
+     * @param Spatie\Permission\Models\Role $role
      * @return Illuminate\Http\Response
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->validated());
 
-        return redirect($role->path());
+        return redirect()->route('admin.roles.show', [$role]);
     }
 
     /**
      * Delete a role
      * 
-     * @param App\Models\Role $role
+     * @param Spatie\Permission\Models\Role $role
      * @return Illuminate\Http\Response
      */
     public function destroy(Role $role)

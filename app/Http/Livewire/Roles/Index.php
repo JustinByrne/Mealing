@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire\Roles;
 
-use App\Models\Role;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Role;
 
 class Index extends Component
 {
@@ -19,7 +19,7 @@ class Index extends Component
      */
     public function render()
     {
-        $roles = Role::with('permissions')->with('users')->where('title', 'like', '%' . $this->search . '%')->paginate(25);
+        $roles = Role::with('permissions')->with('users')->where('name', 'like', '%' . $this->search . '%')->paginate(25);
         
         return view('livewire.roles.index', compact('roles'));
     }
