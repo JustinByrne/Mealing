@@ -12,6 +12,18 @@ class AuthTest extends TestCase
     use RefreshDatabase, WithFaker;
 
     /**
+     * setting up a user to be used in all tests
+     * 
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->seed();
+    }
+
+    /**
      * Test the registration form.
      *
      * @return void
@@ -36,15 +48,23 @@ class AuthTest extends TestCase
 
         $email = $this->faker->unique()->safeEmail;
 
-        $response = $this->post(route('register'), [
+        $data = [
             'name' => $this->faker->name,
             'email' => $email,
             'password' => 'password',
             'password_confirmation' => 'password',
             'recaptcha_token' => true,
-        ]);
+        ];
 
-        $this->assertDatabaseHas('users', ['email' => $email]);
+        $response = $this->post(route('register'), $data);
+
+        $user = User::where('email', $data['email'])->first();
+
+        $this->assertDatabaseHas('users', [
+            'name' => $data['name'],
+            'email' => $data['email']
+        ]);
+        $this->assertTrue($user->hasRole('User'));
         $response->assertRedirect(route('dashboard'));
     }
 

@@ -34,10 +34,14 @@ class CreateNewUser implements CreatesNewUsers
             'recaptcha_token' => ['required', new RecaptchaRule($input['recaptcha_token']) ],
         ])->validate();
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        $user->assignRole('User');
+
+        return $user;
     }
 }
