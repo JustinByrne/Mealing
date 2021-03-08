@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Gate;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Symfony\Component\HttpFoundation\Response;
-use Gate;
-use App\Models\User;
 
 class UserController extends Controller
 {
