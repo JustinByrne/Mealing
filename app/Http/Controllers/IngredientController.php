@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Gate;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreIngredientRequest;
 use App\Http\Requests\UpdateIngredientRequest;
-use App\Models\Ingredient;
-use Gate;
-use Auth;
 
 class IngredientController extends Controller
 {
