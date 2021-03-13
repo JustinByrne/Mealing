@@ -40,7 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
-        Route::resource('allergens', AllergenController::class);
+        Route::resource('allergens', AllergenController::class)->except('show');
     });
 
     Route::resources([

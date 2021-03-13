@@ -217,54 +217,6 @@ class AllergenTest extends TestCase
     }
 
     /**
-     * test can access the show page
-     * 
-     * @return void
-     */
-    public function testCanAccessAllergenShowPage()
-    {
-        $this->withoutExceptionHandling();
-        $this->user->givePermissionTo('allergen_show');
-        $allergen = Allergen::factory()->create();
-        
-        $response = $this->actingAs($this->user)->get(route('admin.allergens.show', [$allergen]));
-
-        $response->assertOk();
-        $response->assertViewIs('admin.allergens.show');
-    }
-
-    /**
-     * test denied access to the show page when not logged in
-     * 
-     * @return void
-     */
-    public function testDeniedAccessToAllergenShowPageWhenNotLoggedIn()
-    {
-        $allergen = Allergen::factory()->create();
-        
-        $response = $this->get(route('admin.allergens.show', [$allergen]));
-        
-        $this->assertGuest($guard = null);
-        $response->assertRedirect(route('login'));
-    }
-
-    /**
-     * test denied access to the show page without permission
-     * 
-     * @return void
-     */
-    public function testDeniedAccessToAllergenShowPageWithoutPermission()
-    {
-        $user = User::factory()->create();
-        $allergen = Allergen::factory()->create();
-        
-        $response = $this->actingAs($user)->get(route('admin.allergens.show', [$allergen]));
-
-        $this->assertAuthenticatedAs($user, $guard = null);
-        $response->assertForbidden();
-    }
-
-    /**
      * test can access edit page
      * 
      * @return void

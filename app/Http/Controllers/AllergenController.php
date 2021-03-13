@@ -53,19 +53,6 @@ class AllergenController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Allergen  $allergen
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Allergen $allergen)
-    {
-        abort_if(Gate::denies('allergen_show'), 403);
-
-        return view('admin.allergens.show', compact('allergen'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Allergen  $allergen
