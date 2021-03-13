@@ -62,7 +62,7 @@ class AllergenController extends Controller
     {
         abort_if(Gate::denies('allergen_show'), 403);
 
-        return view('admin.allergens.show', compact($allergen));
+        return view('admin.allergens.show', compact('allergen'));
     }
 
     /**
@@ -75,7 +75,7 @@ class AllergenController extends Controller
     {
         abort_if(Gate::denies('allergen_edit'), 403);
 
-        return view('admin.allergens.edit', compact($allergen));
+        return view('admin.allergens.edit', compact('allergen'));
     }
 
     /**
