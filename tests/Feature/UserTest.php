@@ -40,6 +40,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('users.index'));
 
         $response->assertOk();
+        $response->assertViewIs('admin.users.index');
     }
 
     /**
@@ -69,6 +70,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('users.create'));
 
         $response->assertOk();
+        $response->assertViewIs('admin.users.create');
     }
 
     /**
@@ -146,6 +148,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($this->user)->get($newUser->path());
 
         $response->assertOk();
+        $response->assertViewIs('admin.users.show');
     }
 
     /**
@@ -178,6 +181,7 @@ class UserTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('users.edit', [$newUser->id]));
 
         $response->assertOk();
+        $response->assertViewIs('admin.users.edit');
     }
 
     /**
