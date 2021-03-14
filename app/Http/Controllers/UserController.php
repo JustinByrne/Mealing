@@ -21,6 +21,8 @@ class UserController extends Controller
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $users = User::all();
+
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -31,6 +33,8 @@ class UserController extends Controller
     public function create()
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('admin.users.create');
     }
 
     /**
@@ -55,6 +59,8 @@ class UserController extends Controller
     public function show(User $user)
     {
         abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -66,6 +72,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
