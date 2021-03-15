@@ -37,7 +37,7 @@ class UserTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('user_access');
 
-        $response = $this->actingAs($this->user)->get(route('users.index'));
+        $response = $this->actingAs($this->user)->get(route('admin.users.index'));
 
         $response->assertOk();
         $response->assertViewIs('admin.users.index');
@@ -52,7 +52,7 @@ class UserTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.index'));
+        $response = $this->actingAs($user)->get(route('admin.users.index'));
 
         $response->assertForbidden();
     }
@@ -67,7 +67,7 @@ class UserTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('user_create');
 
-        $response = $this->actingAs($this->user)->get(route('users.create'));
+        $response = $this->actingAs($this->user)->get(route('admin.users.create'));
 
         $response->assertOk();
         $response->assertViewIs('admin.users.create');
@@ -82,7 +82,7 @@ class UserTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.create'));
+        $response = $this->actingAs($user)->get(route('admin.users.create'));
 
         $response->assertForbidden();
     }
@@ -100,7 +100,7 @@ class UserTest extends TestCase
         $email = $this->faker->unique()->safeEmail;
 
         $response = $this->actingAs($this->user)
-            ->post(route('users.store'), [
+            ->post(route('admin.users.store'), [
                 'name' => $this->faker->name,
                 'email' => $email,
                 'password' => 'password',
@@ -123,7 +123,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
-            ->post(route('users.store'), [
+            ->post(route('admin.users.store'), [
                 'name' => $this->faker->name,
                 'email' => $this->faker->unique()->safeEmail,
                 'password' => 'password',
@@ -178,7 +178,7 @@ class UserTest extends TestCase
 
         $newUser = User::factory()->create();
 
-        $response = $this->actingAs($this->user)->get(route('users.edit', [$newUser->id]));
+        $response = $this->actingAs($this->user)->get(route('admin.users.edit', [$newUser->id]));
 
         $response->assertOk();
         $response->assertViewIs('admin.users.edit');
@@ -194,7 +194,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
         $newUser = User::factory()->create();
 
-        $response = $this->actingAs($user)->get(route('users.edit', [$newUser->id]));
+        $response = $this->actingAs($user)->get(route('admin.users.edit', [$newUser->id]));
 
         $response->assertForbidden();
     }
@@ -216,7 +216,7 @@ class UserTest extends TestCase
         $email = $this->faker->unique()->safeEmail;
         $password = 'password';
 
-        $response = $this->actingAs($this->user)->patch(route('users.update', [$newUser->id]), [
+        $response = $this->actingAs($this->user)->patch(route('admin.users.update', [$newUser->id]), [
             'name' => $name,
             'email' => $email,
             'password' => $password,
@@ -248,7 +248,7 @@ class UserTest extends TestCase
         $email = $this->faker->unique()->safeEmail;
         $password = 'password';
 
-        $response = $this->actingAs($user)->patch(route('users.update', [$newUser->id]), [
+        $response = $this->actingAs($user)->patch(route('admin.users.update', [$newUser->id]), [
             'name' => $name,
             'email' => $email,
             'password' => $password,
@@ -270,7 +270,7 @@ class UserTest extends TestCase
 
         $newUser = User::factory()->create();
 
-        $response = $this->actingAs($this->user)->delete(route('users.destroy', [$newUser->id]));
+        $response = $this->actingAs($this->user)->delete(route('admin.users.destroy', [$newUser->id]));
 
         $this->assertSoftDeleted($newUser);
     }
@@ -285,7 +285,7 @@ class UserTest extends TestCase
         $user = User::factory()->create();
         $newUser = User::factory()->create();
 
-        $response = $this->actingAs($user)->delete(route('users.destroy', [$newUser->id]));
+        $response = $this->actingAs($user)->delete(route('admin.users.destroy', [$newUser->id]));
 
         $response->assertForbidden();
     }
