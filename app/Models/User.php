@@ -77,7 +77,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function path()
     {
-        return route('users.show', [$this->id]);
+        return route('admin.users.show', [$this->id]);
     }
 
     /**
