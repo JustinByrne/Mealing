@@ -41,11 +41,11 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
         Route::resource('allergens', AllergenController::class)->except('show');
+        Route::resource('users', UserController::class);
     });
 
     Route::resources([
         'meals' => MealController::class,
         'ingredients' => IngredientController::class,
-        'admin/users' => UserController::class,
     ]);
 });
