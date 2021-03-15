@@ -51,7 +51,7 @@
                     Password
                 </label>
                 <div class="w-full md:col-span-4">
-                    <x-inputs.text type="password" class="font-light text-sm" name="password" id="password" value="{{ old('password') }}" :error="$errors->has('password')" required="required" />
+                    <x-inputs.text type="password" class="font-light text-sm" name="password" id="password" :error="$errors->has('password')" required="required" />
                     @error('password')
                         <p class="text-red-500 italic text-xs font-light">
                             {{ $message }}
@@ -65,7 +65,7 @@
                     Confirm Password
                 </label>
                 <div class="w-full md:col-span-4">
-                    <x-inputs.text type="password" class="font-light text-sm" name="password_confirmation" id="password_confirmation" value="{{ old('password_confirmation') }}" :error="$errors->has('password_confirmation')" required="required" />
+                    <x-inputs.text type="password" class="font-light text-sm" name="password_confirmation" id="password_confirmation" :error="$errors->has('password_confirmation')" required="required" />
                     @error('password_confirmation')
                         <p class="text-red-500 italic text-xs font-light">
                             {{ $message }}
