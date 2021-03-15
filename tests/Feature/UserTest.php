@@ -134,39 +134,6 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test show user page.
-     * 
-     * @return void
-     */
-    public function testCanAccessIndividualUserPage()
-    {
-        $this->withoutExceptionHandling();
-        $this->user->givePermissionTo('user_show');
-
-        $newUser = User::factory()->create();
-
-        $response = $this->actingAs($this->user)->get($newUser->path());
-
-        $response->assertOk();
-        $response->assertViewIs('admin.users.show');
-    }
-
-    /**
-     * Test show user page without permission.
-     * 
-     * @return void
-     */
-    public function testDeniedAccessToIndividualUserPageWithoutPermission()
-    {
-        $user = User::factory()->create();
-        $newUser = User::factory()->create();
-
-        $response = $this->actingAs($user)->get($newUser->path());
-
-        $response->assertForbidden();
-    }
-
-    /**
      * Test the edit form.
      * 
      * @return void

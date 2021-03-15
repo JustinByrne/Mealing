@@ -51,19 +51,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the individual user
-     * 
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        abort_if(Gate::denies('user_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return view('admin.users.show', compact('user'));
-    }
-
-    /**
      * Edit user form
      * 
      * @param \App\Models\User $user
