@@ -34,18 +34,15 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/user/profile/settings/account/password', [ProfileController::class, 'password'])->name('profile.settings.password');
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
-    Route::get('/ingredients/all', [IngredientController::class, 'index'])->name('ingredients.all');
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');
 
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
+        Route::resource('ingredients', IngredientController::class);
         Route::resource('allergens', AllergenController::class)->except('show');
         Route::resource('users', UserController::class)->except('show');
     });
 
-    Route::resources([
-        'meals' => MealController::class,
-        'ingredients' => IngredientController::class,
-    ]);
+    Route::resource('meals', MealController::class);
 });

@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
-@section('title', 'Create New Ingredient')
+@section('title', 'Edit Ingredient')
 
-@include('ingredients.sidebar')
+@include('admin.sidebar')
 
 @section('content')
     <div class="font-sans">
-        <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">Create New Ingredient</h1>
+        <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">Edit Ingredient</h1>
         <hr class="border-b border-gray-400">
     </div>
 
-    <form action="{{ route('ingredients.store') }}" method="POST">
+    <form action="{{ route('admin.ingredients.update', $ingredient) }}" method="POST">
         @csrf
+        @method('PATCH')
 
         <div class="flex flex-wrap my-5 md:items-center">
             <div class="w-full md:w-1/4">
@@ -20,7 +21,7 @@
                 </label>
             </div>
             <div class="w-full md:w-3/4">
-                <x-inputs.text name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ Request::old('name') }}" required class="md:w-80"></x-inputs.text>
+                <x-inputs.text name="name" type="text" placeholder="Name" :error="$errors->has('name')" value="{{ $ingredient->name }}" required class="md:w-80" />
                 <p class="text-red-500 text-xs italic">
                     {{ $errors->first('name') }}
                 </p>

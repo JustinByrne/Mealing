@@ -20,7 +20,7 @@ class IngredientController extends Controller
     {
         abort_if(Gate::denies('ingredient_access'), 403);
 
-        return view('ingredients.index');
+        return view('admin.ingredients.index');
     }
 
     /**
@@ -32,7 +32,7 @@ class IngredientController extends Controller
     {
         abort_if(Gate::denies('ingredient_create'), 403);
 
-        return view('ingredients.create');
+        return view('admin.ingredients.create');
     }
     
     /**
@@ -58,7 +58,7 @@ class IngredientController extends Controller
     {
         abort_if(Gate::denies('ingredient_show'), 403);
 
-        return view('ingredients.show', compact('ingredient'));
+        return view('admin.ingredients.show', compact('ingredient'));
     }
 
     /**
@@ -73,7 +73,7 @@ class IngredientController extends Controller
 
         abort_if($ingredient->user->id != \Auth::id(), 403);
 
-        return view('ingredients.edit', compact('ingredient'));
+        return view('admin.ingredients.edit', compact('ingredient'));
     }
 
     /**

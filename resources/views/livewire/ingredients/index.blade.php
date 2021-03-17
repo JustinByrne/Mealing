@@ -34,20 +34,28 @@
                             @foreach ($ingredients as $ingredient)
                                 <tr>
                                     <x-table.td>
-                                        <a href="{{ $ingredient->path() }}" class="hover:text-orange-500 hover:underline">
+                                        @can ('ingredient_show')
+                                            <a href="{{ $ingredient->path() }}" class="hover:text-orange-500 hover:underline">
+                                                {{ $ingredient->name }}
+                                            </a>
+                                        @else
                                             {{ $ingredient->name }}
-                                        </a>
+                                        @endcan
                                     </x-table.td>
                                     <x-table.td>{{ $ingredient->meals->count() }}</x-table.td>
                                     <x-table.td class="text-right font-medium">
                                         <div class="inline-flex">
-                                            <a href="{{ $ingredient->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            @if ($ingredient->user->id == Auth::Id())
+                                            @can ('ingredient_show')
+                                                <a href="{{ $ingredient->path() }}" class="px-2 py-1 text-blueGray-600 font-medium hover:text-orange-500">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            @endcan
+                                            @can ('ingredient_edit')
                                                 <a href="{{ $ingredient->path() }}/edit" class="px-2 py-1 text-blueGray-600 font-medium hover:text-lime-600">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
+                                            @endcan
+                                            @can ('ingredient_delete')
                                                 <form action="{{ $ingredient->path() }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -55,7 +63,7 @@
                                                         <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
-                                            @endif
+                                            @endcan
                                         </div>
                                     </x-table.td>
                                 </tr>

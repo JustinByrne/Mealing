@@ -43,7 +43,7 @@ class Ingredient extends Model
      */
     public function path()
     {
-        return route('ingredients.show', [$this->slug]);
+        return route('admin.ingredients.show', [$this->slug]);
     }
 
     /**

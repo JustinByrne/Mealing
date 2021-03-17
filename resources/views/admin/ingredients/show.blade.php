@@ -2,7 +2,7 @@
 
 @section('title', $ingredient->name)
 
-@include('ingredients.sidebar')
+@include('admin.sidebar')
 
 @section('content')
     <div class="font-sans">

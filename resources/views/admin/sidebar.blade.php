@@ -13,6 +13,20 @@
             </div>
         </div>
     @endcan
+    @can ('ingredient_access')
+        <div>
+            <x-links.sidebar href="{{ route('admin.ingredients.index') }}" :active="request()->routeIs('admin.ingredients*')">
+                Ingredients
+            </x-links.sidebar>
+            <div>
+                @can ('Ingredient_create')
+                    <x-links.sidebar href="{{ route('admin.ingredients.create') }}" :active="request()->routeIs('admin.ingredients.create')">
+                        <span class="font-bold mr-2">-</span> Create New Ingredients
+                    </x-links.sidebar>
+                @endcan
+            </div>
+        </div>
+    @endcan
     @can ('role_access')
         <div>
             <x-links.sidebar href="{{ route('admin.roles.index') }}" :active="request()->routeIs('admin.roles*')">

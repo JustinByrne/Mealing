@@ -20,9 +20,6 @@
                 <x-links.nav href="{{ route('meals.index') }}" :active="request()->routeIs('meal*')">
                     Meals
                 </x-links.nav>
-                <x-links.nav href="{{ route('ingredients.index') }}" :active="request()->routeIs('ingredient*')">
-                    Ingredients
-                </x-links.nav>
                 @can ('admin_access')
                     <x-links.nav href="/admin" :active="request()->routeIs('admin*')">
                         Admin

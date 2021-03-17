@@ -72,10 +72,6 @@ class PermissionSeeder extends Seeder
 
         $userPermissions = [
             'ingredient_create',
-            'ingredient_edit',
-            'ingredient_show',
-            'ingredient_delete',
-            'ingredient_access',
             'meal_create',
             'meal_edit',
             'meal_show',
