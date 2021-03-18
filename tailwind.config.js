@@ -1,19 +1,11 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  darkMode: 'class',
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
-  purge: {
-    mode: 'layers',
-    layers: ['base', 'components', 'utilities'],
-    content: [
-      './storage/framework/views/*.php',
-      './resources/views/**/*.blade.php'
-    ],
-  },
+  purge: [
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php',
+  ],
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
@@ -38,6 +30,8 @@ module.exports = {
       },
     },
   },
-  variants: {},
+  variants: {
+    extend: {},
+  },
   plugins: [],
 }
