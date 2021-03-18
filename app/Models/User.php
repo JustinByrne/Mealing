@@ -46,14 +46,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    // /**
-    //  * The roles that belong to the user.
-    //  */
-    // public function roles()
-    // {
-    //     return $this->belongsToMany(Role::class);
-    // }
-
     /**
      * The Ingredients that belong to the user
      */
@@ -68,16 +60,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function Meals()
     {
         return $this->hasMany(Meal::class);
-    }
-
-    /**
-     * Getting the path of the individual user
-     * 
-     * @return Illuminate\Support\Facades\Route;
-     */
-    public function path()
-    {
-        return route('admin.users.show', [$this->id]);
     }
 
     /**
