@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
     Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');
+    Route::resource('meals', MealController::class);
 
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::resource('roles', RoleController::class);
@@ -44,5 +45,4 @@ Route::middleware(['auth', 'verified'])->group(function() {
         Route::resource('users', UserController::class)->except('show');
     });
 
-    Route::resource('meals', MealController::class);
 });
