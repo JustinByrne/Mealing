@@ -110,7 +110,7 @@ class UserTest extends TestCase
         $newUser = User::where('email', $email)->first();
 
         $this->assertDatabaseHas(User::getTableName(), ['email' => $email]);
-        $response->assertRedirect($newUser->path());
+        $response->assertRedirect(route('admin.users.index'));
     }
 
     /**
@@ -197,7 +197,7 @@ class UserTest extends TestCase
 
         $this->assertTrue(Hash::check($password, $newUser->password));
 
-        $response->assertRedirect($newUser->path());
+        $response->assertRedirect(route('admin.users.index'));
     }
 
     /**

@@ -47,7 +47,7 @@ class UserController extends Controller
     {
         $user = User::create($request->validated());
 
-        return redirect($user->path());
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -74,7 +74,7 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        return redirect($user->path());
+        return redirect()->route('admin.users.index');
     }
 
     /**
