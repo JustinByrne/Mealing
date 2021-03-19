@@ -27,7 +27,7 @@ class PageTest extends TestCase
     }
 
     /**
-     * allow access to the homepage
+     * test allow access to the homepage
      * 
      * @return void
      */
@@ -42,7 +42,7 @@ class PageTest extends TestCase
     }
 
     /**
-     * denied access to the homepage
+     * test denied access to the homepage
      * 
      * @return void
      */
@@ -56,7 +56,7 @@ class PageTest extends TestCase
     }
 
     /**
-     * allow access to the dashboard
+     * test allow access to the dashboard
      * 
      * @return void
      */
@@ -71,7 +71,7 @@ class PageTest extends TestCase
     }
 
     /**
-     * allow access to the dashboard
+     * test denied access to the dashboard
      * 
      * @return void
      */
@@ -80,5 +80,45 @@ class PageTest extends TestCase
         $response = $this->get('/dashboard');
 
         $response->assertRedirect(route('login'));
+    }
+
+    /**
+     * test allow access to the admin dashboard
+     * 
+     * @return void
+     */
+    public function testAllowAdminDashboard()
+    {
+        $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('admin_access');
+
+        $response = $this->actingAs($this->user)->get(route('admin.dashboard'));
+
+        $response->assertOk();
+        $response->assertViewIs('admin.dashboard');
+    }
+
+    /**
+     * test denied access to the admin dashboard when not logged in
+     * 
+     * @return void
+     */
+    public function testDenyAdminDashboardWhenNotLoggedIn()
+    {
+        $response = $this->get(route('admin.dashboard'));
+
+        $response->assertRedirect(route('login'));
+    }
+
+    /**
+     * test denied access to the admin dashboard without permission
+     * 
+     * @return void
+     */
+    public function testDeniedAdminDashboardWithoutPermission()
+    {
+        $response = $this->actingAs($this->user)->get(route('admin.dashboard'));
+
+        $response->assertForbidden();
     }
 }
