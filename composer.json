@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.3",
         "rappasoft/laravel-patches": "^1.0",
+        "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
