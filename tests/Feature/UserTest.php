@@ -256,4 +256,21 @@ class UserTest extends TestCase
 
         $response->assertForbidden();
     }
+
+    /**
+     * Test a user who is unapproved cannot access Meal Page
+     * 
+     * @return void
+     */
+    public function testDeniedMealsPageWhenNotApproved()
+    {
+        $user = User::factory()->create([
+            'approved' => 0,
+        ]);
+
+        $response = $this->actingAs($user)->get(route('meals.index'));
+
+        $response->assertRedirect(route('login'));
+        $response->assertSessionHas('message', 'Account is currently awaiting approval.');
+    }
 }
