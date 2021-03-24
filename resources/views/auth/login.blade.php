@@ -4,6 +4,11 @@
 
 @section('content')
 <x-auth-card title="Login">
+    @if (session('message'))
+        <x-alert type="warn">
+            {{ session('message') }}
+        </x-alert>
+    @endif
     <form class="w-full max-w-sm" method="POST" action="/login" id="loginForm">
         @csrf
         <div class="space-y-4 p-2">
