@@ -25,7 +25,7 @@ Route::middleware(['guest'])->group(function()  {
     Route::get('/', [PagesController::class, 'landing'])->name('landing');
 });
 
-Route::middleware(['auth', 'verified'])->group(function() {
+Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
 
     Route::get('/user/profile', [ProfileController::class, 'profile'])->name('profile');
