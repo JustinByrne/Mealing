@@ -11,8 +11,8 @@
     <div class="w-full md:inline-flex md:flex-grow md:w-auto" :class="{ 'hidden': !nav }">
         <nav class="flex flex-col md:inline-flex md:flex-row md:ml-auto">
             @auth
-                <x-links.nav href="{{ route('homepage') }}" :active="request()->routeIs('dashboard*')">
-                    Dashboard
+                <x-links.nav href="{{ route('homepage') }}" :active="request()->routeIs('homepage*')">
+                    Home
                 </x-links.nav>
                 <x-links.nav href="#" :active="request()->routeIs('menu*')">
                     Menus
