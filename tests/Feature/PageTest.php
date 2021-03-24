@@ -35,10 +35,10 @@ class PageTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $response = $this->get('/');
+        $response = $this->actingAs($this->user)->get('/');
 
         $response->assertOk();
-        $response->assertViewIs('landing');
+        $response->assertViewIs('homepage');
     }
 
     /**
@@ -46,38 +46,9 @@ class PageTest extends TestCase
      * 
      * @return void
      */
-    public function testDenyHomepageWhenLoggedIn()
+    public function testDenyHomepageWhenNotLoggedIn()
     {
-        $this->withoutExceptionHandling();
-
-        $response = $this->actingAs($this->user)->get('/');
-
-        $response->assertRedirect('/dashboard');
-    }
-
-    /**
-     * test allow access to the dashboard
-     * 
-     * @return void
-     */
-    public function testAllowDashboard()
-    {
-        $this->withoutExceptionHandling();
-
-        $response = $this->actingAs($this->user)->get('/dashboard');
-
-        $response->assertOk();
-        $response->assertViewIs('dashboard');
-    }
-
-    /**
-     * test denied access to the dashboard
-     * 
-     * @return void
-     */
-    public function testDeniedDashboardWhenNotLoggedIn()
-    {
-        $response = $this->get('/dashboard');
+        $response = $this->get('/');
 
         $response->assertRedirect(route('login'));
     }

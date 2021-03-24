@@ -65,7 +65,7 @@ class AuthTest extends TestCase
             'email' => $data['email']
         ]);
         $this->assertTrue($user->hasRole('User'));
-        $response->assertRedirect(route('dashboard'));
+        $response->assertRedirect(route('homepage'));
     }
 
     /**
@@ -194,7 +194,7 @@ class AuthTest extends TestCase
         ]);
 
         $this->assertAuthenticatedAs($user);
-        $response->assertRedirect(route('dashboard'));
+        $response->assertRedirect(route('homepage'));
     }
 
     /**
@@ -291,7 +291,7 @@ class AuthTest extends TestCase
 
         $this->assertAuthenticatedAs($user);
         $this->assertNotNull($user->remember_token);
-        $response->assertRedirect(route('dashboard'));
+        $response->assertRedirect(route('homepage'));
     }
 
     /**
@@ -309,7 +309,7 @@ class AuthTest extends TestCase
 
         $response = $this->actingAs($user)->post(route('logout'));
 
-        $response->assertRedirect(route('landing'));
+        $response->assertRedirect(route('homepage'));
         $this->assertGuest();
     }
 }

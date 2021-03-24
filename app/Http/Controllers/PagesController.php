@@ -11,23 +11,13 @@ use Illuminate\Http\Request;
 class PagesController extends Controller
 {
     /**
-     * Show landing page
+     * Show homepage page
      * 
      * @return \Illuminate\View\View
      */
-    public function landing()
+    public function homepage()
     {
-        return view('landing');
-    }
-
-    /**
-     * Show dashboard page
-     * 
-     * @return \Illuminate\View\View
-     */
-    public function dashboard()
-    {
-        return view('dashboard');
+        return view('homepage');
     }
 
     /**

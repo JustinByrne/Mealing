@@ -21,12 +21,8 @@ use App\Http\Controllers\PermissionController;
 |
 */
 
-Route::middleware(['guest'])->group(function()  {
-    Route::get('/', [PagesController::class, 'landing'])->name('landing');
-});
-
 Route::middleware(['auth', 'verified', 'approved'])->group(function() {
-    Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
+    Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
 
     Route::get('/user/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user/profile/settings/account', [ProfileController::class, 'accountSettings'])->name('profile.settings.account');
