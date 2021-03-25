@@ -32,7 +32,8 @@ class StoreMealRequest extends FormRequest
             'adults' => 'nullable',
             'kids' => 'nullable',
             'timing' => 'required',
-            'instruction' => 'required'
+            'instruction' => 'required',
+            'ingredients' => 'required|array',
         ];
     }
 
@@ -48,7 +49,9 @@ class StoreMealRequest extends FormRequest
             'servings.required' => 'A Serving quantity is required',
             'adults.required' => 'Please select the meal is for an adult or not',
             'kids.required' => 'Please select the meal is for an kid or not',
-            'timing.required' => 'A time frame is required'
+            'timing.required' => 'A time frame is required',
+            'ingredient.required' => 'An ingredient is required',
+            'ingredient.array' => 'An ingredient is required',
         ];
     }
 }

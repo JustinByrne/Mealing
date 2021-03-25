@@ -109,6 +109,11 @@
                     <label class="font-light text-xs md:pt-2 md:text-base">
                         Ingredients
                     </label>
+                    @error('ingredients')
+                            <p class="text-red-500 italic text-xs font-light">
+                                {{ $message }}
+                            </p>
+                        @enderror
                     @livewire('meals.create')
                 </div>
 
