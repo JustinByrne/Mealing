@@ -70,7 +70,9 @@ class MealController extends Controller
             'instruction' => $request['instruction']
         ]);
 
-        $meal->addMediaFromRequest('image')->toMediaCollection();
+        if ($request->has('image')) {
+            $meal->addMediaFromRequest('image')->toMediaCollection();
+        }
 
         for($i = 0; $i < count($request['ingredients']); $i++)   {
             $ingredient = Ingredient::find($request['ingredients'][$i]);
