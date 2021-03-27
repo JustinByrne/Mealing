@@ -5,6 +5,13 @@
 @include('meals.sidebar')
 
 @section('content')
+    
+    @if( $meal->getMedia()->count() > 0)
+        <div class="w-full">
+            <img src="{{ $meal->getFirstMediaUrl() }}" class="w-full object-cover h-52 rounded">
+        </div>
+    @endif
+
     <div class="font-sans">
         <div class="flex justify-between">
             <h1 class="font-sans break-normal text-gray-900 pt-6 pb-2 text-xl">
