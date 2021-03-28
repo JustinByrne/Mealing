@@ -59,6 +59,24 @@
                     </div>
                 </div>
 
+                <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
+                    <label for="image" class="font-light text-xs md:pt-2 md:text-base">
+                        Image
+                    </label>
+                    <div class="w-full md:col-span-4">
+                        @if( $meal->getMedia()->count() > 0)
+                            <div class="flex items-center space-x-2">
+                                <img src="{{ $meal->getFirstMediaUrl() }}" class="h-16 rounded">
+                                <span class="text-red-500">
+                                    <i class="fas fa-times"></i>
+                                </span>
+                            </div>
+                        @else
+                            <input type="file" name="image">
+                        @endif
+                    </div>
+                </div>
+
                 <div class="space-y-2 md:flex md:space-y-0 md:space-x-3">
                     <div>
                         <input type="checkbox" name="adult" id="adult" value="1" {{ $meal->adults ? 'checked' : '' }}>

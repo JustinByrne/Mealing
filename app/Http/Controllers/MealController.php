@@ -135,6 +135,10 @@ class MealController extends Controller
     {
         $meal->update($request->validated());
 
+        if ($request->has('image')) {
+            $meal->addMediaFromRequest('image')->toMediaCollection();
+        }
+
         foreach($request['allergens'] as $id => $level)    {
             if ($meal->allergens->contains($id)) {
                 if ($level != 'no') {
