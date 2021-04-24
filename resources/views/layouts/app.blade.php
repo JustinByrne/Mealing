@@ -57,7 +57,7 @@
                 </div>
                 <!-- Main content -->
                 <div class="w-full pb-3">
-
+                    @yield('content')
                 </div>
             </div>
         </div>
