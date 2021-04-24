@@ -171,7 +171,7 @@
     if (el.tagName.toLowerCase() !== 'template') {
       console.warn(`Alpine: [${directive}] directive should only be added to <template> tags. See https://github.com/alpinejs/alpine#${directive}`);
     } else if (el.content.childElementCount !== 1) {
-      console.warn(`Alpine: <template> tag with [${directive}] encountered with multiple element roots. Make sure <template> only has a single child element.`);
+      console.warn(`Alpine: <template> tag with [${directive}] encountered with an unexpected number of root elements. Make sure <template> has a single root element. `);
     }
   }
   function kebabCase(subject) {
@@ -204,37 +204,72 @@
       timeout = setTimeout(later, wait);
     };
   }
-  function saferEval(expression, dataContext, additionalHelperVariables = {}) {
-    if (typeof expression === 'function') {
-      return expression.call(dataContext);
-    }
 
-    return new Function(['$data', ...Object.keys(additionalHelperVariables)], `var __alpine_result; with($data) { __alpine_result = ${expression} }; return __alpine_result`)(dataContext, ...Object.values(additionalHelperVariables));
+  const handleError = (el, expression, error) => {
+    console.warn(`Alpine Error: "${error}"\n\nExpression: "${expression}"\nElement:`, el);
+
+    if (!isTesting()) {
+      Object.assign(error, {
+        el,
+        expression
+      });
+      throw error;
+    }
+  };
+
+  function tryCatch(cb, {
+    el,
+    expression
+  }) {
+    try {
+      const value = cb();
+      return value instanceof Promise ? value.catch(e => handleError(el, expression, e)) : value;
+    } catch (e) {
+      handleError(el, expression, e);
+    }
   }
-  function saferEvalNoReturn(expression, dataContext, additionalHelperVariables = {}) {
-    if (typeof expression === 'function') {
-      return Promise.resolve(expression.call(dataContext, additionalHelperVariables['$event']));
-    }
 
-    let AsyncFunction = Function;
-    /* MODERN-ONLY:START */
-
-    AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
-    /* MODERN-ONLY:END */
-    // For the cases when users pass only a function reference to the caller: `x-on:click="foo"`
-    // Where "foo" is a function. Also, we'll pass the function the event instance when we call it.
-
-    if (Object.keys(dataContext).includes(expression)) {
-      let methodReference = new Function(['dataContext', ...Object.keys(additionalHelperVariables)], `with(dataContext) { return ${expression} }`)(dataContext, ...Object.values(additionalHelperVariables));
-
-      if (typeof methodReference === 'function') {
-        return Promise.resolve(methodReference.call(dataContext, additionalHelperVariables['$event']));
-      } else {
-        return Promise.resolve();
+  function saferEval(el, expression, dataContext, additionalHelperVariables = {}) {
+    return tryCatch(() => {
+      if (typeof expression === 'function') {
+        return expression.call(dataContext);
       }
-    }
 
-    return Promise.resolve(new AsyncFunction(['dataContext', ...Object.keys(additionalHelperVariables)], `with(dataContext) { ${expression} }`)(dataContext, ...Object.values(additionalHelperVariables)));
+      return new Function(['$data', ...Object.keys(additionalHelperVariables)], `var __alpine_result; with($data) { __alpine_result = ${expression} }; return __alpine_result`)(dataContext, ...Object.values(additionalHelperVariables));
+    }, {
+      el,
+      expression
+    });
+  }
+  function saferEvalNoReturn(el, expression, dataContext, additionalHelperVariables = {}) {
+    return tryCatch(() => {
+      if (typeof expression === 'function') {
+        return Promise.resolve(expression.call(dataContext, additionalHelperVariables['$event']));
+      }
+
+      let AsyncFunction = Function;
+      /* MODERN-ONLY:START */
+
+      AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+      /* MODERN-ONLY:END */
+      // For the cases when users pass only a function reference to the caller: `x-on:click="foo"`
+      // Where "foo" is a function. Also, we'll pass the function the event instance when we call it.
+
+      if (Object.keys(dataContext).includes(expression)) {
+        let methodReference = new Function(['dataContext', ...Object.keys(additionalHelperVariables)], `with(dataContext) { return ${expression} }`)(dataContext, ...Object.values(additionalHelperVariables));
+
+        if (typeof methodReference === 'function') {
+          return Promise.resolve(methodReference.call(dataContext, additionalHelperVariables['$event']));
+        } else {
+          return Promise.resolve();
+        }
+      }
+
+      return Promise.resolve(new AsyncFunction(['dataContext', ...Object.keys(additionalHelperVariables)], `with(dataContext) { ${expression} }`)(dataContext, ...Object.values(additionalHelperVariables)));
+    }, {
+      el,
+      expression
+    });
   }
   const xAttrRE = /^x-(on|bind|data|text|html|model|if|for|show|cloak|transition|ref|spread)\b/;
   function isXAttr(attr) {
@@ -247,7 +282,7 @@
     let spreadDirective = directives.filter(directive => directive.type === 'spread')[0];
 
     if (spreadDirective) {
-      let spreadObject = saferEval(spreadDirective.expression, component.$data); // Add x-spread directives to the pile of existing directives.
+      let spreadObject = saferEval(el, spreadDirective.expression, component.$data); // Add x-spread directives to the pile of existing directives.
 
       directives = directives.concat(Object.entries(spreadObject).map(([name, value]) => parseHtmlAttribute({
         name,
@@ -637,7 +672,7 @@
     let forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/;
     let stripParensRE = /^\(|\)$/g;
     let forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/;
-    let inMatch = expression.match(forAliasRE);
+    let inMatch = String(expression).match(forAliasRE);
     if (!inMatch) return;
     let res = {};
     res.items = inMatch[2].trim();
@@ -683,7 +718,7 @@
 
     let items = component.evaluateReturnExpression(el, iteratorNames.items, extraVars); // This adds support for the `i in n` syntax.
 
-    if (isNumeric(items) && items > 0) {
+    if (isNumeric(items) && items >= 0) {
       items = Array.from(Array(items).keys(), i => i + 1);
     }
 
@@ -697,7 +732,9 @@
   }
 
   function lookAheadForMatchingKeyedElementAndMoveItIfFound(nextEl, currentKey) {
-    if (!nextEl) return; // If the the key's DO match, no need to look ahead.
+    if (!nextEl) return; // If we are already past the x-for generated elements, we don't need to look ahead.
+
+    if (nextEl.__x_for_key === undefined) return; // If the the key's DO match, no need to look ahead.
 
     if (nextEl.__x_for_key === currentKey) return nextEl; // If they don't, we'll look ahead for a match.
     // If we find it, we'll move it to the current position in the loop.
@@ -732,7 +769,7 @@
     if (attrName === 'value') {
       if (Alpine.ignoreFocusedForValueBinding && document.activeElement.isSameNode(el)) return; // If nested model key is undefined, set the default value to empty string.
 
-      if (value === undefined && expression.match(/\./)) {
+      if (value === undefined && String(expression).match(/\./)) {
         value = '';
       }
 
@@ -784,7 +821,7 @@
         });
       } else {
         const originalClasses = el.__x_original_classes || [];
-        const newClasses = convertClassStringToArray(value);
+        const newClasses = value ? convertClassStringToArray(value) : [];
         el.setAttribute('class', arrayUnique(originalClasses.concat(newClasses)).join(' '));
       }
     } else {
@@ -815,7 +852,7 @@
 
   function handleTextDirective(el, output, expression) {
     // If nested model key is undefined, set the default value to empty string.
-    if (output === undefined && expression.match(/\./)) {
+    if (output === undefined && String(expression).match(/\./)) {
       output = '';
     }
 
@@ -920,8 +957,12 @@
       event = camelCase(event);
     }
 
+    let handler, listenerTarget;
+
     if (modifiers.includes('away')) {
-      let handler = e => {
+      listenerTarget = document;
+
+      handler = e => {
         // Don't do anything if the click came from the element or within it.
         if (el.contains(e.target)) return; // Don't do anything if this element isn't currently visible.
 
@@ -933,14 +974,11 @@
         if (modifiers.includes('once')) {
           document.removeEventListener(event, handler, options);
         }
-      }; // Listen for this event at the root level.
-
-
-      document.addEventListener(event, handler, options);
+      };
     } else {
-      let listenerTarget = modifiers.includes('window') ? window : modifiers.includes('document') ? document : el;
+      listenerTarget = modifiers.includes('window') ? window : modifiers.includes('document') ? document : el;
 
-      let handler = e => {
+      handler = e => {
         // Remove this global event handler if the element that declared it
         // has been removed. It's now stale.
         if (listenerTarget === window || listenerTarget === document) {
@@ -974,15 +1012,15 @@
           });
         }
       };
-
-      if (modifiers.includes('debounce')) {
-        let nextModifier = modifiers[modifiers.indexOf('debounce') + 1] || 'invalid-wait';
-        let wait = isNumeric(nextModifier.split('ms')[0]) ? Number(nextModifier.split('ms')[0]) : 250;
-        handler = debounce(handler, wait);
-      }
-
-      listenerTarget.addEventListener(event, handler, options);
     }
+
+    if (modifiers.includes('debounce')) {
+      let nextModifier = modifiers[modifiers.indexOf('debounce') + 1] || 'invalid-wait';
+      let wait = isNumeric(nextModifier.split('ms')[0]) ? Number(nextModifier.split('ms')[0]) : 250;
+      handler = debounce(handler, wait);
+    }
+
+    listenerTarget.addEventListener(event, handler, options);
   }
 
   function runListenerHandler(component, expression, e, extraVars) {
@@ -1514,7 +1552,7 @@
           }
         });
       });
-      this.unobservedData = componentForClone ? componentForClone.getUnobservedData() : saferEval(dataExpression, dataExtras);
+      this.unobservedData = componentForClone ? componentForClone.getUnobservedData() : saferEval(el, dataExpression, dataExtras);
       // Construct a Proxy-based observable. This will be used to handle reactivity.
 
       let {
@@ -1548,7 +1586,7 @@
       Object.entries(Alpine.magicProperties).forEach(([name, callback]) => {
         Object.defineProperty(this.unobservedData, `$${name}`, {
           get: function get() {
-            return callback(canonicalComponentElementReference);
+            return callback(canonicalComponentElementReference, this.$el);
           }
         });
       });
@@ -1566,9 +1604,11 @@
         initReturnedCallback = this.evaluateReturnExpression(this.$el, initExpression);
         this.pauseReactivity = false;
       } // Register all our listeners and set all our attribute bindings.
+      // If we're cloning a component, the third parameter ensures no duplicate
+      // event listeners are registered (the mutation observer will take care of them)
 
 
-      this.initializeElements(this.$el); // Use mutation observer to detect new elements being added within this component at run-time.
+      this.initializeElements(this.$el, () => {}, componentForClone); // Use mutation observer to detect new elements being added within this component at run-time.
       // Alpine's just so darn flexible amirite?
 
       this.listenForNewElementsToInitialize();
@@ -1657,28 +1697,28 @@
       });
     }
 
-    initializeElements(rootEl, extraVars = () => {}) {
+    initializeElements(rootEl, extraVars = () => {}, componentForClone = false) {
       this.walkAndSkipNestedComponents(rootEl, el => {
         // Don't touch spawns from for loop
         if (el.__x_for_key !== undefined) return false; // Don't touch spawns from if directives
 
         if (el.__x_inserted_me !== undefined) return false;
-        this.initializeElement(el, extraVars);
+        this.initializeElement(el, extraVars, componentForClone ? false : true);
       }, el => {
-        el.__x = new Component(el);
+        if (!componentForClone) el.__x = new Component(el);
       });
       this.executeAndClearRemainingShowDirectiveStack();
       this.executeAndClearNextTickStack(rootEl);
     }
 
-    initializeElement(el, extraVars) {
+    initializeElement(el, extraVars, shouldRegisterListeners = true) {
       // To support class attribute merging, we have to know what the element's
       // original class attribute looked like for reference.
       if (el.hasAttribute('class') && getXAttrs(el, this).length > 0) {
         el.__x_original_classes = convertClassStringToArray(el.getAttribute('class'));
       }
 
-      this.registerListeners(el, extraVars);
+      shouldRegisterListeners && this.registerListeners(el, extraVars);
       this.resolveBoundAttributes(el, true, extraVars);
     }
 
@@ -1805,13 +1845,13 @@
     }
 
     evaluateReturnExpression(el, expression, extraVars = () => {}) {
-      return saferEval(expression, this.$data, _objectSpread2(_objectSpread2({}, extraVars()), {}, {
+      return saferEval(el, expression, this.$data, _objectSpread2(_objectSpread2({}, extraVars()), {}, {
         $dispatch: this.getDispatchFunction(el)
       }));
     }
 
     evaluateCommandExpression(el, expression, extraVars = () => {}) {
-      return saferEvalNoReturn(expression, this.$data, _objectSpread2(_objectSpread2({}, extraVars()), {}, {
+      return saferEvalNoReturn(el, expression, this.$data, _objectSpread2(_objectSpread2({}, extraVars()), {}, {
         $dispatch: this.getDispatchFunction(el)
       }));
     }
@@ -1839,7 +1879,8 @@
           if (!(closestParentComponent && closestParentComponent.isSameNode(this.$el))) continue;
 
           if (mutations[i].type === 'attributes' && mutations[i].attributeName === 'x-data') {
-            const rawData = saferEval(mutations[i].target.getAttribute('x-data') || '{}', {
+            const xAttr = mutations[i].target.getAttribute('x-data') || '{}';
+            const rawData = saferEval(this.$el, xAttr, {
               $el: this.$el
             });
             Object.keys(rawData).forEach(key => {
@@ -1894,7 +1935,7 @@
   }
 
   const Alpine = {
-    version: "2.7.3",
+    version: "2.8.2",
     pauseMutationObserver: false,
     magicProperties: {},
     onComponentInitializeds: [],
