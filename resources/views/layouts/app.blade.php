@@ -6,7 +6,7 @@
         <link href="/css/app.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/a357069ed8.js" crossorigin="anonymous"></script>
         <script src="/js/app.js" defer></script>
-        <title>Layout</title>
+        <title>@if (trim($__env->yieldContent('title'))) @yield('title') | @endif Mealing</title>
     </head>
 
     <body>
