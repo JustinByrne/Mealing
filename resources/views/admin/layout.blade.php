@@ -30,7 +30,7 @@
                             <a href="{{ route('admin.users.index') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - List all Users
                             </a>
-                            <a href="#" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                            <a href="{{ route('admin.users.create') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - Create new User
                             </a>
                         </div>
