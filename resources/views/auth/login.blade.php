@@ -42,6 +42,12 @@
                         </label>
                         <input type="password" placeholder="Password" id="password" name="password" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-60 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">
                     </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 items-center">
+                        <div class="lg:col-start-2">
+                            <input type="checkbox" name="remember" class="rounded text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                            Remember Me
+                        </div>
+                    </div>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 items-center">
                         <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
                             Login
