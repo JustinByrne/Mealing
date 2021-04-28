@@ -42,16 +42,16 @@
                             </div>
                         </div>
                         <div class="flex flex-col">
-                            <a href="#" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                            <a href="{{ route('admin.roles.index') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - List all Roles
                             </a>
-                            <a href="#" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                            <a href="{{ route('admin.roles.create') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - Create new Role
                             </a>
-                            <a href="#" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                            <a href="{{ route('admin.permissions.index') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - List all Permissions
                             </a>
-                            <a href="#" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                            <a href="{{ route('admin.permissions.create') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - Create new Permission
                             </a>
                         </div>
