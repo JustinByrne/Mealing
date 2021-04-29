@@ -27,7 +27,9 @@
                         <tr class="bg-green-600 bg-opacity-5 hover:bg-opacity-10">
                     @endif
                         <td class="block lg:table-cell px-4 py-2">
-                            {{ $role->name }}
+                            <a href="{{ route('admin.roles.show', $role) }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                                {{ $role->name }}
+                            </a>
                         </td>
                         <td class="block lg:table-cell px-4 py-2">
                             {{ $role->users->count()}}
