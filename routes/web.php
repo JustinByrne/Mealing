@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::get('/', [PagesController::class, 'adminDashboard'])->name('dashboard');
         Route::resource('roles', RoleController::class);
-        Route::resource('permissions', PermissionController::class);
+        Route::resource('permissions', PermissionController::class)->only(['index', 'show']);
         Route::resource('ingredients', IngredientController::class);
         Route::resource('allergens', AllergenController::class)->except('show');
         Route::resource('users', UserController::class)->except('show');

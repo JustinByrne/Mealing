@@ -51,9 +51,6 @@
                             <a href="{{ route('admin.permissions.index') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - List all Permissions
                             </a>
-                            <a href="{{ route('admin.permissions.create') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
-                                - Create new Permission
-                            </a>
                         </div>
                     </div>
                     <div class="p-4">
