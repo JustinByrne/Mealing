@@ -17,9 +17,7 @@ class ProfileController extends Controller
      */
     public function profile()
     {
-        return view('user.profile.index', [
-            'user' => Auth::user(),
-        ]);
+        return view('user.profile.index');
     }
 
     /**
@@ -29,9 +27,7 @@ class ProfileController extends Controller
      */
     public function accountSettings()
     {
-        return view('user.profile.account', [
-            'user' => Auth::user(),
-        ]);
+        return view('user.profile.account');
     }
     
     /**
@@ -41,9 +37,7 @@ class ProfileController extends Controller
      */
     public function securitySettings()
     {
-        return view('user.profile.security', [
-            'user' => Auth::user(),
-        ]);
+        return view('user.profile.security');
     }
 
     /**
