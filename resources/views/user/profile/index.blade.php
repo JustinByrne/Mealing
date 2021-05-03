@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('user.profile.layout')
 
-@section('content')
+@section('user.content')
 <div class="bg-white rounded-md dark:bg-gray-700">
     <div class="w-full p-4 border-b border-gray-200 ">
         <p class="font-bold dark:text-gray-200">
