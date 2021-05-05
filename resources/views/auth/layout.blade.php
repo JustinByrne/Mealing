@@ -9,7 +9,7 @@
         <title>Mealing Login</title>
     </head>
 
-    <body class="dark">
+    <body>
         <div class="w-full h-screen flex items-center justify-center p-4 bg-gray-100 dark:bg-gray-800">
             <div class="w-full lg:max-w-md rounded-md shadow-md bg-white dark:bg-gray-700">
                 <div class="w-full p-4 border-b border-gray-200 text-center dark:text-gray-200">
