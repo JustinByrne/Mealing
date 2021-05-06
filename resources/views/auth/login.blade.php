@@ -1,5 +1,7 @@
 @extends('auth.layout')
 
+@section('title', 'Login')
+
 @section('content')
 <form action="/login" method="POST" class="p-3 space-y-3">
     @csrf

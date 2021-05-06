@@ -1,5 +1,7 @@
 @extends('auth.layout')
 
+@section('title', 'Register')
+
 @section('content')
 <form class="p-3 space-y-3" method="POST" action="{{ route('register') }}" id="registerForm">
     @csrf

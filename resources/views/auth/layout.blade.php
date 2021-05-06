@@ -6,7 +6,7 @@
         <link href="/css/app.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/a357069ed8.js" crossorigin="anonymous"></script>
         <script src="/js/app.js" defer></script>
-        <title>Mealing Login</title>
+        <title>Mealing @yield('title')</title>
     </head>
 
     <body>
@@ -15,7 +15,7 @@
                 <div class="w-full p-4 border-b border-gray-200 text-center dark:text-gray-200">
                     <i class="fas fa-pizza-slice self-center text-3xl pb-3"></i>
                     <p class="font-bold">
-                        Mealing Login
+                        Mealing @yield('title')
                     </p>
                 </div>
                 @yield('content')
