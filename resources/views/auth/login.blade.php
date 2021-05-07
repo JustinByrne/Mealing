@@ -31,10 +31,18 @@
         <div class="lg:col-start-2">
             <p class="mb-5 dark:text-gray-200 space-x-2">
                 <input type="checkbox" name="remember" class="rounded text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
-                <span>
+                <label for="remember">
                     Remember Me
-                </span>
+                </label>
             </p>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-4">
+        <div></div>
+        <div class="md:col-span-3">
+            <a href="{{ route('password.request') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                Forgotten My Password
+            </a>
         </div>
     </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 items-center">
