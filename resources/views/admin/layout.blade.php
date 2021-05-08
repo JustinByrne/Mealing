@@ -68,6 +68,21 @@
                             </a>
                         </div>
                     </div>
+                    <div class="p-4">
+                        <div class="flex flex-row justify-between">
+                            <div class="font-bold mb-3 dark:text-gray-200">
+                                Allergens
+                            </div>
+                        </div>
+                        <div class="flex flex-col">
+                            <a href="{{ route('admin.allergens.index') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                                - List all Allergens
+                            </a>
+                            <a href="{{ route('admin.allergens.create') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                                - Create new Allergen
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
