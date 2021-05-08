@@ -37,7 +37,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 items-center">
         <div class="lg:col-start-2">
             <p class="dark:text-gray-200 space-x-2">
-                <input type="checkbox" name="remember" class="rounded text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                <input type="checkbox" name="remember" id="remember" class="rounded text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
                 <label for="remember">
                     Remember Me
                 </label>
