@@ -60,10 +60,10 @@
                             </div>
                         </div>
                         <div class="flex flex-col">
-                            <a href="#" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                            <a href="{{ route('admin.ingredients.index') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - List all Ingredients
                             </a>
-                            <a href="#" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                            <a href="{{ route('admin.ingredients.create') }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
                                 - Add new Ingredient
                             </a>
                         </div>
