@@ -58,6 +58,8 @@ class IngredientController extends Controller
     {
         abort_if(Gate::denies('ingredient_show'), 403);
 
+        $ingredient = Ingredient::with('meals.media', 'meals.ratings')->where('id', $ingredient->id)->first();
+
         return view('admin.ingredients.show', compact('ingredient'));
     }
 
