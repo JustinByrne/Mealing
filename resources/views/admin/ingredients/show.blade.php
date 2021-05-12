@@ -14,7 +14,7 @@
                     @if ( $meal->getMedia('images')->count() > 0)
                         <img src="{{ $meal->getMedia('images')->first()->getUrl() }}" class="w-full max-h-32 object-cover rounded-t-md">
                     @else
-                        <img src="https://via.placeholder.com/640x360.png?text=food" class="w-full max-h-32 object-cover rounded-t-md">
+                        <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full max-h-32 object-cover rounded-t-md">
                     @endif
                 </div>
                 <div class="bg-white p-4 rounded-b-md dark:bg-gray-700 dark:text-gray-200">
