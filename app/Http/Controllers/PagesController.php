@@ -7,6 +7,7 @@ use App\Models\Meal;
 use App\Models\User;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -17,7 +18,11 @@ class PagesController extends Controller
      */
     public function homepage()
     {
-        return view('homepage');
+        $topMeals = Meal::with('ratings', 'media')->withCount(['ratings as average_rating' => function($query) {
+            $query->select(DB::raw('coalesce(avg(score),0)'));
+        }])->orderByDesc('average_rating')->take(6)->get();
+        
+        return view('homepage', compact('topMeals'));
     }
 
     /**
