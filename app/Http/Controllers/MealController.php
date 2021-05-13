@@ -22,21 +22,9 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_access'), 403);
 
+        $meals = Meal::with('ratings', 'media')->paginate(24);
+
         return view('meals.index');
-    }
-
-    /**
-     * Show all the meals
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function all()
-    {
-        abort_if(Gate::denies('meal_access'), 403);
-
-        $meals = Meal::all();
-
-        return view('meals.index', compact('meals'));
     }
 
     /**

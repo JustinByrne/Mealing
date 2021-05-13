@@ -30,7 +30,6 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::post('/user/profile/settings/account/password', [ProfileController::class, 'password'])->name('profile.settings.password');
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
-    Route::get('/meals/all', [MealController::class, 'all'])->name('meals.all');
     Route::resource('meals', MealController::class);
 
     Route::prefix('admin')->name('admin.')->group(function()   {

@@ -47,21 +47,6 @@ class MealTest extends TestCase
     }
 
     /**
-     * test the all meals function.
-     * 
-     * @return void
-     */
-    public function testCanAccessAllMealsPage()
-    {
-        $this->withoutExceptionHandling();
-        $this->user->givePermissionTo('meal_access');
-        
-        $response = $this->actingAs($this->user)->get(route('meals.all'));
-
-        $response->assertOk();
-    }
-
-    /**
      * test the index of meals without permission.
      * 
      * @return void
