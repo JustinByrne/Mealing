@@ -35,12 +35,16 @@
                             </p>
                             <button class="px-1.5">
                                 <i
-                                    class="fas"
-                                    :class="{ 'fa-angle-down': !open, 'fa-angle-up': open }"
+                                    class="fas fa-angle-down transform duration-300 ease-in-out"
+                                    :class="{ 'rotate-180': open }"
                                 ></i>
                             </button>
                         </div>
-                        <div class="absolute right-0 z-10" :class="{ 'hidden': !open }">
+                        <div
+                            class="absolute right-0 z-10"
+                            x-cloak
+                            x-show.transition.opacity.duration.350ms="open"
+                        >
                             <div class="w-52 shadow-md rounded-md mt-1 py-2 bg-white text-left flex flex-col dark:bg-gray-700 dark:text-gray-200">
                                 <a href="{{ route('profile') }}" class="px-5 py-2 hover:bg-green-600 hover:text-white">
                                     Profile
