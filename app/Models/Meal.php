@@ -34,7 +34,7 @@ class Meal extends Model implements HasMedia
      * @var array
      */
     protected $filters = [
-        
+        'sort',
     ];
 
     /**
