@@ -19,6 +19,7 @@
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.3",
+        "mehradsadeghi/laravel-filter-querystring": "^1.1",
         "rappasoft/laravel-patches": "^1.0",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^4.0"
