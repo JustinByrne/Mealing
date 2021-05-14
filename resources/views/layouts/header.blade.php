@@ -52,6 +52,21 @@
                         Meals
                     </span>
                 </a>
+                @if (request()->routeIs('meals*'))
+                    <a
+                        href=""
+                        @if (request()->routeIs('meals.create'))
+                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
+                        @else
+                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-600 space-x-2"
+                        @endif
+                    >
+                        <i class="fas fa-plus"></i>
+                        <span>
+                            Create Meal
+                        </span>
+                    </a>
+                @endif
                 @can ('admin_access')
                     <a
                         href="{{ route('admin.dashboard') }}"
