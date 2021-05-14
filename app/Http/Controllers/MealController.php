@@ -24,7 +24,7 @@ class MealController extends Controller
 
         $meals = Meal::with('ratings', 'media')->paginate(24);
 
-        return view('meals.index');
+        return view('meals.index', compact('meals'));
     }
 
     /**
