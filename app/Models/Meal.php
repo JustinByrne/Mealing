@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Mehradsadeghi\FilterQueryString\FilterQueryString;
 
 class Meal extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes, InteractsWithMedia;
+    use HasFactory, SoftDeletes, InteractsWithMedia, FilterQueryString;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +26,15 @@ class Meal extends Model implements HasMedia
         'kids',
         'timing',
         'instruction'
+    ];
+
+    /**
+     * The attributes that are filterable or filtable options
+     * 
+     * @var array
+     */
+    protected $filters = [
+        
     ];
 
     /**
