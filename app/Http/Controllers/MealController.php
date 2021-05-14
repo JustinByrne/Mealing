@@ -22,7 +22,7 @@ class MealController extends Controller
     {
         abort_if(Gate::denies('meal_access'), 403);
 
-        $meals = Meal::with('ratings', 'media')->paginate(24);
+        $meals = Meal::with('ratings', 'media')->paginate(15);
 
         return view('meals.index', compact('meals'));
     }
