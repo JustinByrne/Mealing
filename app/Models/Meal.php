@@ -35,6 +35,7 @@ class Meal extends Model implements HasMedia
      */
     protected $filters = [
         'sort',
+        'between'
     ];
 
     /**
