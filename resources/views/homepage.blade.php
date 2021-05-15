@@ -16,7 +16,9 @@
             </div>
             <div class="bg-white p-4 rounded-b-md dark:bg-gray-700 dark:text-gray-200">
                 <p class="mb-2">
-                    {{ $meal->name }}
+                    <a href="{{ route('meals.show', $meal) }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
+                        {{ $meal->name }}
+                    </a>
                 </p>
                 <p class="text-sm text-yellow-400" title="{{ $meal->avg_rating > 0 ? $meal->avg_rating : '0' }}">
                     @for ($x = 0; $x < 5; $x++)
