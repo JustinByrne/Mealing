@@ -12,11 +12,7 @@ class Index extends Component
     
     public function render()
     {
-        if ($this->allMeals) {
-            $meals = Meal::with('ratings')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
-        } else {
-            $meals = \Auth::User()->Meals()->with('ratings')->with('user')->where('name', 'like', '%' . $this->search . '%')->get();
-        }
+        $meals = Meal::with('ratings', 'media')->filter()->paginate(15);
         
         return view('livewire.meals.index', compact('meals'));
     }
