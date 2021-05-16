@@ -54,7 +54,7 @@
                 </a>
                 @if (request()->routeIs('meals*'))
                     <a
-                        href=""
+                        href="{{ route('meals.create') }}"
                         @if (request()->routeIs('meals.create'))
                             class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
                         @else
