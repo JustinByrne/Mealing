@@ -3,8 +3,8 @@
 @section('content')
 <div class="space-y-4">
     <div class="w-full h-screen/4">
-        @if ( $meal->getMedia('images')->count() > 0)
-            <img src="{{ $meal->getMedia('images')->first()->getUrl() }}" class="w-full h-full object-cover rounded-xl">
+        @if ($meal->getMedia()->count() > 0)
+            <img src="{{ $meal->getFirstMediaUrl() }}" class="w-full h-full object-cover rounded-xl">
         @else
             <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full h-full object-cover rounded-xl">
         @endif

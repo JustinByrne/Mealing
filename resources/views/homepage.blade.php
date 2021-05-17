@@ -8,8 +8,8 @@
     @foreach ($topMeals as $meal)
         <div class="w-full rounded-md shadow-md dark:bg-gray-700">
             <div>
-                @if ( $meal->getMedia('images')->count() > 0)
-                    <img src="{{ $meal->getMedia('images')->first()->getUrl() }}" class="w-full max-h-32 object-cover rounded-t-md">
+                @if( $meal->getMedia()->count() > 0)
+                    <img src="{{ $meal->getFirstMediaUrl() }}" class="w-full max-h-32 object-cover rounded-t-md">
                 @else
                     <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full max-h-32 object-cover rounded-t-md">
                 @endif
