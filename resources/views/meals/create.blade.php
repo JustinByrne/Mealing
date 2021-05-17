@@ -9,6 +9,7 @@
     </div>
     <div class="p-3">
         <form action="{{ route('meals.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="space-y-4">
                 <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
                     <label for="name" class="dark:text-gray-200 self-center">
