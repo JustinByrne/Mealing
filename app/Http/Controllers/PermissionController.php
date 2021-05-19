@@ -25,14 +25,14 @@ class PermissionController extends Controller
     /**
      * Show the specified permission
      * 
-     * @param int $permission
+     * @param Permission $permission
      * @return \Illuminate\Http\Response
      */
-    public function show(int $permission)
+    public function show(Permission $permission)
     {
         abort_if(Gate::denies('permission_show'), 403);
 
-        $permission = Permission::with('roles')->find($permission);
+        $permission->load('roles');
 
         return view('admin.permissions.show', compact('permission'));
     }

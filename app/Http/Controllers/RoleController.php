@@ -53,11 +53,11 @@ class RoleController extends Controller
      * @param \Spatie\Permission\Models\Role $role
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show(Role $role)
     {
         abort_if(Gate::denies('role_show'), 403);
 
-        $role = Role::with('permissions')->find($id);
+        $role->load('permissions');
 
         return view('admin.roles.show', compact('role'));
     }
