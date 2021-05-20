@@ -16,6 +16,8 @@ class Comments extends Component
     
     public function render()
     {
+        $this->meal->load('comments.user');
+        
         return view('livewire.comments', [
             'meal' => $this->meal,
         ]);
