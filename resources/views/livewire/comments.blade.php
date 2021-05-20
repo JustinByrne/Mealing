@@ -19,7 +19,7 @@
     
         @foreach ($meal->comments as $comment)
             <div class="flex flex-row bg-gray-50 dark:bg-gray-600 shadow rounded p-4 mb-4">
-                <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100">
+                <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl">
                     <img class="rounded-full w-10 h-10" src="https://www.gravatar.com/avatar/{{ md5($comment->user->email) }}?s=40" alt="{{ $comment->user->name }}">
                 </div>
                 <div class="flex flex-col flex-grow ml-4">
