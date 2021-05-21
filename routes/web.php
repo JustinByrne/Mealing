@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MealController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PagesController;
@@ -31,6 +32,8 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
     Route::resource('meals', MealController::class);
+    
+    Route::get('/menus', [MenuController::class, 'index'])->name('menu.index');
 
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::get('/', [PagesController::class, 'adminDashboard'])->name('dashboard');
