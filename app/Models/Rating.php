@@ -9,20 +9,12 @@ class Rating extends Model
 {
     use HasFactory;
 
-    /**
-     * All meals that belongs to the rating
-     */
     public function meal()
     {
         return $this->belongsTo(Meal::class);
     }
 
-    /**
-     * Getting the table name
-     * 
-     * @return string
-     */
-    public static function getTableName()
+    public static function getTableName(): string
     {
         return (new self())->getTable();
     }

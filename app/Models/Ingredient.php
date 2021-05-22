@@ -11,55 +11,31 @@ class Ingredient extends Model
 {
     use HasFactory, SoftDeletes;
     
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
     ];
 
-    /**
-     * The User that owns the Ingredient
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * The meals that belong to the ingredient.
-     */
     public function meals()
     {
         return $this->belongsToMany(Meal::class);
     }
 
-    /**
-     * Get the url path for the Timing
-     * 
-     * @return Illuminate\Support\Facades\Route;
-     */
-    public function path()
+    public function path(): string
     {
         return route('admin.ingredients.show', [$this->slug]);
     }
 
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
 
-    /**
-     * Creating the slug from the name
-     */
-    public function setNameAttribute($value)
+    public function setNameAttribute($value): void
     {
         if ($value)  {
             $this->attributes['name'] = ucwords($value);
@@ -67,12 +43,7 @@ class Ingredient extends Model
         }
     }
 
-    /**
-     * Getting the table name
-     * 
-     * @return string
-     */
-    public static function getTableName()
+    public static function getTableName(): string
     {
         return (new self())->getTable();
     }
