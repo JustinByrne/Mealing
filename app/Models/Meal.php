@@ -61,7 +61,7 @@ class Meal extends Model implements HasMedia
         return $this->belongsToMany(Menu::class)->withPivot('date');
     }
 
-    public function path(): Route
+    public function path(): string
     {
         return route('meals.show', [$this->slug]);
     }
