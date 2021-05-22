@@ -13,11 +13,6 @@ class MenuTest extends TestCase
 
     public $user;
 
-    /**
-     * setting up a user to be used in all tests
-     * 
-     * @return void
-     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -26,12 +21,7 @@ class MenuTest extends TestCase
         $this->user = User::factory()->create();
     }
     
-    /**
-     * test the menu index page
-     * 
-     * @return void
-     */
-    public function testAllowMenuIndexPage()
+    public function testAllowMenuIndexPage(): void
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('menu_access');
@@ -41,12 +31,7 @@ class MenuTest extends TestCase
         $response->assertOk();
     }
 
-    /**
-     * test the menu index page not logged in
-     * 
-     * @return void
-     */
-    public function testDenyMenuIndexPageWhenNotLoggedIn()
+    public function testDenyMenuIndexPageWhenNotLoggedIn(): void
     {
         $response = $this->get(route('menu.index'));
 
@@ -54,12 +39,7 @@ class MenuTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    /**
-     * test the menu index page without permission
-     * 
-     * @return void
-     */
-    public function testDenyMenuIndexPageWithoutPermission()
+    public function testDenyMenuIndexPageWithoutPermission(): void
     {
         $response = $this->actingAs($this->user)->get(route('menu.index'));
 
