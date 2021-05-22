@@ -5,18 +5,15 @@ namespace App\Http\Controllers;
 use Gate;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
-    /**
-     * Show all the users
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -25,65 +22,35 @@ class UserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
-    /**
-     * Create new user form
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.users.create');
     }
 
-    /**
-     * Store new user
-     * 
-     * @param \App\Http\Requests\StoreUserRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): RedirectResponse
     {
         $user = User::create($request->validated());
 
         return redirect()->route('admin.users.index');
     }
 
-    /**
-     * Edit user form
-     * 
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
+    public function edit(User $user): View
     {
         abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         return view('admin.users.edit', compact('user'));
     }
 
-    /**
-     * Update existing user
-     * 
-     * @param \App\Http\Requests\UpdateUserRequest $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
         $user->update($request->validated());
 
         return redirect()->route('admin.users.index');
     }
 
-    /**
-     * Delete existing user
-     * 
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
+    public function destroy(User $user): void
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         

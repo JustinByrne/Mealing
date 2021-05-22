@@ -7,12 +7,7 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    /**
-     * show all menus
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): void
     {
         abort_if(Gate::denies('menu_access'), 403);
 

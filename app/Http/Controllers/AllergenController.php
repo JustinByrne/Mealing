@@ -5,17 +5,14 @@ namespace App\Http\Controllers;
 use Gate;
 use App\Models\Allergen;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreAllergenRequest;
 use App\Http\Requests\UpdateAllergenRequest;
 
 class AllergenController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index() : View
     {
         abort_if(Gate::denies('allergen_access'), 403);
 
@@ -24,25 +21,14 @@ class AllergenController extends Controller
         return view('admin.allergens.index', compact('allergens'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         abort_if(Gate::denies('allergen_create'), 403);
 
         return view('admin.allergens.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Request\StoreAllergenRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreAllergenRequest $request)
+    public function store(StoreAllergenRequest $request): RedirectResponse
     {
         Allergen::create([
             'name' => $request['name'],
@@ -52,27 +38,14 @@ class AllergenController extends Controller
         return redirect()->route('admin.allergens.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Allergen  $allergen
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Allergen $allergen)
+    public function edit(Allergen $allergen): View
     {
         abort_if(Gate::denies('allergen_edit'), 403);
 
         return view('admin.allergens.edit', compact('allergen'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Request\UpdateAllergenRequest  $request
-     * @param  \App\Models\Allergen  $allergen
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateAllergenRequest $request, Allergen $allergen)
+    public function update(UpdateAllergenRequest $request, Allergen $allergen): RedirectResponse
     {
         $allergen->update([
             'name' => $request['name'],
@@ -82,13 +55,7 @@ class AllergenController extends Controller
         return redirect()->route('admin.allergens.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Allergen  $allergen
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Allergen $allergen)
+    public function destroy(Allergen $allergen): RedirectResponse
     {
         abort_if(Gate::denies('allergen_delete'), 403);
 

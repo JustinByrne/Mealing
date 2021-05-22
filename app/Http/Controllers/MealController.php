@@ -8,29 +8,21 @@ use App\Models\Meal;
 use App\Models\Allergen;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreMealRequest;
 use App\Http\Requests\UpdateMealRequest;
 
 class MealController extends Controller
 {
-    /**
-     * Show all the meals
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         abort_if(Gate::denies('meal_access'), 403);
 
         return view('meals.index');
     }
 
-    /**
-     * Show the form to create a meal
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         abort_if(Gate::denies('meal_create'), 403);
 
@@ -39,13 +31,7 @@ class MealController extends Controller
         return view('meals.create', compact('allergens'));
     }
     
-    /**
-     * Create new meal
-     * 
-     * @param \App\Http\Requests\StoreMealRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreMealRequest $request)
+    public function store(StoreMealRequest $request): RedirectResponse
     {
         $meal = Auth::User()->Meals()->create([
             'name' => $request['name'],
@@ -76,13 +62,7 @@ class MealController extends Controller
         return redirect($meal->path());
     }
 
-    /**
-     * Show the specified meal
-     * 
-     * @param \App\Models\Meal $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Meal $meal)
+    public function show(Meal $meal): View
     {
         abort_if(Gate::denies('meal_show'), 403);
 
@@ -92,13 +72,7 @@ class MealController extends Controller
         return view('meals.show', compact('meal', 'allAllergens', 'allergens'));
     }
 
-    /**
-     * Show the form to edit a meal
-     * 
-     * @param Meal $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Meal $meal)
+    public function edit(Meal $meal): View
     {
         abort_if(Gate::denies('meal_edit'), 403);
 
@@ -110,14 +84,7 @@ class MealController extends Controller
         return view('meals.edit', compact('meal', 'allAllergens', 'allergens'));
     }
 
-    /**
-     * Update existing meal
-     * 
-     * @param \App\Http\Requests\UpdateMealRequest  $request
-     * @param \App\Models\Meal $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateMealRequest $request, Meal $meal)
+    public function update(UpdateMealRequest $request, Meal $meal): RedirectResponse
     {
         $meal->update($request->validated());
 
@@ -143,13 +110,7 @@ class MealController extends Controller
         return redirect($meal->path());
     }
 
-    /**
-     * Delete existing meal
-     * 
-     * @param \App\Models\Meal $meal
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Meal $meal)
+    public function destroy(Meal $meal): RedirectResponse
     {
         abort_if(Gate::denies('meal_delete'), 403);
         

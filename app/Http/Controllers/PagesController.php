@@ -8,15 +8,11 @@ use App\Models\User;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\View\View;
 
 class PagesController extends Controller
 {
-    /**
-     * Show homepage page
-     * 
-     * @return \Illuminate\View\View
-     */
-    public function homepage()
+    public function homepage(): View
     {
         $topMeals = Meal::with('ratings', 'media')->withCount(['ratings as average_rating' => function($query) {
             $query->select(DB::raw('coalesce(avg(score),0)'));
@@ -25,12 +21,7 @@ class PagesController extends Controller
         return view('homepage', compact('topMeals'));
     }
 
-    /**
-     * Show admin dashboard page
-     * 
-     * @return \Illuminate\View\View
-     */
-    public function adminDashboard()
+    public function adminDashboard(): View
     {
         abort_if(Gate::denies('admin_access'), 403);
 

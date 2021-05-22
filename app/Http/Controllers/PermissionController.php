@@ -4,31 +4,21 @@ namespace App\Http\Controllers;
 
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Spatie\Permission\Models\Permission;
 use App\Http\Requests\StorePermissionRequest;
 use App\Http\Requests\UpdatePermissionRequest;
 
 class PermissionController extends Controller
 {
-    /**
-     * Show all the permissions
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         abort_if(Gate::denies('permission_access'), 403);
 
         return view('admin.permissions.index');
     }
 
-    /**
-     * Show the specified permission
-     * 
-     * @param Permission $permission
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Permission $permission)
+    public function show(Permission $permission): View
     {
         abort_if(Gate::denies('permission_show'), 403);
 

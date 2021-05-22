@@ -4,49 +4,30 @@ namespace App\Http\Controllers;
 
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Http\Requests\ChangePasswordRequest;
 
 class ProfileController extends Controller
 {
-    /**
-     * Profile page to disaply user details
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function profile()
+    public function profile(): View
     {
         return view('user.profile.index');
     }
 
-    /**
-     * Profile page to disaply user account settings
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function accountSettings()
+    public function accountSettings(): View
     {
         return view('user.profile.account');
     }
     
-    /**
-     * Get 2FA page
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function securitySettings()
+    public function securitySettings(): View
     {
         return view('user.profile.security');
     }
 
-    /**
-     * Update profile
-     * 
-     * @param App\Http\Requests\UpdateAccountRequest $request
-     * @return Illuminate\Http\Response
-     */
-    public function update(UpdateAccountRequest $request)
+    public function update(UpdateAccountRequest $request): RedirectResponse
     {
         $user = Auth::user();
 
@@ -61,13 +42,7 @@ class ProfileController extends Controller
         return redirect(route('profile.settings.account'))->with('profileStatus', 'Account Successfully Updated');
     }
 
-    /**
-     * Updating users password
-     * 
-     * @param App\Http\Requests\ChangePasswordRequest $request
-     * @return Illuminate\Http\Response
-     */
-    public function password(ChangePasswordRequest $request)
+    public function password(ChangePasswordRequest $request): RedirectResponse
     {
         $user = Auth::User();
 

@@ -6,55 +6,35 @@ use Auth;
 use Gate;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreIngredientRequest;
 use App\Http\Requests\UpdateIngredientRequest;
 
 class IngredientController extends Controller
 {
-    /**
-     * Show all owned ingredients
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
         abort_if(Gate::denies('ingredient_access'), 403);
 
         return view('admin.ingredients.index');
     }
 
-    /**
-     * Show the form to create a new ingredient
-     * 
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         abort_if(Gate::denies('ingredient_create'), 403);
 
         return view('admin.ingredients.create');
     }
     
-    /**
-     * Create new ingredient
-     * 
-     * @param App\Http\Requests\StoreIngredientRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreIngredientRequest $request)
+    public function store(StoreIngredientRequest $request): RedirectResponse
     {
         $ingredient = Auth::User()->Ingredients()->create($request->validated());
 
         return redirect($ingredient->path());
     }
 
-    /**
-     * Show the specified ingredient
-     * 
-     * @param \App\Models\Ingredient $ingredient
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ingredient $ingredient)
+    public function show(Ingredient $ingredient): View
     {
         abort_if(Gate::denies('ingredient_show'), 403);
 
@@ -63,13 +43,7 @@ class IngredientController extends Controller
         return view('admin.ingredients.show', compact('ingredient'));
     }
 
-    /**
-     * Show the form to edit the specified ingredient
-     * 
-     * @param \App\Models\Ingredient $ingredient
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ingredient $ingredient)
+    public function edit(Ingredient $ingredient): View
     {
         abort_if(Gate::denies('ingredient_edit'), 403);
 
@@ -78,14 +52,7 @@ class IngredientController extends Controller
         return view('admin.ingredients.edit', compact('ingredient'));
     }
 
-    /**
-     * Update ingredient
-     * 
-     * @param App\Http\Requests\UpdateIngredientRequest $request
-     * @param App\Models\Ingredient $ingredient
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateIngredientRequest $request, Ingredient $ingredient)
+    public function update(UpdateIngredientRequest $request, Ingredient $ingredient): RedirectResponse
     {
         abort_if($ingredient->user->id != \Auth::id(), 403);
         
@@ -94,13 +61,7 @@ class IngredientController extends Controller
         return redirect($ingredient->path());
     }
 
-    /**
-     * Delete ingredient
-     * 
-     * @param App\Models\Ingredient $ingredient
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ingredient $ingredient)
+    public function destroy(Ingredient $ingredient): RedirectResponse
     {
         abort_if(Gate::denies('ingredient_delete'), 403);
 
