@@ -27,7 +27,7 @@
                     </span>
                 </a>
                 <a
-                    href="{{ route('menu.index') }}"
+                    href="{{ route('menus.index') }}"
                     @if (request()->routeIs('menu*'))
                         class="w-full p-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
                     @else

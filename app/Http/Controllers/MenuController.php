@@ -24,6 +24,6 @@ class MenuController extends Controller
     {
         abort_if(Gate::denies('menu_create'), 403);
 
-        return redirect()->route('menu.index');
+        return redirect()->route('menus.index');
     }
 }
