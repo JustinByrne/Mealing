@@ -20,7 +20,7 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getCreatedAtAttribute($value): Carbon
+    public function getCreatedAtAttribute($value): string
     {
         return \Carbon\Carbon::parse($value)->format('j<\s\up>S</\s\up> F Y');
     }
