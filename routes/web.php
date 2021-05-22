@@ -33,7 +33,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
 
     Route::resource('meals', MealController::class);
     
-    Route::get('/menus', [MenuController::class, 'index'])->name('menu.index');
+    Route::resource('menus', MenuController::class)->only(['index', 'create', 'store']);
 
     Route::prefix('admin')->name('admin.')->group(function()   {
         Route::get('/', [PagesController::class, 'adminDashboard'])->name('dashboard');
