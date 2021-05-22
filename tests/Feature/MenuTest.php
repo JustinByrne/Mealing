@@ -26,14 +26,14 @@ class MenuTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('menu_access');
 
-        $response = $this->actingAs($this->user)->get(route('menu.index'));
+        $response = $this->actingAs($this->user)->get(route('menus.index'));
 
         $response->assertOk();
     }
 
     public function testDenyMenuIndexPageWhenNotLoggedIn(): void
     {
-        $response = $this->get(route('menu.index'));
+        $response = $this->get(route('menus.index'));
 
         $this->assertGuest($guard = null);
         $response->assertRedirect(route('login'));
@@ -41,7 +41,31 @@ class MenuTest extends TestCase
 
     public function testDenyMenuIndexPageWithoutPermission(): void
     {
-        $response = $this->actingAs($this->user)->get(route('menu.index'));
+        $response = $this->actingAs($this->user)->get(route('menus.index'));
+
+        $response->assertForbidden();
+    }
+
+    public function testAllowCreateMenuPage(): void
+    {
+        $this->user->givePermissionTo('menu_create');
+
+        $response = $this->actingAs($this->user)->get(route('menus.create'));
+
+        $response->assertOk();
+    }
+
+    public function testDenyMenuCreatePageWhenNotLoggedIn(): void
+    {
+        $response = $this->get(route('menus.create'));
+
+        $this->assertGuest($guard = null);
+        $response->assertRedirect(route('login'));
+    }
+
+    public function testDenyMenuCreatePageWithoutPermission(): void
+    {
+        $response = $this->actingAs($this->user)->get(route('menus.create'));
 
         $response->assertForbidden();
     }
