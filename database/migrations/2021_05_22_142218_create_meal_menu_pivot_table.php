@@ -13,7 +13,7 @@ class CreateMealMenuPivotTable extends Migration
      */
     public function up()
     {
-        Schema::create('meal_menu_pivot', function (Blueprint $table) {
+        Schema::create('meal_menu', function (Blueprint $table) {
             $table->id();
             $table->foreignId('menu_id')->constrained();
             $table->foreignId('meal_id')->constrained();
@@ -30,6 +30,6 @@ class CreateMealMenuPivotTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meal_menu_pivot');
+        Schema::dropIfExists('meal_menu');
     }
 }
