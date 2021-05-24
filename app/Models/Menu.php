@@ -19,6 +19,6 @@ class Menu extends Model
 
     public function meals()
     {
-        $this->hasMany(Meal::class)->withPivot('date');
+        $this->belongsToMany(Meal::class)->withPivot('date');
     }
 }
