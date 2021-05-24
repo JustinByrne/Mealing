@@ -2,7 +2,10 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Tests\TestCase;
+use App\Models\Meal;
+use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -68,5 +71,32 @@ class MenuTest extends TestCase
         $response = $this->actingAs($this->user)->get(route('menus.create'));
 
         $response->assertForbidden();
+    }
+
+    public function testAllowCreateANewMenu(): void
+    {
+        $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('menu_create');
+
+        $meals = [
+            'wc' => Carbon::now()->startOfWeek()->format('Y-m-d H:i'),
+            'monday' => Meal::factory()->create()->id,
+            'tuesday' => Meal::factory()->create()->id,
+            'wednesday' => Meal::factory()->create()->id,
+            'friday' => Meal::factory()->create()->id,
+            'saturday' => Meal::factory()->create()->id,
+            'sunday' => Meal::factory()->create()->id,
+        ];
+
+        $response = $this->actingAs($this->user)->post(route('menus.store', $meals));
+
+        $menu = Menu::whereHas('meals', function ($query) use ($meals) {
+            $query->where('meal_id', $meals['monday']);
+        })->where('user_id', $this->user->id)->first();
+
+        $this->assertDatabaseHas('meal_menu', [
+            'menu_id' => $menu->id,
+            'meal_id' => $meals['monday']
+        ]);
     }
 }
