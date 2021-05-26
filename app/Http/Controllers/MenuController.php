@@ -42,8 +42,9 @@ class MenuController extends Controller
 
         foreach ($days as $day => $add) {
             if (! is_null($request->input($day))) {
-                $menu->meals()->attach($request->input($day), ['date' => $wc->addDays($add)]);
+                $menu->meals()->attach($request->input($day), ['date' => $wc]);
             }
+            $wc->addDay();
         }
 
         return redirect()->route('menus.index');
