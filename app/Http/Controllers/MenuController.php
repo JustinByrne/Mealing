@@ -12,11 +12,21 @@ use Illuminate\Http\RedirectResponse;
 
 class MenuController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         abort_if(Gate::denies('menu_access'), 403);
 
-        $weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        $date = Carbon::now()->startOfWeek();
+
+        $weekDays = [
+            'Monday' => $date->format('Y-m-d'),
+            'Tuesday' => $date->addDay()->format('Y-m-d'),
+            'Wednesday' => $date->addDay()->format('Y-m-d'),
+            'Thursday' => $date->addDay()->format('Y-m-d'),
+            'Friday' => $date->addDay()->format('Y-m-d'),
+            'Saturday' => $date->addDay()->format('Y-m-d'),
+            'Sunday' => $date->addDay()->format('Y-m-d'),
+        ];
 
         $current = Menu::with('meals')->whereHas('meals', function ($query) {
             $query->where('date', Carbon::now()->format('Y-m-d'));
