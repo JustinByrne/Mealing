@@ -4,22 +4,32 @@ namespace App\Http\Controllers;
 
 use Gate;
 use Carbon\Carbon;
+use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
 class MenuController extends Controller
 {
-    public function index(): void
+    public function index()
     {
         abort_if(Gate::denies('menu_access'), 403);
 
-        //
+        $weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+        $current = Menu::with('meals')->whereHas('meals', function ($query) {
+            $query->where('date', Carbon::now()->format('Y-m-d'));
+        })->where('user_id', Auth::id())->first();
+
+        return view('menus.index', compact('weekDays', 'current'));
     }
 
-    public function create(): void
+    public function create(): View
     {
         abort_if(Gate::denies('menu_create'), 403);
+
+        return view('menus.create');
     }
 
     public function store(Request $request): RedirectResponse
