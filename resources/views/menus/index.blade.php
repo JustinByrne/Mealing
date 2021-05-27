@@ -16,23 +16,40 @@
     @else
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-2">
             @foreach ($weekDays as $day => $date)
-            <div class="rounded shadow bg-white dark:bg-gray-700">
-                <div class="text-center font-bold dark:text-gray-200 py-1">
+            @php
+                $meal = $current->meals()->with('media', 'ratings')->where('date', $date)->first();    
+            @endphp
+            <a href="{{ route('meals.show', $meal) }}" class="rounded shadow bg-white dark:bg-gray-700">
+                <div class="text-center font-bold dark:text-gray-200 py-3">
                     {{ $day }}
                 </div>
                 <div>
-                    @if( $current->meals()->with('media')->where('date', $date)->first()->getMedia()->count() > 0)
-                        <img src="{{ $current->meals()->with('media')->where('date', $date)->first()->getFirstMediaUrl() }}" class="w-full max-h-32 object-cover">
+                    @if( $meal->getMedia()->count() > 0)
+                        <img src="{{ $meal->getFirstMediaUrl() }}" class="w-full max-h-48 object-cover">
                     @else
-                        <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full h-32 object-cover">
+                        <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full h-48 object-cover">
                     @endif
                 </div>
                 <div class="p-2">
-                    <p class="mb-5 dark:text-gray-200">
-                        {{ $current->meals()->where('date', $date)->first()->name }}
+                    <p class="mb-1 dark:text-gray-200">
+                        {{ $meal->name }}
+                    </p>
+                    <p class="text-sm text-yellow-400 mb-3" title="{{ $meal->avg_rating > 0 ? $meal->avg_rating : '0' }}">
+                        @for ($x = 0; $x < 5; $x++)
+                            @if (floor($meal->avg_rating)-$x >= 1)
+                                <i class="fas fa-star"></i>
+                            @elseif ($meal->avg_rating-$x > 0)
+                                <i class="fas fa-star-half-alt"></i>
+                            @else
+                                <i class="far fa-star"></i>
+                            @endif
+                        @endfor
+                    </p>
+                    <p class="mb-3 dark:text-gray-200">
+                        Serves: {{ $meal->servings }}
                     </p>
                 </div>
-            </div>
+            </a>
             @endforeach
         </div>
     @endif
