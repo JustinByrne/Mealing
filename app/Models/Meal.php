@@ -89,7 +89,7 @@ class Meal extends Model implements HasMedia
         return !is_null($this->comments->firstWhere('user_id', \Auth::Id()));
     }
 
-    public function getAvgRatingAttribute(): float
+    public function getAvgRatingAttribute(): ?float
     {
         return $this->ratings->avg('score');
     }
