@@ -18,8 +18,6 @@
             @foreach ($weekDays as $day => $date)
                 @php
                     $meal = $current->meals()->with('media', 'ratings')->where('date', $date)->first();    
-                $meal = $current->meals()->with('media', 'ratings')->where('date', $date)->first();    
-                    $meal = $current->meals()->with('media', 'ratings')->where('date', $date)->first();    
                 @endphp
                 <a href="{{ route('meals.show', $meal) }}" class="rounded shadow bg-white dark:bg-gray-700">
                     <div class="text-center font-bold dark:text-gray-200 py-3">
@@ -53,6 +51,26 @@
                     </div>
                 </a>
             @endforeach
+        </div>
+        <div class="w-full rounded-md shadow-md bg-white dark:bg-gray-700 mt-5">
+            <div class="w-full p-4 border-b border-gray-200">
+                <p class="font-bold dark:text-gray-200">
+                    Shopping List
+                </p>
+            </div>
+            <div class=" p-3">
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-7 gap-2">
+                    @foreach ($current->meals as $meal)
+                        <div>
+                            @foreach ($meal->ingredients as $ingredient)
+                                <p class="dark:text-gray-200">
+                                    {{ $ingredient->pivot->quantity }} x {{ $ingredient->name }}
+                                </p>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     @endif
 @endsection
