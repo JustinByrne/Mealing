@@ -28,7 +28,7 @@ class MenuController extends Controller
             'Sunday' => $date->addDay()->format('Y-m-d'),
         ];
 
-        $current = Menu::with('meals')->whereHas('meals', function ($query) {
+        $current = Menu::with('meals', 'meals.ingredients')->whereHas('meals', function ($query) {
             $query->where('date', Carbon::now()->format('Y-m-d'));
         })->where('user_id', Auth::id())->first();
 
