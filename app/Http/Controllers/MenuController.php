@@ -51,7 +51,13 @@ class MenuController extends Controller
     {
         abort_if(Gate::denies('menu_create'), 403);
 
-        return view('menus.create');
+        if (! $request->has('week_start')) {
+            $date = Carbon::now()->startOfWeek()->format('Y-m-d');
+        } else {
+            $date = Carbon::parse($request->query('week_start'))->startOfWeek()->format('Y-m-d');
+        }
+
+        return view('menus.create', compact('date'));
     }
 
     public function store(Request $request): RedirectResponse
