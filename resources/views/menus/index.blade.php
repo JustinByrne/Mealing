@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="flex justify-between py-3">
+    <a href="{{ route('menus.index', ['week_start' => $links['prev']]) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs">
+        Prev. Week
+    </a>
+    <a href="{{ route('menus.index', ['week_start' => $links['next']]) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-600 text-white hover:bg-green-500 text-xs">
+        Next Week
+    </a>
+</div>
     @if (is_null($current))
         <div class="flex justify-center items-center bg-white dark:bg-gray-700 rounded w-full py-52">
             <div class="flex flex-col dark:text-gray-200 text-center space-y-2">

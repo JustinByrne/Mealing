@@ -12,11 +12,23 @@ use Illuminate\Http\RedirectResponse;
 
 class MenuController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
         abort_if(Gate::denies('menu_access'), 403);
 
-        $date = Carbon::now()->startOfWeek();
+        if (! $request->has('week_start')) {
+            $date = Carbon::now()->startOfWeek();
+            $links = [
+                'prev' => Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d'),
+                'next' => Carbon::now()->addWeek()->startOfWeek()->format('Y-m-d')
+            ];
+        } else {
+            $date = Carbon::parse($request->query('week_start'))->startOfWeek();
+            $links = [
+                'prev' => Carbon::parse($request->query('week_start'))->subWeek()->startOfWeek()->format('Y-m-d'),
+                'next' => Carbon::parse($request->query('week_start'))->addWeek()->startOfWeek()->format('Y-m-d')
+            ];
+        }
 
         $weekDays = [
             'Monday' => $date->format('Y-m-d'),
@@ -28,14 +40,14 @@ class MenuController extends Controller
             'Sunday' => $date->addDay()->format('Y-m-d'),
         ];
 
-        $current = Menu::with('meals', 'meals.ingredients')->whereHas('meals', function ($query) {
-            $query->where('date', Carbon::now()->format('Y-m-d'));
+        $current = Menu::with('meals', 'meals.ingredients')->whereHas('meals', function ($query) use ($date, $weekDays) {
+            $query->whereIn('date', $weekDays);
         })->where('user_id', Auth::id())->first();
 
-        return view('menus.index', compact('weekDays', 'current'));
+        return view('menus.index', compact('weekDays', 'current', 'links'));
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
         abort_if(Gate::denies('menu_create'), 403);
 
