@@ -16,7 +16,11 @@
                 <p class="mb-5 dark:text-gray-200">
                     You don't have a menu for this week
                 </p>
-                <a href="{{ route('menus.create') }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                @if (Request::has('week_start'))
+                    <a href="{{ route('menus.create', ['week_start' => Request::query('week_start')]) }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                @else                    
+                    <a href="{{ route('menus.create') }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                @endif
                     Create Menu
                 </a>
             </div>
