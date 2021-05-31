@@ -120,7 +120,7 @@
                         Instructions
                     </label>
                     <div>
-                        <textarea name="instruction" id="instruction" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full h-64 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">{{ old('instruction', $meal->instruction) }}</textarea>
+                        <textarea name="instruction" id="instruction" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full h-64 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">{!! old('instruction', $meal->instruction) !!}</textarea>
                     </div>
                 </div>
                 <div>
@@ -146,5 +146,14 @@
                 break;
         }
     }
+</script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#instruction' ), {
+            toolbar: [ 'heading', '|', 'bold', 'italic', '|',  'undo', 'redo', '|', 'bulletedList', 'numberedList' ],
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
 </script>
 @endsection

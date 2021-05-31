@@ -10,6 +10,7 @@
         <script src="/js/app.js" defer></script>
         <title>@if (trim($__env->yieldContent('title'))) @yield('title') | @endif Mealing</title>
         @livewireScripts
+        <script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
     </head>
 
     <body>
