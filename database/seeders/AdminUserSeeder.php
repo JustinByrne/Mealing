@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class AdminUserSeeder extends Seeder
 {
@@ -14,10 +15,11 @@ class AdminUserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $admin = User::create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'password' => 'password',
+            'email_verified_at' => Carbon::now()
         ]);
     }
 }
