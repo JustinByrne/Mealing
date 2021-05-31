@@ -48,7 +48,7 @@
                     </button>
                 </div>
             </div>
-            <div class="hidden lg:block" :class="{'hidden': !open}">
+            {{-- <div class="hidden lg:block" :class="{'hidden': !open}">
                 <div class="p-4">
                     <div class="flex flex-row justify-between">
                         <div class="font-bold mb-3 dark:text-gray-200">
@@ -121,7 +121,7 @@
                         Clear
                     </button>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
