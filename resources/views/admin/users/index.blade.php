@@ -35,6 +35,7 @@
                         {{ $user->email }}
                     </td>
                     <td class="flex flex-col lg:flex-row px-4 py-2 lg:justify-end space-y-1 lg:space-y-0 lg:space-x-1">
+                        @livewire('admin.users.approval', ['user' => $user])
                         <div>
                             <a href="{{ route('admin.users.edit', $user) }}">
                                 <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-600 text-white hover:bg-green-500 text-xs">
