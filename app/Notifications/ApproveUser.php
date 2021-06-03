@@ -2,23 +2,27 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class ApproveUser extends Notification
 {
     use Queueable;
+
+    public $email;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
-        //
+        $this->email = Crypt::encrypt($user->email);
     }
 
     /**
@@ -43,7 +47,7 @@ class ApproveUser extends Notification
         return (new MailMessage)
                     ->greeting('Hello Admin!')
                     ->line('A new user has registered, and is awaiting approval.')
-                    ->action('View Users', url(route('admin.users.index')));
+                    ->action('View Users', url(route('admin.users.approve', $this->email)));
     }
 
     /**

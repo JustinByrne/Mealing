@@ -41,6 +41,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
         Route::resource('permissions', PermissionController::class)->only(['index', 'show']);
         Route::resource('ingredients', IngredientController::class);
         Route::resource('allergens', AllergenController::class)->except('show');
+        Route::get('/users/approve/{email}', [UserController::class, 'approve'])->name('users.approve');
         Route::resource('users', UserController::class)->except('show');
     });
 

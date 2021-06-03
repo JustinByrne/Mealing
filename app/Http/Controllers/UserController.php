@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,6 +56,15 @@ class UserController extends Controller
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         $user->delete();
+
+        return redirect()->route('admin.users.index');
+    }
+
+    public function approve($email): RedirectResponse
+    {
+        $email = Crypt::decrypt($email);
+
+        $user = User::where('email', $email)->first()->approve;
 
         return redirect()->route('admin.users.index');
     }
