@@ -87,7 +87,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
         static::updated(function($user) {
             if ($user->isDirty('email_verified_at')) {
-                if ($user->getOriginal('email_verified_at') == 0 && $user->email_verified_at == 1)  {
+                if ($user->getOriginal('email_verified_at') == null && $user->email_verified_at != null)  {
                     event(new UserVerified($user));
                 }
             }
