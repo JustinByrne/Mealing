@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Hash;
 use App\Models\Menu;
+use App\Events\UserVerified;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -78,5 +79,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function getTableName(): string
     {
         return (new self())->getTable();
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::updated(function($user) {
+            if ($user->email_verified_at != null) {
+                event(new UserVerified($user));
+            }
+        });
     }
 }
