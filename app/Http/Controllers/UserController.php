@@ -50,10 +50,12 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
-    public function destroy(User $user): void
+    public function destroy(User $user): RedirectResponse
     {
         abort_if(Gate::denies('user_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         $user->delete();
+
+        return redirect()->route('admin.users.index');
     }
 }

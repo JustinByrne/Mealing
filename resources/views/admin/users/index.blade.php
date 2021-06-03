@@ -45,6 +45,8 @@
                         </div>
                         <div>
                             <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
                                 <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs">
                                     <i class="fas fa-trash"></i>
                                 </button>
