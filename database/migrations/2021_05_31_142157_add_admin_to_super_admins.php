@@ -15,7 +15,9 @@ class AddAdminToSuperAdmins extends Migration
     public function up()
     {
         $admin = User::where('email', 'admin@example.com')->first();
+        $admin->approved = 1;
         $admin->assignRole('Super Admin');
+        $admin->save();
     }
 
     /**
