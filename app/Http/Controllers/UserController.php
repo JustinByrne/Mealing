@@ -64,7 +64,10 @@ class UserController extends Controller
     {
         $email = Crypt::decrypt($email);
 
-        $user = User::where('email', $email)->first()->approve;
+        $user = User::where('email', $email)->first();
+        $user->update([
+            'approved' => 1,
+        ]);
 
         return redirect()->route('admin.users.index');
     }

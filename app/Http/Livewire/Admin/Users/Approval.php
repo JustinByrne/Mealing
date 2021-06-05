@@ -16,6 +16,8 @@ class Approval extends Component
 
     public function approve(): Void
     {
-        $this->user->approve;
+        $this->user->update([
+            'approved' => 1,
+        ]);
     }
 }
