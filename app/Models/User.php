@@ -93,9 +93,4 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         });
     }
-
-    public function setApproveAttribute()
-    {
-        return $this->approved = 1;
-    }
 }
