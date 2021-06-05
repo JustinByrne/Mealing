@@ -44,6 +44,7 @@ class ApprovedUser extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->subject('Your account has been approved')
                     ->greeting('Hello ' . $this->user->name . ',')
                     ->line('Your account has been approved, you can now access Mealing')
                     ->action('Login Now', url('/'));
