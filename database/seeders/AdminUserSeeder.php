@@ -19,7 +19,8 @@ class AdminUserSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@example.com',
             'password' => 'password',
-            'email_verified_at' => Carbon::now()
+            'email_verified_at' => Carbon::now(),
+            'approved' => 1,
         ]);
     }
 }
