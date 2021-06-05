@@ -47,7 +47,7 @@ class ApproveUser extends Notification
         return (new MailMessage)
                     ->greeting('Hello Admin!')
                     ->line('A new user has registered, and is awaiting approval.')
-                    ->action('View Users', url(route('admin.users.approve', $this->email)));
+                    ->action('Approve User', url(route('admin.users.approve', $this->email)));
     }
 
     /**
