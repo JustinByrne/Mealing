@@ -45,7 +45,7 @@ class ApproveUser extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Approve new User')
+                    ->subject('New User awaiting approval')
                     ->greeting('Hello Admin!')
                     ->line('A new user has registered, and is awaiting approval.')
                     ->action('Approve User', url(route('admin.users.approve', $this->email)));
