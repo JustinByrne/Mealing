@@ -23,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         UserVerified::class => [
             SendNewUserNotification::class,
         ],
+        UserApproved::class => [
+            SendUserApprovedNotification::class,
+        ],
     ];
 
     /**

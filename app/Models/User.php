@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Hash;
 use App\Models\Menu;
+use App\Events\UserApproved;
 use App\Events\UserVerified;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -89,6 +90,11 @@ class User extends Authenticatable implements MustVerifyEmail
             if ($user->isDirty('email_verified_at')) {
                 if ($user->getOriginal('email_verified_at') == null && $user->email_verified_at != null)  {
                     event(new UserVerified($user));
+                }
+            }
+            if ($user->isDirty('approved')) {
+                if ($user->getOriginal('approved') == 0 && $user->approved == 1)  {
+                    event(new UserApproved($user));
                 }
             }
         });
