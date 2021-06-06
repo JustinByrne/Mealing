@@ -17,7 +17,7 @@
         <div class="w-full min-h-screen flex flex-col lg:flex-row bg-gray-100 dark:bg-gray-800">
             <!-- Header -->
             @include('layouts.header')
-            <div class="p-4 lg:px-6 lg:pt-6 w-full lg:ml-72">
+            <div class="p-4 lg:p-6 w-full lg:ml-72">
                 <!-- Search Bar -->
                 <div class="flex flex-col lg:flex-row justify-between mb-4">
                     <div></div>
