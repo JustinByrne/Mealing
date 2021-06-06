@@ -26,9 +26,22 @@
                 </p>
             </div>
             <div class="md:col-span-2">
-                <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
-                    Method
-                </h4>
+                <div class="flex justify-between">
+                    <div>
+                        <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
+                            Method
+                        </h4>
+                    </div>
+                    <div>
+                        @can('meal_update')
+                            @if ($meal->user->id == Auth::id())
+                                <a href="{{ route('meals.edit', $meal) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-600 text-white hover:bg-green-500 text-xs">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            @endif
+                        @endcan
+                    </div>
+                </div>
                 <article class="max-w-full prose dark:text-gray-200"">
                     {!! $meal->instruction !!}
                 </article>
