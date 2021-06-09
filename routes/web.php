@@ -6,6 +6,7 @@ use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AllergenController;
 use App\Http\Controllers\IngredientController;
@@ -25,6 +26,8 @@ use App\Http\Controllers\PermissionController;
 Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
 
+    Route::post('/upload', [UploadController::class, 'store'])->name('upload');
+
     Route::get('/user/profile', [ProfileController::class, 'profile'])->name('profile');
     Route::get('/user/profile/settings/account', [ProfileController::class, 'accountSettings'])->name('profile.settings.account');
     Route::patch('/user/profile/settings/account', [ProfileController::class, 'update']);
@@ -32,7 +35,6 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
     Route::resource('meals', MealController::class);
-    
     Route::resource('menus', MenuController::class)->only(['index', 'create', 'store']);
 
     Route::prefix('admin')->name('admin.')->group(function()   {
