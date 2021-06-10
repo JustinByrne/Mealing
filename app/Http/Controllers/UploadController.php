@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\TempFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
     public function store(Request $request)
     {
-        if ($request->hasFile('image')) {
+        $mimeTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/webp'];
+
+        if ($request->hasFile('image') && in_array(File::mimeType($request->file('image')), $mimeTypes)) {
             $file = $request->file('image');
             $filename = $file->getClientOriginalName();
             $folder = 'tmp/' . uniqid() . '-' . now()->timestamp;
@@ -24,6 +27,6 @@ class UploadController extends Controller
             return $folder;
         }
 
-        return '';
+        return response('Failed upload', 500);
     }
 }
