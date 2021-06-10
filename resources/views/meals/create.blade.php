@@ -51,11 +51,23 @@
                     </div>
                 </div>
                 <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
-                    <label for="image" class="dark:text-gray-200 self-center">
+                    <label for="image" class="dark:text-gray-200 self-top">
                         Image
                     </label>
                     <div class="w-full md:col-span-4">
-                        <input type="file" name="image" class="dark:text-gray-200 self-center">
+                        <div x-data x-init="
+                            FilePond.create($refs.input);
+                            FilePond.setOptions({
+                                server: {
+                                    url: '/upload',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    }
+                                }
+                            });
+                        ">
+                            <input type="file" name="image" x-ref="input">
+                        </div>
                     </div>
                 </div>
                 <div class="space-y-2 md:flex md:space-y-0 md:space-x-3">
@@ -122,6 +134,8 @@
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
 <script type="text/javascript">
     function changeLevel($current)  {
         switch($current) {
@@ -145,5 +159,9 @@
         .catch( error => {
             console.error( error );
         } );
+</script>
+<script>
+    const inputElement = document.querySelector('input[type="file"]');
+    const pond = FilePond.create(inputElement);
 </script>
 @endsection

@@ -64,7 +64,19 @@
                                 </span>
                             </div>
                         @else
-                            <input type="file" name="image" class="dark:text-gray-200 self-center">
+                            <div x-data x-init="
+                                FilePond.create($refs.input);
+                                FilePond.setOptions({
+                                    server: {
+                                        url: '/upload',
+                                        headers: {
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                        }
+                                    }
+                                });
+                            ">
+                                <input type="file" name="image" x-ref="input">
+                            </div>
                         @endif
                     </div>
                 </div>
@@ -132,6 +144,8 @@
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
 <script type="text/javascript">
     function changeLevel($current)  {
         switch($current) {
