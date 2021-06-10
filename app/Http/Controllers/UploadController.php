@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TempFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UploadController extends Controller
 {
@@ -12,8 +13,8 @@ class UploadController extends Controller
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = $file->getClientOriginalName();
-            $folder = uniqid() . '-' . now()->timestamp;
-            $file->storeAs('tmp/' . $folder, $filename);
+            $folder = 'tmp/' . uniqid() . '-' . now()->timestamp;
+            Storage::putFileAs($folder, $file, $filename);
 
             TempFile::create([
                 'folder' => $folder,
