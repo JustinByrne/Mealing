@@ -6,11 +6,13 @@ use Auth;
 use Gate;
 use App\Models\Meal;
 use App\Models\Allergen;
+use App\Models\TempFile;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreMealRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateMealRequest;
 
 class MealController extends Controller
@@ -42,8 +44,10 @@ class MealController extends Controller
             'instruction' => $request['instruction']
         ]);
 
-        if ($request->has('image')) {
-            $meal->addMediaFromRequest('image')->toMediaCollection();
+        $file = TempFile::where('folder', $request->image)->first();
+        if ($file) {
+            $meal->addMedia(Storage::path($request->image . '/' . $file->filename))->toMediaCollection();
+            $file->delete();
         }
 
         for($i = 0; $i < count($request['ingredients']); $i++)   {
