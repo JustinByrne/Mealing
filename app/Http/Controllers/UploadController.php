@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\TempFile;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +16,7 @@ class UploadController extends Controller
 
         if ($request->hasFile('image') && in_array(File::mimeType($request->file('image')), $mimeTypes)) {
             $file = $request->file('image');
-            $filename = $file->getClientOriginalName();
+            $filename = Str::slug(str_replace("'", '', $file->getClientOriginalName()));
             $folder = 'tmp/' . uniqid() . '-' . now()->timestamp;
             Storage::putFileAs($folder, $file, $filename);
 
