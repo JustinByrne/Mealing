@@ -55,29 +55,25 @@
                     <label for="image" class="dark:text-gray-200 self-center">
                         Image
                     </label>
-                    <div class="w-full md:col-span-4">
+                    <div class="w-full md:col-span-4 grid grid-cols-1 md:grid-cols-12">
                         @if( $meal->getMedia()->count() > 0)
-                            <div class="flex items-center space-x-2">
+                            <div class="md:col-span-2">
                                 <img src="{{ $meal->getFirstMediaUrl() }}" class="h-16 rounded">
-                                <span class="text-red-500">
-                                    <i class="fas fa-times"></i>
-                                </span>
-                            </div>
-                        @else
-                            <div x-data x-init="
-                                FilePond.create($refs.input);
-                                FilePond.setOptions({
-                                    server: {
-                                        url: '/upload',
-                                        headers: {
-                                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                                        }
-                                    }
-                                });
-                            ">
-                                <input type="file" name="image" x-ref="input">
                             </div>
                         @endif
+                        <div class="md:col-span-10" x-data x-init="
+                            FilePond.create($refs.input);
+                            FilePond.setOptions({
+                                server: {
+                                    url: '/upload',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                                    }
+                                }
+                            });
+                        ">
+                            <input type="file" name="image" x-ref="input">
+                        </div>
                     </div>
                 </div>
                 <div class="space-y-2 md:flex md:space-y-0 md:space-x-3">
@@ -121,10 +117,10 @@
                         Ingredients
                     </label>
                     @error('ingredients')
-                            <p class="text-red-500 italic text-xs font-light">
-                                {{ $message }}
-                            </p>
-                        @enderror
+                        <p class="text-red-500 italic text-xs font-light">
+                            {{ $message }}
+                        </p>
+                    @enderror
                     @livewire('meals.create', ['meal' => $meal])
                 </div>
                 <div class="md:space-y-2">

@@ -94,6 +94,11 @@ class MealController extends Controller
 
         $file = TempFile::where('folder', $request->image)->first();
         if ($file) {
+            $mediaItems = $this->meal->getMedia();
+            foreach ($mediaItems as $item) {
+                $item->delete();
+            }
+
             $meal->addMedia(Storage::path($request->image . '/' . $file->filename))->toMediaCollection();
             $file->delete();
         }
