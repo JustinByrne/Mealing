@@ -92,8 +92,10 @@ class MealController extends Controller
     {
         $meal->update($request->validated());
 
-        if ($request->has('image')) {
-            $meal->addMediaFromRequest('image')->toMediaCollection();
+        $file = TempFile::where('folder', $request->image)->first();
+        if ($file) {
+            $meal->addMedia(Storage::path($request->image . '/' . $file->filename))->toMediaCollection();
+            $file->delete();
         }
 
         foreach($request['allergens'] as $id => $level)    {
