@@ -4,14 +4,13 @@
 <div class="space-y-4">
     <div class="w-full h-screen/4">
         @if ($meal->getMedia()->count() > 0)
-            <div class="relative w-full h-full rounded-xl bg-center bg-no-repeat bg-cover" style="background-image:url({{ $meal->getFirstMediaUrl() }});">
+            <div class="relative w-full h-full rounded-xl bg-center bg-no-repeat bg-cover" style="background-image:url('{{ $meal->getFirstMediaUrl() }}');">
                 <div class="bg-gray-900 bg-opacity-60 h-full w-full flex justify-center uppercase text-white rounded-xl">
                     <span class="self-center text-5xl">
                         {{ $meal->name }}
                     </span>
                 </div>
             </div>
-            {{-- <img src="{{ $meal->getFirstMediaUrl() }}" class="w-full h-full object-cover rounded-xl" title="{{ $meal->name }}"> --}}
         @else
             <div class="flex justify-center w-full h-full rounded-xl bg-gray-600 uppercase text-white">
                 <span class="self-center text-5xl">
