@@ -9,7 +9,7 @@ class Image extends Component
     public $meal;
 
     protected $listeners = [
-        'delete' => '$refresh'
+        'refreshComponent' => '$refresh'
     ];
     
     public function render()
@@ -27,6 +27,6 @@ class Image extends Component
             $item->delete();
         }
 
-        $this->meal->refresh();
+        $this->emit('refreshComponent');
     }
 }
