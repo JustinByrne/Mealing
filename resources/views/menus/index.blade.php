@@ -13,16 +13,22 @@
         <div class="flex justify-center items-center bg-white dark:bg-gray-700 rounded w-full py-52">
             <div class="flex flex-col dark:text-gray-200 text-center space-y-2">
                 <i class="fas fa-hamburger fa-4x"></i>
-                <p class="mb-5 dark:text-gray-200">
-                    You don't have a menu for this week
-                </p>
-                @if (Request::has('week_start'))
-                    <a href="{{ route('menus.create', ['week_start' => Request::query('week_start')]) }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
-                @else                    
-                    <a href="{{ route('menus.create') }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                @if ($mealCount > 4)
+                    <p class="mb-5 dark:text-gray-200">
+                        You don't have a menu for this week
+                    </p>
+                    @if (Request::has('week_start'))
+                        <a href="{{ route('menus.create', ['week_start' => Request::query('week_start')]) }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                    @else                    
+                        <a href="{{ route('menus.create') }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                    @endif
+                        Create Menu
+                    </a>
+                @else
+                    <p class="mb-5 dark:text-gray-200">
+                        There are currently not enough meals to create a menu
+                    </p>
                 @endif
-                    Create Menu
-                </a>
             </div>
         </div>
     @else

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Gate;
 use Carbon\Carbon;
+use App\Models\Meal;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -44,7 +45,9 @@ class MenuController extends Controller
             $query->whereIn('date', $weekDays);
         })->where('user_id', Auth::id())->first();
 
-        return view('menus.index', compact('weekDays', 'current', 'links'));
+        $mealCount = Meal::count();
+
+        return view('menus.index', compact('weekDays', 'current', 'links', 'mealCount'));
     }
 
     public function create(Request $request): View
