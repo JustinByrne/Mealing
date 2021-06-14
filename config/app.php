@@ -56,6 +56,8 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'proxy_scheme' => env('PROXY_SCHEME', null),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

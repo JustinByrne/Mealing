@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->environment('production')) {
+        if (! is_null(config('app.proxy_scheme')) && config('app.proxy_scheme') == 'https') {
             URL::forceScheme('https');
         }
     }
