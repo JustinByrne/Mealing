@@ -53,7 +53,7 @@
             @endif
         </div>
         <div class="md:pl-6">
-            <button type="button" wire:click.prevent="add({{ $i }})" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+            <button wire:click.prevent="add({{ $i }})" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
                 <i class="fas fa-plus"></i>
             </button>
         </div>
@@ -62,9 +62,9 @@
         @if (!empty($inputs))
             <ul>
                 @foreach ($inputs as $key => $item)
-                    <li class="font-light text-xs md:pt-2 md:text-base dark:text-gray-200">
+                    <li class="font-light text-sm pt-2 md:text-base dark:text-gray-200">
                         {{ $item['quantity'] }} - {{ $item['ingredient'] }}
-                        <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs">
+                        <button wire:click.prevent="remove({{ $key }})" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs">
                             <i class="fas fa-minus"></i>
                         </button>
                         <input type="hidden" name="quantities[{{ $key }}]" value="{{ $item['quantity'] }}">

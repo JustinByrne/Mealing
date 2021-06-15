@@ -160,8 +160,4 @@
             console.error( error );
         } );
 </script>
-<script>
-    const inputElement = document.querySelector('input[type="file"]');
-    const pond = FilePond.create(inputElement);
-</script>
 @endsection
