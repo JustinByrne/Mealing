@@ -19,7 +19,7 @@
             @include('layouts.header')
             <div class="p-4 lg:p-6 w-full lg:ml-72">
                 <!-- Search Bar -->
-                <div class="flex flex-col lg:flex-row justify-between mb-4">
+                <div class="flex flex-col lg:flex-row justify-between lg:mb-4">
                     <div></div>
                     {{-- <form action="" method="POST">
                         <div class="relative">
