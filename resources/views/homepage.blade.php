@@ -10,9 +10,9 @@
             <div class="w-full rounded-md shadow-md dark:bg-gray-700">
                 <div>
                     @if ($meal->getMedia()->count() > 0)
-                        <img src="{{ $meal->getFirstMediaUrl() }}" class="w-full h-32 object-cover rounded-t-md">
+                        <img src="{{ $meal->getFirstMediaUrl('default', 'thumb') }}" class="w-full h-32 object-cover rounded-t-md" alt="{{ $meal->name }}">
                     @else
-                        <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full h-32 object-cover rounded-t-md">
+                        <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full h-32 object-cover rounded-t-md" alt="No image available">
                     @endif
                 </div>
                 <div class="bg-white p-4 rounded-b-md dark:bg-gray-700 dark:text-gray-200">
