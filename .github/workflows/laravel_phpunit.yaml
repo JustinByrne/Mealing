@@ -73,7 +73,7 @@ jobs:
           git config pull.rebase false
           git fetch origin main:main
           git reset --hard main
-          git pull --commit --no-edit
+          git pull --commit --no-edit --allow-unrelated-histories
       - name: Compile assets
         run: |
           npm install
