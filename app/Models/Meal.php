@@ -12,6 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Mehradsadeghi\FilterQueryString\FilterQueryString;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Meal extends Model implements HasMedia
 {
@@ -97,5 +98,13 @@ class Meal extends Model implements HasMedia
     public static function getTableName(): string
     {
         return (new self())->getTable();
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+              ->width(368)
+              ->height(276)
+              ->sharpen(10);
     }
 }
