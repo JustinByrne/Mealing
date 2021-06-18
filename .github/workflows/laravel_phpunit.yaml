@@ -66,18 +66,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          ref: production
       - name: Configure git
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git config pull.rebase false
-      - name: Reset production branch
+      - name: Recreate production branch
         run: |
-          git fetch origin main:main
-          git reset --hard main
-          git pull --commit --no-edit --allow-unrelated-histories
+          git push origin --delete production
       - name: Compile assets
         run: |
           npm install
