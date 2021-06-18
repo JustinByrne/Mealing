@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,7 +35,7 @@
                             <p>
                                 {{ Auth::user()->name }}
                             </p>
-                            <button class="px-1.5">
+                            <button class="px-1.5" aria-label="Profile Menu">
                                 <i
                                     class="fas fa-angle-down transform duration-300 ease-in-out"
                                     :class="{ 'rotate-180': open }"
