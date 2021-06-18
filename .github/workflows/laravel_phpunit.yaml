@@ -70,6 +70,7 @@ jobs:
           ref: production
       - name: Reset production branch
         run: |
+          git config pull.rebase false
           git fetch origin main:main
           git reset --hard main
           git pull --commit --no-edit
