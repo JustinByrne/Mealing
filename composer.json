@@ -22,7 +22,8 @@
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
         "rappasoft/laravel-patches": "^1.0",
         "spatie/laravel-medialibrary": "^9.0.0",
-        "spatie/laravel-permission": "^4.0"
+        "spatie/laravel-permission": "^4.0",
+        "symfony/process": "^5.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
