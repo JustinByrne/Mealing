@@ -2,7 +2,7 @@
 
 php artisan down
 
-git pull
+git pull --no-edit
 
 export COMPOSER_HOME='/tmp/composer'
 composer install --no-interaction --no-dev --prefer-dist
