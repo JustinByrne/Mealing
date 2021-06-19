@@ -35,14 +35,16 @@
                         <td class="flex flex-col lg:flex-row px-4 py-2 lg:justify-end space-y-1 lg:space-y-0 lg:space-x-1">
                             <div>
                                 <a href="{{ route('admin.ingredients.edit', $ingredient) }}">
-                                    <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
+                                    <button type="button" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs" aria-label="Edit Ingredient">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                 </a>
                             </div>
                             <div>
                                 <form action="{{ route('admin.ingredients.destroy', $ingredient) }}" method="POST">
-                                    <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs" aria-label="Delete Ingredient">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
