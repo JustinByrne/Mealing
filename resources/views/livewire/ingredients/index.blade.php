@@ -20,9 +20,9 @@
             <tbody>
                 @foreach ($ingredients as $ingredient)
                     @if ($loop->odd)
-                        <tr class="hover:bg-green-600 hover:bg-opacity-10">
+                        <tr class="hover:bg-green-700 hover:bg-opacity-10">
                     @else
-                        <tr class="bg-green-600 bg-opacity-5 hover:bg-opacity-10">
+                        <tr class="bg-green-700 bg-opacity-5 hover:bg-opacity-10">
                     @endif
                         <td class="block lg:table-cell px-4 py-2">
                             <a href="{{ route('admin.ingredients.show', $ingredient) }}" class="hover:text-yellow-600 dark:text-gray-200 dark:hover:text-yellow-600">
@@ -35,7 +35,7 @@
                         <td class="flex flex-col lg:flex-row px-4 py-2 lg:justify-end space-y-1 lg:space-y-0 lg:space-x-1">
                             <div>
                                 <a href="{{ route('admin.ingredients.edit', $ingredient) }}">
-                                    <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-600 text-white hover:bg-green-500 text-xs">
+                                    <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
                                         <i class="fas fa-pencil-alt"></i>
                                     </button>
                                 </a>

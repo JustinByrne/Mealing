@@ -57,11 +57,11 @@
                     </div>
                     <div class="flex flex-col">
                         <p class="dark:text-gray-200">
-                            <input type="checkbox" checked class="rounded mr-2 text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                            <input type="checkbox" checked class="rounded mr-2 text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                             All
                         </p>
                         <p class="dark:text-gray-200">
-                            <input type="checkbox" class="rounded mr-2 text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                            <input type="checkbox" class="rounded mr-2 text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                             <span class="text-sm text-yellow-400">
                                 <i class="fas fa-star"></i>
                                 <i class="far fa-star"></i>
@@ -71,7 +71,7 @@
                             </span>
                         </p>
                         <p class="dark:text-gray-200">
-                            <input type="checkbox" class="rounded mr-2 text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                            <input type="checkbox" class="rounded mr-2 text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                             <span class="text-sm text-yellow-400">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -81,7 +81,7 @@
                             </span>
                         </p>
                         <p class="dark:text-gray-200">
-                            <input type="checkbox" class="rounded mr-2 text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                            <input type="checkbox" class="rounded mr-2 text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                             <span class="text-sm text-yellow-400">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -91,7 +91,7 @@
                             </span>
                         </p>
                         <p class="dark:text-gray-200">
-                            <input type="checkbox" class="rounded mr-2 text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                            <input type="checkbox" class="rounded mr-2 text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                             <span class="text-sm text-yellow-400">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -101,7 +101,7 @@
                             </span>
                         </p>
                         <p class="dark:text-gray-200">
-                            <input type="checkbox" class="rounded mr-2 text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                            <input type="checkbox" class="rounded mr-2 text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                             <span class="text-sm text-yellow-400">
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
@@ -114,7 +114,7 @@
                 </div>
                 <hr class="mx-3">
                 <div class="grid grid-cols-2 gap-4 p-4">
-                    <button class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                    <button class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                         Filter
                     </button>
                     <button class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-gray-400 text-white hover:bg-gray-300">

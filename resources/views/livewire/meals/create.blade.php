@@ -53,7 +53,7 @@
             @endif
         </div>
         <div class="md:pl-6">
-            <button wire:click.prevent="add({{ $i }})" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+            <button wire:click.prevent="add({{ $i }})" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                 <i class="fas fa-plus"></i>
             </button>
         </div>

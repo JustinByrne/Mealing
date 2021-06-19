@@ -45,7 +45,7 @@
                     <div>
                         @can('meal_update')
                             @if ($meal->user->id == Auth::id())
-                                <a href="{{ route('meals.edit', $meal) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-600 text-white hover:bg-green-500 text-xs">
+                                <a href="{{ route('meals.edit', $meal) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                             @endif

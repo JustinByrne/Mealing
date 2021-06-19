@@ -1,6 +1,6 @@
 <div class="mb-5">
     <div class="flex justify-end mb-3">
-        <button type="button" wire:click="randomizeAll" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+        <button type="button" wire:click="randomizeAll" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
             <i class="fas fa-sync-alt"></i>
             Randomize
         </button>
@@ -38,7 +38,7 @@
                             Serves: {{ $meals[$i]->servings }}
                         </p>
                         <input type="hidden" name="{{ $days[$i] }}" wire:model="mealIds.{{ $i }}">
-                        <button type="button" wire:click="randomize({{ $i }})" class="w-full lg:w-auto mb-2 rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                        <button type="button" wire:click="randomize({{ $i }})" class="w-full lg:w-auto mb-2 rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                             <i class="fas fa-sync-alt"></i>
                             Change
                         </button>

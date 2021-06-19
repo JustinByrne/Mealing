@@ -31,7 +31,7 @@
             <div class="md:flex md:items-center">
                 <div class="md:w-1/3"></div>
                 <div>
-                    <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                    <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                         Send link
                     </button>
                 </div>

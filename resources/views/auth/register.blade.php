@@ -54,7 +54,7 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-3 items-center">
-        <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+        <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
             Register
         </button>
         <a href="{{ route('login') }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-gray-400 text-white hover:bg-gray-300 text-center">

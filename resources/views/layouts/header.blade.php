@@ -1,12 +1,12 @@
 <header class="lg:fixed">
-    <div class="w-full bg-green-600 p-3 text-white lg:w-72 lg:h-screen" x-data="{open: false}">
+    <div class="w-full bg-green-700 p-3 text-white lg:w-72 lg:h-screen" x-data="{open: false}">
         <div class="flex justify-between items-center lg:mb-20 lg:mt-10">
             <div class="flex text-lg font-bold lg:text-center lg:w-full lg:flex-col">
                 <i class="fas fa-pizza-slice pr-3 self-center lg:pr-0 lg:text-3xl lg:pb-3"></i>
                 Mealing
             </div>
             <div class="text-lg lg:hidden">
-                <button class="border border-gray-100 px-2 rounded-lg duration-300 ease-in-out transition text-center hover:bg-white hover:text-green-600" @click="open = !open">
+                <button class="border border-gray-100 px-2 rounded-lg duration-300 ease-in-out transition text-center hover:bg-white hover:text-green-700" @click="open = !open" aria-label="Menu">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -16,9 +16,9 @@
                 <a
                     href="{{ route('homepage') }}"
                     @if (request()->routeIs('homepage*'))
-                        class="w-full p-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
+                        class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                     @else
-                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-600 space-x-2"
+                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                     @endif
                 >
                     <i class="fas fa-home"></i>
@@ -29,9 +29,9 @@
                 <a
                     href="{{ route('menus.index') }}"
                     @if (request()->routeIs('menu*'))
-                        class="w-full p-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
+                        class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                     @else
-                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-600 space-x-2"
+                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                     @endif
                 >
                     <i class="fas fa-utensils"></i>
@@ -42,9 +42,9 @@
                 <a
                     href="{{ route('meals.index') }}"
                     @if (request()->routeIs('meals*'))
-                        class="w-full p-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
+                        class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                     @else
-                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-600 space-x-2"
+                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                     @endif
                 >
                     <i class="fas fa-hamburger"></i>
@@ -56,9 +56,9 @@
                     <a
                         href="{{ route('meals.create') }}"
                         @if (request()->routeIs('meals.create'))
-                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
+                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                         @else
-                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-600 space-x-2"
+                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                         @endif
                     >
                         <i class="fas fa-plus"></i>
@@ -71,9 +71,9 @@
                     <a
                         href="{{ route('admin.dashboard') }}"
                         @if (request()->routeIs('admin*'))
-                            class="w-full p-3 mb-3 font-bold text-green-600 bg-white rounded-lg space-x-2"
+                            class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                         @else
-                            class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-600 space-x-2"
+                            class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                         @endif
                     >
                         <i class="fas fa-tachometer-alt"></i>
@@ -88,14 +88,14 @@
                     <p>
                         {{ Auth::user()->name }}
                     </p>
-                    <button>
+                    <button aria-label="Profile Menu">
                         <i
                             class="fas text-center cursor-pointer"
                             :class="{ 'fa-angle-down': !open, 'fa-angle-up': open }"
                         ></i>
                     </button>
                 </div>
-                <div class="w-full font-bold text-green-600 bg-white rounded-lg space-x-2" :class="{ 'hidden': !open }">
+                <div class="w-full font-bold text-green-700 bg-white rounded-lg space-x-2" :class="{ 'hidden': !open }">
                     <div class="flex flex-col text-left">
                         <a href="{{ route('profile') }}" class="px-3 py-2">
                             Profile
@@ -105,7 +105,7 @@
                         </a>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="px-3 py-2 font-bold w-full text-left">
+                            <button type="submit" class="px-3 py-2 font-bold w-full text-left" aria-label="Logout">
                                 Logout
                             </button>
                         </form>

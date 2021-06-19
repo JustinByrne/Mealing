@@ -5,7 +5,7 @@
     <a href="{{ route('menus.index', ['week_start' => $links['prev']]) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs">
         Prev. Week
     </a>
-    <a href="{{ route('menus.index', ['week_start' => $links['next']]) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-600 text-white hover:bg-green-500 text-xs">
+    <a href="{{ route('menus.index', ['week_start' => $links['next']]) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
         Next Week
     </a>
 </div>
@@ -18,9 +18,9 @@
                         You don't have a menu for this week
                     </p>
                     @if (Request::has('week_start'))
-                        <a href="{{ route('menus.create', ['week_start' => Request::query('week_start')]) }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                        <a href="{{ route('menus.create', ['week_start' => Request::query('week_start')]) }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                     @else                    
-                        <a href="{{ route('menus.create') }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                        <a href="{{ route('menus.create') }}" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                     @endif
                         Create Menu
                     </a>

@@ -24,9 +24,9 @@
         <tbody>
             @foreach ($users as $user)
                 @if ($loop->odd)
-                    <tr class="hover:bg-green-600 hover:bg-opacity-10">
+                    <tr class="hover:bg-green-700 hover:bg-opacity-10">
                 @else
-                    <tr class="bg-green-600 bg-opacity-5 hover:bg-opacity-10">
+                    <tr class="bg-green-700 bg-opacity-5 hover:bg-opacity-10">
                 @endif
                     <td class="block lg:table-cell px-4 py-2">
                         {{ $user->name }}
@@ -38,7 +38,7 @@
                         @livewire('admin.users.approval', ['user' => $user])
                         <div>
                             <a href="{{ route('admin.users.edit', $user) }}">
-                                <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-600 text-white hover:bg-green-500 text-xs">
+                                <button class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
                                     <i class="fas fa-pencil-alt"></i>
                                 </button>
                             </a>

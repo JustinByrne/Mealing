@@ -78,13 +78,13 @@
                 </div>
                 <div class="space-y-2 md:flex md:space-y-0 md:space-x-3">
                     <div>
-                        <input type="checkbox" name="adult" id="adult" value="1"  {{ $meal->adults ? 'checked' : '' }} class="rounded text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                        <input type="checkbox" name="adult" id="adult" value="1"  {{ $meal->adults ? 'checked' : '' }} class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                         <label for="adult" class="dark:text-gray-200 self-center">
                             Suitable for Adults
                         </label>
                     </div>
                     <div>
-                        <input type="checkbox" name="kids" id="kids" value="1"  {{ $meal->kids ? 'checked' : '' }} class="rounded text-green-600 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-600">
+                        <input type="checkbox" name="kids" id="kids" value="1"  {{ $meal->kids ? 'checked' : '' }} class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                         <label for="kids" class="dark:text-gray-200 self-center">
                             Suitable for Children
                         </label>
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 <div>
-                    <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                    <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                         Update Meal
                     </button>
                 </div>

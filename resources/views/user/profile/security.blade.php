@@ -29,7 +29,7 @@
                 @if (Auth::user()->get2faEnabled())
                     @method('DELETE')
                     <div x-data="{ isOpen: false }">
-                        <button type="button" @click="isOpen = true" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                        <button type="button" @click="isOpen = true" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                             <i class="fas fa-qrcode"></i> Show QR Code
                         </button>
                         <div class="absolute top-0 left-0 flex items-center justify-center w-full h-full z-50" style="background-color: rgba(0,0,0,.5);" x-show="isOpen">
@@ -74,7 +74,7 @@
                     <p class="mb-5 dark:text-gray-200">
                         2FA is currently disabled
                     </p>
-                    <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-600 text-white hover:bg-green-500">
+                    <button type="submit" class="w-full lg:w-auto rounded shadow-md py-2 px-4 bg-green-700 text-white hover:bg-green-500">
                         Enable
                     </button>
                 @endif
