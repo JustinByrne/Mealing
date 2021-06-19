@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\AllergenController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\PermissionController;
@@ -48,3 +49,5 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     });
 
 });
+
+Route::post('deploy', WebhookController::class);
