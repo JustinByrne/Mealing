@@ -4,6 +4,7 @@ cd ../
 
 php artisan down
 
+git reset --hard
 git pull --no-edit
 
 export COMPOSER_HOME='/tmp/composer'
