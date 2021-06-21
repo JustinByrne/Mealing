@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd ../
+
 php artisan down
 
 git pull --no-edit
