@@ -342,4 +342,32 @@ class UserTest extends TestCase
 
         $response->assertForbidden();
     }
+
+    /**
+     * Test a user can like a meal
+     * 
+     * @return void
+     */
+    public function testDenyUserToLikeAMealNotLoggedIn()
+    {
+        $meal = Meal::factory()->create();
+        
+        $response = $this->get(route('meals.like', $meal));
+
+        $response->assertRedirect('/login');
+    }
+
+    /**
+     * Test a user can unlike a meal
+     * 
+     * @return void
+     */
+    public function testDenyUserToUnlikeAMealNotLoggedIn()
+    {
+        $meal = Meal::factory()->create();
+        
+        $response = $this->get(route('meals.unlike', $meal));
+
+        $response->assertRedirect('/login');
+    }
 }
