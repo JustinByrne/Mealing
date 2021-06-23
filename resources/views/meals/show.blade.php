@@ -6,7 +6,7 @@
         @if ($meal->getMedia()->count() > 0)
             <div class="relative w-full h-full rounded-xl bg-center bg-no-repeat bg-cover" style="background-image:url('{{ $meal->getFirstMediaUrl() }}');">
                 <div class="bg-gray-900 bg-opacity-60 h-full w-full flex justify-center uppercase text-white rounded-xl">
-                    <span class="self-center text-xl lg:text-5xl">
+                    <span class="self-center px-2 text-center text-xl lg:text-5xl">
                         {{ $meal->name }}
                     </span>
                 </div>
