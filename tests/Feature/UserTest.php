@@ -284,10 +284,34 @@ class UserTest extends TestCase
      */
     public function testAUserCanLikeAMeal()
     {
+        $this->withoutExceptionHandling();
         $meal = Meal::factory()->create();
         
-        $response = $this->actingAs($this->user)->get(route('meal.like', $meal));
+        $response = $this->actingAs($this->user)->get(route('meals.like', $meal));
 
-        $response->assertRedirect(route('meal.show', $meal));
+        $response->assertRedirect(route('meals.show', $meal));
+        $this->assertDatabaseHas('likes', [
+            'meal_id' => $meal->id,
+            'user_id' => $this->user->id,
+        ]);
+    }
+
+    /**
+     * Test a user can unlike a meal
+     * 
+     * @return void
+     */
+    public function testAUserCanUnlikeAMeal()
+    {
+        $this->withoutExceptionHandling();
+        $meal = Meal::factory()->create();
+        
+        $response = $this->actingAs($this->user)->get(route('meals.unlike', $meal));
+
+        $response->assertRedirect(route('meals.show', $meal));
+        $this->assertDatabaseMissing('likes', [
+            'meal_id' => $meal->id,
+            'user_id' => $this->user->id,
+        ]);
     }
 }
