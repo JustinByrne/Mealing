@@ -275,8 +275,6 @@ class UserTest extends TestCase
         $response->assertSessionHas('message', 'Account is currently awaiting approval.');
     }
 
-
-
     /**
      * Test a user can like a meal
      * 
@@ -285,6 +283,7 @@ class UserTest extends TestCase
     public function testAUserCanLikeAMeal()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_access');
         $meal = Meal::factory()->create();
         
         $response = $this->actingAs($this->user)->get(route('meals.like', $meal));
@@ -304,6 +303,7 @@ class UserTest extends TestCase
     public function testAUserCanUnlikeAMeal()
     {
         $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('user_access');
         $meal = Meal::factory()->create();
         
         $response = $this->actingAs($this->user)->get(route('meals.unlike', $meal));
@@ -313,5 +313,33 @@ class UserTest extends TestCase
             'meal_id' => $meal->id,
             'user_id' => $this->user->id,
         ]);
+    }
+
+    /**
+     * Test a user can like a meal
+     * 
+     * @return void
+     */
+    public function testDenyUserToLikeAMealWithoutPermission()
+    {
+        $meal = Meal::factory()->create();
+        
+        $response = $this->actingAs($this->user)->get(route('meals.like', $meal));
+
+        $response->assertForbidden();
+    }
+
+    /**
+     * Test a user can unlike a meal
+     * 
+     * @return void
+     */
+    public function testDenyUserToUnlikeAMealWithoutPermission()
+    {
+        $meal = Meal::factory()->create();
+        
+        $response = $this->actingAs($this->user)->get(route('meals.unlike', $meal));
+
+        $response->assertForbidden();
     }
 }
