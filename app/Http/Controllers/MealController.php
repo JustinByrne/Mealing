@@ -9,6 +9,7 @@ use App\Models\Allergen;
 use App\Models\TempFile;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreMealRequest;
@@ -128,5 +129,23 @@ class MealController extends Controller
         $meal->delete();
 
         return redirect()->back();
+    }
+
+    public function like(Meal $meal): RedirectResponse
+    {
+        abort_if(Gate::denies('meal_access'), 403);
+
+        Auth()->user()->likedMeal()->attach($meal->id);
+
+        return redirect()->route('meals.show', $meal);
+    }
+
+    public function unlike(Meal $meal): RedirectResponse
+    {
+        abort_if(Gate::denies('meal_access'), 403);
+
+        DB::table('likes')->where('meal_id', $meal->id)->where('user_id', Auth()->id())->delete();
+
+        return redirect()->route('meals.show', $meal);
     }
 }
