@@ -283,7 +283,7 @@ class UserTest extends TestCase
     public function testAUserCanLikeAMeal()
     {
         $this->withoutExceptionHandling();
-        $this->user->givePermissionTo('user_access');
+        $this->user->givePermissionTo('meal_access');
         $meal = Meal::factory()->create();
         
         $response = $this->actingAs($this->user)->get(route('meals.like', $meal));
@@ -303,12 +303,15 @@ class UserTest extends TestCase
     public function testAUserCanUnlikeAMeal()
     {
         $this->withoutExceptionHandling();
-        $this->user->givePermissionTo('user_access');
+        $this->user->givePermissionTo('meal_access');
         $meal = Meal::factory()->create();
         
         $response = $this->actingAs($this->user)->get(route('meals.unlike', $meal));
 
         $response->assertRedirect(route('meals.show', $meal));
+        $this->assertDatabaseHas('meals', [
+            'id' => $meal->id,
+        ]);
         $this->assertDatabaseMissing('likes', [
             'meal_id' => $meal->id,
             'user_id' => $this->user->id,
