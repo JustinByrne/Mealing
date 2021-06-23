@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Hash;
 use Tests\TestCase;
+use App\Models\Meal;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -272,5 +273,21 @@ class UserTest extends TestCase
 
         $response->assertRedirect(route('login'));
         $response->assertSessionHas('message', 'Account is currently awaiting approval.');
+    }
+
+
+
+    /**
+     * Test a user can like a meal
+     * 
+     * @return void
+     */
+    public function testAUserCanLikeAMeal()
+    {
+        $meal = Meal::factory()->create();
+        
+        $response = $this->actingAs($this->user)->get(route('meal.like', $meal));
+
+        $response->assertRedirect(route('meal.show', $meal));
     }
 }
