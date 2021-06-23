@@ -50,6 +50,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Menu::class);
     }
 
+    public function likedMeal()
+    {
+        return $this->belongsToMany(Meal::class, 'likes');
+    }
+
     public function setPasswordAttribute($input): void
     {
         if ($input) {

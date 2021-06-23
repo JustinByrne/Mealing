@@ -62,6 +62,11 @@ class Meal extends Model implements HasMedia
         return $this->belongsToMany(Menu::class)->withPivot('date');
     }
 
+    public function likedUser()
+    {
+        return $this->belongsToMany(User::class, 'likes');
+    }
+
     public function path(): string
     {
         return route('meals.show', [$this->slug]);
