@@ -4,16 +4,38 @@
 <div class="space-y-4">
     <div class="w-full h-screen/4">
         @if ($meal->getMedia()->count() > 0)
-            <div class="relative w-full h-full rounded-xl bg-center bg-no-repeat bg-cover" style="background-image:url('{{ $meal->getFirstMediaUrl() }}');">
-                <div class="bg-gray-900 bg-opacity-60 h-full w-full flex justify-center uppercase text-white rounded-xl">
+            <div class="w-full h-full rounded-xl bg-center bg-no-repeat bg-cover" style="background-image:url('{{ $meal->getFirstMediaUrl() }}');">
+                <div class="relative bg-gray-900 bg-opacity-60 h-full w-full flex justify-center uppercase text-white rounded-xl">
+                    <div class="absolute top-3 right-3 text-red-300">
+                        @if (Auth()->user()->likedMeal()->where('meal_id', $meal->id)->count() > 0)
+                            <a href="{{ route('meals.unlike', $meal) }}">
+                                <i class="fa fa-heart fa-2x"></i>
+                            </a>
+                        @else
+                            <a href="{{ route('meals.like', $meal) }}">
+                                <i class="far fa-heart fa-2x"></i>
+                            </a>
+                        @endif
+                    </div>
                     <span class="self-center px-2 text-center text-xl lg:text-5xl">
                         {{ $meal->name }}
                     </span>
                 </div>
             </div>
         @else
-            <div class="flex justify-center w-full h-full rounded-xl bg-gray-600 uppercase text-white">
-                <span class="self-center text-xl lg:text-5xl">
+            <div class="relative flex justify-center w-full h-full rounded-xl bg-gray-600 uppercase text-white">
+                <div class="absolute top-3 right-3 text-red-300">
+                    @if (Auth()->user()->likedMeal()->where('meal_id', $meal->id)->count() > 0)
+                        <a href="{{ route('meals.unlike', $meal) }}">
+                            <i class="fa fa-heart fa-2x"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('meals.like', $meal) }}">
+                            <i class="far fa-heart fa-2x"></i>
+                        </a>
+                    @endif
+                </div>
+                <span class="self-center px-2 text-center  text-xl lg:text-5xl">
                     {{ $meal->name }}
                 </span>
             </div>
