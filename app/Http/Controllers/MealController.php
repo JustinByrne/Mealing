@@ -133,6 +133,8 @@ class MealController extends Controller
 
     public function liked(): View
     {
+        abort_if(Gate::denies('meal_access'), 403);
+        
         $meals = Auth()->user()->likedMeals()->paginate(15);
 
         return view('meals.liked', compact('meals'));
