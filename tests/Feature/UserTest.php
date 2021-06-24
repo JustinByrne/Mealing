@@ -393,6 +393,5 @@ class UserTest extends TestCase
 
         $response->assertOk();
         $response->assertSeeText($meals->first()->name);
-        $response->assertViewIs('meals.liked');
     }
 }
