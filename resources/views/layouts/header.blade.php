@@ -66,6 +66,19 @@
                             Create Meal
                         </span>
                     </a>
+                    <a
+                        href="{{ route('meals.liked') }}"
+                        @if (request()->routeIs('meals.liked'))
+                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                        @else
+                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                        @endif
+                    >
+                        <i class="fas fa-heart"></i>
+                        <span>
+                            Liked Meals
+                        </span>
+                    </a>
                 @endif
                 @can ('admin_access')
                     <a
