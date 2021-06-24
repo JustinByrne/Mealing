@@ -42,8 +42,13 @@
         </div>
     </div>
 @else
-    <p>
-        you like no meals, what sort of animal are you?
-    </p>
+<div class="flex justify-center items-center bg-white dark:bg-gray-700 rounded w-full py-52">
+    <div class="flex flex-col dark:text-gray-200 text-center space-y-2">
+        <i class="fas fa-hamburger fa-4x"></i>
+        <p class="mb-5 dark:text-gray-200">
+            You don't currently like any meals. Check some of them out, they're some pretty good ones.
+        </p>
+    </div>
+</div>
 @endif
 @endsection
