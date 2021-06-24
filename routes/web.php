@@ -35,6 +35,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::post('/user/profile/settings/account/password', [ProfileController::class, 'password'])->name('profile.settings.password');
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
+    Route::get('meals/liked', [MealController::class, 'liked'])->name('meals.liked');
     Route::get('meals/{meal}/like', [MealController::class, 'like'])->name('meals.like');
     Route::get('meals/{meal}/unlike', [MealController::class, 'unlike'])->name('meals.unlike');
     Route::resource('meals', MealController::class);
