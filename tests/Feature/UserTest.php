@@ -373,4 +373,26 @@ class UserTest extends TestCase
 
         $response->assertRedirect('/login');
     }
+
+    /**
+     * Test access to users liked meals
+     * 
+     * @return void
+     */
+    public function testCanAccessUserLikedMeals()
+    {
+        $this->withoutExceptionHandling();
+        $this->user->givePermissionTo('meal_access');
+        $meals = Meal::factory()->count(5)->create();
+
+        foreach ($meals as $meal) {
+            $this->user->likedMeals()->attach($meal->id);
+        }
+
+        $response = $this->actingAs($this->user)->get(route('meals.liked'));
+
+        $response->assertOk();
+        $response->assertSeeText($meals->first()->name);
+        $response->assertViewIs('meals.liked');
+    }
 }
