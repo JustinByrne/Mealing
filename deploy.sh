@@ -1,7 +1,5 @@
 #!/bin/sh
 
-cd ../
-
 php artisan down
 
 git reset --hard
