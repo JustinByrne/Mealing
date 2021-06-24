@@ -7,7 +7,7 @@
             <div class="w-full h-full rounded-xl bg-center bg-no-repeat bg-cover" style="background-image:url('{{ $meal->getFirstMediaUrl() }}');">
                 <div class="relative bg-gray-900 bg-opacity-60 h-full w-full flex justify-center uppercase text-white rounded-xl">
                     <div class="absolute top-3 right-3 text-red-300">
-                        @if (Auth()->user()->likedMeal()->where('meal_id', $meal->id)->count() > 0)
+                        @if (Auth()->user()->likedMeals()->where('meal_id', $meal->id)->count() > 0)
                             <a href="{{ route('meals.unlike', $meal) }}">
                                 <i class="fa fa-heart fa-2x"></i>
                             </a>
@@ -25,7 +25,7 @@
         @else
             <div class="relative flex justify-center w-full h-full rounded-xl bg-gray-600 uppercase text-white">
                 <div class="absolute top-3 right-3 text-red-300">
-                    @if (Auth()->user()->likedMeal()->where('meal_id', $meal->id)->count() > 0)
+                    @if (Auth()->user()->likedMeals()->where('meal_id', $meal->id)->count() > 0)
                         <a href="{{ route('meals.unlike', $meal) }}">
                             <i class="fa fa-heart fa-2x"></i>
                         </a>
