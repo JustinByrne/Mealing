@@ -7,10 +7,10 @@ use Gate;
 use App\Models\Meal;
 use App\Models\Allergen;
 use App\Models\TempFile;
+use Illuminate\View\View;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StoreMealRequest;
 use Illuminate\Support\Facades\Storage;
@@ -131,11 +131,18 @@ class MealController extends Controller
         return redirect()->back();
     }
 
+    public function liked(): View
+    {
+        $meals = Auth()->user()->likedMeals()->paginate(15);
+
+        return view('meals.liked', compact('meals'));
+    }
+
     public function like(Meal $meal): RedirectResponse
     {
         abort_if(Gate::denies('meal_access'), 403);
 
-        Auth()->user()->likedMeal()->attach($meal->id);
+        Auth()->user()->likedMeals()->attach($meal->id);
 
         return redirect()->route('meals.show', $meal);
     }
