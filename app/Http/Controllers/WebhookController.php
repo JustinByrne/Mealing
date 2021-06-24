@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\Process\Process;
 
 class WebhookController extends Controller
@@ -24,9 +25,14 @@ class WebhookController extends Controller
         if (hash_equals($githubHash, $localHash)) {
             $root_path = base_path();
             $process = new Process([$root_path . '/deploy.sh']);
-            $process->run(function ($type, $buffer) {
-                echo $buffer;
-            });
+            
+            try {
+                $process->run();
+
+                Log::info($process->getOutput());
+            } catch (ProcessFailedException $exception) {
+                Log::error($exception->getMessage());
+            }
         }
     }
 }
