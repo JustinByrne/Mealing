@@ -4,8 +4,9 @@ cd ../
 
 php artisan down
 
-git reset --hard
-git pull --strategy-option=theirs --no-edit
+git fetch
+git reset --hard HEAD
+git merge origin/$CURRENT_BRANCH
 
 export COMPOSER_HOME='/tmp/composer'
 composer install --no-interaction --no-dev --prefer-dist
