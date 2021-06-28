@@ -36,6 +36,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
     Route::redirect('/meals/{meal}', '/recipes/{meal}', 301);
+    Route::redirect('/meals/', '/recipes/', 301);
     Route::get('recipes/liked', [RecipeController::class, 'liked'])->name('recipes.liked');
     Route::get('recipes/{recipe}/like', [RecipeController::class, 'like'])->name('recipes.like');
     Route::get('recipes/{recipe}/unlike', [RecipeController::class, 'unlike'])->name('recipes.unlike');
