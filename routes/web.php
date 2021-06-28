@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MealController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
@@ -35,10 +35,11 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::post('/user/profile/settings/account/password', [ProfileController::class, 'password'])->name('profile.settings.password');
     Route::get('/user/profile/settings/security', [ProfileController::class, 'securitySettings'])->name('profile.settings.security');
 
-    Route::get('meals/liked', [MealController::class, 'liked'])->name('meals.liked');
-    Route::get('meals/{meal}/like', [MealController::class, 'like'])->name('meals.like');
-    Route::get('meals/{meal}/unlike', [MealController::class, 'unlike'])->name('meals.unlike');
-    Route::resource('meals', MealController::class);
+    Route::redirect('/meals/{meal}', '/recipes/{meal}', 301);
+    Route::get('recipes/liked', [RecipeController::class, 'liked'])->name('recipes.liked');
+    Route::get('recipes/{recipe}/like', [RecipeController::class, 'like'])->name('recipes.like');
+    Route::get('recipes/{recipe}/unlike', [RecipeController::class, 'unlike'])->name('recipes.unlike');
+    Route::resource('recipes', RecipeController::class);
     Route::resource('menus', MenuController::class)->only(['index', 'create', 'store']);
 
     Route::prefix('admin')->name('admin.')->group(function()   {

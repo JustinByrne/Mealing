@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Livewire\Meals;
+namespace App\Http\Livewire\Recipes;
 
 use Auth;
-use App\Models\Meal;
+use App\Models\Recipe;
 use Livewire\Component;
 use App\Models\Ingredient;
 use Illuminate\Support\Facades\Validator;
 
 class Create extends Component
 {
-    public Meal $meal;
+    public Recipe $recipe;
     public $quantity;
     public $query;
     public $ingredients;
@@ -38,8 +38,8 @@ class Create extends Component
         $this->i = 0;
         $this->ids = array();
 
-        if (isset($this->meal)) {
-            foreach($this->meal->ingredients as $i=>$ingredient)  {
+        if (isset($this->recipe)) {
+            foreach($this->recipe->ingredients as $i=>$ingredient)  {
                 $this->inputs[$i]['quantity'] = $ingredient->pivot->quantity;
                 $this->inputs[$i]['ingredient'] = $ingredient->name;
                 $this->inputs[$i]['ingredientId'] = $ingredient->id;
@@ -68,7 +68,7 @@ class Create extends Component
      */
     public function render()
     {
-        return view('livewire.meals.create');
+        return view('livewire.recipes.create');
     }
 
     /**

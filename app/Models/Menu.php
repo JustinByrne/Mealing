@@ -15,8 +15,8 @@ class Menu extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function meals()
+    public function recipes()
     {
-        return $this->belongsToMany(Meal::class)->withPivot('date');
+        return $this->belongsToMany(Recipe::class)->withPivot('date');
     }
 }

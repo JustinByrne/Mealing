@@ -20,9 +20,9 @@ class Ingredient extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function meals()
+    public function recipes()
     {
-        return $this->belongsToMany(Meal::class);
+        return $this->belongsToMany(Recipe::class);
     }
 
     public function path(): string

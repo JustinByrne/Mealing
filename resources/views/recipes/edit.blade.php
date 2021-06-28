@@ -8,7 +8,7 @@
         </p>
     </div>
     <div class="p-3">
-        <form action="{{ route('meals.update', $meal) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('recipes.update', $recipe) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="space-y-4">
@@ -17,7 +17,7 @@
                         Name
                     </label>
                     <div class="w-full md:col-span-4">
-                        <input type="text" name="name" id="name" value="{{ Request::old('name', $meal->name) }}" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-60 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">
+                        <input type="text" name="name" id="name" value="{{ Request::old('name', $recipe->name) }}" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-60 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">
                         @error('name')
                             <p class="text-red-500 italic text-xs font-light">
                                 {{ $message }}
@@ -30,7 +30,7 @@
                         # of Servings
                     </label>
                     <div class="w-full md:col-span-4">
-                        <input type="text" name="servings" id="servings" value="{{ Request::old('servings', $meal->servings) }}" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-60 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">
+                        <input type="text" name="servings" id="servings" value="{{ Request::old('servings', $recipe->servings) }}" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-60 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">
                         @error('servings')
                             <p class="text-red-500 italic text-xs font-light">
                                 {{ $message }}
@@ -43,7 +43,7 @@
                         Time in Minutes
                     </label>
                     <div class="w-full md:col-span-4">
-                        <input type="text" name="timing" id="timing" value="{{ Request::old('timing', $meal->timing) }}" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-60 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">
+                        <input type="text" name="timing" id="timing" value="{{ Request::old('timing', $recipe->timing) }}" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-60 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">
                         @error('timing')
                             <p class="text-red-500 italic text-xs font-light">
                                 {{ $message }}
@@ -56,9 +56,9 @@
                         Image
                     </label>
                     <div class="w-full md:col-span-4 grid grid-cols-1 md:grid-cols-12">
-                        @if( $meal->getMedia()->count() > 0)
+                        @if( $recipe->getMedia()->count() > 0)
                             <div class="md:col-span-2">
-                                <img src="{{ $meal->getFirstMediaUrl() }}" class="h-16 rounded">
+                                <img src="{{ $recipe->getFirstMediaUrl() }}" class="h-16 rounded">
                             </div>
                         @endif
                         <div class="md:col-span-10" x-data x-init="
@@ -78,13 +78,13 @@
                 </div>
                 <div class="space-y-2 md:flex md:space-y-0 md:space-x-3">
                     <div>
-                        <input type="checkbox" name="adult" id="adult" value="1"  {{ $meal->adults ? 'checked' : '' }} class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
+                        <input type="checkbox" name="adult" id="adult" value="1"  {{ $recipe->adults ? 'checked' : '' }} class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                         <label for="adult" class="dark:text-gray-200 self-center">
                             Suitable for Adults
                         </label>
                     </div>
                     <div>
-                        <input type="checkbox" name="kids" id="kids" value="1"  {{ $meal->kids ? 'checked' : '' }} class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
+                        <input type="checkbox" name="kids" id="kids" value="1"  {{ $recipe->kids ? 'checked' : '' }} class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
                         <label for="kids" class="dark:text-gray-200 self-center">
                             Suitable for Children
                         </label>
@@ -121,14 +121,14 @@
                             {{ $message }}
                         </p>
                     @enderror
-                    @livewire('meals.create', ['meal' => $meal])
+                    @livewire('recipes.create', ['recipe' => $recipe])
                 </div>
                 <div class="md:space-y-2">
                     <label for="instruction" class="dark:text-gray-200 self-center">
                         Instructions
                     </label>
                     <div>
-                        <textarea name="instruction" id="instruction" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full h-64 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">{!! old('instruction', $meal->instruction) !!}</textarea>
+                        <textarea name="instruction" id="instruction" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full h-64 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200">{!! old('instruction', $recipe->instruction) !!}</textarea>
                     </div>
                 </div>
                 <div>

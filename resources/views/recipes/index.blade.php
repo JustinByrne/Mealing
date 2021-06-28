@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    @livewire('meals.index')
+    @livewire('recipes.index')
 @endsection

@@ -14,9 +14,9 @@ class Allergen extends Model
         'icon'
     ];
 
-    public function meals()
+    public function recipes()
     {
-        return $this->belongsToMany(Meal::class);
+        return $this->belongsToMany(Recipe::class);
     }
 
     public static function getTableName(): string

@@ -4,11 +4,11 @@
 <div class="w-full rounded-md shadow-md bg-white dark:bg-gray-700">
     <div class="w-full p-4 border-b border-gray-200">
         <p class="font-bold dark:text-gray-200">
-            Create New Meal
+            Create New Recipe
         </p>
     </div>
     <div class="p-3">
-        <form action="{{ route('meals.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="space-y-4">
                 <div class="items-start md:grid md:grid-cols-9 md:space-x-6">
@@ -115,7 +115,7 @@
                                 {{ $message }}
                             </p>
                         @enderror
-                    @livewire('meals.create')
+                    @livewire('recipes.create')
                 </div>
                 <div class="md:space-y-2">
                     <label for="instruction" class="dark:text-gray-200 self-center">

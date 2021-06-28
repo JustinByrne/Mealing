@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Carbon\Carbon;
 use Tests\TestCase;
-use App\Models\Meal;
+use App\Models\Recipe;
 use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -78,25 +78,25 @@ class MenuTest extends TestCase
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('menu_create');
 
-        $meals = [
+        $recipes = [
             'wc' => Carbon::now()->startOfWeek()->format('Y-m-d H:i'),
-            'monday' => Meal::factory()->create()->id,
-            'tuesday' => Meal::factory()->create()->id,
-            'wednesday' => Meal::factory()->create()->id,
-            'friday' => Meal::factory()->create()->id,
-            'saturday' => Meal::factory()->create()->id,
-            'sunday' => Meal::factory()->create()->id,
+            'monday' => Recipe::factory()->create()->id,
+            'tuesday' => Recipe::factory()->create()->id,
+            'wednesday' => Recipe::factory()->create()->id,
+            'friday' => Recipe::factory()->create()->id,
+            'saturday' => Recipe::factory()->create()->id,
+            'sunday' => Recipe::factory()->create()->id,
         ];
 
-        $response = $this->actingAs($this->user)->post(route('menus.store', $meals));
+        $response = $this->actingAs($this->user)->post(route('menus.store', $recipes));
 
-        $menu = Menu::whereHas('meals', function ($query) use ($meals) {
-            $query->where('meal_id', $meals['monday']);
+        $menu = Menu::whereHas('recipes', function ($query) use ($recipes) {
+            $query->where('recipe_id', $recipes['monday']);
         })->where('user_id', $this->user->id)->first();
 
-        $this->assertDatabaseHas('meal_menu', [
+        $this->assertDatabaseHas('menu_recipe', [
             'menu_id' => $menu->id,
-            'meal_id' => $meals['monday']
+            'recipe_id' => $recipes['monday']
         ]);
     }
 }

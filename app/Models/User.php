@@ -40,9 +40,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Ingredient::class);
     }
     
-    public function meals()
+    public function recipes()
     {
-        return $this->hasMany(Meal::class);
+        return $this->hasMany(Recipe::class);
     }
 
     public function menus()
@@ -50,9 +50,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Menu::class);
     }
 
-    public function likedMeals()
+    public function likedRecipes()
     {
-        return $this->belongsToMany(Meal::class, 'likes');
+        return $this->belongsToMany(Recipe::class, 'likes');
     }
 
     public function setPasswordAttribute($input): void

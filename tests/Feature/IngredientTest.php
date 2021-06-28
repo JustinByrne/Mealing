@@ -345,7 +345,7 @@ class IngredientTest extends TestCase
     public function testCanCreateANewIngredientWithLivewire()
     {
         Livewire::actingAs($this->user)
-                    ->test('meals.create')
+                    ->test('recipes.create')
                     ->set('query', 'foo')
                     ->call('createIngredient');
         

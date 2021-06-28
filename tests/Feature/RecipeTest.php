@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Meal;
+use App\Models\Recipe;
 use App\Models\User;
 use Livewire\Livewire;
 use App\Models\Allergen;
@@ -12,7 +12,7 @@ use App\Http\Livewire\Comments;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class MealTest extends TestCase
+class RecipeTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -32,73 +32,73 @@ class MealTest extends TestCase
     }
 
     /**
-     * test the index of meals.
+     * test the index of recipes.
      * 
      * @return void
      */
-    public function testCanAccessMyMealsPage()
+    public function testCanAccessMyRecipesPage()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_access');
         
-        $response = $this->actingAs($this->user)->get(route('meals.index'));
+        $response = $this->actingAs($this->user)->get(route('recipes.index'));
 
         $response->assertOk();
     }
 
     /**
-     * test the index of meals without permission.
+     * test the index of recipes without permission.
      * 
      * @return void
      */
-    public function testDeniedUnauthorisedAccessToMyMealsWhenNotLoggedIn()
+    public function testDeniedUnauthorisedAccessToMyRecipesWhenNotLoggedIn()
     {
-        $response = $this->get(route('meals.index'));
+        $response = $this->get(route('recipes.index'));
 
         $response->assertRedirect(route('login'));
     }
 
     /**
-     * test meal create form.
+     * test recipe create form.
      * 
      * @return void
      */
-    public function testCanAccessCreateMealFormPage()
+    public function testCanAccessCreateRecipeFormPage()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_create');
 
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
         $response = $this->actingAs($this->user)
-                    ->get(route('meals.create', [$meal->slug]))
-                    ->assertSeeLivewire('meals.create');
+                    ->get(route('recipes.create', [$recipe->slug]))
+                    ->assertSeeLivewire('recipes.create');
 
 
         $response->assertOk();
-        $response->assertViewIs('meals.create');
+        $response->assertViewIs('recipes.create');
     }
 
     /**
-     * test meal create form without permission.
+     * test recipe create form without permission.
      * 
      * @return void
      */
-    public function testDeniedUnauthorisedAccessToCreateMealFormWhenNotLoggedIn()
+    public function testDeniedUnauthorisedAccessToCreateRecipeFormWhenNotLoggedIn()
     {
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
-        $response = $this->get(route('meals.create', [$meal->slug]));
+        $response = $this->get(route('recipes.create', [$recipe->slug]));
 
         $response->assertRedirect(route('login'));
     }
     
     /**
-     * Test create new meal.
+     * Test create new recipe.
      *
      * @return void
      */
-    public function testCanCreateANewMeal()
+    public function testCanCreateANewRecipe()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_create');
@@ -110,7 +110,7 @@ class MealTest extends TestCase
         $quantities = array('1kg', '2tbsp', '1 cup');
         $allergens = array('1' => 'no', '2' => 'may', '3' => 'yes');
         
-        $response = $this->actingAs($this->user)->post(route('meals.store'), [
+        $response = $this->actingAs($this->user)->post(route('recipes.store'), [
             'name' => $this->faker->name,
             'servings' => $this->faker->randomDigitNotNull,
             'adults' => $this->faker->boolean,
@@ -122,44 +122,44 @@ class MealTest extends TestCase
             'allergens' => $allergens
         ]);
 
-        $meal = Meal::first();
+        $recipe = Recipe::first();
 
-        $this->assertDatabaseCount(Meal::getTableName(), 1);
-        $this->assertDatabaseHas(Meal::getTableName(), [
+        $this->assertDatabaseCount(Recipe::getTableName(), 1);
+        $this->assertDatabaseHas(Recipe::getTableName(), [
             'instruction' => $instructions,
         ]);
 
         foreach($ingredients as $ingredient)    {
-            $this->assertDatabaseHas('ingredient_meal', [
+            $this->assertDatabaseHas('ingredient_recipe', [
                 'ingredient_id' => $ingredient,
-                'meal_id' => $meal->id,
+                'recipe_id' => $recipe->id,
             ]);
         }
 
         foreach($allergens as $id => $level)    {
             if($level != 'no')  {
-                $this->assertDatabaseHas('allergen_meal', [
+                $this->assertDatabaseHas('allergen_recipe', [
                     'allergen_id' => $id,
-                    'meal_id' => $meal->id,
+                    'recipe_id' => $recipe->id,
                     'level' => $level
                 ]);
             }
         }
 
-        $response->assertRedirect($meal->path());
+        $response->assertRedirect($recipe->path());
     }
 
     /**
-     * Test create new meal with name null.
+     * Test create new recipe with name null.
      *
      * @return void
      */
-    public function testErrorWhenCreatingANewMealWithoutAName()
+    public function testErrorWhenCreatingANewRecipeWithoutAName()
     {
         $this->user->givePermissionTo('meal_create');
         
         $response = $this->actingAs($this->user)
-            ->post(route('meals.store'), [
+            ->post(route('recipes.store'), [
                 'name' => null,
                 'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
@@ -171,16 +171,16 @@ class MealTest extends TestCase
     }
 
     /**
-     * Test create new meal with serving null.
+     * Test create new recipe with serving null.
      *
      * @return void
      */
-    public function testErrorWhenCreatingANewMealWithoutAServing()
+    public function testErrorWhenCreatingANewRecipeWithoutAServing()
     {
         $this->user->givePermissionTo('meal_create');
         
         $response = $this->actingAs($this->user)
-            ->post(route('meals.store'), [
+            ->post(route('recipes.store'), [
                 'name' => $this->faker->name,
                 'servings' => null,
                 'adults' => $this->faker->boolean,
@@ -192,16 +192,16 @@ class MealTest extends TestCase
     }
 
     /**
-     * Test create new meal with timing null.
+     * Test create new recipe with timing null.
      *
      * @return void
      */
-    public function testErrorWhenCreatingANewMealWithoutTiming()
+    public function testErrorWhenCreatingANewRecipeWithoutTiming()
     {
         $this->user->givePermissionTo('meal_create');
         
         $response = $this->actingAs($this->user)
-            ->post(route('meals.store'), [
+            ->post(route('recipes.store'), [
                 'name' => $this->faker->name,
                 'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
@@ -213,16 +213,16 @@ class MealTest extends TestCase
     }
 
     /**
-     * Test create new meal without permission.
+     * Test create new recipe without permission.
      * 
      * @return void
      */
-    public function testDeniedAccessToCreateANewMealWithoutPermission()
+    public function testDeniedAccessToCreateANewRecipeWithoutPermission()
     {
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)
-            ->post(route('meals.store'), [
+            ->post(route('recipes.store'), [
                 'name' => $this->faker->name,
                 'servings' => $this->faker->randomDigitNotNull,
                 'adults' => $this->faker->boolean,
@@ -234,34 +234,34 @@ class MealTest extends TestCase
     }
 
     /**
-     * test a meal can be shown.
+     * test a recipe can be shown.
      * 
      * @return void
      */
-    public function testCanAccessIndividualMealPage()
+    public function testCanAccessIndividualRecipePage()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_show');
 
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
-        $response = $this->actingAs($this->user)->get($meal->path());
+        $response = $this->actingAs($this->user)->get($recipe->path());
 
         $response->assertOk();
         $response->assertSeeLivewire('comments');
     }
 
     /**
-     * test a meal can be shown without permission.
+     * test a recipe can be shown without permission.
      * 
      * @return void
      */
-    public function testDeniedAccessToViewIndividualMealWithoutPermission()
+    public function testDeniedAccessToViewIndividualRecipeWithoutPermission()
     {
         $user = User::factory()->create();
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
-        $response = $this->actingAs($user)->get($meal->path());
+        $response = $this->actingAs($user)->get($recipe->path());
 
         $response->assertForbidden();
     }
@@ -271,18 +271,18 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testCanAddACommentToMeal()
+    public function testCanAddACommentToRecipe()
     {
         $this->withoutExceptionHandling();
 
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
         Livewire::actingAs($this->user)
-            ->test(Comments::class, ['meal' => $meal])
+            ->test(Comments::class, ['recipe' => $recipe])
             ->set('comment', 'foo')
             ->call('addComment');
         
-        $this->assertTrue(!is_null($meal->refresh()->comments->firstWhere('comment', 'foo')));
+        $this->assertTrue(!is_null($recipe->refresh()->comments->firstWhere('comment', 'foo')));
     }
 
     /**
@@ -290,62 +290,62 @@ class MealTest extends TestCase
      * 
      * @return void
      */
-    public function testErrorWhenAddingACommentToMealWithoutAComment()
+    public function testErrorWhenAddingACommentToRecipeWithoutAComment()
     {
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
         Livewire::actingAs($this->user)
-            ->test(Comments::class, ['meal' => $meal])
+            ->test(Comments::class, ['recipe' => $recipe])
             ->set('comment', null)
             ->call('addComment')
             ->assertHasErrors(['comment' => 'required']);
     }
 
     /**
-     * test meal edit form.
+     * test recipe edit form.
      * 
      * @return void
      */
-    public function testCanAccessEditMealFormPage()
+    public function testCanAccessEditRecipeFormPage()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_edit');
 
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
         $response = $this->actingAs($this->user)
-                    ->get(route('meals.edit', [$meal->slug]))
-                    ->assertSeeLivewire('meals.create');
+                    ->get(route('recipes.edit', [$recipe->slug]))
+                    ->assertSeeLivewire('recipes.create');
 
         $response->assertOk();
     }
 
     /**
-     * test meal edit form without permission.
+     * test recipe edit form without permission.
      * 
      * @return void
      */
-    public function testDeniedUnauthorisedAccessToEditMealFormWhenNotLoggedIn()
+    public function testDeniedUnauthorisedAccessToEditRecipeFormWhenNotLoggedIn()
     {
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
-        $response = $this->get(route('meals.edit', [$meal->slug]));
+        $response = $this->get(route('recipes.edit', [$recipe->slug]));
 
         $response->assertRedirect(route('login'));
     }
 
     /**
-     * Test a meal can be updated.
+     * Test a recipe can be updated.
      * 
      * @return void
      */
-    public function testCanUpdateAMealsDetails()
+    public function testCanUpdateARecipesDetails()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_edit');
         
-        $meal = Meal::factory()->create();
-        $meal->allergens()->attach(Allergen::find(1), ['level' => 'no']);
+        $recipe = Recipe::factory()->create();
+        $recipe->allergens()->attach(Allergen::find(1), ['level' => 'no']);
         $allergens = array('1' => 'yes', '2' => 'no', '3' => 'may');
 
         // new data
@@ -359,10 +359,10 @@ class MealTest extends TestCase
             'allergens' => $allergens,
         ];
 
-        $response = $this->actingAs($this->user)->patch(route('meals.update', $meal), $data);
-        $meal->refresh();
+        $response = $this->actingAs($this->user)->patch(route('recipes.update', $recipe), $data);
+        $recipe->refresh();
 
-        $this->assertDatabaseHas(Meal::getTableName(), [
+        $this->assertDatabaseHas(Recipe::getTableName(), [
             'name' => $data['name'],
             'servings' => $data['servings'],
             'adults' => $data['adults'],
@@ -373,25 +373,25 @@ class MealTest extends TestCase
 
         foreach($allergens as $id => $level)    {
             if($level != 'no')  {
-                $this->assertDatabaseHas('allergen_meal', [
+                $this->assertDatabaseHas('allergen_recipe', [
                     'allergen_id' => $id,
-                    'meal_id' => $meal->id,
+                    'recipe_id' => $recipe->id,
                     'level' => $level
                 ]);
             }
         }
-        $response->assertRedirect($meal->path());
+        $response->assertRedirect($recipe->path());
     }
 
     /**
-     * Test updating meal without permission.
+     * Test updating recipe without permission.
      * 
      * @return void
      */
-    public function testDeniedAccessWhenUpdatingAMealWithoutPermission()
+    public function testDeniedAccessWhenUpdatingARecipeWithoutPermission()
     {
         $user = User::factory()->create();
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
         // new data
         $name = $this->faker->name;
@@ -401,7 +401,7 @@ class MealTest extends TestCase
         $timing = $this->faker->randomDigitNotNull;
 
         $response = $this->actingAs($user)
-            ->patch(route('meals.update', [$meal->slug]), [
+            ->patch(route('recipes.update', [$recipe->slug]), [
                 'name' => $name,
                 'servings' => $serving,
                 'adults' => $adults,
@@ -413,37 +413,37 @@ class MealTest extends TestCase
     }
 
     /**
-     * Test that a meal can be deleted.
+     * Test that a recipe can be deleted.
      * 
      * @return void
      */
-    public function testCanDeleteAMeal()
+    public function testCanDeleteARecipe()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_delete');
         
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
-        $this->assertDatabaseCount($meal->getTable(), 1);
+        $this->assertDatabaseCount($recipe->getTable(), 1);
 
-        $this->actingAs($this->user)->delete(route('meals.destroy', [$meal->slug]));
+        $this->actingAs($this->user)->delete(route('recipes.destroy', [$recipe->slug]));
 
-        $this->assertSoftDeleted($meal);
+        $this->assertSoftDeleted($recipe);
     }
 
     /**
-     * Test meal can be deleted without permission.
+     * Test recipe can be deleted without permission.
      * 
      * @return void
      */
-    public function testDeniedAccessDeletingAMealWithoutPermission()
+    public function testDeniedAccessDeletingARecipeWithoutPermission()
     {
         $user = User::factory()->create();
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
 
-        $this->assertDatabaseCount($meal->getTable(), 1);
+        $this->assertDatabaseCount($recipe->getTable(), 1);
 
-        $response = $this->actingAs($user)->delete(route('meals.destroy', [$meal->slug]));
+        $response = $this->actingAs($user)->delete(route('recipes.destroy', [$recipe->slug]));
 
         $response->assertForbidden();
     }

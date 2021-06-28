@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Mehradsadeghi\FilterQueryString\FilterQueryString;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Meal extends Model implements HasMedia
+class Recipe extends Model implements HasMedia
 {
     use HasFactory, SoftDeletes, InteractsWithMedia, FilterQueryString;
 
@@ -69,7 +69,7 @@ class Meal extends Model implements HasMedia
 
     public function path(): string
     {
-        return route('meals.show', [$this->slug]);
+        return route('recipes.show', [$this->slug]);
     }
 
     public function getRouteKeyName(): string

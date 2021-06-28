@@ -38,7 +38,7 @@ class IngredientController extends Controller
     {
         abort_if(Gate::denies('ingredient_show'), 403);
 
-        $ingredient->load('meals.media', 'meals.ratings');
+        $ingredient->load('recipes.media', 'recipes.ratings');
 
         return view('admin.ingredients.show', compact('ingredient'));
     }

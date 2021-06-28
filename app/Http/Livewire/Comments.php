@@ -3,11 +3,11 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Meal;
+use App\Models\Recipe;
 
 class Comments extends Component
 {
-    public Meal $meal;
+    public Recipe $recipe;
     public $comment;
 
     protected $rules = [
@@ -16,10 +16,10 @@ class Comments extends Component
     
     public function render()
     {
-        $this->meal->load('comments.user');
+        $this->recipe->load('comments.user');
         
         return view('livewire.comments', [
-            'meal' => $this->meal,
+            'recipe' => $this->recipe,
         ]);
     }
 
@@ -27,7 +27,7 @@ class Comments extends Component
     {
         $this->validate();
 
-        $this->meal->comments()->create([
+        $this->recipe->comments()->create([
             'comment' => $this->comment,
             'user_id' => \Auth::Id(),
         ]);

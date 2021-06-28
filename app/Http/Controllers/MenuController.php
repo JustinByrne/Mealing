@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Gate;
 use Carbon\Carbon;
-use App\Models\Meal;
 use App\Models\Menu;
+use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -41,13 +41,13 @@ class MenuController extends Controller
             'Sunday' => $date->addDay()->format('Y-m-d'),
         ];
 
-        $current = Menu::with('meals', 'meals.ingredients')->whereHas('meals', function ($query) use ($date, $weekDays) {
+        $current = Menu::with('recipes', 'recipes.ingredients')->whereHas('recipes', function ($query) use ($date, $weekDays) {
             $query->whereIn('date', $weekDays);
         })->where('user_id', Auth::id())->first();
 
-        $mealCount = Meal::count();
+        $recipeCount = Recipe::count();
 
-        return view('menus.index', compact('weekDays', 'current', 'links', 'mealCount'));
+        return view('menus.index', compact('weekDays', 'current', 'links', 'recipeCount'));
     }
 
     public function create(Request $request): View
@@ -83,7 +83,7 @@ class MenuController extends Controller
 
         foreach ($days as $day => $add) {
             if (! is_null($request->input($day))) {
-                $menu->meals()->attach($request->input($day), ['date' => $wc]);
+                $menu->recipes()->attach($request->input($day), ['date' => $wc]);
             }
             $wc->addDay();
         }

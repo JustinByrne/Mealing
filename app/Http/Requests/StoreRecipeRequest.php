@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Gate;
 
-class StoreMealRequest extends FormRequest
+class StoreRecipeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -47,8 +47,8 @@ class StoreMealRequest extends FormRequest
         return [
             'name.required' => 'A name is required',
             'servings.required' => 'A Serving quantity is required',
-            'adults.required' => 'Please select the meal is for an adult or not',
-            'kids.required' => 'Please select the meal is for an kid or not',
+            'adults.required' => 'Please select the recipe is for an adult or not',
+            'kids.required' => 'Please select the recipe is for an kid or not',
             'timing.required' => 'A time frame is required',
             'ingredient.required' => 'An ingredient is required',
             'ingredient.array' => 'An ingredient is required',

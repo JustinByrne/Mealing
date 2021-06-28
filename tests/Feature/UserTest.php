@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Hash;
 use Tests\TestCase;
-use App\Models\Meal;
+use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -259,139 +259,139 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test a user who is unapproved cannot access Meal Page
+     * Test a user who is unapproved cannot access Recipe Page
      * 
      * @return void
      */
-    public function testDeniedMealsPageWhenNotApproved()
+    public function testDeniedRecipesPageWhenNotApproved()
     {
         $user = User::factory()->create([
             'approved' => 0,
         ]);
 
-        $response = $this->actingAs($user)->get(route('meals.index'));
+        $response = $this->actingAs($user)->get(route('recipes.index'));
 
         $response->assertRedirect(route('login'));
         $response->assertSessionHas('message', 'Account is currently awaiting approval.');
     }
 
     /**
-     * Test a user can like a meal
+     * Test a user can like a recipe
      * 
      * @return void
      */
-    public function testAUserCanLikeAMeal()
+    public function testAUserCanLikeARecipe()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_access');
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
-        $response = $this->actingAs($this->user)->get(route('meals.like', $meal));
+        $response = $this->actingAs($this->user)->get(route('recipes.like', $recipe));
 
-        $response->assertRedirect(route('meals.show', $meal));
+        $response->assertRedirect(route('recipes.show', $recipe));
         $this->assertDatabaseHas('likes', [
-            'meal_id' => $meal->id,
+            'recipe_id' => $recipe->id,
             'user_id' => $this->user->id,
         ]);
     }
 
     /**
-     * Test a user can unlike a meal
+     * Test a user can unlike a recipe
      * 
      * @return void
      */
-    public function testAUserCanUnlikeAMeal()
+    public function testAUserCanUnlikeARecipe()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_access');
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
-        $response = $this->actingAs($this->user)->get(route('meals.unlike', $meal));
+        $response = $this->actingAs($this->user)->get(route('recipes.unlike', $recipe));
 
-        $response->assertRedirect(route('meals.show', $meal));
-        $this->assertDatabaseHas('meals', [
-            'id' => $meal->id,
+        $response->assertRedirect(route('recipes.show', $recipe));
+        $this->assertDatabaseHas('recipes', [
+            'id' => $recipe->id,
         ]);
         $this->assertDatabaseMissing('likes', [
-            'meal_id' => $meal->id,
+            'recipe_id' => $recipe->id,
             'user_id' => $this->user->id,
         ]);
     }
 
     /**
-     * Test a user can like a meal
+     * Test a user can like a recipe
      * 
      * @return void
      */
-    public function testDenyUserToLikeAMealWithoutPermission()
+    public function testDenyUserToLikeARecipeWithoutPermission()
     {
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
-        $response = $this->actingAs($this->user)->get(route('meals.like', $meal));
+        $response = $this->actingAs($this->user)->get(route('recipes.like', $recipe));
 
         $response->assertForbidden();
     }
 
     /**
-     * Test a user can unlike a meal
+     * Test a user can unlike a recipe
      * 
      * @return void
      */
-    public function testDenyUserToUnlikeAMealWithoutPermission()
+    public function testDenyUserToUnlikeARecipeWithoutPermission()
     {
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
-        $response = $this->actingAs($this->user)->get(route('meals.unlike', $meal));
+        $response = $this->actingAs($this->user)->get(route('recipes.unlike', $recipe));
 
         $response->assertForbidden();
     }
 
     /**
-     * Test a user can like a meal
+     * Test a user can like a recipe
      * 
      * @return void
      */
-    public function testDenyUserToLikeAMealNotLoggedIn()
+    public function testDenyUserToLikeARecipeNotLoggedIn()
     {
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
-        $response = $this->get(route('meals.like', $meal));
+        $response = $this->get(route('recipes.like', $recipe));
 
         $response->assertRedirect('/login');
     }
 
     /**
-     * Test a user can unlike a meal
+     * Test a user can unlike a recipe
      * 
      * @return void
      */
-    public function testDenyUserToUnlikeAMealNotLoggedIn()
+    public function testDenyUserToUnlikeARecipeNotLoggedIn()
     {
-        $meal = Meal::factory()->create();
+        $recipe = Recipe::factory()->create();
         
-        $response = $this->get(route('meals.unlike', $meal));
+        $response = $this->get(route('recipes.unlike', $recipe));
 
         $response->assertRedirect('/login');
     }
 
     /**
-     * Test access to users liked meals
+     * Test access to users liked recipes
      * 
      * @return void
      */
-    public function testCanAccessUserLikedMeals()
+    public function testCanAccessUserlikedRecipes()
     {
         $this->withoutExceptionHandling();
         $this->user->givePermissionTo('meal_access');
-        $meals = Meal::factory()->count(5)->create();
+        $recipes = Recipe::factory()->count(5)->create();
 
-        foreach ($meals as $meal) {
-            $this->user->likedMeals()->attach($meal->id);
+        foreach ($recipes as $recipe) {
+            $this->user->likedRecipes()->attach($recipe->id);
         }
 
-        $response = $this->actingAs($this->user)->get(route('meals.liked'));
+        $response = $this->actingAs($this->user)->get(route('recipes.liked'));
 
         $response->assertOk();
-        $response->assertSeeText($meals->first()->name);
+        $response->assertSeeText($recipes->first()->name);
     }
 }

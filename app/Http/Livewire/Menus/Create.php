@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire\Menus;
 
-use App\Models\Meal;
+use App\Models\Recipe;
 use Livewire\Component;
 
 class Create extends Component
 {
-    public $mealIds;
-    public $meals;
+    public $recipeIds;
+    public $recipes;
     public $days;
 
     public function mount()
@@ -31,30 +31,30 @@ class Create extends Component
 
     public function randomizeAll()
     {
-        $this->mealIds = array();
-        $this->meals = array();
+        $this->recipeIds = array();
+        $this->recipes = array();
         
-        $ids = Meal::inRandomOrder()->limit(7)->pluck('id')->toArray();
+        $ids = Recipe::inRandomOrder()->limit(7)->pluck('id')->toArray();
 
         for ($i = 0; $i < 7; $i++)  {
-            array_push($this->mealIds, $ids[$i]);
-            array_push($this->meals, Meal::where('id', $this->mealIds[$i])->first());
+            array_push($this->recipeIds, $ids[$i]);
+            array_push($this->recipes, Recipe::where('id', $this->recipeIds[$i])->first());
         }
     }
 
     public function randomize($day)
     {
-        $meal = Meal::inRandomOrder()->whereNotIn('id', $this->mealIds)->first();
+        $recipe = Recipe::inRandomOrder()->whereNotIn('id', $this->recipeIds)->first();
 
         for ($i = 0; $i < 7; $i++)  {
             if ( $i == $day ) {
                 continue;
             }
 
-            $this->meals[$i] = Meal::where('id', $this->meals[$i])->first();
+            $this->recipes[$i] = Recipe::where('id', $this->recipes[$i])->first();
         }
         
-        $this->meals[$day] = $meal;
-        $this->mealIds[$day] = $meal->id;
+        $this->recipes[$day] = $recipe;
+        $this->recipeIds[$day] = $recipe->id;
     }
 }

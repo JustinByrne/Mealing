@@ -1,11 +1,10 @@
 # To do list
 
 - Create a good README.md file
-- Ratings for meals
+- Ratings for recipes
 - Meal Categories (dinner/lunch/pudding/savoury/sweet)
-- fix meal edit page for suitability
+- fix recipe edit page for suitability
 - add extra details to show page
-- add ability to add/edit meal category
-- rename meals to recipes
+- add ability to add/edit recipe category
 - change the menu builder to only pull dinners
 - 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Mealing is an application that allows you to create menus using lists of meals from the community">
+        <meta name="description" content="Mealing is an application that allows you to create menus using lists of recipes from the community">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/icons.css') }}" rel="stylesheet" >
         @livewireStyles

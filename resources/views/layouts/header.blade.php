@@ -40,8 +40,8 @@
                     </span>
                 </a>
                 <a
-                    href="{{ route('meals.index') }}"
-                    @if (request()->routeIs('meals*'))
+                    href="{{ route('recipes.index') }}"
+                    @if (request()->routeIs('recipes*'))
                         class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                     @else
                         class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
@@ -49,13 +49,13 @@
                 >
                     <i class="fas fa-hamburger"></i>
                     <span>
-                        Meals
+                        Recipes
                     </span>
                 </a>
-                @if (request()->routeIs('meals*'))
+                @if (request()->routeIs('recipes*'))
                     <a
-                        href="{{ route('meals.create') }}"
-                        @if (request()->routeIs('meals.create'))
+                        href="{{ route('recipes.create') }}"
+                        @if (request()->routeIs('recipes.create'))
                             class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                         @else
                             class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
@@ -63,12 +63,12 @@
                     >
                         <i class="fas fa-plus"></i>
                         <span>
-                            Create Meal
+                            Create Recipe
                         </span>
                     </a>
                     <a
-                        href="{{ route('meals.liked') }}"
-                        @if (request()->routeIs('meals.liked'))
+                        href="{{ route('recipes.liked') }}"
+                        @if (request()->routeIs('recipes.liked'))
                             class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                         @else
                             class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
@@ -76,7 +76,7 @@
                     >
                         <i class="fas fa-heart"></i>
                         <span>
-                            Liked Meals
+                            Liked Recipes
                         </span>
                     </a>
                 @endif

@@ -1,25 +1,25 @@
 <div class="flex flex-col lg:flex-row lg:space-x-6">
     <div class="w-full lg:w-4/5 order-2 lg:order-1">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-5">
-            @foreach ($meals as $meal)
-                <a href="{{ route('meals.show', $meal) }}">
+            @foreach ($recipes as $recipe)
+                <a href="{{ route('recipes.show', $recipe) }}">
                     <div class="w-full h-full rounded-md shadow-md bg-white dark:bg-gray-700">
                         <div>
-                            @if ($meal->getMedia()->count() > 0)
-                                <img src="{{ $meal->getFirstMediaUrl('default', 'thumb') }}" class="w-full h-32 object-cover rounded-t-md" alt="{{ $meal->name }}">
+                            @if ($recipe->getMedia()->count() > 0)
+                                <img src="{{ $recipe->getFirstMediaUrl('default', 'thumb') }}" class="w-full h-32 object-cover rounded-t-md" alt="{{ $recipe->name }}">
                             @else
                                 <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full max-h-32 object-cover rounded-t-md" alt="No image available">
                             @endif
                         </div>
                         <div class="p-4 rounded-b-md dark:text-gray-200 space-y-2">
                             <p>
-                                {{ $meal->name }}
+                                {{ $recipe->name }}
                             </p>
-                            <p class="text-sm text-yellow-400" title="{{ $meal->avg_rating > 0 ? $meal->avg_rating : '0' }}">
+                            <p class="text-sm text-yellow-400" title="{{ $recipe->avg_rating > 0 ? $recipe->avg_rating : '0' }}">
                                 @for ($x = 0; $x < 5; $x++)
-                                    @if (floor($meal->avg_rating)-$x >= 1)
+                                    @if (floor($recipe->avg_rating)-$x >= 1)
                                         <i class="fas fa-star"></i>
-                                    @elseif ($meal->avg_rating-$x > 0)
+                                    @elseif ($recipe->avg_rating-$x > 0)
                                         <i class="fas fa-star-half-alt"></i>
                                     @else
                                         <i class="far fa-star"></i>
@@ -27,14 +27,14 @@
                                 @endfor
                             </p>
                             <p>
-                                Serves: {{ $meal->servings }}
+                                Serves: {{ $recipe->servings }}
                             </p>
                         </div>
                     </div>
                 </a>
             @endforeach
         </div>
-        {{ $meals->links() }}
+        {{ $recipes->links() }}
     </div>
     <div class="w-full lg:w-1/5 order-1 mb-3 lg:mb-0" x-data="{open: false}">
         <div class="w-full rounded-md shadow-md bg-white dark:bg-gray-700">
