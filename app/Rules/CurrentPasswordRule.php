@@ -27,11 +27,7 @@ class CurrentPasswordRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (!Hash::check($value, Auth::User()->password))   {
-            return false;
-        }
-        
-        return true;
+        return Hash::check($value, Auth::User()->password);
     }
 
     /**
