@@ -30,10 +30,7 @@ class AllergenController extends Controller
 
     public function store(StoreAllergenRequest $request): RedirectResponse
     {
-        Allergen::create([
-            'name' => $request['name'],
-            'icon' => $request['icon'],
-        ]);
+        Allergen::create($request->validated());
 
         return redirect()->route('admin.allergens.index');
     }
@@ -47,10 +44,7 @@ class AllergenController extends Controller
 
     public function update(UpdateAllergenRequest $request, Allergen $allergen): RedirectResponse
     {
-        $allergen->update([
-            'name' => $request['name'],
-            'icon' => $request['icon'],
-        ]);
+        $allergen->update($request->validated());
 
         return redirect()->route('admin.allergens.index');
     }
