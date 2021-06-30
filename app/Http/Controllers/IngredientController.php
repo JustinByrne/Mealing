@@ -64,7 +64,7 @@ class IngredientController extends Controller
     public function destroy(Ingredient $ingredient): RedirectResponse
     {
         abort_if(Gate::denies('ingredient_delete')
-            || $ingredient->user->id != \Auth::id(), 403);
+            || $ingredient->user_id != \Auth::id(), 403);
 
         $ingredient->delete();
 
