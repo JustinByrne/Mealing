@@ -3,12 +3,6 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\RoleTableSeeder;
-use Database\Seeders\CommentRoleSeeder;
-use Database\Seeders\RoleUserTableSeeder;
-use Database\Seeders\PermissionTableSeeder;
-use Database\Seeders\AllergenPermissionSeeder;
-use Database\Seeders\PermissionRoleTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
