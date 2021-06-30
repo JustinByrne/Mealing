@@ -52,15 +52,12 @@ class RecipeController extends Controller
         }
 
         for($i = 0; $i < count($request['ingredients']); $i++)   {
-            $ingredient = Ingredient::find($request['ingredients'][$i]);
-
-            $recipe->ingredients()->attach($ingredient, ['quantity' => $request['quantities'][$i]]);
+            $recipe->ingredients()->attach($request['ingredients'][$i], ['quantity' => $request['quantities'][$i]]);
         }
 
         foreach($request['allergens'] as $id => $level)    {
             if($level != 'no')  {
-                $allergen = Allergen::find($id);
-                $recipe->allergens()->attach($allergen, ['level' => $level]);
+                $recipe->allergens()->attach($id, ['level' => $level]);
             }
         }
 
