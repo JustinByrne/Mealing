@@ -67,6 +67,11 @@ class Recipe extends Model implements HasMedia
         return $this->belongsToMany(User::class, 'likes');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function path(): string
     {
         return route('recipes.show', [$this->slug]);
