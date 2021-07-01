@@ -68,6 +68,6 @@ class IngredientController extends Controller
 
         $ingredient->delete();
 
-        return redirect()->route('admin.ingredients.show');
+        return redirect()->route('admin.ingredients.index');
     }
 }
