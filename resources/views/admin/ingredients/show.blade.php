@@ -7,13 +7,14 @@
     </p>
 </div>
 <div class="p-4 space-y-4">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mb-5">
+    @if ($ingredient->recipes()->count() > 0)
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-5">
         @foreach ($ingredient->recipes as $recipe)
             <a href="{{ route('recipes.show', $recipe) }}">
-                <div class="w-full rounded-md shadow-md dark:bg-gray-700">
+                <div class="w-full h-full rounded-md shadow-md dark:bg-gray-700">
                     <div>
-                        @if( $recipe->getMedia()->count() > 0)
-                            <img src="{{ $recipe->getFirstMediaUrl() }}" class="w-full max-h-32 object-cover rounded-t-md">
+                        @if ($recipe->getMedia()->count() > 0)
+                            <img src="{{ $recipe->getFirstMediaUrl('default', 'thumb') }}" class="w-full max-h-32 object-cover rounded-t-md">
                         @else
                             <img src="https://via.placeholder.com/640x360.png?text=No+Image" class="w-full h-32 object-cover rounded-t-md">
                         @endif
@@ -38,5 +39,8 @@
             </a>
         @endforeach
     </div>
+    @else
+        No Recipes are using this ingredient.
+    @endif
 </div>
 @endsection
