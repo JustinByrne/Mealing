@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="space-y-4">
-    <div class="w-full h-screen/4">
+    <div class="w-full h-screen/4 lg:h-screen/3">
         @if ($recipe->getMedia()->count() > 0)
             <div class="w-full h-full rounded-xl bg-center bg-no-repeat bg-cover" style="background-image:url('{{ $recipe->getFirstMediaUrl() }}');">
                 <div class="relative bg-gray-900 bg-opacity-60 h-full w-full flex justify-center uppercase text-white rounded-xl">
