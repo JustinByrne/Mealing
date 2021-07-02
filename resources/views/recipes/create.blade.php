@@ -72,8 +72,8 @@
                 </div>
                 <div class="space-y-2 md:flex md:space-y-0 md:space-x-3">
                     <div>
-                        <input type="checkbox" name="adult" id="adult" value="1" class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
-                        <label for="adult" class="dark:text-gray-200 self-center">
+                        <input type="checkbox" name="adults" id="adults" value="1" class="rounded text-green-700 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200 dark:focus:bg-green-700">
+                        <label for="adults" class="dark:text-gray-200 self-center">
                             Suitable for Adults
                         </label>
                     </div>
