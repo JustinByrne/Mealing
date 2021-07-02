@@ -1,4 +1,4 @@
-<div wire:poll.750ms>
+<div>
     <div class="space-y-4">
         @if (!$recipe->comments()->exists())
             <div class="bg-blue-400 bg-opacity-20 text-blue-700 border-l-4 border-blue-400 py-3 px-4 dark:bg-opacity-40 dark:text-blue-300">
