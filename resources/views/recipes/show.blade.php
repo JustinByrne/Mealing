@@ -41,9 +41,38 @@
             </div>
         @endif
     </div>
-    <div class="w-full p-4 bg-white rounded-md shadow dark:bg-gray-700 space-y-4">
+    <div class="w-full p-4 bg-white rounded-md shadow dark:bg-gray-700">
+        <div class="flex justify-between">
+            <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
+                Recipe Details
+            </h4>
+            <div>
+                @can('meal_update')
+                    @if ($recipe->user->id == Auth::id())
+                        <a href="{{ route('recipes.edit', $recipe) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    @endif
+                @endcan
+            </div>
+        </div>
+        <p class="mb-5 dark:text-gray-200">
+            <strong>Serves</strong> {{ $recipe->servings }}<br>
+            <strong>Suitable for</strong>
+                @if ($recipe->adults)
+                    Adults
+                @endif
+                @if ($recipe->adults && $recipe->kids)
+                    &amp;
+                @endif
+                @if ($recipe->kids)
+                    Children
+                @endif
+            <br>
+            <strong>Cooking and Prep Time</strong> {{ $recipe->timing }} minutes
+        </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="">
+            <div>
                 <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
                     Ingredients
                 </h4>
@@ -58,22 +87,9 @@
                 </p>
             </div>
             <div class="md:col-span-2">
-                <div class="flex justify-between">
-                    <div>
-                        <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
-                            Method
-                        </h4>
-                    </div>
-                    <div>
-                        @can('meal_update')
-                            @if ($recipe->user->id == Auth::id())
-                                <a href="{{ route('recipes.edit', $recipe) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                            @endif
-                        @endcan
-                    </div>
-                </div>
+                <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
+                    Method
+                </h4>
                 <article class="max-w-full prose dark:text-gray-200"">
                     {!! $recipe->instruction !!}
                 </article>
