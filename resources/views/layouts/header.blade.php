@@ -12,13 +12,13 @@
             </div>
         </div>
         <div class="hidden lg:block mt-3" x-bind:class="{'hidden': !open}" @click.away="open = false">
-            <nav class="flex flex-col">
+            <nav class="flex flex-col space-y-3">
                 <a
                     href="{{ route('homepage') }}"
                     @if (request()->routeIs('homepage*'))
-                        class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                        class="w-full p-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                     @else
-                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                        class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                     @endif
                 >
                     <i class="fas fa-home"></i>
@@ -29,9 +29,9 @@
                 <a
                     href="{{ route('menus.index') }}"
                     @if (request()->routeIs('menu*'))
-                        class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                        class="w-full p-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                     @else
-                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                        class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                     @endif
                 >
                     <i class="fas fa-utensils"></i>
@@ -39,54 +39,66 @@
                         Menus
                     </span>
                 </a>
-                <a
-                    href="{{ route('recipes.index') }}"
-                    @if (request()->routeIs('recipes*'))
-                        class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
-                    @else
-                        class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
-                    @endif
-                >
-                    <i class="fas fa-hamburger"></i>
-                    <span>
-                        Recipes
-                    </span>
-                </a>
                 @if (request()->routeIs('recipes*'))
-                    <a
-                        href="{{ route('recipes.create') }}"
-                        @if (request()->routeIs('recipes.create'))
-                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
-                        @else
-                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
-                        @endif
-                    >
-                        <i class="fas fa-plus"></i>
-                        <span>
-                            Create Recipe
-                        </span>
-                    </a>
-                    <a
-                        href="{{ route('recipes.liked') }}"
-                        @if (request()->routeIs('recipes.liked'))
-                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
-                        @else
-                            class="w-full py-2 pl-8 pr-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
-                        @endif
-                    >
-                        <i class="fas fa-heart"></i>
-                        <span>
-                            Liked Recipes
-                        </span>
-                    </a>
+                    <div class="w-full" x-data="{open: true}">
+                @else
+                    <div class="w-full" x-data="{open: false}">
                 @endif
+                    <div class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2 cursor-pointer" @click="open = !open">
+                        <i class="fas fa-hamburger"></i>
+                        <span>
+                            Recipes
+                        </span>
+                    </div>
+                    <div :class="{'hidden': !open}" class="flex flex-col space-y-2">
+                        <a
+                            href="{{ route('recipes.index') }}"
+                            @if (request()->routeIs('recipes.index'))
+                                class="w-full py-2 pl-8 pr-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                            @else
+                                class="w-full py-2 pl-8 pr-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                            @endif
+                        >
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                All Recipes
+                            </span>
+                        </a>
+                        <a
+                            href="{{ route('recipes.create') }}"
+                            @if (request()->routeIs('recipes.create'))
+                                class="w-full py-2 pl-8 pr-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                            @else
+                                class="w-full py-2 pl-8 pr-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                            @endif
+                        >
+                            <i class="fas fa-plus"></i>
+                            <span>
+                                Create Recipe
+                            </span>
+                        </a>
+                        <a
+                            href="{{ route('recipes.liked') }}"
+                            @if (request()->routeIs('recipes.liked'))
+                                class="w-full py-2 pl-8 pr-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                            @else
+                                class="w-full py-2 pl-8 pr-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                            @endif
+                        >
+                            <i class="fas fa-heart"></i>
+                            <span>
+                                Liked Recipes
+                            </span>
+                        </a>
+                    </div>
+                </div>
                 @can ('admin_access')
                     <a
                         href="{{ route('admin.dashboard') }}"
                         @if (request()->routeIs('admin*'))
-                            class="w-full p-3 mb-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                            class="w-full p-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
                         @else
-                            class="w-full p-3 mb-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                            class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                         @endif
                     >
                         <i class="fas fa-tachometer-alt"></i>
