@@ -6,3 +6,11 @@
 [x-cloak] {
     display: none !important;
 }
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+.rating > i:hover:before,
+.rating > i:hover ~ i:before{
+    @apply font-black;
+}
