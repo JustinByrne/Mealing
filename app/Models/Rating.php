@@ -9,6 +9,12 @@ class Rating extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'recipe_id',
+        'score',
+    ];
+
     public function recipe()
     {
         return $this->belongsTo(Recipe::class);
