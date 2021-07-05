@@ -47,6 +47,7 @@
                 Recipe Details
             </h4>
             <div>
+                @livewire('recipes.rate', ['recipe' => $recipe])
                 @can('meal_update')
                     @if ($recipe->user->id == Auth::id())
                         <a href="{{ route('recipes.edit', $recipe) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
