@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Rate extends Component
 {
-    public Recipe $recipe;
+    public int $recipeId;
     
     public function render()
     {
@@ -19,7 +19,7 @@ class Rate extends Component
     public function rate($rating)
     {
         Rating::updateOrCreate(
-            ['user_id' => Auth::id(), 'recipe_id' => $this->recipe->id],
+            ['user_id' => Auth::id(), 'recipe_id' => $this->recipeId],
             ['score' => $rating]
         );
     }
