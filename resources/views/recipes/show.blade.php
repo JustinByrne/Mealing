@@ -42,18 +42,20 @@
         @endif
     </div>
     <div class="w-full p-4 bg-white rounded-md shadow dark:bg-gray-700">
-        <div class="flex justify-between">
+        <div class="flex flex-col lg:flex-row lg:justify-between">
             <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
                 Recipe Details
             </h4>
-            <div>
+            <div class="order-first lg:order-last pb-3 lg:flex lg:space-x-2">
                 @livewire('recipes.rate', ['recipeId' => $recipe->id])
                 @can('meal_update')
+                    <div>
                     @if ($recipe->user->id == Auth::id())
                         <a href="{{ route('recipes.edit', $recipe) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-green-700 text-white hover:bg-green-500 text-xs">
                             <i class="fas fa-edit"></i> Edit
                         </a>
                     @endif
+                    </div>
                 @endcan
             </div>
         </div>
