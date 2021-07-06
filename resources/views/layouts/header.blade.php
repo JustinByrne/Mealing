@@ -59,7 +59,7 @@
                                 class="w-full py-2 pl-8 pr-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
                             @endif
                         >
-                            <i class="fas fa-plus"></i>
+                            <i class="fas fa-apple-alt"></i>
                             <span>
                                 All Recipes
                             </span>
