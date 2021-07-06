@@ -25,8 +25,10 @@ class AddSlugToMealsTable extends Migration
      */
     public function down()
     {
-        Schema::table('meals', function (Blueprint $table) {
-            $table->dropColumn('slug');
-        });
+        if (Schema::hasTable('meals')) {
+            Schema::table('meals', function (Blueprint $table) {
+                $table->dropColumn('slug');
+            });
+        }
     }
 }

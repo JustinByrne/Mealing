@@ -25,8 +25,10 @@ class AddUserIdToMealsTable extends Migration
      */
     public function down()
     {
-        Schema::table('meals', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        if (Schema::hasTable('meals')) {
+            Schema::table('meals', function (Blueprint $table) {
+                $table->dropColumn('user_id');
+            });
+        }
     }
 }
