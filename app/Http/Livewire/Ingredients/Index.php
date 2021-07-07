@@ -8,6 +8,8 @@ use App\Models\Ingredient;
 class Index extends Component
 {
     public $search;
+
+    protected $queryString = ['search' => ['except' => '']];
     
     public function render()
     {
