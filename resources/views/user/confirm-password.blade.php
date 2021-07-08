@@ -1,5 +1,7 @@
 @extends('user.profile.layout')
 
+@section('title', 'Confirm Password')
+
 @section('user.content')
 <div class="bg-white rounded-md dark:bg-gray-700">
     <div class="w-full p-4 border-b border-gray-200 ">

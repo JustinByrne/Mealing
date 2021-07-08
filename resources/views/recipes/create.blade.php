@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create New Recipe')
+
 @section('content')
 <div class="w-full rounded-md shadow-md bg-white dark:bg-gray-700">
     <div class="w-full p-4 border-b border-gray-200">

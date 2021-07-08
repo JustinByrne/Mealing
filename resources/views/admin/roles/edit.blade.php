@@ -1,9 +1,11 @@
 @extends('admin.layout')
 
+@section('title', 'Edit - ' . $role->name)
+
 @section('admin.content')
 <div class="w-full p-4 bg-white border-b border-gray-200 rounded-t-md dark:bg-gray-700">
     <p class="font-bold dark:text-gray-200">
-        Create new Role
+        Edit {{ $role->name }} Role
     </p>
 </div>
 <form action="{{ route('admin.roles.update', $role) }}" method="POST" class="p-4 space-y-4">

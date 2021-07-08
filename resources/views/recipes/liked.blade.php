@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Liked Recipes')
+
 @section('content')
 @if ($recipes->count() > 0)
     <div class="flex flex-col lg:flex-row lg:space-x-6">

@@ -1,5 +1,7 @@
 @extends('admin.layout')
 
+@section('title', $permission->name)
+
 @section('admin.content')
 <div class="w-full p-4 bg-white border-b border-gray-200 rounded-t-md dark:bg-gray-700">
     <p class="font-bold dark:text-gray-200">

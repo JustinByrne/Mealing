@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', ucfirst($recipe->name))
+
 @section('content')
 <div class="space-y-4">
     <div class="w-full h-screen/4 lg:h-screen/3">
@@ -18,7 +20,7 @@
                         @endif
                     </div>
                     <span class="self-center px-2 text-center text-xl lg:text-5xl">
-                        {{ $recipe->name }}
+                        ucfirst({{ $recipe->name }})
                     </span>
                 </div>
             </div>

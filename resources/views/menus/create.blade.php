@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Create New Menu')
+
 @section('content')
 <form action="{{ route('menus.store') }}" method="POST">
     @csrf

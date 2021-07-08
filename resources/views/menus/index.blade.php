@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Menus')
+
 @section('content')
 <div class="flex justify-between py-3">
     <a href="{{ route('menus.index', ['week_start' => $links['prev']]) }}" class="w-full lg:w-auto rounded shadow-md py-1 px-2 bg-gray-400 text-white hover:bg-gray-300 text-xs">
