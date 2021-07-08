@@ -132,7 +132,7 @@ class RecipeController extends Controller
     {
         abort_if(Gate::denies('meal_access'), 403);
         
-        $recipes = Auth()->user()->likedRecipes()->paginate(15);
+        $recipes = Auth()->user()->likedRecipes()->with('media', 'ratings')->paginate(15);
 
         return view('recipes.liked', compact('recipes'));
     }
