@@ -351,6 +351,7 @@ class RecipeTest extends TestCase
         $recipe = Recipe::factory()->create();
         $recipe->allergens()->attach(Allergen::find(1), ['level' => 'no']);
         $allergens = array('1' => 'yes', '2' => 'no', '3' => 'may');
+        $category = Category::inRandomOrder()->first()->id;
 
         // new data
         $data = [
@@ -360,6 +361,7 @@ class RecipeTest extends TestCase
             'kids' => $this->faker->boolean,
             'timing' => $this->faker->randomDigitNotNull,
             'instruction' => $this->faker->paragraph,
+            'category_id' => $category,
             'allergens' => $allergens,
         ];
 
@@ -373,6 +375,7 @@ class RecipeTest extends TestCase
             'kids' => $data['kids'],
             'timing' => $data['timing'],
             'instruction' => $data['instruction'],
+            'category_id' => $category,
         ]);
 
         foreach($allergens as $id => $level)    {
