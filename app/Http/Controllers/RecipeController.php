@@ -85,8 +85,9 @@ class RecipeController extends Controller
 
         $allergens = $recipe->allergens()->pluck('level', 'allergen_id')->toArray();
         $allAllergens = Allergen::all();
+        $categories = Category::all();
         
-        return view('recipes.edit', compact('recipe', 'allAllergens', 'allergens'));
+        return view('recipes.edit', compact('recipe', 'allAllergens', 'allergens', 'categories'));
     }
 
     public function update(UpdateRecipeRequest $request, Recipe $recipe): RedirectResponse
