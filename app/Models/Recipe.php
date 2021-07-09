@@ -24,6 +24,7 @@ class Recipe extends Model implements HasMedia
         'adults',
         'kids',
         'timing',
+        'category_id',
         'instruction'
     ];
 
