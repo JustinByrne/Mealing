@@ -32,6 +32,7 @@ class UpdateRecipeRequest extends FormRequest
             'adults' => 'nullable',
             'kids' => 'nullable',
             'timing' => 'required',
+            'category_id' => 'exists:App\Models\Category,id',
             'instruction' => 'required'
         ];
     }

@@ -33,6 +33,7 @@ class StoreRecipeRequest extends FormRequest
             'kids' => 'nullable',
             'timing' => 'required',
             'instruction' => 'required',
+            'category_id' => 'exists:App\Models\Category,id',
             'ingredients' => 'required|array',
         ];
     }
