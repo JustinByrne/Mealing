@@ -6,14 +6,15 @@ use Auth;
 use Gate;
 use App\Models\Recipe;
 use App\Models\Allergen;
+use App\Models\Category;
 use App\Models\TempFile;
 use Illuminate\View\View;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
-use App\Http\Requests\StoreRecipeRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreRecipeRequest;
 use App\Http\Requests\UpdateRecipeRequest;
 
 class RecipeController extends Controller
@@ -30,8 +31,9 @@ class RecipeController extends Controller
         abort_if(Gate::denies('meal_create'), 403);
 
         $allergens = Allergen::all();
+        $categories = Category::all();
 
-        return view('recipes.create', compact('allergens'));
+        return view('recipes.create', compact('allergens', 'categories'));
     }
     
     public function store(StoreRecipeRequest $request): RedirectResponse
@@ -42,6 +44,7 @@ class RecipeController extends Controller
             'adults' => $request->has('adults'),
             'kids' => $request->has('kids'),
             'timing' => $request['timing'],
+            'category_id' => $request['category_id'],
             'instruction' => $request['instruction']
         ]);
 

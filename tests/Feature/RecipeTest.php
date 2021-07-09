@@ -3,10 +3,11 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\Models\Recipe;
 use App\Models\User;
+use App\Models\Recipe;
 use Livewire\Livewire;
 use App\Models\Allergen;
+use App\Models\Category;
 use App\Models\Ingredient;
 use App\Http\Livewire\Comments;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -109,6 +110,7 @@ class RecipeTest extends TestCase
         $ingredients = Ingredient::pluck('id')->take(5)->toArray();
         $quantities = array('1kg', '2tbsp', '1 cup');
         $allergens = array('1' => 'no', '2' => 'may', '3' => 'yes');
+        $category = Category::inRandomOrder()->first()->id;
         
         $response = $this->actingAs($this->user)->post(route('recipes.store'), [
             'name' => $this->faker->name,
@@ -116,6 +118,7 @@ class RecipeTest extends TestCase
             'adults' => $this->faker->boolean,
             'kids' => $this->faker->boolean,
             'timing' => $this->faker->randomDigitNotNull,
+            'category_id' => $category,
             'instruction' => $instructions,
             'quantities' => $quantities,
             'ingredients' => $ingredients,
@@ -127,6 +130,7 @@ class RecipeTest extends TestCase
         $this->assertDatabaseCount(Recipe::getTableName(), 1);
         $this->assertDatabaseHas(Recipe::getTableName(), [
             'instruction' => $instructions,
+            'category_id' => $category,
         ]);
 
         foreach($ingredients as $ingredient)    {
