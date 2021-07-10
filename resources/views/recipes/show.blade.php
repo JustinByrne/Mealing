@@ -20,7 +20,7 @@
                         @endif
                     </div>
                     <span class="self-center px-2 text-center text-xl lg:text-5xl">
-                        ucfirst({{ $recipe->name }})
+                        {{ $recipe->name }}
                     </span>
                 </div>
             </div>
