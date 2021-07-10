@@ -113,7 +113,7 @@
                 </article>
             </div>
         </div>
-        <div>
+        <div class="pt-4">
             <h5 class="text-xl font-bold mb-5 dark:text-gray-200 text-green-700">
                 Comments
             </h5>
