@@ -74,7 +74,20 @@
                     Children
                 @endif
             <br>
-            <strong>Cooking and Prep Time</strong> {{ $recipe->timing }} minutes
+            <strong>Cooking and Prep Time</strong> {{ $recipe->timing }} minutes<br>
+            <strong>Allergens</strong> 
+            @foreach ($recipe->allergens as $allergen)
+                <span class="allergen-level-{{ $allergen->pivot->level }} text-lg">
+                    <i class="{{ $allergen->icon }}" title="
+                        @if ($allergen->pivot->level == "yes")
+                            Contains {{ $allergen->name }}
+                        @else
+                            May Contain {{ $allergen->name }}
+                        @endif
+                        
+                        "></i>
+                </span>
+            @endforeach
         </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
