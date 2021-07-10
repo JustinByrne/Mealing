@@ -17,7 +17,7 @@
                 </div>
                 <div class="p-4 rounded-b-md dark:text-gray-200">
                     <p class="mb-2">
-                        {{ $recipe->name }}
+                        {{ ucfirst($recipe->name) }}
                     </p>
                     <p class="text-sm text-yellow-400" title="{{ $recipe->avg_rating > 0 ? $recipe->avg_rating : '0' }}">
                         @for ($x = 0; $x < 5; $x++)
