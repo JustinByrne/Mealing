@@ -2,8 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Recipe;
+use App\Models\Comment;
+use Livewire\Component;
 
 class Comments extends Component
 {
@@ -31,5 +32,12 @@ class Comments extends Component
             'comment' => $this->comment,
             'user_id' => \Auth::Id(),
         ]);
+
+        $this->comment = '';
+    }
+
+    public function deleteComment($id)
+    {
+        Comment::find($id)->delete();
     }
 }

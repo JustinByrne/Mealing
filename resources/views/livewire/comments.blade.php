@@ -6,7 +6,6 @@
             </div>
         @endif
     
-        @if (!$recipe->hasCommentsFromUser())
         <form wire:submit.prevent="addComment">
             <textarea wire:model="comment" class="border-1 border-gray-100 shadow bg-opacity-20 rounded-lg placeholder-gray-500 w-full lg:w-1/2 h-32 focus:outline-none focus:ring-1 focus:border-green-500 focus:ring-green-500 dark:bg-gray-900 dark:border-transparent dark:text-gray-200"></textarea>
             <div>
@@ -15,7 +14,6 @@
                 </button>
             </div>
         </form>
-        @endif
     
         @foreach ($recipe->comments as $comment)
             <div class="flex flex-row bg-gray-50 dark:bg-gray-600 shadow rounded p-4 mb-4">
@@ -23,8 +21,15 @@
                     <img class="rounded-full w-10 h-10" src="https://www.gravatar.com/avatar/{{ md5($comment->user->email) }}?s=40" alt="{{ $comment->user->name }}">
                 </div>
                 <div class="flex flex-col flex-grow ml-4">
-                    <div class="text-xs font-light text-gray-500 dark:text-gray-300 pb-1">{{ $comment->user->name }} - <span class="italic">{!! $comment->created_at !!}</span></div>
-                    <div class="text-sm font-light dark:text-gray-200 leading-relaxed mt-0 text-lightGray-800">{!! $comment->comment !!}</div>
+                    <div class="text-xs font-light text-gray-500 dark:text-gray-300 pb-1">
+                        {{ $comment->user->name }} - <span class="italic">{!! $comment->created_at !!}</span>
+                        @if ($comment->user->id == Auth::id())
+                            - <span class="italic cursor-pointer" wire:click="deleteComment({{ $comment->id }})">Delete</span>
+                        @endif
+                    </div>
+                    <div class="text-sm font-light dark:text-gray-200 leading-relaxed mt-0 text-lightGray-800">
+                        {!! $comment->comment !!}
+                    </div>
                 </div>
             </div>
         @endforeach
