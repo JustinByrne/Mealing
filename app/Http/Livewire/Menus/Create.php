@@ -34,24 +34,31 @@ class Create extends Component
         $this->recipeIds = array();
         $this->recipes = array();
         
-        $ids = Recipe::inRandomOrder()->limit(7)->pluck('id')->toArray();
+        $ids = Recipe::inRandomOrder()
+            ->where('category_id', Category::where('name', 'dinner')->first()->id)
+            ->limit(7)
+            ->pluck('id')
+            ->toArray();
 
         for ($i = 0; $i < 7; $i++)  {
             array_push($this->recipeIds, $ids[$i]);
-            array_push($this->recipes, Recipe::where('id', $this->recipeIds[$i])->first());
+            array_push($this->recipes, Recipe::find($this->recipeIds[$i]));
         }
     }
 
     public function randomize($day)
     {
-        $recipe = Recipe::inRandomOrder()->whereNotIn('id', $this->recipeIds)->first();
+        $recipe = Recipe::inRandomOrder()
+            ->whereNotIn('id', $this->recipeIds)
+            ->where('category_id', Category::where('name', 'dinner')->first()->id)
+            ->first();
 
         for ($i = 0; $i < 7; $i++)  {
             if ( $i == $day ) {
                 continue;
             }
 
-            $this->recipes[$i] = Recipe::where('id', $this->recipes[$i])->first();
+            $this->recipes[$i] = Recipe::find($this->recipes[$i]);
         }
         
         $this->recipes[$day] = $recipe;
