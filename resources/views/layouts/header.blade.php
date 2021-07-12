@@ -41,16 +41,16 @@
                 </a>
                 @if (request()->routeIs('recipes*'))
                     <div class="w-full" x-data="{open: true}">
-                        <div class="w-full p-3 font-bold rounded-lg bg-white text-green-700 space-x-2 cursor-pointer" @click="open = !open">
+                        <button class="w-full p-3 font-bold rounded-lg bg-white text-green-700 space-x-2 cursor-pointer text-left" @click="open = !open">
                 @else
                     <div class="w-full" x-data="{open: false}">
-                        <div class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2 cursor-pointer" @click="open = !open">
+                        <button class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2 cursor-pointer text-left" @click="open = !open">
                 @endif
                         <i class="fas fa-hamburger"></i>
                         <span>
                             Recipes
                         </span>
-                    </div>
+                    </button>
                     <div :class="{'hidden': !open}" class="flex flex-col space-y-2 mt-3">
                         <a
                             href="{{ route('recipes.index') }}"
