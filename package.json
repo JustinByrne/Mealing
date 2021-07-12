@@ -22,7 +22,7 @@
     "dependencies": {
         "@tailwindcss/forms": "^0.3.2",
         "@tailwindcss/typography": "^0.4.1",
-        "alpinejs": "^2.8.2",
+        "alpinejs": "^3.2.1",
         "autoprefixer": "^9.8.6",
         "filepond": "^4.28.1",
         "postcss": "^7.0.35",
