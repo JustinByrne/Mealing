@@ -109,19 +109,19 @@
                     </a>
                 @endcan
             </nav>
-            <div class="w-full font-bold lg:hidden" x-data="{ open: false }" @click.away="open = false">
-                <div class="flex justify-between p-3 items-center" @click="open = !open">
+            <div class="w-full font-bold lg:hidden" x-data="{ profile: false }" @click.away="profile = false">
+                <div class="flex justify-between p-3 items-center" @click="profile = !profile">
                     <p>
                         {{ Auth::user()->name }}
                     </p>
                     <button aria-label="Profile Menu">
                         <i
-                            class="fas text-center cursor-pointer"
-                            :class="{ 'fa-angle-down': !open, 'fa-angle-up': open }"
+                            class="fas fa-angle-down text-center cursor-pointer transition transform ease-in-out duration-200"
+                            :class="{ 'rotate-180': profile }"
                         ></i>
                     </button>
                 </div>
-                <div class="w-full font-bold text-green-700 bg-white rounded-lg space-x-2" :class="{ 'hidden': !open }">
+                <div class="w-full font-bold text-green-700 bg-white rounded-lg space-x-2" :class="{ 'hidden': !profile }">
                     <div class="flex flex-col text-left">
                         <a href="{{ route('profile') }}" class="px-3 py-2">
                             Profile
