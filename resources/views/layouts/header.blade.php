@@ -1,5 +1,5 @@
 <header class="lg:fixed">
-    <div class="w-full bg-green-700 p-3 text-white lg:w-72 lg:h-screen" x-data="{open: false}">
+    <div class="w-full bg-green-700 p-3 text-white lg:w-72 lg:h-screen" x-data="{open: false}" @click.away="open = false">
         <div class="flex justify-between items-center lg:mb-20 lg:mt-10">
             <a href="{{ route('homepage') }}" class="flex text-lg font-bold lg:text-center lg:w-full lg:flex-col">
                 <i class="fas fa-pizza-slice pr-3 self-center lg:pr-0 lg:text-3xl lg:pb-3"></i>
@@ -11,7 +11,7 @@
                 </button>
             </div>
         </div>
-        <div class="hidden lg:block mt-3" x-bind:class="{'hidden': !open}" @click.away="open = false">
+        <div class="hidden lg:block mt-3" :class="{'hidden': !open}">
             <nav class="flex flex-col space-y-3">
                 <a
                     href="{{ route('homepage') }}"
