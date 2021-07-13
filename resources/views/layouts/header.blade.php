@@ -43,7 +43,7 @@
                     <div class="w-full" x-data="{nav: true}">
                         <button class="w-full p-3 font-bold rounded-lg bg-white text-green-700 space-x-2 cursor-pointer text-left" @click="nav = !nav">
                 @else
-                    <div class="w-full" x-data="{nav: false}">
+                    <div class="w-full" x-data="{nav: false}" @click.away="nav = false">
                         <button class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2 cursor-pointer text-left" @click="nav = !nav">
                 @endif
                         <i class="fas fa-hamburger"></i>
