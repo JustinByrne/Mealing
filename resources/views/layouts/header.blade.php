@@ -50,6 +50,12 @@
                         <span>
                             Recipes
                         </span>
+                        <span aria-label="Recipes Menu" class="float-right">
+                            <i
+                                class="fas fa-angle-down text-center cursor-pointer transition transform ease-in-out duration-200"
+                                :class="{ 'rotate-180': nav }"
+                            ></i>
+                        </span>
                     </button>
                     <div :class="{'hidden': !nav}" class="flex flex-col space-y-2 mt-3">
                         <a
