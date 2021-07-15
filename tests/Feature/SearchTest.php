@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Recipe;
+use App\Models\Ingredient;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -57,9 +58,11 @@ class SearchTest extends TestCase
     {
         $this->withoutExceptionHandling();
         Recipe::factory()->count(15)->create();
+        $ingredient = Ingredient::factory()->create();
         $recipe = Recipe::first();
+        $recipe->ingredients()->attach($ingredient, ['quantity' => 3]);
 
-        $response = $this->actingAs($this->user)->get(route('search', ['s' => $recipe->ingredients()->first()->name]));
+        $response = $this->actingAs($this->user)->get(route('search', ['s' => $ingredient->name]));
 
         $response->assertOk();
         $response->assertSeeText($recipe->name);
