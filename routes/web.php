@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\PermissionController;
 
 Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
+    Route::get('/s/{s}', SearchController::class)->name('search');
 
     Route::post('/upload', [UploadController::class, 'store'])->name('upload');
 
