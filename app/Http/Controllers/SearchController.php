@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class SearchController extends Controller
 {
@@ -13,7 +14,11 @@ class SearchController extends Controller
             return redirect()->route('recipes.show', Recipe::where('name', $s)->first());
         }
 
-        $recipes = Recipe::where('name', 'like', '%' . $s . '%')->get();
+        $recipes = Recipe::where('name', 'like', '%' . $s . '%')
+                        ->orWhereHas('ingredients', function (Builder $query) use ($s) {
+                            $query->where('name', 'like', '%' . $s . '%');
+                        })
+                        ->get();
 
         return $recipes;
     }
