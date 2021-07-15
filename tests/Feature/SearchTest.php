@@ -37,9 +37,7 @@ class SearchTest extends TestCase
 
         $response = $this->actingAs($this->user)->get(route('search', ['s' => $recipe->name]));
 
-        $response->assertOk();
-        $response->assertSeeText($recipe->name);
-        $response->assertSee(route('recipe.show', $recipe));
+        $response->assertRedirect(route('recipes.show', $recipe));
     }
     
     public function testCanSearchForRecipeWithPartialRecipeName(): Void
@@ -52,7 +50,7 @@ class SearchTest extends TestCase
 
         $response->assertOk();
         $response->assertSeeText($recipe->name);
-        $response->assertSee(route('recipe.show', $recipe));
+        $response->assertSee(route('recipes.show', $recipe));
     }
 
     public function testCanSearchForRecipeWithIngredientName(): Void
@@ -61,10 +59,10 @@ class SearchTest extends TestCase
         Recipe::factory()->count(15)->create();
         $recipe = Recipe::first();
 
-        $response = $this->actingAs($this->user)->get(route('search', ['s' => $recipe->ingredients->first->name]));
+        $response = $this->actingAs($this->user)->get(route('search', ['s' => $recipe->ingredients()->first()->name]));
 
         $response->assertOk();
         $response->assertSeeText($recipe->name);
-        $response->assertSee(route('recipe.show', $recipe));
+        $response->assertSee(route('recipes.show', $recipe));
     }
 }
