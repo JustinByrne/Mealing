@@ -13,8 +13,14 @@ class SearchController extends Controller
      * @return Illuminate\View\View;
      * @return Illuminate\Http\RedirectResponse;
      */
-    public function __invoke(String $s)
+    public function __invoke(Request $request)
     {
+        if (! $request->has('s')) {
+            abort(404);
+        }
+
+        $s = $request->s;
+        
         if (Recipe::where('name', $s)->count() == 1) {
             return redirect()->route('recipes.show', Recipe::where('name', $s)->first());
         }
@@ -29,6 +35,6 @@ class SearchController extends Controller
                         })
                         ->filter()->paginate(15);
 
-        return $recipes;
+        return view('search', compact('recipes', 's'));
     }
 }

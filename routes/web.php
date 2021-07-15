@@ -27,7 +27,7 @@ use App\Http\Controllers\PermissionController;
 
 Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
-    Route::get('/s/{s}', SearchController::class)->name('search');
+    Route::get('/s', SearchController::class)->name('search');
 
     Route::post('/upload', [UploadController::class, 'store'])->name('upload');
 
