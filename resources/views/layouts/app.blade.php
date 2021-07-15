@@ -22,17 +22,16 @@
             </header>
             <main class="p-4 lg:p-6 w-full lg:ml-72">
                 <!-- Search Bar -->
-                <div class="flex flex-col lg:flex-row justify-between lg:mb-4">
+                <div class="flex flex-col lg:flex-row justify-between mb-4">
                     <div>
-                        {{-- <form action="" method="POST">
-                            @csrf
+                        <form action="{{ route('search') }}" method="GET">
                             <div class="relative">
                                 <button type="submit" class="absolute p-3 bg-green-700 bg-opacity-20 rounded-lg text-center text-green-700 dark:bg-opacity-30">
                                     <i class="fas fa-search"></i>
                                 </button>
-                                <input class="w-full max-w-xs pl-12 py-3 border-0 bg-green-700 bg-opacity-10 rounded-lg placeholder-gray-400 dark:bg-opacity-30 dark:text-gray-200" type="text" placeholder="Search..." name="s">
+                                <input class="w-full lg:max-w-xs pl-12 py-3 border-0 bg-green-700 bg-opacity-10 rounded-lg placeholder-gray-400 dark:bg-opacity-30 dark:text-gray-200" type="text" placeholder="Search..." name="s">
                             </div>
-                        </form> --}}
+                        </form>
                     </div>
                     <div class="hidden lg:block text-right relative" x-data="{ open: false }" @click.away="open = false">
                         <div class="text-gray-600 flex items-center space-x-2 cursor-pointer dark:text-gray-200" @click="open = !open">
