@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class SearchController extends Controller
 {
+    /**
+     * @return Illuminate\View\View;
+     * @return Illuminate\Http\RedirectResponse;
+     */
     public function __invoke(String $s)
     {
         if (Recipe::where('name', $s)->count() == 1) {
