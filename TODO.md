@@ -5,5 +5,5 @@
 - Add recpatcha to be optional if not included
 - Add optional Google analytics
 - Add cookie policy
-- 
+- Add filters to recipe index and search pages
 - 
