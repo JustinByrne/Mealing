@@ -1,5 +1,9 @@
 # To do list
 
 - Create a good README.md file
-- Create a search test to work for recipes and ingredients
+- Add ability to restrict menus by allergens
+- Add recpatcha to be optional if not included
+- Add optional Google analytics
+- Add cookie policy
+- 
 - 
