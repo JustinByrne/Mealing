@@ -6,4 +6,5 @@
 - Add optional Google analytics
 - Add cookie policy
 - Add filters to recipe index and search pages
+- Add to user tale if email is verified
 - 
