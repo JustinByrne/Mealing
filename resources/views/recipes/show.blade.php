@@ -108,7 +108,7 @@
                 <h4 class="text-2xl font-bold mb-5 dark:text-gray-200 text-green-700">
                     Method
                 </h4>
-                <article class="max-w-full prose dark:text-gray-200"">
+                <article class="max-w-full prose dark:prose-dark">
                     {!! $recipe->instruction !!}
                 </article>
             </div>
