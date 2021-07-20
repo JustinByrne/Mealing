@@ -240,4 +240,12 @@ return [
 
     'webhook_secret' => env('WEBHOOK_SECRET', null),
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Google Analytics
+    |--------------------------------------------------------------------------
+    */
+
+    'google_analytics' => env('GOOGLE_ANALYTICS', null),
 ];
