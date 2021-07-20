@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="prose lg:prose-lg dark:prose-dark">
+<div class="max-w-full prose lg:prose-lg dark:prose-dark">
     <h1>
         Cookie Policy for Mealing
     </h1>
