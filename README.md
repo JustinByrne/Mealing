@@ -11,7 +11,6 @@ A simple Laravel application to allow users to add recipes, and create generated
 2. Within the new directory run the following
    1. `composer install`
    2. `cp .env.example .env`
-      - *The app uses Google's recaptcha V3 to protect the registration form, a site key and secret key are needed.*
    3. `php artisan key:generate`
    4. `php artisan storage:link`
    5. `php artisan migrate`
