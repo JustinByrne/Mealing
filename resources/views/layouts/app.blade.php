@@ -75,7 +75,7 @@
             </main>
         </div>
         @yield('scripts')
-        @if (! is_null(config('app.google_analytics')))
+        @if (config('app.google_analytics') !== '')
             <!-- Global site tag (gtag.js) - Google Analytics -->
             <script async src="https://www.googletagmanager.com/gtag/js?id={{ config('app.google_analytics') }}"></script>
             <script>
