@@ -28,7 +28,7 @@ class RecaptchaRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (config('recaptcha.testing'))   {
+        if (config('recaptcha.testing') || config('recaptcha.testing') !== null)   {
             return true;
         }
         
