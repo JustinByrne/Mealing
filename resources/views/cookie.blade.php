@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-full prose lg:prose-lg dark:prose-dark">
+<div class="max-w-full prose lg:prose-lg dark:prose-dark pt-3">
     <h1>
         Cookie Policy for Mealing
     </h1>
     <p>
-        This is the Cookie Policy for Mealing, accessible from https://mealing.jrlbyrne.com
+        This is the Cookie Policy for Mealing, accessible from {{ config('app.url') }}
     </p>
     <p>
         <strong>
