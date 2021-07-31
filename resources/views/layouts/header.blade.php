@@ -26,6 +26,21 @@
                         Home
                     </span>
                 </a>
+                @can ('admin_access')
+                    <a
+                        href="{{ route('admin.dashboard') }}"
+                        @if (request()->routeIs('admin*'))
+                            class="w-full p-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                        @else
+                            class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                        @endif
+                    >
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>
+                            Admin
+                        </span>
+                    </a>
+                @endcan
                 <a
                     href="{{ route('menus.index') }}"
                     @if (request()->routeIs('menu*'))
@@ -99,21 +114,19 @@
                         </a>
                     </div>
                 </div>
-                @can ('admin_access')
-                    <a
-                        href="{{ route('admin.dashboard') }}"
-                        @if (request()->routeIs('admin*'))
-                            class="w-full p-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
-                        @else
-                            class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
-                        @endif
-                    >
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span>
-                            Admin
-                        </span>
-                    </a>
-                @endcan
+                <a
+                    href="{{ route('cookie-policy') }}"
+                    @if (request()->routeIs('cookie-policy'))
+                        class="w-full p-3 font-bold text-green-700 bg-white rounded-lg space-x-2"
+                    @else
+                        class="w-full p-3 font-bold rounded-lg hover:bg-white hover:text-green-700 space-x-2"
+                    @endif
+                >
+                    <i class="fas fa-cookie-bite"></i>
+                    <span>
+                        Cookie Policy
+                    </span>
+                </a>
             </nav>
             <div class="w-full font-bold lg:hidden" x-data="{ profile: false }" @click.away="profile = false">
                 <div class="flex justify-between p-3 items-center" @click="profile = !profile">

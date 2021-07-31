@@ -30,7 +30,7 @@ Route::middleware(['auth', 'verified', 'approved'])->group(function() {
     Route::get('/s', SearchController::class)->name('search');
     Route::get('/cookie-policy', function() {
         return view('cookie');
-    });
+    })->name('cookie-policy');
 
     Route::post('/upload', [UploadController::class, 'store'])->name('upload');
 
