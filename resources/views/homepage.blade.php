@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Cookie Policy')
+
 @section('content')
 <p class="font-bold mb-5 dark:text-gray-200">
     Top rated recipes
