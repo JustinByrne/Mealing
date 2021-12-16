@@ -21,9 +21,3 @@ email: `admin@example.com`<br>
 password: `password`
 
 > It is advised that these details are changed straight after installation.
-
-## New registrations
-
-> While the application is currently work in progress (WIP) all new registrations need to be approved before they can login.
-
-During User registration the User will need to verify thier email address prior to being allowed to login.
