@@ -14,7 +14,7 @@ class AddQuantityToIngredientMealPivotTable extends Migration
     public function up()
     {
         Schema::table('ingredient_meal', function (Blueprint $table) {
-            $table->string('quantity');
+            $table->string('quantity')->nullable();
         });
     }
 

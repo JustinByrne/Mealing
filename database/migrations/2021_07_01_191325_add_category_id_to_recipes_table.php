@@ -14,7 +14,11 @@ class AddCategoryIdToRecipesTable extends Migration
     public function up()
     {
         Schema::table('recipes', function (Blueprint $table) {
-            $table->foreignId('category_id')->after('user_id')->nullable()->constrained();
+            $table->foreignId('category_id')
+                ->nullable()
+                ->after('user_id')
+                ->nullable()
+                ->constrained();
         });
     }
 
