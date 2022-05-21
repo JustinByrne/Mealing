@@ -114,11 +114,21 @@ class Create extends Component
     {
         if ($this->query != '') {
             $this->autocomplete = false;
-            $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')
-                                    ->orderByRaw('LOCATE(\'' . $this->query . '\', name)')
-                                    ->take(4)
-                                    ->get()
-                                    ->toArray();
+            if (config("database.default") == "mysql") {
+                $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')
+                    ->orderByRaw('LOCATE(\'' . $this->query . '\', name)')
+                    ->take(4)
+                    ->get()
+                    ->toArray();
+            }
+
+            if (config("database.default") == "sqlite") {
+                $this->ingredients = Ingredient::where('name', 'like', '%' . $this->query . '%')
+                    ->orderByRaw('INSTR(\'' . $this->query . '\', name)')
+                    ->take(4)
+                    ->get()
+                    ->toArray();
+            }
         } else {
             $this->ingredients = array();
         }
