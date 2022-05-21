@@ -345,10 +345,10 @@ class IngredientTest extends TestCase
     public function testCanCreateANewIngredientWithLivewire()
     {
         Livewire::actingAs($this->user)
-                    ->test('recipes.create')
-                    ->set('query', 'foo')
-                    ->call('createIngredient');
+            ->test('recipes.create')
+            ->set('query', 'Foo')
+            ->call('createIngredient');
         
-        $this->assertDatabaseHas(Ingredient::getTableName(), ['name' => 'foo']);
+        $this->assertDatabaseHas(Ingredient::getTableName(), ['name' => 'Foo']);
     }
 }
