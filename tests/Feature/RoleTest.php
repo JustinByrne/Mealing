@@ -267,7 +267,7 @@ class RoleTest extends TestCase
 
         $response = $this->actingAs($this->user)->delete(route('admin.roles.destroy', [$role->id]));
 
-        $this->assertDeleted($role);
+        $this->assertModelMissing($role);
     }
 
     /**
