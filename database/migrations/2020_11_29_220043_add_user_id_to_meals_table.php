@@ -14,7 +14,11 @@ class AddUserIdToMealsTable extends Migration
     public function up()
     {
         Schema::table('meals', function (Blueprint $table) {
-            $table->foreignId('user_id')->after('timing')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->nullable()
+                ->after('timing')
+                ->constrained()
+                ->onDelete('cascade');
         });
     }
 
