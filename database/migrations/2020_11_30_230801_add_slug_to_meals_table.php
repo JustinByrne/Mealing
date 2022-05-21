@@ -14,7 +14,9 @@ class AddSlugToMealsTable extends Migration
     public function up()
     {
         Schema::table('meals', function (Blueprint $table) {
-            $table->string('slug')->after('name');
+            $table->string('slug')
+                ->nullable()
+                ->after('name');
         });
     }
 

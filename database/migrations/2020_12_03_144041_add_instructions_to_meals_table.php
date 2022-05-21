@@ -14,7 +14,9 @@ class AddInstructionsToMealsTable extends Migration
     public function up()
     {
         Schema::table('meals', function (Blueprint $table) {
-            $table->text('instruction')->nullable()->after('timing');
+            $table->text('instruction')
+                ->nullable()
+                ->after('timing');
         });
     }
 
