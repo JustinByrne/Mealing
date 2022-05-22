@@ -14,6 +14,7 @@
         "garygreen/pretty-routes": "^1.0",
         "google/recaptcha": "^1.2",
         "guzzlehttp/guzzle": "^7.2",
+        "justinbyrne/extra-artisan-commands": "^1.1",
         "laravel/fortify": "^1.7",
         "laravel/framework": "^9.0",
         "laravel/tinker": "^2.0",
