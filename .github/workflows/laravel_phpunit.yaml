@@ -39,7 +39,7 @@ jobs:
       - name: Install NPM dependencies
         run: npm install
       - name: Compile assets
-        run: npm run production
+        run: npm run build
   deploy:
     needs: [testing, building]
     runs-on: ubuntu-latest
@@ -54,7 +54,7 @@ jobs:
       - name: Compile assets
         run: |
           npm install
-          npm run production
+          npm run build
       - name: Commit files
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
