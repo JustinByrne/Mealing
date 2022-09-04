@@ -16,7 +16,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "justinbyrne/extra-artisan-commands": "^1.1",
         "laravel/fortify": "^1.7",
-        "laravel/framework": "^9.0",
+        "laravel/framework": "^9.19",
         "laravel/tinker": "^2.0",
         "livewire/livewire": "^2.3",
         "mehradsadeghi/laravel-filter-querystring": "^1.1",
